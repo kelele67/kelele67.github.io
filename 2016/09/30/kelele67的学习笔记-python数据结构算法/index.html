@@ -127,17 +127,14 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">树犹如此|人何以堪</h1>
-        
     </div>
 </header>
 
         <section class="main">
             
-                
 <div class="post">
 
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
             <a href="/2016/09/30/kelele67的学习笔记-python数据结构算法/">
                 Untitled
@@ -145,14 +142,18 @@
         </h1>
         <div class="post-info">
             <span class="date">2016-09-30</span>
-            
+            <a href="#disqus_thread" class="comments">留言</a>
             
         </div>
     </div>
 
-    
-        <div class="content">
-            <h1 id="kelele67的学习笔记-python数据结构算法"><a href="#kelele67的学习笔记-python数据结构算法" class="headerlink" title="kelele67的学习笔记-python数据结构算法"></a>kelele67的学习笔记-python数据结构算法</h1><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><ol>
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="kelele67的学习笔记-python数据结构算法"><a href="#kelele67的学习笔记-python数据结构算法" class="headerlink" title="kelele67的学习笔记-python数据结构算法"></a>kelele67的学习笔记-python数据结构算法</h1><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><ol>
 <li>顺序查找：O（n）</li>
 <li>二分查找：O（lgn）</li>
 <li>Hash查找：O（1）</li>
@@ -164,19 +165,26 @@
 <hr>
 <h3 id="hash-search"><a href="#hash-search" class="headerlink" title="hash_search"></a>hash_search</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.size = <span class="number">11</span></div><div class="line">        self.slots = [<span class="keyword">None</span>] * self.size</div><div class="line">        self.data = [<span class="keyword">None</span>] * self.size</div><div class="line"></div><div class="line">        <span class="comment"># put data in slot</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put_data_in_slot</span><span class="params">(self, key, data, slot)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.slots[slot] == <span class="keyword">None</span>:</div><div class="line">            self.slots[slot] = key</div><div class="line">            self.data[slot] = data</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> self.slots[slot] == key:</div><div class="line">                self.data[slot] = data</div><div class="line">                <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key, data)</span>:</span></div><div class="line">        slot = self.hash_function(key, self.size)</div><div class="line">        result = self.put_data_in_slot(key, data, slot)</div><div class="line">        <span class="keyword">while</span> <span class="keyword">not</span> result:</div><div class="line">            slot = self.rehash(slot, self.size)</div><div class="line">            result = self.put_data_in_slot(key, data, slot)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hash_function</span><span class="params">(self, key, size)</span>:</span></div><div class="line">        <span class="keyword">return</span> key % size</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rehash</span><span class="params">(self, old_hash, size)</span>:</span></div><div class="line">        <span class="keyword">return</span> (old_hash + <span class="number">1</span>) % size</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></div><div class="line">        start_slot = self.hash_function(key, len(self.slots))</div><div class="line">        data = <span class="keyword">None</span></div><div class="line">        stop = <span class="keyword">False</span></div><div class="line">        found = <span class="keyword">False</span></div><div class="line">        position = start_slot</div><div class="line">        <span class="keyword">while</span> self.slots[position] != <span class="keyword">None</span> <span class="keyword">and</span> <span class="keyword">not</span> found <span class="keyword">and</span> <span class="keyword">not</span> stop:</div><div class="line">            <span class="keyword">if</span> self.slots[position] == key:</div><div class="line">                found = <span class="keyword">True</span></div><div class="line">                data = self.data[position]</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                position = self.rehash(position, len(self.slots))</div><div class="line">                <span class="keyword">if</span> position == start_slot:</div><div class="line">                    stop = <span class="keyword">True</span></div><div class="line">        <span class="keyword">return</span> data</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, key)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.get(key)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, data)</span>:</span></div><div class="line">        self.put(key, data)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    table = HashTable()</div><div class="line">    table[<span class="number">54</span>] = <span class="string">'cat'</span></div><div class="line">    table[<span class="number">26</span>] = <span class="string">'dog'</span></div><div class="line">    table[<span class="number">93</span>] = <span class="string">'lion'</span></div><div class="line">    table[<span class="number">17</span>] = <span class="string">'tiger'</span></div><div class="line">    table[<span class="number">77</span>] = <span class="string">'bird'</span></div><div class="line">    table[<span class="number">44</span>] = <span class="string">'goat'</span></div><div class="line">    table[<span class="number">55</span>] = <span class="string">'pig'</span></div><div class="line">    table[<span class="number">20</span>] = <span class="string">'chicken'</span></div><div class="line">    <span class="keyword">print</span> table.slots</div><div class="line">    <span class="keyword">print</span> table.data</div></pre></td></tr></table></figure>
 
-        </div>
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+    <div class="comments">
+        
+
+
+    </div>
     
 
 </div>
-            
         </section>
+
     </div>
 </div>
-
-
-
-
-
 
 </div>
 
