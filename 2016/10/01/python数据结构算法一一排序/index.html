@@ -7,24 +7,45 @@
   <title>kelele67的学习笔记-python数据结构算法（二） | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Python数据结构篇(2)学习自大神博客
-排序1.冒泡排序：O(n2)
+排序
+冒泡排序：O(n2)
+选择排序：O(n2)
+插入排序：O(n2)O(n2)
+快速排序：O(nlogn) ~ O(n2)
+合并排序：O(nlogn)
+希尔排序：[O(n),O(n2)]
 
-冒泡排序冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位置。每次遍历都将剩下的元素中最大的那个放到了序列的“最后”(除去了前面已经排好的那些元素)。注意检测是否已经完成了排序，如果已完成就可以退出了。时间复杂度O(n2">
+
+冒泡排序冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kelele67的学习笔记-python数据结构算法（二）">
 <meta property="og:url" content="http://yoursite.com/2016/10/01/python数据结构算法一一排序/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="Python数据结构篇(2)学习自大神博客
-排序1.冒泡排序：O(n2)
+排序
+冒泡排序：O(n2)
+选择排序：O(n2)
+插入排序：O(n2)O(n2)
+快速排序：O(nlogn) ~ O(n2)
+合并排序：O(nlogn)
+希尔排序：[O(n),O(n2)]
 
-冒泡排序冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位置。每次遍历都将剩下的元素中最大的那个放到了序列的“最后”(除去了前面已经排好的那些元素)。注意检测是否已经完成了排序，如果已完成就可以退出了。时间复杂度O(n2">
-<meta property="og:updated_time" content="2016-09-30T19:31:21.000Z">
+
+冒泡排序冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位">
+<meta property="og:updated_time" content="2016-10-04T17:07:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kelele67的学习笔记-python数据结构算法（二）">
 <meta name="twitter:description" content="Python数据结构篇(2)学习自大神博客
-排序1.冒泡排序：O(n2)
+排序
+冒泡排序：O(n2)
+选择排序：O(n2)
+插入排序：O(n2)O(n2)
+快速排序：O(nlogn) ~ O(n2)
+合并排序：O(nlogn)
+希尔排序：[O(n),O(n2)]
 
-冒泡排序冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位置。每次遍历都将剩下的元素中最大的那个放到了序列的“最后”(除去了前面已经排好的那些元素)。注意检测是否已经完成了排序，如果已完成就可以退出了。时间复杂度O(n2">
+
+冒泡排序冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位">
   
   
     <link rel="icon" href="//favicon.png">
@@ -162,12 +183,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Python数据结构篇-2"><a href="#Python数据结构篇-2" class="headerlink" title="Python数据结构篇(2)"></a>Python数据结构篇(2)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>1.冒泡排序：O(n2)</p>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><ol>
+<li>冒泡排序：O(n2)</li>
+<li>选择排序：O(n2)</li>
+<li>插入排序：O(n2)O(n2)</li>
+<li>快速排序：O(nlogn) ~ O(n2)</li>
+<li>合并排序：O(nlogn)</li>
+<li>希尔排序：[O(n),O(n2)]</li>
+</ol>
 <hr>
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位置。每次遍历都将剩下的元素中最大的那个放到了序列的“最后”(除去了前面已经排好的那些元素)。注意检测是否已经完成了排序，如果已完成就可以退出了。时间复杂度O(n2)</p>
-<blockquote>
-<p>coding…</p>
-</blockquote>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位置。每次遍历都将剩下的元素中最大的那个放到了序列的“最后”(除去了前面已经排好的那些元素)注意检测是否已经完成了排序，如果已完成就可以退出了。时间复杂度O(n2)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">short_bubble_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    exchanges = <span class="keyword">True</span></div><div class="line">    pass_num = len(a_list) - <span class="number">1</span></div><div class="line">    <span class="keyword">while</span> pass_num &gt; <span class="number">0</span> <span class="keyword">and</span> exchanges:</div><div class="line">        exchanges = <span class="keyword">False</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(pass_num):</div><div class="line">            <span class="keyword">if</span> a_list[i] &gt; a_list[i + <span class="number">1</span>]:</div><div class="line">                exchanges = <span class="keyword">True</span></div><div class="line">                a_list[i], a_list[i + <span class="number">1</span>] = a_list[i + <span class="number">1</span>], a_list[i]</div><div class="line">        pass_num = pass_num - <span class="number">1</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    a_list = [<span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">80</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">110</span>, <span class="number">100</span>]</div><div class="line">    short_bubble_sort(a_list)</div><div class="line">    print(a_list)</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>选择排序(selection sort)：每个回合都选择出剩下的元素中最大的那个，选择的方法是首先默认第一元素是最大的，如果后面的元素比它大的话，那就更新剩下的最大的元素值，找到剩下元素中最大的之后将它放入到合适的位置就行了。和冒泡排序类似，只是找剩下的元素中最大的方式不同而已。时间复杂度O(n2)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">selection_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    <span class="keyword">for</span> fill_slot <span class="keyword">in</span> range(len(a_list) - <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">        pos_of_max = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> location <span class="keyword">in</span> range(<span class="number">1</span>, fill_slot + <span class="number">1</span>):</div><div class="line">            <span class="keyword">if</span> a_list[location] &gt; a_list[pos_of_max]:</div><div class="line">                pos_of_max = location</div><div class="line">        a_list[fill_slot], a_list[pos_of_max] = a_list[pos_of_max], a_list[fill_slot]</div><div class="line"></div><div class="line">a_list = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">17</span>, <span class="number">77</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</div><div class="line">selection_sort(a_list)</div><div class="line">print(a_list)</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>插入排序(insertion sort)：每次假设前面的元素都是已经排好序了的，然后将当前位置的元素插入到原来的序列中，为了尽快地查找合适的插入位置，可以使用二分查找。时间复杂度O(n2)O(n2)，别误以为二分查找可以降低它的复杂度，因为插入排序还需要移动元素的操作！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertion_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, len(a_list)):</div><div class="line">        current_value = a_list[index]</div><div class="line">        position = index</div><div class="line">        <span class="keyword">while</span> position &gt; <span class="number">0</span> <span class="keyword">and</span> a_list[position - <span class="number">1</span>] &gt; current_value:</div><div class="line">            a_list[position] = a_list[position - <span class="number">1</span>]</div><div class="line">            position = position - <span class="number">1</span></div><div class="line">        a_list[position] = current_value</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertion_sort_binarysearch</span><span class="params">(a_list)</span>:</span></div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, len(a_list)):</div><div class="line">        current_value = a_list[index]</div><div class="line">        positon = index</div><div class="line">        low = <span class="number">0</span></div><div class="line">        high = index - <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> low&lt;= high:</div><div class="line">            mid = (low + high)/<span class="number">2</span></div><div class="line">            <span class="keyword">if</span> a_list[mid] &gt; current_value:</div><div class="line">                high = mid - <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                low = mid + <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> positon&gt; low:</div><div class="line">            a_list[positon] = a_list[positon - <span class="number">1</span>]</div><div class="line">            positon = positon - <span class="number">1</span></div><div class="line">            a_list[positon] = current_value</div><div class="line"></div><div class="line">a_list = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">15</span>, <span class="number">77</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</div><div class="line">insertion_sort(a_list)</div><div class="line">print(a_list)</div><div class="line">insertion_sort_binarysearch(a_list)</div><div class="line">print(a_list)</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序(quick sort)：<br>想法一：如下图所示，它选择第一个元素作为主元，它同样可以按照下面提到的算法导论中将数组分成了4个不同的部分，但是这里其实有更好的解释方法。首先，它每次都是选择第一个元素都为主元，这个回合就是要确定主元的位置；然后，有两个指针，一个leftmark指向主元的后面一个位置，另一个rightmark指向要排序的数组最后一个元素；接着，两个指针分别向中间移动，leftmark遇到比主元大的元素停止，rightmark遇到比主元小的元素停止，如果此时leftmark &lt; rightmark，也就是说中间还有未处理(未确定与主元大小关系)的元素，那么就交换leftmark和rightmark位置上的元素，然后重复刚才的移动操作，直到rightmark &lt; leftmark；最后，停止移动时候rightmark就是主元要放置的位置，因为它停在一个比主元小的元素的位置上，之后交换主元和rightmark指向的元素即可。完了之后，递归地对主元左右两边的数组进行排序即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    quick_sort_hepler(a_list, <span class="number">0</span>, len(a_list) - <span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort_hepler</span><span class="params">(a_list, first, last)</span>:</span></div><div class="line">    <span class="keyword">if</span> first &lt; last:</div><div class="line">        split_point = partition(a_list, first, last)</div><div class="line">        quick_sort_hepler(a_list, first, split_point - <span class="number">1</span>)</div><div class="line">        quick_sort_hepler(a_list, split_point + <span class="number">1</span>, last)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(a_list, first, last)</span>:</span></div><div class="line">    pivot_value = a_list[first]</div><div class="line">    left_mark = first + <span class="number">1</span></div><div class="line">    right_mark = last</div><div class="line">    done = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">not</span> done:</div><div class="line">        <span class="keyword">while</span> left_mark &lt;= right_mark <span class="keyword">and</span> a_list[left_mark] &lt;= pivot_value:</div><div class="line">            left_mark = left_mark + <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> a_list[right_mark] &gt;= pivot_value <span class="keyword">and</span> right_mark &gt;= left_mark:</div><div class="line">            right_mark = right_mark - <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> right_mark &lt; left_mark:</div><div class="line">            done = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            temp = a_list[left_mark]</div><div class="line">            a_list[left_mark] = a_list[right_mark]</div><div class="line">            a_list[right_mark] = temp</div><div class="line">    temp = a_list[first]</div><div class="line">    a_list[first] = a_list[right_mark]</div><div class="line">    a_list[right_mark] = temp</div><div class="line">    <span class="keyword">return</span> right_mark</div><div class="line"></div><div class="line">a_list = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">17</span>, <span class="number">77</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</div><div class="line">quick_sort(a_list)</div><div class="line">print(a_list)</div></pre></td></tr></table></figure>
+<hr>
 
       
     </div>
@@ -337,7 +373,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
