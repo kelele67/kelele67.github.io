@@ -4,18 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>swift动画学习（一） | 树犹如此|人何以堪</title>
+  <title>kelele67的学习笔记-swift动画学习（一） | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#">
+  <meta name="description" content="Swift3.0 动画编程(1)学习自swift课堂: 舞动Swift-Swift动画编程指南
+
+在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。为了寻求差异化，新颖的动画设计是一个很好的突破口。
+
+最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="swift动画学习（一）">
+<meta property="og:title" content="kelele67的学习笔记-swift动画学习（一）">
 <meta property="og:url" content="http://yoursite.com/2016/10/06/swift动画学习（一）/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="#">
-<meta property="og:updated_time" content="2016-10-06T09:57:23.000Z">
+<meta property="og:description" content="Swift3.0 动画编程(1)学习自swift课堂: 舞动Swift-Swift动画编程指南
+
+在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。为了寻求差异化，新颖的动画设计是一个很好的突破口。
+
+最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下">
+<meta property="og:updated_time" content="2016-10-06T11:21:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="swift动画学习（一）">
-<meta name="twitter:description" content="#">
+<meta name="twitter:title" content="kelele67的学习笔记-swift动画学习（一）">
+<meta name="twitter:description" content="Swift3.0 动画编程(1)学习自swift课堂: 舞动Swift-Swift动画编程指南
+
+在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。为了寻求差异化，新颖的动画设计是一个很好的突破口。
+
+最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下">
   
   
     <link rel="icon" href="//favicon.png">
@@ -144,7 +156,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      swift动画学习（一）
+      kelele67的学习笔记-swift动画学习（一）
     </h1>
   
 
@@ -152,7 +164,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#</p>
+        <h1 id="Swift3-0-动画编程-1"><a href="#Swift3-0-动画编程-1" class="headerlink" title="Swift3.0 动画编程(1)"></a>Swift3.0 动画编程(1)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自swift课堂: 舞动Swift-Swift动画编程指南</a></p>
+<blockquote>
+<p>在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。<br>即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。<br>为了寻求差异化，新颖的动画设计是一个很好的突破口。</p>
+</blockquote>
+<p>最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下去，不过现在学习swift也是个不错的选择。<br>不过有点坑的是视频教程用的swift是2.x，现在swift到了3.0，又更新了一大波坑，还得自己去填TAT估计等明年出了4.0才会稳定下来，据说到时候swift语法和API都会稳定并且向上兼容，估计会掀起一番swift热吧，所以趁现在先学为快。:-D</p>
+<hr>
+<h2 id="Core-Animation"><a href="#Core-Animation" class="headerlink" title="Core Animation"></a>Core Animation</h2><blockquote>
+<p>Core Animation是iOS与OS X平台上负责图形渲染与动画的基础设施。Core Animation可以动画视图和其他的可视元素，为你完成了动画所需的大部分绘帧工作。你只需配置少量的动画参数（如开始点位置和结束点的位置）即可施展Core Animation魔法。Core Animation将大部分实际的绘图任务交给了图形硬件来处理，图形硬件会加速图形渲染的速度。这种自动化的图形加速技术让动画拥有更高的帧率并且更加的平滑，而且不会加重CPU的负担而影响程序的运行速度。</p>
+</blockquote>
+<h3 id="Core-Animation放大动画"><a href="#Core-Animation放大动画" class="headerlink" title="Core Animation放大动画"></a>Core Animation放大动画</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">            animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>)</div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
 
       
     </div>
@@ -164,7 +186,7 @@
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/core-animation/">core animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 	</div>
 
       
@@ -176,15 +198,6 @@
 
   
 <nav id="article-nav">
-  
-    <a href="/2016/10/06/airticleswift动画学习（一）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          swift动画学习（一）
-        
-      </div>
-    </a>
   
   
     <a href="/2016/10/05/ubuntu16-04终端闪退/" id="article-nav-older" class="article-nav-link-wrap">
@@ -222,7 +235,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="swift动画学习（一）" data-title="swift动画学习（一）" data-url="http://yoursite.com/2016/10/06/swift动画学习（一）/"></div>
+	<div class="ds-thread" data-thread-key="swift动画学习（一）" data-title="kelele67的学习笔记-swift动画学习（一）" data-url="http://yoursite.com/2016/10/06/swift动画学习（一）/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -322,7 +335,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/core-animation/" style="font-size: 15px;">core animation</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 10px;">animation</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
