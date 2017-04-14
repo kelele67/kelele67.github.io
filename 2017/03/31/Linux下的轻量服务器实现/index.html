@@ -16,12 +16,14 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
 <meta property="og:description" content="小型HTTP服务器读了很多Linux下小型的http服务器，还是觉得来自朱家顺的Zaver的比较适合新手学习
 
 Zaver，一个结构简单，支持高并发的http服务器。基本架构是事件循环 + non-blocking I/O + 线程池。Zaver的代码风格参考了Nginx的风格，所以在可读性上非常高。另外，Zaver提供了配置文件和命令行参数解析，以及完善的Makefile和源代码结构，也可以帮">
-<meta property="og:updated_time" content="2017-04-14T02:16:50.000Z">
+<meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-09%2003.36.45.png">
+<meta property="og:updated_time" content="2017-04-14T02:33:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下的的轻量级HTTP服务器实现">
 <meta name="twitter:description" content="小型HTTP服务器读了很多Linux下小型的http服务器，还是觉得来自朱家顺的Zaver的比较适合新手学习
 
 Zaver，一个结构简单，支持高并发的http服务器。基本架构是事件循环 + non-blocking I/O + 线程池。Zaver的代码风格参考了Nginx的风格，所以在可读性上非常高。另外，Zaver提供了配置文件和命令行参数解析，以及完善的Makefile和源代码结构，也可以帮">
+<meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-09%2003.36.45.png">
   
   
     <link rel="icon" href="//favicon.png">
@@ -202,15 +204,16 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
 <li>忙碌线程队列</li>
 </ul>
 <hr>
-<h3 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h3><p>Nginx用rbtree实现timer<br>但是为了简单化，我们用libevent的<em> 2-heap </em>二叉最小堆来实现</p>
+<h3 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h3><p>Nginx用rbtree实现timer</p>
+<p>但是为了简单化，我们用libevent的<em> 2-heap </em>二叉最小堆来实现</p>
 <blockquote>
 <p>淘宝的Tengine用<em> 4-heap </em> 四叉最小堆实现<em> timer </em> ，四叉最小堆是二叉最小堆的变种，比其有更浅的深度和更好的<em> CPU Cache </em>命中率</p>
 </blockquote>
 <h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><p>1.method</p>
 <blockquote>
 <p>nginx在判断http method的时候用的不是字符串比较，而是整数比较。<br>比如“POST”，一般的写法是用strcmp，就会牵扯到4次char的比较。<br>而nginx把接受到的method转化为一个int，那么4次比较就可以转化为1次比较。</p>
-<p>具体代码如下</p>
 </blockquote>
+<p>具体代码如下:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ngx_str3Ocmp(m, c0, c1, c2, c3)                                     \</span></div><div class="line">    *(uint32_t *) m == ((c3 <span class="meta-string">&lt;&lt; 24) | (c2 &lt;&lt; 16) | (c1 &lt;&lt; 8) | c0)</span></div></pre></td></tr></table></figure>
 <hr>
 <p>2.request</p>
@@ -225,7 +228,7 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
 <p>这一部分的实现放在了utils里面</p>
 <h3 id="utility各种通用函数"><a href="#utility各种通用函数" class="headerlink" title="utility各种通用函数"></a>utility各种通用函数</h3><p>这里主要是connect的函数</p>
 <p>话说C的模块化真是一门技术活，全靠文件。。。</p>
-<h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3><h2 id="搭建成功"><a href="#搭建成功" class="headerlink" title="搭建成功"></a>搭建成功</h2><p><a href="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-09%2003.36.45.png" target="_blank" rel="external"></a></p>
+<h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3><h2 id="搭建成功"><a href="#搭建成功" class="headerlink" title="搭建成功"></a>搭建成功</h2><p><img src="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-09%2003.36.45.png" alt=""></p>
 
       
     </div>
@@ -250,11 +253,11 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
   
 <nav id="article-nav">
   
-    <a href="/2017/04/13/Zookeeper C API学习(一)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/13/深入 Lua Garbage Collector(一)/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Zookeeper C API学习(一)
+          深入 Lua Garbage Collector(一)
         
       </div>
     </a>
