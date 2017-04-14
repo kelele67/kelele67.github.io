@@ -12,7 +12,7 @@
 &amp;lt; thread&amp;gt;
 std::thread 简单例子
 
-1234567891011121314151617181920212223#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;i">
+1234567891011121314151617#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;iostream&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++11 并发学习(二)">
 <meta property="og:url" content="http://yoursite.com/2017/02/14/C++11 并发学习(二)/index.html">
@@ -23,9 +23,9 @@ std::thread 简单例子
 &amp;lt; thread&amp;gt;
 std::thread 简单例子
 
-1234567891011121314151617181920212223#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;i">
+1234567891011121314151617#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;iostream&amp;gt;">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG2.jpeg">
-<meta property="og:updated_time" content="2017-04-14T03:34:38.000Z">
+<meta property="og:updated_time" content="2017-04-14T07:41:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++11 并发学习(二)">
 <meta name="twitter:description" content="学习自大神博客
@@ -34,7 +34,7 @@ std::thread 简单例子
 &amp;lt; thread&amp;gt;
 std::thread 简单例子
 
-1234567891011121314151617181920212223#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;i">
+1234567891011121314151617#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;iostream&amp;gt;">
 <meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG2.jpeg">
   
   
@@ -178,18 +178,19 @@ std::thread 简单例子
 <h3 id="lt-thread-gt"><a href="#lt-thread-gt" class="headerlink" title="&lt; thread&gt;"></a>&lt; thread&gt;</h3><ol>
 <li>std::thread 简单例子</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span> <span class="comment">// std::cout</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span>   <span class="comment">// std::thread</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_task</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello thread"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * ===  FUNCTION  =========================================================</div><div class="line"> *         Name:  main</div><div class="line"> *  Description:  program entry routine.</div><div class="line"> * ========================================================================</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(thread_task)</span></span>;</div><div class="line">    t.join();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</div><div class="line">&#125;  <span class="comment">/* ----------  end of function main  ---------- */</span></div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span> <span class="comment">// std::cout</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span>   <span class="comment">// std::thread</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_task</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello thread"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(thread_task)</span></span>;</div><div class="line">    t.join();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
 <h3 id="lt-mutex-gt"><a href="#lt-mutex-gt" class="headerlink" title="&lt; mutex&gt;"></a>&lt; mutex&gt;</h3><blockquote>
 <p>std::mutex 是C++11 中最基本的互斥量，std::mutex 对象提供了独占所有权的特性——即不支持递归地对 std::mutex 对象上锁，而 std::recursive_lock 则可以递归地对互斥量对象上锁。</p>
 </blockquote>
-<p>1.Mutex 系列类(四种)</p>
+<p>①. Mutex 系列类(四种)</p>
 <ul>
 <li>std::mutex，最基本的 Mutex 类。</li>
 <li>std::recursive_mutex，递归 Mutex 类。</li>
 <li>std::time_mutex，定时 Mutex 类。</li>
 <li>std::recursive_timed_mutex，定时递归 Mutex 类</li>
 </ul>
-<p>2.Lock 类（两种）</p>
+<p>②. Lock 类（两种）</p>
 <ul>
 <li>std::lock_guard，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁。</li>
 <li>std::unique_lock，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁，但提供了更好的上锁和解锁控制。</li>
