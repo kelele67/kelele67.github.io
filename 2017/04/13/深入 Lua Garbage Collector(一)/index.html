@@ -11,7 +11,8 @@ Baby’s First Garbage Collector中文版戳
 借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
 Garbage Collector算法小结
 C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
-###">
+采用的算法用的是经典的 Mark &amp;amp; Sweep 算法
+在上面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Lua Garbage Collector(一)">
 <meta property="og:url" content="http://yoursite.com/2017/04/13/深入 Lua Garbage Collector(一)/index.html">
@@ -21,9 +22,10 @@ Baby’s First Garbage Collector中文版戳
 借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
 Garbage Collector算法小结
 C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
-###">
+采用的算法用的是经典的 Mark &amp;amp; Sweep 算法
+在上面">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg">
-<meta property="og:updated_time" content="2017-04-14T02:37:01.000Z">
+<meta property="og:updated_time" content="2017-04-14T03:34:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(一)">
 <meta name="twitter:description" content="看到一个Bob Nystrom写的C语言实现的Garbage Collector
@@ -31,7 +33,8 @@ Baby’s First Garbage Collector中文版戳
 借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
 Garbage Collector算法小结
 C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
-###">
+采用的算法用的是经典的 Mark &amp;amp; Sweep 算法
+在上面">
 <meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg">
   
   
@@ -174,8 +177,18 @@ C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
 <p>借着这个小程序顺便深入地了解一下Lua的垃圾回收机制</p>
 <h2 id="Garbage-Collector算法小结"><a href="#Garbage-Collector算法小结" class="headerlink" title="Garbage Collector算法小结"></a>Garbage Collector算法小结</h2><p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg" alt=""></p>
 <h2 id="C-Garbage-Collector"><a href="#C-Garbage-Collector" class="headerlink" title="C Garbage Collector"></a>C Garbage Collector</h2><p>首先还是先来看看这个C的基本的垃圾回收器</p>
-<p>###</p>
-
+<h3 id="采用的算法"><a href="#采用的算法" class="headerlink" title="采用的算法"></a>采用的算法</h3><p>用的是经典的 Mark &amp; Sweep 算法</p>
+<p>在上面的笔记里面已经介绍的很清楚了</p>
+<p>该算法的工作原理几乎与我们对”可访问性(reachability)”的定义完全一样：</p>
+<ol>
+<li><p>从根节点开始，依次遍历整个对象图。每当你访问到一个对象，在上面设置一个”标记(mark)”位，置为true。</p>
+</li>
+<li><p>一旦搞定，找出所有标记位为”not”的对象集，然后删除它们。<br>对，就是这样。我猜你可能已经想到了，对吧？如果是，那你可能就成为了一位被引用了数百次的文章的作者。所以这件事情的教训就是，想要在CS(计算机科学)领域中出名，你不必开始就搞出一个很牛的东西，你只需要第一个整出来即可，哪怕这玩意看上去很搓。</p>
+</li>
+</ol>
+<h3 id="对象对"><a href="#对象对" class="headerlink" title="对象对"></a>对象对</h3><p>要想清理垃圾，首先我们得制造点垃圾出来</p>
+<p>首先假装我们正在为一种简单的语言编写一个解释器。它是动态的类型并且有两种类型的变量：int 和 pair。 下面是用枚举来标示一个对象的类型：</p>
+<h3 id="Mark"><a href="#Mark" class="headerlink" title="Mark"></a>Mark</h3><h3 id="Sweep"><a href="#Sweep" class="headerlink" title="Sweep"></a>Sweep</h3><h3 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h3>
       
     </div>
     <div class="article-info article-info-index">
@@ -344,7 +357,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 20px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

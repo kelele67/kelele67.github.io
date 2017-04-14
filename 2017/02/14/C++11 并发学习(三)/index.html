@@ -14,7 +14,7 @@ C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="学习自大神博客
 C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990">
-<meta property="og:updated_time" content="2017-04-14T02:32:04.000Z">
+<meta property="og:updated_time" content="2017-04-14T03:34:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++11 并发学习(三)">
 <meta name="twitter:description" content="学习自大神博客
@@ -231,7 +231,8 @@ C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930
 <p>②然而使用make_shared的话：</p>
 <p>auto sp1 = make_shared(), sp2{ sp1 };</p>
 <p>所以我们这里 std::make_shared 其实就是为了代替 new<br>auto t = std::make_shared&lt; task&gt;(std::bind(std::forward&lt; Function&gt;(fcn), std::forward&lt; Args&gt;(args)…));</p>
-<p><a href="http://www.tuicool.com/articles/F3u6jy" target="_blank" rel="external">想要进一步了解它与std::shared_ptr 的构造函数相比戳</a><br>总结一些我们需要了解的就是：</p>
+<p><a href="http://www.tuicool.com/articles/F3u6jy" target="_blank" rel="external">想要进一步了解它与std::shared_ptr 的构造函数相比戳</a></p>
+<p>总结一些我们需要了解的就是：</p>
 <p>1.同直接使用new相比，make函数减小了代码重复，提高的异常安全，并且对于std::make_shared和std::allcoated_shared，生成的代码会更小更快。</p>
 <p>2.不能使用make函数的情况包括我们需要定制删除器和期望直接传递大括号初始化器。</p>
 <p>3.对于std::shared_ptr，额外的不建议使用make函数的情况包括：<br>（1）定制内存管理的类<br>（2）关注内存的系统，非常大的对象，以及生存期比 std::shared_ptr长的std::weak_ptr</p>
@@ -247,7 +248,7 @@ C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-11/">c++11</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
 	</div>
 
       
@@ -405,7 +406,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 20px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

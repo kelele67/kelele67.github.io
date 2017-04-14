@@ -4,17 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: c++ | 树犹如此|人何以堪</title>
+  <title>深入 Lua Garbage Collector(二) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="做一个富有的废物">
-<meta property="og:type" content="website">
-<meta property="og:title" content="树犹如此|人何以堪">
-<meta property="og:url" content="http://yoursite.com/tags/c/index.html">
+  <meta name="description" content="Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+
+collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
+
+collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 102">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入 Lua Garbage Collector(二)">
+<meta property="og:url" content="http://yoursite.com/2017/04/14/深入 Lua Garbage Collector(二)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="做一个富有的废物">
+<meta property="og:description" content="Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+
+collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
+
+collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 102">
+<meta property="og:updated_time" content="2017-04-14T03:00:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树犹如此|人何以堪">
-<meta name="twitter:description" content="做一个富有的废物">
+<meta name="twitter:title" content="深入 Lua Garbage Collector(二)">
+<meta name="twitter:description" content="Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+
+collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
+
+collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 102">
   
   
     <link rel="icon" href="//favicon.png">
@@ -133,150 +146,126 @@
 </nav>
 
       <div class="body-wrap">
+        <article id="airticle-深入 Lua Garbage Collector(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
   
+    <h1 class="article-title" itemprop="name">
+      深入 Lua Garbage Collector(二)
+    </h1>
   
+
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
+        <p>
+
+</p><h2 id="Lua垃圾回收器函数"><a href="#Lua垃圾回收器函数" class="headerlink" title="Lua垃圾回收器函数"></a>Lua垃圾回收器函数</h2><p>Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:</p>
+<ul>
+<li><p>collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：</p>
+</li>
+<li><p>collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 1024 就能得到 Lua 使用的准确字节数（除非溢出）。</p>
+</li>
+<li><p>collectgarbage(“restart”): 重启垃圾收集器的自动运行。</p>
+</li>
+<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 （参见 §2.5）。 返回 间歇率 的前一个值。</p>
+</li>
+<li><p>collectgarbage(“setstepmul”): 返回 步进倍率 的前一个值。</p>
+</li>
+<li><p>collectgarbage(“step”): 单步运行垃圾收集器。 步长”大小”由 arg 控制。 传入 0 时，收集器步进（不可分割的）一步。 传入非 0 值， 收集器收集相当于 Lua 分配这些多（K 字节）内存的工作。 如果收集器结束一个循环将返回 true 。</p>
+</li>
+<li><p>collectgarbage(“stop”): 停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。</p>
+</li>
+</ul>
+<p>以下演示了一个简单的垃圾回收实例:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mytable = &#123;<span class="string">"apple"</span>, <span class="string">"orange"</span>, <span class="string">"banana"</span>&#125;</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div><div class="line"></div><div class="line">mytable = <span class="keyword">nil</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"collect"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div></pre></td></tr></table></figure>
+<hr>
+<p>## </p>
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-airticle">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/14/C++11 并发学习(三)/" class="archive-article-date">
-  	<time datetime="2017-02-14T04:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/14/深入 Lua Garbage Collector(二)/" class="archive-article-date">
+  	<time datetime="2017-04-14T02:50:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-14</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/14/C++11 并发学习(三)/">C++11 并发学习(三)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-airticle">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/14/C++11 并发学习(四)/" class="archive-article-date">
-  	<time datetime="2017-02-14T04:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/14/C++11 并发学习(四)/">C++11 并发学习(三)</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/13/Zookeeper C API学习(一)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Zookeeper C API学习(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-airticle">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/14/C++11 并发学习(二)/" class="archive-article-date">
-  	<time datetime="2017-02-13T17:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/14/C++11 并发学习(二)/">C++11 并发学习(二)</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-airticle">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/13/C++11 并发学习(一)/" class="archive-article-date">
-  	<time datetime="2017-02-13T02:58:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/13/C++11 并发学习(一)/">C++11 并发学习(一)</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="深入 Lua Garbage Collector(二)" data-title="深入 Lua Garbage Collector(二)" data-url="http://yoursite.com/2017/04/14/深入 Lua Garbage Collector(二)/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"38d12c42fae50816089820c1b93c4785"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
 
 
       </div>
@@ -302,9 +291,9 @@ var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " 
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/"
