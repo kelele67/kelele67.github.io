@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>C++11 并发学习(三) | 树犹如此|人何以堪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[学习自大神博客]（http://www.cnblogs.com/haippy/p/3284540.html）
+C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11 并发学习(三)">
+<meta property="og:url" content="http://yoursite.com/2017/02/14/C++11 并发学习(三)/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="[学习自大神博客]（http://www.cnblogs.com/haippy/p/3284540.html）
+C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566">
+<meta property="og:updated_time" content="2017-04-14T01:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++11 并发学习(三)">
+<meta name="twitter:description" content="[学习自大神博客]（http://www.cnblogs.com/haippy/p/3284540.html）
+C++11 ThreadPool 简单实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">kelele67</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">做一个富有的废物</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/about">关于本站</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">kelele67</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">kelele67</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">做一个富有的废物</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/about">关于本站</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="airticle-C++11 并发学习(三)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++11 并发学习(三)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>[学习自大神博客]（<a href="http://www.cnblogs.com/haippy/p/3284540.html）" target="_blank" rel="external">http://www.cnblogs.com/haippy/p/3284540.html）</a></p>
+<h2 id="C-11-ThreadPool-简单实现"><a href="#C-11-ThreadPool-简单实现" class="headerlink" title="C++11 ThreadPool 简单实现"></a>C++11 ThreadPool 简单实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;condition_variable&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;type_traits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// C++11 版的 线程池</span></div><div class="line"><span class="keyword">namespace</span> zl</div><div class="line">&#123;</div><div class="line">    <span class="keyword">class</span> ThreadsGuard</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        ThreadsGuard(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; v)</div><div class="line">            : threads_(v)</div><div class="line">        &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ~ThreadsGuard()</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i != threads_.size(); ++i)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (threads_[i].joinable())</div><div class="line">                &#123;</div><div class="line">                    threads_[i].join();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadsGuard(ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">        ThreadsGuard(<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; threads_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">class</span> ThreadPool</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>()&gt; task_type;</div><div class="line"></div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">explicit</span> <span class="title">ThreadPool</span><span class="params">(<span class="keyword">int</span> n = <span class="number">0</span>)</span></span>;</div><div class="line"></div><div class="line">        ~ThreadPool()</div><div class="line">        &#123;</div><div class="line">            stop();</div><div class="line">            cond_.notify_all();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            stop_.store(<span class="literal">true</span>, <span class="built_in">std</span>::memory_order_release);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">        <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt; add(Function&amp;&amp;, Args&amp;&amp;...);</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadPool(ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool(<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; stop_;</div><div class="line">        <span class="built_in">std</span>::mutex mtx_;</div><div class="line">        <span class="built_in">std</span>::condition_variable cond_;</div><div class="line"></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;task_type&gt; tasks_;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads_;</div><div class="line">        zl::ThreadsGuard tg_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">inline</span> ThreadPool::ThreadPool(<span class="keyword">int</span> n)</div><div class="line">        : stop_(<span class="literal">false</span>)</div><div class="line">        , tg_(threads_)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> nthreads = n;</div><div class="line">        <span class="keyword">if</span> (nthreads &lt;= <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            nthreads = <span class="built_in">std</span>::thread::hardware_concurrency();</div><div class="line">            nthreads = (nthreads == <span class="number">0</span> ? <span class="number">2</span> : nthreads);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != nthreads; ++i)</div><div class="line">        &#123;</div><div class="line">            threads_.push_back(<span class="built_in">std</span>::thread([<span class="keyword">this</span>]&#123;</div><div class="line">                <span class="keyword">while</span> (!stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                &#123;</div><div class="line">                    task_type task;</div><div class="line">                    &#123;</div><div class="line">                        <span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; ulk(<span class="keyword">this</span>-&gt;mtx_);</div><div class="line">                        <span class="keyword">this</span>-&gt;cond_.wait(ulk, [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> stop_.load(<span class="built_in">std</span>::memory_order_acquire) || !<span class="keyword">this</span>-&gt;tasks_.empty(); &#125;);</div><div class="line">                        <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                            <span class="keyword">return</span>;</div><div class="line">                        task = <span class="built_in">std</span>::move(<span class="keyword">this</span>-&gt;tasks_.front());</div><div class="line">                        <span class="keyword">this</span>-&gt;tasks_.pop();</div><div class="line">                    &#125;</div><div class="line">                    task();</div><div class="line">                &#125;</div><div class="line">            &#125;));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">    <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt;</div><div class="line">        ThreadPool::add(Function&amp;&amp; fcn, Args&amp;&amp;... args)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type return_type;</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::packaged_task&lt;return_type()&gt; task;</div><div class="line"></div><div class="line">        <span class="keyword">auto</span> t = <span class="built_in">std</span>::make_shared&lt;task&gt;(<span class="built_in">std</span>::bind(<span class="built_in">std</span>::forward&lt;Function&gt;(fcn), <span class="built_in">std</span>::forward&lt;Args&gt;(args)...));</div><div class="line">        <span class="keyword">auto</span> ret = t-&gt;get_future();</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lg(mtx_);</div><div class="line">            <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"thread pool has stopped"</span>);</div><div class="line">            tasks_.emplace([t]&#123;(*t)(); &#125;);</div><div class="line">        &#125;</div><div class="line">        cond_.notify_one();</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span>  <span class="comment">/* THREAD_POOL_H */</span></span></div></pre></td></tr></table></figure>
+<h2 id="线程池的具体思路就不多说了，我们主要说一下用到的c-11的部分"><a href="#线程池的具体思路就不多说了，我们主要说一下用到的c-11的部分" class="headerlink" title="线程池的具体思路就不多说了，我们主要说一下用到的c++11的部分"></a>线程池的具体思路就不多说了，我们主要说一下用到的c++11的部分</h2><ol>
+<li><p>首先是 建立了一个 std::vector<std::thread>&amp; v 的容器</std::thread></p>
+</li>
+<li><p>定义了一个原子操作std::atomic<bool> stop_  对bool进行了原子性封装</bool></p>
+</li>
+<li><p>然后不仅用到了std::lock_guard，还用了相比其提供了更好的上锁和解锁控制的std::unique_lock。</p>
+<p>std::unique<em>lock<std::mutex> ulk(this-&gt;mtx</std::mutex></em>)</p>
+<p>std::lock<em>guard<std::mutex> lg(mtx</std::mutex></em>);</p>
+</li>
+</ol>
+<p>这里主要介绍一下操作更为丰富的 <em>std::unique_lock</em></p>
+<blockquote>
+<p>顾名思义，unique_lock 对象以独占所有权的方式（ unique owership）管理 mutex 对象的上锁和解锁操作，所谓独占所有权，就是没有其他的 unique_lock 对象同时拥有某个 mutex 对象的所有权。</p>
+</blockquote>
+<ul>
+<li><p>上锁/解锁操作：lock，try_lock，try_lock_for，try_lock_until 和 unlock</p>
+</li>
+<li><p>修改操作：移动赋值(move assignment)(前面已经介绍过了)，交换(swap)（与另一个 std::unique_lock 对象交换它们所管理的 Mutex 对象的所有权），释放(release)（返回指向它所管理的 Mutex 对象的指针，并释放所有权）</p>
+</li>
+<li><p>获取属性操作：owns_lock（返回当前 std::unique_lock 对象是否获得了锁）、operator bool()（与 owns_lock 功能相同，返回当前 std::unique_lock 对象是否获得了锁）、mutex（返回当前 std::unique_lock 对象所管理的 Mutex 对象的指针）。</p>
+</li>
+</ul>
+<h2 id="感觉这个例子还是用到挺多C-11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C-还有很多要学的，我目前也只是个菜鸡啊。。。C-太棒了！特性多到你学不完→→手动滑稽）："><a href="#感觉这个例子还是用到挺多C-11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C-还有很多要学的，我目前也只是个菜鸡啊。。。C-太棒了！特性多到你学不完→→手动滑稽）：" class="headerlink" title="感觉这个例子还是用到挺多C++11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C++还有很多要学的，我目前也只是个菜鸡啊。。。C++太棒了！特性多到你学不完→→手动滑稽）："></a>感觉这个例子还是用到挺多C++11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C++还有很多要学的，我目前也只是个菜鸡啊。。。C++太棒了！特性多到你学不完→→手动滑稽）：</h2><ol>
+<li>首先是std::function</li>
+</ol>
+<p>简单的来说就是：</p>
+<blockquote>
+<p>通过std::function对C++中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std::function对象；让我们不再纠结那么多的可调用实体。一切变的简单粗暴。</p>
+</blockquote>
+<p>其实就是以前我们用函数指针来统一处理不同的函数对象类型，现在我们可以使用更安全的std::function来完成这些任务。</p>
+<p>在上述例子中，使用它来定义了一个任务类型对象</p>
+<p>typedef std::function<void()> task_type;</void()></p>
+<p><a href="http://www.jellythink.com/archives/771" target="_blank" rel="external">更为深入地学习，可以看这篇博客</a></p>
+<ol>
+<li>std::memory_order</li>
+</ol>
+<p>C++11 中规定了6种访存次序(Memory Order)，<a href="https://www.zhihu.com/question/24301047" target="_blank" rel="external">知乎上给出了通俗的解释</a></p>
+<ul>
+<li>momory_order_relaxed,</li>
+<li>memory_order_consume,</li>
+<li>memory_order_acquire,</li>
+<li>memory_order_release,</li>
+<li>memory_order_acq_rel,</li>
+<li>memory_order_seq_cst.</li>
+</ul>
+<blockquote>
+<p>虽然有6个选项，其实表示的是三种内存模型</p>
+<ul>
+<li>sequential consistent(memory_order_seq_cst)</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>relaxed(memory_order_seq_cst)</p>
+</li>
+<li><p>acquire release(memory_order_consume, memory_order_acquire, memory_order_release, memory_order_acq_rel) </p>
+</li>
+</ul>
+<p>我们这里用到的是获取-释放次序 <em>acquire release</em></p>
+<blockquote>
+<p>目的就是限制两个来自不同线程的原子操作的顺序，具体的操作就是需要两个线程进行一下同步，同步对一个变量的读写操作…</p>
+</blockquote>
+<p>1.原子load操作：<br>while (!stop_.load(std::memory_order_acquire))</p>
+<p>2.原子store操作：<br>std::memory_order_release</p>
+<ol>
+<li>std::result_of</li>
+</ol>
+<p>其实这个就是和我们之前的auto decltype都是属于自动类型推导，主要是使我们的代码可读易维护</p>
+<p>我们这里用的<br>std::future<typename std::result_of<function(args...)="">::type&gt; add(Function&amp;&amp;, Args&amp;&amp;…);<br>就是为了获取function的返回值</typename></p>
+<blockquote>
+<p>result_of 其实就是通过decltype来推导函数的返回类型</p>
+</blockquote>
+<ol>
+<li>std::move</li>
+</ol>
+<p>在C++11中，标准库在<utility>中提供了一个有用的函数std::move，这个函数的名字具有迷惑性，因为实际上std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而我们可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：<br>static_cast<t&&>(lvalue);</t&&></utility></p>
+<blockquote>
+<p>值得一提的是，被转化的左值，其生命期并没有随着左右值的转化而改变。如果读者期望std::move转化的左值变量lvalue能立即被析构，那么肯定会失望了。</p>
+</blockquote>
+<ol>
+<li>std::packaged_task</li>
+</ol>
+<p>std::packaged_task它包装了一个可调用的目标（如function, lambda expression, bind expression, or another function object）,以便异步调用，它和promise在某种程度上有点像，promise保存了一个共享状态的值，而packaged_task保存的是一个函数</p>
+<p>typedef std::packaged_task<return_type()> task;</return_type()></p>
+<ol>
+<li>std::make_shared</li>
+</ol>
+<p>C++11 中引入了智能指针, 同时还有一个模板函数 std::make_shared 可以返回一个指定类型的 std::shared_ptr：</p>
+<p>struct A;<br>std::shared_ptr<a> p1 = std::make_shared<a>();<br>std::shared_ptr<a> p2(new A);</a></a></a></p>
+<p>①如果是使用new：</p>
+<p>auto p = new widget();<br>shared_ptr sp1{ p }, sp2{ sp1 };<br>需要两次内存分配</p>
+<p>②然而使用make_shared的话：</p>
+<p>auto sp1 = make_shared(), sp2{ sp1 };</p>
+<p>所以我们这里 std::make_shared 其实就是为了代替 new<br>auto t = std::make_shared<task>(std::bind(std::forward<function>(fcn), std::forward<args>(args)…));</args></function></task></p>
+<p><a href="http://www.tuicool.com/articles/F3u6jy" target="_blank" rel="external">想要进一步了解它与std::shared_ptr 的构造函数相比戳</a><br>总结一些我们需要了解的就是：</p>
+<p>1.同直接使用new相比，make函数减小了代码重复，提高的异常安全，并且对于std::make_shared和std::allcoated_shared，生成的代码会更小更快。</p>
+<p>2.不能使用make函数的情况包括我们需要定制删除器和期望直接传递大括号初始化器。</p>
+<p>3.对于std::shared_ptr，额外的不建议使用make函数的情况包括：<br>（1）定制内存管理的类<br>（2）关注内存的系统，非常大的对象，以及生存期比 std::shared_ptr长的std::weak_ptr</p>
+<p>下一篇我们将会实现C++11多线程下各种生产者消费者模型</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/02/14/C++11 并发学习(三)/" class="archive-article-date">
+  	<time datetime="2017-02-14T04:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-11/">c++11</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/03/31/Linux下的轻量服务器实现/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Linux下的的轻量级HTTP服务器实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/14/C++11 并发学习(二)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++11 并发学习(二)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="C++11 并发学习(三)" data-title="C++11 并发学习(三)" data-url="http://yoursite.com/2017/02/14/C++11 并发学习(三)/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"38d12c42fae50816089820c1b93c4785"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 kelele67
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+<script type="text/javascript">
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260501136'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260501136%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 16.67px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 16.67px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 10px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div class=&quot;text&quot; style=&quot; text-align:center;&quot;&gt;大三学生&lt;br&gt;就读于重庆大学 软件狗&lt;br&gt;&lt;br&gt; 喜欢python&lt;br&gt;自由的灵魂&lt;br&gt;&lt;br&gt;世界万物都是隐喻&lt;br&gt;我们是通过隐喻这个装置接受反讽&lt;br&gt;加深扩大自己&lt;/div&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

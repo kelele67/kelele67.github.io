@@ -135,6 +135,115 @@
       <div class="body-wrap">
         
   
+    <article id="airticle-深入 Lua Garbage Collector(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/13/深入 Lua Garbage Collector(一)/">深入 Lua Garbage Collector(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>看到一个Bob Nystrom写的C语言实现的Garbage Collector</p>
+<p>[Baby’s First Garbage Collector]（<a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）" target="_blank" rel="external">http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）</a><br><a href="https://segmentfault.com/a/1190000000364507" target="_blank" rel="external">中文版戳</a></p>
+<p>借着这个小程序顺便深入地了解一下Lua的垃圾回收机制</p>
+<p>##C Garbage Collector</p>
+<p>首先还是先来看看这个C的基本的垃圾回收器</p>
+<p>###</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/13/深入 Lua Garbage Collector(一)/" class="archive-article-date">
+  	<time datetime="2017-04-13T01:54:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-Zookeeper C API学习(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/13/Zookeeper C API学习(一)/">Zookeeper C API学习(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>[学习自大神博客]（<a href="http://www.cnblogs.com/haippy/archive/2013/02/21/2919365.html）" target="_blank" rel="external">http://www.cnblogs.com/haippy/archive/2013/02/21/2919365.html）</a></p>
+<h3 id="Zookeeper-伪分布式安装"><a href="#Zookeeper-伪分布式安装" class="headerlink" title="Zookeeper 伪分布式安装"></a>Zookeeper 伪分布式安装</h3><p>因为之前也上了大数据的选修，安装过Hadoop，所以说这个小动物园的安装当然是不在话下辣，毕竟也是被各种安装环境虐的死去活来的 → → 最近也打算开始研究docker了，打算学习完zookeeper就开始</p>
+<p>安装好了</p>
+<p>[]（）</p>
+<p>### </p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/13/Zookeeper C API学习(一)/" class="archive-article-date">
+  	<time datetime="2017-04-13T01:54:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zookeeper/">zookeeper</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="airticle-Linux下的轻量服务器实现" class="article article-type-airticle" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -217,7 +326,10 @@
 <p>3.parse</p>
 <p>目前只实现了几个主要的（keep-alive, browser cache）的header解析</p>
 <p>4.connection</p>
-<h3 id="utility"><a href="#utility" class="headerlink" title="utility"></a>utility</h3><h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3>
+<p>这一部分的实现放在了utils里面</p>
+<h3 id="utility各种通用函数"><a href="#utility各种通用函数" class="headerlink" title="utility各种通用函数"></a>utility各种通用函数</h3><p>这里主要是connect的函数</p>
+<p>话说C的模块化真是一门技术活，全靠文件。。。</p>
+<h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3>
       
     </div>
     <div class="article-info article-info-index">
@@ -229,6 +341,307 @@
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-server/">web server</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-C++11 并发学习(三)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/14/C++11 并发学习(三)/">C++11 并发学习(三)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>[学习自大神博客]（<a href="http://www.cnblogs.com/haippy/p/3284540.html）" target="_blank" rel="external">http://www.cnblogs.com/haippy/p/3284540.html）</a></p>
+<h2 id="C-11-ThreadPool-简单实现"><a href="#C-11-ThreadPool-简单实现" class="headerlink" title="C++11 ThreadPool 简单实现"></a>C++11 ThreadPool 简单实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;condition_variable&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;type_traits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// C++11 版的 线程池</span></div><div class="line"><span class="keyword">namespace</span> zl</div><div class="line">&#123;</div><div class="line">    <span class="keyword">class</span> ThreadsGuard</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        ThreadsGuard(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; v)</div><div class="line">            : threads_(v)</div><div class="line">        &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ~ThreadsGuard()</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i != threads_.size(); ++i)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (threads_[i].joinable())</div><div class="line">                &#123;</div><div class="line">                    threads_[i].join();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadsGuard(ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">        ThreadsGuard(<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; threads_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">class</span> ThreadPool</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>()&gt; task_type;</div><div class="line"></div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">explicit</span> <span class="title">ThreadPool</span><span class="params">(<span class="keyword">int</span> n = <span class="number">0</span>)</span></span>;</div><div class="line"></div><div class="line">        ~ThreadPool()</div><div class="line">        &#123;</div><div class="line">            stop();</div><div class="line">            cond_.notify_all();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            stop_.store(<span class="literal">true</span>, <span class="built_in">std</span>::memory_order_release);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">        <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt; add(Function&amp;&amp;, Args&amp;&amp;...);</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadPool(ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool(<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; stop_;</div><div class="line">        <span class="built_in">std</span>::mutex mtx_;</div><div class="line">        <span class="built_in">std</span>::condition_variable cond_;</div><div class="line"></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;task_type&gt; tasks_;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads_;</div><div class="line">        zl::ThreadsGuard tg_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">inline</span> ThreadPool::ThreadPool(<span class="keyword">int</span> n)</div><div class="line">        : stop_(<span class="literal">false</span>)</div><div class="line">        , tg_(threads_)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> nthreads = n;</div><div class="line">        <span class="keyword">if</span> (nthreads &lt;= <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            nthreads = <span class="built_in">std</span>::thread::hardware_concurrency();</div><div class="line">            nthreads = (nthreads == <span class="number">0</span> ? <span class="number">2</span> : nthreads);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != nthreads; ++i)</div><div class="line">        &#123;</div><div class="line">            threads_.push_back(<span class="built_in">std</span>::thread([<span class="keyword">this</span>]&#123;</div><div class="line">                <span class="keyword">while</span> (!stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                &#123;</div><div class="line">                    task_type task;</div><div class="line">                    &#123;</div><div class="line">                        <span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; ulk(<span class="keyword">this</span>-&gt;mtx_);</div><div class="line">                        <span class="keyword">this</span>-&gt;cond_.wait(ulk, [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> stop_.load(<span class="built_in">std</span>::memory_order_acquire) || !<span class="keyword">this</span>-&gt;tasks_.empty(); &#125;);</div><div class="line">                        <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                            <span class="keyword">return</span>;</div><div class="line">                        task = <span class="built_in">std</span>::move(<span class="keyword">this</span>-&gt;tasks_.front());</div><div class="line">                        <span class="keyword">this</span>-&gt;tasks_.pop();</div><div class="line">                    &#125;</div><div class="line">                    task();</div><div class="line">                &#125;</div><div class="line">            &#125;));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">    <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt;</div><div class="line">        ThreadPool::add(Function&amp;&amp; fcn, Args&amp;&amp;... args)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type return_type;</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::packaged_task&lt;return_type()&gt; task;</div><div class="line"></div><div class="line">        <span class="keyword">auto</span> t = <span class="built_in">std</span>::make_shared&lt;task&gt;(<span class="built_in">std</span>::bind(<span class="built_in">std</span>::forward&lt;Function&gt;(fcn), <span class="built_in">std</span>::forward&lt;Args&gt;(args)...));</div><div class="line">        <span class="keyword">auto</span> ret = t-&gt;get_future();</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lg(mtx_);</div><div class="line">            <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"thread pool has stopped"</span>);</div><div class="line">            tasks_.emplace([t]&#123;(*t)(); &#125;);</div><div class="line">        &#125;</div><div class="line">        cond_.notify_one();</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span>  <span class="comment">/* THREAD_POOL_H */</span></span></div></pre></td></tr></table></figure>
+<h2 id="线程池的具体思路就不多说了，我们主要说一下用到的c-11的部分"><a href="#线程池的具体思路就不多说了，我们主要说一下用到的c-11的部分" class="headerlink" title="线程池的具体思路就不多说了，我们主要说一下用到的c++11的部分"></a>线程池的具体思路就不多说了，我们主要说一下用到的c++11的部分</h2><ol>
+<li><p>首先是 建立了一个 std::vector<std::thread>&amp; v 的容器</std::thread></p>
+</li>
+<li><p>定义了一个原子操作std::atomic<bool> stop_  对bool进行了原子性封装</bool></p>
+</li>
+<li><p>然后不仅用到了std::lock_guard，还用了相比其提供了更好的上锁和解锁控制的std::unique_lock。</p>
+<p>std::unique<em>lock<std::mutex> ulk(this-&gt;mtx</std::mutex></em>)</p>
+<p>std::lock<em>guard<std::mutex> lg(mtx</std::mutex></em>);</p>
+</li>
+</ol>
+<p>这里主要介绍一下操作更为丰富的 <em>std::unique_lock</em></p>
+<blockquote>
+<p>顾名思义，unique_lock 对象以独占所有权的方式（ unique owership）管理 mutex 对象的上锁和解锁操作，所谓独占所有权，就是没有其他的 unique_lock 对象同时拥有某个 mutex 对象的所有权。</p>
+</blockquote>
+<ul>
+<li><p>上锁/解锁操作：lock，try_lock，try_lock_for，try_lock_until 和 unlock</p>
+</li>
+<li><p>修改操作：移动赋值(move assignment)(前面已经介绍过了)，交换(swap)（与另一个 std::unique_lock 对象交换它们所管理的 Mutex 对象的所有权），释放(release)（返回指向它所管理的 Mutex 对象的指针，并释放所有权）</p>
+</li>
+<li><p>获取属性操作：owns_lock（返回当前 std::unique_lock 对象是否获得了锁）、operator bool()（与 owns_lock 功能相同，返回当前 std::unique_lock 对象是否获得了锁）、mutex（返回当前 std::unique_lock 对象所管理的 Mutex 对象的指针）。</p>
+</li>
+</ul>
+<h2 id="感觉这个例子还是用到挺多C-11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C-还有很多要学的，我目前也只是个菜鸡啊。。。C-太棒了！特性多到你学不完→→手动滑稽）："><a href="#感觉这个例子还是用到挺多C-11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C-还有很多要学的，我目前也只是个菜鸡啊。。。C-太棒了！特性多到你学不完→→手动滑稽）：" class="headerlink" title="感觉这个例子还是用到挺多C++11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C++还有很多要学的，我目前也只是个菜鸡啊。。。C++太棒了！特性多到你学不完→→手动滑稽）："></a>感觉这个例子还是用到挺多C++11的特性，在这里还是得一一解释一下（只是简单解释一下，关于C++还有很多要学的，我目前也只是个菜鸡啊。。。C++太棒了！特性多到你学不完→→手动滑稽）：</h2><ol>
+<li>首先是std::function</li>
+</ol>
+<p>简单的来说就是：</p>
+<blockquote>
+<p>通过std::function对C++中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std::function对象；让我们不再纠结那么多的可调用实体。一切变的简单粗暴。</p>
+</blockquote>
+<p>其实就是以前我们用函数指针来统一处理不同的函数对象类型，现在我们可以使用更安全的std::function来完成这些任务。</p>
+<p>在上述例子中，使用它来定义了一个任务类型对象</p>
+<p>typedef std::function<void()> task_type;</void()></p>
+<p><a href="http://www.jellythink.com/archives/771" target="_blank" rel="external">更为深入地学习，可以看这篇博客</a></p>
+<ol>
+<li>std::memory_order</li>
+</ol>
+<p>C++11 中规定了6种访存次序(Memory Order)，<a href="https://www.zhihu.com/question/24301047" target="_blank" rel="external">知乎上给出了通俗的解释</a></p>
+<ul>
+<li>momory_order_relaxed,</li>
+<li>memory_order_consume,</li>
+<li>memory_order_acquire,</li>
+<li>memory_order_release,</li>
+<li>memory_order_acq_rel,</li>
+<li>memory_order_seq_cst.</li>
+</ul>
+<blockquote>
+<p>虽然有6个选项，其实表示的是三种内存模型</p>
+<ul>
+<li>sequential consistent(memory_order_seq_cst)</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>relaxed(memory_order_seq_cst)</p>
+</li>
+<li><p>acquire release(memory_order_consume, memory_order_acquire, memory_order_release, memory_order_acq_rel) </p>
+</li>
+</ul>
+<p>我们这里用到的是获取-释放次序 <em>acquire release</em></p>
+<blockquote>
+<p>目的就是限制两个来自不同线程的原子操作的顺序，具体的操作就是需要两个线程进行一下同步，同步对一个变量的读写操作…</p>
+</blockquote>
+<p>1.原子load操作：<br>while (!stop_.load(std::memory_order_acquire))</p>
+<p>2.原子store操作：<br>std::memory_order_release</p>
+<ol>
+<li>std::result_of</li>
+</ol>
+<p>其实这个就是和我们之前的auto decltype都是属于自动类型推导，主要是使我们的代码可读易维护</p>
+<p>我们这里用的<br>std::future<typename std::result_of<function(args...)="">::type&gt; add(Function&amp;&amp;, Args&amp;&amp;…);<br>就是为了获取function的返回值</typename></p>
+<blockquote>
+<p>result_of 其实就是通过decltype来推导函数的返回类型</p>
+</blockquote>
+<ol>
+<li>std::move</li>
+</ol>
+<p>在C++11中，标准库在<utility>中提供了一个有用的函数std::move，这个函数的名字具有迷惑性，因为实际上std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而我们可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：<br>static_cast<t&&>(lvalue);</t&&></utility></p>
+<blockquote>
+<p>值得一提的是，被转化的左值，其生命期并没有随着左右值的转化而改变。如果读者期望std::move转化的左值变量lvalue能立即被析构，那么肯定会失望了。</p>
+</blockquote>
+<ol>
+<li>std::packaged_task</li>
+</ol>
+<p>std::packaged_task它包装了一个可调用的目标（如function, lambda expression, bind expression, or another function object）,以便异步调用，它和promise在某种程度上有点像，promise保存了一个共享状态的值，而packaged_task保存的是一个函数</p>
+<p>typedef std::packaged_task<return_type()> task;</return_type()></p>
+<ol>
+<li>std::make_shared</li>
+</ol>
+<p>C++11 中引入了智能指针, 同时还有一个模板函数 std::make_shared 可以返回一个指定类型的 std::shared_ptr：</p>
+<p>struct A;<br>std::shared_ptr<a> p1 = std::make_shared<a>();<br>std::shared_ptr<a> p2(new A);</a></a></a></p>
+<p>①如果是使用new：</p>
+<p>auto p = new widget();<br>shared_ptr sp1{ p }, sp2{ sp1 };<br>需要两次内存分配</p>
+<p>②然而使用make_shared的话：</p>
+<p>auto sp1 = make_shared(), sp2{ sp1 };</p>
+<p>所以我们这里 std::make_shared 其实就是为了代替 new<br>auto t = std::make_shared<task>(std::bind(std::forward<function>(fcn), std::forward<args>(args)…));</args></function></task></p>
+<p><a href="http://www.tuicool.com/articles/F3u6jy" target="_blank" rel="external">想要进一步了解它与std::shared_ptr 的构造函数相比戳</a><br>总结一些我们需要了解的就是：</p>
+<p>1.同直接使用new相比，make函数减小了代码重复，提高的异常安全，并且对于std::make_shared和std::allcoated_shared，生成的代码会更小更快。</p>
+<p>2.不能使用make函数的情况包括我们需要定制删除器和期望直接传递大括号初始化器。</p>
+<p>3.对于std::shared_ptr，额外的不建议使用make函数的情况包括：<br>（1）定制内存管理的类<br>（2）关注内存的系统，非常大的对象，以及生存期比 std::shared_ptr长的std::weak_ptr</p>
+<p>下一篇我们将会实现C++11多线程下各种生产者消费者模型</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/02/14/C++11 并发学习(三)/" class="archive-article-date">
+  	<time datetime="2017-02-14T04:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-11/">c++11</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-C++11 并发学习(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/14/C++11 并发学习(二)/">C++11 并发学习(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>[学习自大神博客]（<a href="http://www.cnblogs.com/haippy/p/3284540.html）" target="_blank" rel="external">http://www.cnblogs.com/haippy/p/3284540.html）</a></p>
+<h2 id="线程详解"><a href="#线程详解" class="headerlink" title="线程详解"></a>线程详解</h2><p>具体源码的大家有兴趣的可以去查看<a href="http://www.open-std.org/" target="_blank" rel="external">c++ 标准委员会的官方文档</a></p>
+<p>在这里我主要讲一下他们的主要结构以及主要用法</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><thread></thread></h3><ol>
+<li>std::thread 简单例子</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span> <span class="comment">// std::cout</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span>   <span class="comment">// std::thread</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_task</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello thread"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * ===  FUNCTION  =========================================================</div><div class="line"> *         Name:  main</div><div class="line"> *  Description:  program entry routine.</div><div class="line"> * ========================================================================</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(thread_task)</span></span>;</div><div class="line">    t.join();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</div><div class="line">&#125;  <span class="comment">/* ----------  end of function main  ---------- */</span></div></pre></td></tr></table></figure>
+<h3 id="std-mutex"><a href="#std-mutex" class="headerlink" title="std::mutex"></a>std::mutex</h3><blockquote>
+<p>std::mutex 是C++11 中最基本的互斥量，std::mutex 对象提供了独占所有权的特性——即不支持递归地对 std::mutex 对象上锁，而 std::recursive_lock 则可以递归地对互斥量对象上锁。</p>
+</blockquote>
+<p>1.Mutex 系列类(四种)</p>
+<ul>
+<li>std::mutex，最基本的 Mutex 类。</li>
+<li>std::recursive_mutex，递归 Mutex 类。</li>
+<li>std::time_mutex，定时 Mutex 类。</li>
+<li>std::recursive_timed_mutex，定时递归 Mutex 类</li>
+</ul>
+<p>2.Lock 类（两种）</p>
+<ul>
+<li>std::lock_guard，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁。</li>
+<li>std::unique_lock，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁，但提供了更好的上锁和解锁控制。</li>
+</ul>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a><condition_variable></condition_variable></h3><blockquote>
+<p><condition_variable> 头文件主要包含了与条件变量相关的类和函数。与条件变量相关的类包括 std::condition_variable 和 std::condition_variable_any，还有枚举类型std::cv_status。另外还包括函数 std::notify_all_at_thread_exit()</condition_variable></p>
+<p>在 Linux 下是使用 Pthread 库中的 pthread<em>cond</em>*() 函数来实现条件变量相关的功能</p>
+</blockquote>
+<h3 id="-2"><a href="#-2" class="headerlink" title=""></a><future></future></h3><blockquote>
+<p>C++11 标准中与异步任务系相关的类型主要是以下四种 std::promise，std::packaged_task（std::promise，std::packaged_task 也称为异步任务的提供者 Provider，此外 std::async 也可以作为异步任务的提供者，不过 std::async 并不是类，而是函数，本章后面会详细介绍异步任务的提供者 Provider），std::future，std::shared_future。另外 <future> 中还定义一些辅助的类，例如： std::future_error，std::future_errc，std::status，std::launch。</future></p>
+</blockquote>
+<p>之前也有提到，主要是用来实现异步</p>
+<h3 id="-3"><a href="#-3" class="headerlink" title=""></a><atomic></atomic></h3><p>关于C++11的原子操作之前我有过笔记，下图</p>
+<p>[]（）</p>
+<p>好了，关于C++11的新特性大致的梳理了一遍，接下来我们先看看之前提到的那个C++11的线程池具体是怎么实现的吧</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/02/14/C++11 并发学习(二)/" class="archive-article-date">
+  	<time datetime="2017-02-13T17:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-11/">c++11</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-C++11 并发学习(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/13/C++11 并发学习(一)/">C++11 并发学习(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>[学习自大神博客]（<a href="http://www.cnblogs.com/haippy/p/3284540.html）" target="_blank" rel="external">http://www.cnblogs.com/haippy/p/3284540.html）</a></p>
+<h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><blockquote>
+<p>与并发相近的另一个概念是并行(Parallel)。和并发所描述的情况一样，并行也是指两个或多个任务被同时执行。但是严格来讲，并发和并行的概念并是不等同的，两者存在很大的差别。下面我们来看看计算机科学家们是怎么区分并发和并行的。</p>
+<p>并发是一个处理器同时处理多个任务，而并行多个处理器或者是多核的处理器同时处理多个不同的任务。前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生。</p>
+</blockquote>
+<h2 id="C-并发"><a href="#C-并发" class="headerlink" title="C++并发"></a>C++并发</h2><h3 id="C-11多线程相关的头文件"><a href="#C-11多线程相关的头文件" class="headerlink" title="C++11多线程相关的头文件"></a>C++11多线程相关的头文件</h3><blockquote>
+<p>C++11 新标准中引入了五个头文件来支持多线程编程，它们分别是 <atomic>, <thread>, <mutex>, <condition_variable> 和 <future>。</future></condition_variable></mutex></thread></atomic></p>
+</blockquote>
+<ul>
+<li><p><atomic>：该头文主要声明了两个类, std::atomic 和 std::atomic_flag，另外还声明了一套 C 风格的原子类型和与 C 兼容的原子操作的函数。<br><atomic> 一一 可以用来实现数据结构的无锁结构</atomic></atomic></p>
+</li>
+<li><p><thread>：该头文件主要声明了 std::thread 类，另外 std::this_thread 命名空间也在该头文件中。<br>之前在Linux下写多线程的时候用的Pthread，但是在实现线程池的时候，有用到过C++11的<thread>，具体是学习自<a href="https://github.com/lizhenghn123/zl_threadpool" target="_blank" rel="external">这个大神的C++的线程池demo</a></thread></thread></p>
+</li>
+<li><p><mutex>：该头文件主要声明了与互斥量(Mutex)相关的类，包括 std::mutex_* 一系列类，std::lock_guard, std::unique_lock, 以及其他的类型和函数。</mutex></p>
+</li>
+<li><p><condition_variable>：该头文件主要声明了与条件变量相关的类，包括 std::condition_variable 和 std::condition_variable_any。</condition_variable></p>
+</li>
+<li><p><future>：该头文件主要声明了 std::promise, std::package_task 两个 Provider 类，以及 std::future 和 std::shared_future 两个 Future 类，另外还有一些与之相关的类型和函数，std::async() 函数就声明在此头文件中。<br>这里介绍一下std::async() 一一 用来优雅的实现C++异步，一般和std::future()一起使用，前者用于创建异步任务，后者从异步任务中获取结果。</future></p>
+</li>
+</ul>
+<p>接下来我们就是要具体地学习每一个部分了，不过大部分就是之前学习过，用过的，应该学起来还是很快的。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/02/13/C++11 并发学习(一)/" class="archive-article-date">
+  	<time datetime="2017-02-13T02:58:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-11/">c++11</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
 	</div>
 
       
@@ -592,325 +1005,6 @@
 
 
   
-    <article id="post-kelele67的学习笔记-swift动画学习（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/06/kelele67的学习笔记-swift动画学习（一）/">kelele67的学习笔记-swift动画学习（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Swift3-0-动画编程-1"><a href="#Swift3-0-动画编程-1" class="headerlink" title="Swift3.0 动画编程(1)"></a>Swift3.0 动画编程(1)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自老镇swift课堂: 舞动Swift-Swift动画编程指南</a></p>
-<blockquote>
-<p>在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。<br>即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。<br>为了寻求差异化，新颖的动画设计是一个很好的突破口。</p>
-</blockquote>
-<p>最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下去，不过现在学习swift也是个不错的选择。<br>不过有点坑的是视频教程用的swift是2.x，现在swift到了3.0，又更新了一大波坑，还得自己去填TAT估计等明年出了4.0才会稳定下来，据说到时候swift语法和API都会稳定并且向上兼容，估计会掀起一番swift热吧，所以趁现在先学为快。:-D</p>
-<hr>
-<h2 id="Core-Animation-目前苹果的API-Reference已更名为Core-Graphics"><a href="#Core-Animation-目前苹果的API-Reference已更名为Core-Graphics" class="headerlink" title="Core Animation(目前苹果的API Reference已更名为Core Graphics)"></a>Core Animation(目前苹果的API Reference已更名为Core Graphics)</h2><blockquote>
-<p>Core Animation是iOS与OS X平台上负责图形渲染与动画的基础设施。Core Animation可以动画视图和其他的可视元素，为你完成了动画所需的大部分绘帧工作。你只需配置少量的动画参数（如开始点位置和结束点的位置）即可施展Core Animation魔法。Core Animation将大部分实际的绘图任务交给了图形硬件来处理，图形硬件会加速图形渲染的速度。这种自动化的图形加速技术让动画拥有更高的帧率并且更加的平滑，而且不会加重CPU的负担而影响程序的运行速度。</p>
-</blockquote>
-<h3 id="Core-Animation放大动画"><a href="#Core-Animation放大动画" class="headerlink" title="Core Animation放大动画"></a>Core Animation放大动画</h3><p><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform" target="_blank" rel="external">运用CGAffineTransform结构</a>实现了红色的圆放大动画</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">            animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>)</div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="Core-Animation组合动画"><a href="#Core-Animation组合动画" class="headerlink" title="Core Animation组合动画"></a>Core Animation组合动画</h3><p><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform/1455996-concatenating" target="_blank" rel="external">使用 concatenating(_:)</a>实现了红色的圆向右放大后变绿的组合动画</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">                       animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform =</div><div class="line">                        <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>).concatenating(<span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">250</span>, y: <span class="number">50</span>))</div><div class="line">                        </div><div class="line">                        redBall.backgroundColor = <span class="type">UIColor</span>.green</div><div class="line"></div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="Core-Animation弹性动画"><a href="#Core-Animation弹性动画" class="headerlink" title="Core Animation弹性动画"></a>Core Animation弹性动画</h3><p>增加阻尼和初速度来使动画弹跳起来</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">2</span>, delay: <span class="number">0</span>, usingSpringWithDamping: <span class="number">0.3</span>, <span class="comment">//阻尼（减速度）</span></div><div class="line">                       initialSpringVelocity: <span class="number">0</span>, <span class="comment">//初始速度</span></div><div class="line">                       options: [.curveEaseInOut],</div><div class="line">                       animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform =</div><div class="line">                        <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>).concatenating(<span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">150</span>, y: <span class="number">50</span>))</div><div class="line">                        </div><div class="line">                        redBall.backgroundColor = <span class="type">UIColor</span>.green</div><div class="line"></div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/06/kelele67的学习笔记-swift动画学习（一）/" class="archive-article-date">
-  	<time datetime="2016-10-06T09:56:12.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-06</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-ubuntu16-04终端闪退" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/05/ubuntu16-04终端闪退/">ubuntu16.04终端闪退</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p><br>其实就是我作死把oh-my-zsh的路径弄坏了，然后不知怎么的zsh也打不开了，最后才想起在.profilerc里面把之前添加的exec zsh给删除了。</p>
-<p>之前本来是想在ubuntu里面搭建hexo的，但是zsh和shell的路径一直弄不好导致nodejs的版本一直有问题，然后hexo也搭建不了，最后只好在macos下面搭建了hexo。</p>
-<p>不过搭建环境真的好累人，每次都是各种问题，各种百度google，有时间得尝试下docker。</p>
-<p>路漫漫。。。</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/05/ubuntu16-04终端闪退/" class="archive-article-date">
-  	<time datetime="2016-10-05T03:23:23.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">solution</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-python数据结构算法一一树" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/05/python数据结构算法一一树/">kelele67的学习笔记-python数据结构算法（四）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python数据结构篇-4"><a href="#Python数据结构篇-4" class="headerlink" title="Python数据结构篇(4)"></a>Python数据结构篇(4)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><ol>
-<li>BST 二叉搜索树</li>
-<li>AVL 平衡二叉查找树</li>
-</ol>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/05/python数据结构算法一一树/" class="archive-article-date">
-  	<time datetime="2016-10-04T17:21:10.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/trees/">trees</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-python数据结构算法一一数据结构" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/05/python数据结构算法一一数据结构/">kelele67的学习笔记-python数据结构算法（三）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python数据结构篇-3"><a href="#Python数据结构篇-3" class="headerlink" title="Python数据结构篇(3)"></a>Python数据结构篇(3)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="数据结构总结"><a href="#数据结构总结" class="headerlink" title="数据结构总结"></a>数据结构总结</h2><ol>
-<li>List</li>
-<li>Dictionary</li>
-<li>Stack</li>
-<li>Queue</li>
-<li>Deque(双向队列)</li>
-<li>Binary_tree</li>
-<li>BinHeap</li>
-</ol>
-<hr>
-<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>list的append(value)和insert(0, value)，即一个从后面插入(后插)，另一个从前面插入(前插)，前者的效率远远高于后者。</p>
-<h3 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h3><h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>LIFO结构，后进先出</p>
-<blockquote>
-<p>逆波兰表达式求值<br>求一个十进制数的二进制表达<br>检查括号匹配问题以及图的深度搜索…</p>
-</blockquote>
-<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>需要优先队列的问题或者进行广度优先搜索的问题…</p>
-<h3 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h3><p>左右两边都可以插入和删除的队列</p>
-<h3 id="Binary-tree"><a href="#Binary-tree" class="headerlink" title="Binary_tree"></a>Binary_tree</h3><p>一个节点最多有两个孩子节点的树。如果是从0索引开始存储，那么对应于节点p的孩子节点是2p+1和2p+2两个节点，相反，节点p的父亲节点是(p-1)/2位置上的点</p>
-<blockquote>
-<p>算术表达式建立一颗二叉树可以清楚看出表达式是如何计算的<br>二叉树的三种遍历方法(前序，中序，后序)…</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root)</span>:</span></div><div class="line">        self.key = root</div><div class="line">        self.left_child = <span class="keyword">None</span></div><div class="line">        self.right_child = <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert_left</span><span class="params">(self, new_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.left_child == <span class="keyword">None</span>:</div><div class="line">            self.left_child = BinaryTree(new_node)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            t = BinaryTree(new_node)</div><div class="line">            t.left_child = self.left_child</div><div class="line">            self.left_child = t</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert_right</span><span class="params">(self, new_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.right_child == <span class="keyword">None</span>:</div><div class="line">            self.right_child = BinaryTree(new_node)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            t = BinaryTree(new_node)</div><div class="line">            t.right_child = self.right_child</div><div class="line">            self.right_child = t</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_right_child</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.right_child</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_left_child</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.left_child</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_root_val</span><span class="params">(self, obj)</span>:</span></div><div class="line">        self.key = obj</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_root_val</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.key</div><div class="line"></div><div class="line">r = BinaryTree(<span class="string">'a'</span>)</div><div class="line">print(r.get_root_val())</div><div class="line">print(r.get_left_child())</div><div class="line">r.insert_left(<span class="string">'b'</span>)</div><div class="line">print(r.get_left_child())</div><div class="line">print(r.get_left_child().get_root_val())</div><div class="line">r.insert_right(<span class="string">'c'</span>)</div><div class="line">print(r.get_right_child())</div><div class="line">print(r.get_right_child().get_root_val())</div><div class="line">r.get_right_child().set_root_val(<span class="string">'hello'</span>)</div><div class="line">print(r.get_right_child().get_root_val())</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="BinHeap"><a href="#BinHeap" class="headerlink" title="BinHeap"></a>BinHeap</h3><p>二叉堆：根据堆的性质又可以分为最小堆和最大堆，是一种非常好的优先队列。在最小堆中孩子节点一定大于等于其父亲节点，最大堆反之。二叉堆实际上一棵完全二叉树，并且满足堆的性质。对于插入和查找操作的时间复杂度度都是O(logn)O(logn)。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinHeap</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.heap_list = [<span class="number">0</span>]</div><div class="line">        self.current_size = <span class="number">0</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">perc_up</span><span class="params">(self, i)</span>:</span></div><div class="line">        <span class="keyword">while</span> i // <span class="number">2</span> &gt; <span class="number">0</span>:  <span class="comment"># &gt;0 means this node is still available</span></div><div class="line">            <span class="keyword">if</span> self.heap_list[i] &lt; self.heap_list[i // <span class="number">2</span>]:</div><div class="line">                tmp = self.heap_list[i // <span class="number">2</span>]</div><div class="line">                self.heap_list[i // <span class="number">2</span>] = self.heap_list[i]</div><div class="line">                self.heap_list[i] = tmp</div><div class="line">            i = i // <span class="number">2</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, k)</span>:</span></div><div class="line">        self.heap_list.append(k)</div><div class="line">        self.current_size = self.current_size + <span class="number">1</span></div><div class="line">        self.perc_up(self.current_size)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">perc_down</span><span class="params">(self, i)</span>:</span></div><div class="line">        <span class="keyword">while</span> (i * <span class="number">2</span>) &lt;= self.current_size:</div><div class="line">            mc = self.min_child(i)</div><div class="line">            <span class="keyword">if</span> self.heap_list[i] &gt; self.heap_list[mc]:</div><div class="line">                tmp = self.heap_list[i]</div><div class="line">                self.heap_list[i] = self.heap_list[mc]</div><div class="line">                self.heap_list[mc] = tmp</div><div class="line">            i = mc</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">min_child</span><span class="params">(self, i)</span>:</span></div><div class="line">        <span class="keyword">if</span> i * <span class="number">2</span> + <span class="number">1</span> &gt; self.current_size:</div><div class="line">            <span class="keyword">return</span> i * <span class="number">2</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> self.heap_list[i * <span class="number">2</span>] &lt; self.heap_list[i * <span class="number">2</span> + <span class="number">1</span>]:</div><div class="line">                <span class="keyword">return</span> i * <span class="number">2</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> i * <span class="number">2</span> + <span class="number">1</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">del_min</span><span class="params">(self)</span>:</span></div><div class="line">        ret_val = self.heap_list[<span class="number">1</span>]</div><div class="line">        self.heap_list[<span class="number">1</span>] = self.heap_list[self.current_size]</div><div class="line">        self.current_size = self.current_size - <span class="number">1</span></div><div class="line">        self.heap_list.pop()</div><div class="line">        self.perc_down(<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> ret_val</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_heap</span><span class="params">(self, a_list)</span>:</span></div><div class="line">        i = len(a_list) // <span class="number">2</span></div><div class="line">        self.current_size = len(a_list)</div><div class="line">        self.heap_list = [<span class="number">0</span>] + a_list[:] <span class="comment"># append original list</span></div><div class="line">        <span class="keyword">while</span> (i &gt; <span class="number">0</span>):</div><div class="line">            <span class="comment"># build the heap we only need to deal the first part!</span></div><div class="line">            self.perc_down(i)</div><div class="line">            i=i<span class="number">-1</span></div><div class="line"></div><div class="line">a_list=[<span class="number">9</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">bh=BinHeap();</div><div class="line">bh.build_heap(a_list);</div><div class="line">print(bh.heap_list)</div><div class="line">print(bh.current_size)</div><div class="line">bh.insert(<span class="number">10</span>)</div><div class="line">bh.insert(<span class="number">7</span>)</div><div class="line">print(bh.heap_list)</div><div class="line">bh.del_min();</div><div class="line">print(bh.heap_list)</div><div class="line">print(bh.current_size)</div></pre></td></tr></table></figure>
-<hr>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/05/python数据结构算法一一数据结构/" class="archive-article-date">
-  	<time datetime="2016-10-04T17:01:45.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/data-structures/">data structures</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-随笔_见到你真高兴" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/随笔_见到你真高兴/">见到你真高兴</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>从今天起，你要做一个不动声色的大人了。不准情绪化，不准偷偷想念，不准回头看。去过自己另外的生活。你要听话，不是所有鱼都会生活在同一片海里。<br>曾经那些美好都是早已经搁浅死在沙滩的鲸鱼。</p>
-</blockquote>
-<p></p><p></p>
-<p></p><p><br>小熊第一次看见正在吃草的兔子的时候，他的心像夏日里一瓷碗的酸梅汤，碎冰碰壁哐当当啷的响。</p>
-<p>从那天起，小熊开始注意到这只每天都来自己家门前草地吃草的灰色小兔子。</p>
-<p>兔子每天都起得很早，在太阳刚露出白色肚皮的时候，小熊就能看见她在沾满露水的草地上吃草，打滚。于是小熊想到了自己的小时候，有着妈妈的照顾，自己也是如此的无忧无虑，每天在吃喝玩乐中度过。记忆中的森林也是和现在呈现出一副不一样的光景，森林里每一棵树都像是一座碑塔，高耸入天，甚有气势。可是记忆不过是一种虚无缥缈的存在，它的存在仅仅是为了弥补时间的缺憾，好让我们在之后的漫长岁月里，多一个念想。</p>
-<p>兔子吃草很快，太阳抿嘴一笑的功夫，刷刷刷的就能把一大块区域的草地全部啃光。</p>
-<p>等到太阳再大一些的时候，兔子便会离开草地，一蹦一跳的融入周围的灌木丛。</p>
-<p>日子就这样一天一天的过去，小熊总算是吃完了去年掏的一整罐蜂蜜，门口草地上的草却每天都一个样。</p>
-<p>渐渐地，小熊忘记自己第一次见到兔子是什么时候了，他也从来没有和她说过话，甚至都没有从她的身边经过过。直到有一天，小熊发现兔子变了，她的毛发不再是黯淡无光转身就能融入灌木丛的灰色了，兔子披上了雪白的外衣，时不时还在阳光下露出漫长等待后的一丝闪光。</p>
-<p>凛冬已至。</p>
-<p>地球用了6亿年才诞生生命，然而小熊只用了一个冬眠的时间就决定鼓起勇气和兔子打招呼了。</p>
-<p>春天早早的就到来了，期待中的兔子却迟迟没有出现。小熊并没有放弃，就像相信阿基里斯一定能追上乌龟一般相信兔子一定会再来自己家门前的这块肥美草地吃草的。</p>
-<p>这段时间里，小熊每天都把自己安排的井井有条。</p>
-<p>☑ : 早起跑步<br>☑ : 去河边钓鱼<br>☑ : 看望妈妈并带上一罐蜂蜜<br>☐ : 睡觉前看完一本书</p>
-<p>就在春天的尾巴即将消失的时候，期待已久的画面终于到来了。</p>
-<p>这天和往常一样，小熊早早的起床准备一天的行程，但是当他看见草地上那个熟悉的灰色身影的时候，心里先是咯噔了一下，然后终于鼓足了勇气，向兔子问了声好。</p>
-<p>“你好哇兔子小姐”</p>
-<p>“HelloWorld!小熊先生”</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/01/随笔_见到你真高兴/" class="archive-article-date">
-  	<time datetime="2016-10-01T15:44:42.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-01</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -997,7 +1091,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 16.67px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 16.67px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 10px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

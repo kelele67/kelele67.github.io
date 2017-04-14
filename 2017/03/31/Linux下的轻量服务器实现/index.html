@@ -16,7 +16,7 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
 <meta property="og:description" content="小型HTTP服务器读了很多Linux下小型的http服务器，还是觉得来自朱家顺的Zaver的比较适合新手学习
 
 Zaver，一个结构简单，支持高并发的http服务器。基本架构是事件循环 + non-blocking I/O + 线程池。Zaver的代码风格参考了Nginx的风格，所以在可读性上非常高。另外，Zaver提供了配置文件和命令行参数解析，以及完善的Makefile和源代码结构，也可以帮">
-<meta property="og:updated_time" content="2017-04-10T16:06:36.000Z">
+<meta property="og:updated_time" content="2017-04-13T07:09:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下的的轻量级HTTP服务器实现">
 <meta name="twitter:description" content="小型HTTP服务器读了很多Linux下小型的http服务器，还是觉得来自朱家顺的Zaver的比较适合新手学习
@@ -222,7 +222,10 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
 <p>3.parse</p>
 <p>目前只实现了几个主要的（keep-alive, browser cache）的header解析</p>
 <p>4.connection</p>
-<h3 id="utility"><a href="#utility" class="headerlink" title="utility"></a>utility</h3><h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3>
+<p>这一部分的实现放在了utils里面</p>
+<h3 id="utility各种通用函数"><a href="#utility各种通用函数" class="headerlink" title="utility各种通用函数"></a>utility各种通用函数</h3><p>这里主要是connect的函数</p>
+<p>话说C的模块化真是一门技术活，全靠文件。。。</p>
+<h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3>
       
     </div>
     <div class="article-info article-info-index">
@@ -246,9 +249,18 @@ Zaver，一个结构简单，支持高并发的http服务器。基本架构是�
   
 <nav id="article-nav">
   
+    <a href="/2017/04/13/Zookeeper C API学习(一)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Zookeeper C API学习(一)
+        
+      </div>
+    </a>
   
-    <a href="/2016/11/11/kelele67的学习笔记-html小游戏(上)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kelele67的学习笔记-html5小游戏(上)</div>
+  
+    <a href="/2017/02/14/C++11 并发学习(三)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++11 并发学习(三)</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -382,7 +394,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 16.67px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 16.67px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 10px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

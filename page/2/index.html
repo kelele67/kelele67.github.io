@@ -135,6 +135,325 @@
       <div class="body-wrap">
         
   
+    <article id="post-kelele67的学习笔记-swift动画学习（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/06/kelele67的学习笔记-swift动画学习（一）/">kelele67的学习笔记-swift动画学习（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Swift3-0-动画编程-1"><a href="#Swift3-0-动画编程-1" class="headerlink" title="Swift3.0 动画编程(1)"></a>Swift3.0 动画编程(1)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自老镇swift课堂: 舞动Swift-Swift动画编程指南</a></p>
+<blockquote>
+<p>在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。<br>即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。<br>为了寻求差异化，新颖的动画设计是一个很好的突破口。</p>
+</blockquote>
+<p>最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下去，不过现在学习swift也是个不错的选择。<br>不过有点坑的是视频教程用的swift是2.x，现在swift到了3.0，又更新了一大波坑，还得自己去填TAT估计等明年出了4.0才会稳定下来，据说到时候swift语法和API都会稳定并且向上兼容，估计会掀起一番swift热吧，所以趁现在先学为快。:-D</p>
+<hr>
+<h2 id="Core-Animation-目前苹果的API-Reference已更名为Core-Graphics"><a href="#Core-Animation-目前苹果的API-Reference已更名为Core-Graphics" class="headerlink" title="Core Animation(目前苹果的API Reference已更名为Core Graphics)"></a>Core Animation(目前苹果的API Reference已更名为Core Graphics)</h2><blockquote>
+<p>Core Animation是iOS与OS X平台上负责图形渲染与动画的基础设施。Core Animation可以动画视图和其他的可视元素，为你完成了动画所需的大部分绘帧工作。你只需配置少量的动画参数（如开始点位置和结束点的位置）即可施展Core Animation魔法。Core Animation将大部分实际的绘图任务交给了图形硬件来处理，图形硬件会加速图形渲染的速度。这种自动化的图形加速技术让动画拥有更高的帧率并且更加的平滑，而且不会加重CPU的负担而影响程序的运行速度。</p>
+</blockquote>
+<h3 id="Core-Animation放大动画"><a href="#Core-Animation放大动画" class="headerlink" title="Core Animation放大动画"></a>Core Animation放大动画</h3><p><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform" target="_blank" rel="external">运用CGAffineTransform结构</a>实现了红色的圆放大动画</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">            animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>)</div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Core-Animation组合动画"><a href="#Core-Animation组合动画" class="headerlink" title="Core Animation组合动画"></a>Core Animation组合动画</h3><p><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform/1455996-concatenating" target="_blank" rel="external">使用 concatenating(_:)</a>实现了红色的圆向右放大后变绿的组合动画</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">                       animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform =</div><div class="line">                        <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>).concatenating(<span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">250</span>, y: <span class="number">50</span>))</div><div class="line">                        </div><div class="line">                        redBall.backgroundColor = <span class="type">UIColor</span>.green</div><div class="line"></div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Core-Animation弹性动画"><a href="#Core-Animation弹性动画" class="headerlink" title="Core Animation弹性动画"></a>Core Animation弹性动画</h3><p>增加阻尼和初速度来使动画弹跳起来</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">2</span>, delay: <span class="number">0</span>, usingSpringWithDamping: <span class="number">0.3</span>, <span class="comment">//阻尼（减速度）</span></div><div class="line">                       initialSpringVelocity: <span class="number">0</span>, <span class="comment">//初始速度</span></div><div class="line">                       options: [.curveEaseInOut],</div><div class="line">                       animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform =</div><div class="line">                        <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>).concatenating(<span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">150</span>, y: <span class="number">50</span>))</div><div class="line">                        </div><div class="line">                        redBall.backgroundColor = <span class="type">UIColor</span>.green</div><div class="line"></div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/06/kelele67的学习笔记-swift动画学习（一）/" class="archive-article-date">
+  	<time datetime="2016-10-06T09:56:12.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-06</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-ubuntu16-04终端闪退" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/05/ubuntu16-04终端闪退/">ubuntu16.04终端闪退</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br>其实就是我作死把oh-my-zsh的路径弄坏了，然后不知怎么的zsh也打不开了，最后才想起在.profilerc里面把之前添加的exec zsh给删除了。</p>
+<p>之前本来是想在ubuntu里面搭建hexo的，但是zsh和shell的路径一直弄不好导致nodejs的版本一直有问题，然后hexo也搭建不了，最后只好在macos下面搭建了hexo。</p>
+<p>不过搭建环境真的好累人，每次都是各种问题，各种百度google，有时间得尝试下docker。</p>
+<p>路漫漫。。。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/05/ubuntu16-04终端闪退/" class="archive-article-date">
+  	<time datetime="2016-10-05T03:23:23.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">solution</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-python数据结构算法一一树" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/05/python数据结构算法一一树/">kelele67的学习笔记-python数据结构算法（四）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python数据结构篇-4"><a href="#Python数据结构篇-4" class="headerlink" title="Python数据结构篇(4)"></a>Python数据结构篇(4)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
+<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><ol>
+<li>BST 二叉搜索树</li>
+<li>AVL 平衡二叉查找树</li>
+</ol>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/05/python数据结构算法一一树/" class="archive-article-date">
+  	<time datetime="2016-10-04T17:21:10.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/trees/">trees</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-python数据结构算法一一数据结构" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/05/python数据结构算法一一数据结构/">kelele67的学习笔记-python数据结构算法（三）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python数据结构篇-3"><a href="#Python数据结构篇-3" class="headerlink" title="Python数据结构篇(3)"></a>Python数据结构篇(3)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
+<h2 id="数据结构总结"><a href="#数据结构总结" class="headerlink" title="数据结构总结"></a>数据结构总结</h2><ol>
+<li>List</li>
+<li>Dictionary</li>
+<li>Stack</li>
+<li>Queue</li>
+<li>Deque(双向队列)</li>
+<li>Binary_tree</li>
+<li>BinHeap</li>
+</ol>
+<hr>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>list的append(value)和insert(0, value)，即一个从后面插入(后插)，另一个从前面插入(前插)，前者的效率远远高于后者。</p>
+<h3 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h3><h3 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h3><p>LIFO结构，后进先出</p>
+<blockquote>
+<p>逆波兰表达式求值<br>求一个十进制数的二进制表达<br>检查括号匹配问题以及图的深度搜索…</p>
+</blockquote>
+<h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><p>需要优先队列的问题或者进行广度优先搜索的问题…</p>
+<h3 id="Deque"><a href="#Deque" class="headerlink" title="Deque"></a>Deque</h3><p>左右两边都可以插入和删除的队列</p>
+<h3 id="Binary-tree"><a href="#Binary-tree" class="headerlink" title="Binary_tree"></a>Binary_tree</h3><p>一个节点最多有两个孩子节点的树。如果是从0索引开始存储，那么对应于节点p的孩子节点是2p+1和2p+2两个节点，相反，节点p的父亲节点是(p-1)/2位置上的点</p>
+<blockquote>
+<p>算术表达式建立一颗二叉树可以清楚看出表达式是如何计算的<br>二叉树的三种遍历方法(前序，中序，后序)…</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinaryTree</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root)</span>:</span></div><div class="line">        self.key = root</div><div class="line">        self.left_child = <span class="keyword">None</span></div><div class="line">        self.right_child = <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert_left</span><span class="params">(self, new_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.left_child == <span class="keyword">None</span>:</div><div class="line">            self.left_child = BinaryTree(new_node)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            t = BinaryTree(new_node)</div><div class="line">            t.left_child = self.left_child</div><div class="line">            self.left_child = t</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert_right</span><span class="params">(self, new_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.right_child == <span class="keyword">None</span>:</div><div class="line">            self.right_child = BinaryTree(new_node)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            t = BinaryTree(new_node)</div><div class="line">            t.right_child = self.right_child</div><div class="line">            self.right_child = t</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_right_child</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.right_child</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_left_child</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.left_child</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_root_val</span><span class="params">(self, obj)</span>:</span></div><div class="line">        self.key = obj</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_root_val</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.key</div><div class="line"></div><div class="line">r = BinaryTree(<span class="string">'a'</span>)</div><div class="line">print(r.get_root_val())</div><div class="line">print(r.get_left_child())</div><div class="line">r.insert_left(<span class="string">'b'</span>)</div><div class="line">print(r.get_left_child())</div><div class="line">print(r.get_left_child().get_root_val())</div><div class="line">r.insert_right(<span class="string">'c'</span>)</div><div class="line">print(r.get_right_child())</div><div class="line">print(r.get_right_child().get_root_val())</div><div class="line">r.get_right_child().set_root_val(<span class="string">'hello'</span>)</div><div class="line">print(r.get_right_child().get_root_val())</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="BinHeap"><a href="#BinHeap" class="headerlink" title="BinHeap"></a>BinHeap</h3><p>二叉堆：根据堆的性质又可以分为最小堆和最大堆，是一种非常好的优先队列。在最小堆中孩子节点一定大于等于其父亲节点，最大堆反之。二叉堆实际上一棵完全二叉树，并且满足堆的性质。对于插入和查找操作的时间复杂度度都是O(logn)O(logn)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinHeap</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.heap_list = [<span class="number">0</span>]</div><div class="line">        self.current_size = <span class="number">0</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">perc_up</span><span class="params">(self, i)</span>:</span></div><div class="line">        <span class="keyword">while</span> i // <span class="number">2</span> &gt; <span class="number">0</span>:  <span class="comment"># &gt;0 means this node is still available</span></div><div class="line">            <span class="keyword">if</span> self.heap_list[i] &lt; self.heap_list[i // <span class="number">2</span>]:</div><div class="line">                tmp = self.heap_list[i // <span class="number">2</span>]</div><div class="line">                self.heap_list[i // <span class="number">2</span>] = self.heap_list[i]</div><div class="line">                self.heap_list[i] = tmp</div><div class="line">            i = i // <span class="number">2</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, k)</span>:</span></div><div class="line">        self.heap_list.append(k)</div><div class="line">        self.current_size = self.current_size + <span class="number">1</span></div><div class="line">        self.perc_up(self.current_size)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">perc_down</span><span class="params">(self, i)</span>:</span></div><div class="line">        <span class="keyword">while</span> (i * <span class="number">2</span>) &lt;= self.current_size:</div><div class="line">            mc = self.min_child(i)</div><div class="line">            <span class="keyword">if</span> self.heap_list[i] &gt; self.heap_list[mc]:</div><div class="line">                tmp = self.heap_list[i]</div><div class="line">                self.heap_list[i] = self.heap_list[mc]</div><div class="line">                self.heap_list[mc] = tmp</div><div class="line">            i = mc</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">min_child</span><span class="params">(self, i)</span>:</span></div><div class="line">        <span class="keyword">if</span> i * <span class="number">2</span> + <span class="number">1</span> &gt; self.current_size:</div><div class="line">            <span class="keyword">return</span> i * <span class="number">2</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> self.heap_list[i * <span class="number">2</span>] &lt; self.heap_list[i * <span class="number">2</span> + <span class="number">1</span>]:</div><div class="line">                <span class="keyword">return</span> i * <span class="number">2</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> i * <span class="number">2</span> + <span class="number">1</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">del_min</span><span class="params">(self)</span>:</span></div><div class="line">        ret_val = self.heap_list[<span class="number">1</span>]</div><div class="line">        self.heap_list[<span class="number">1</span>] = self.heap_list[self.current_size]</div><div class="line">        self.current_size = self.current_size - <span class="number">1</span></div><div class="line">        self.heap_list.pop()</div><div class="line">        self.perc_down(<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> ret_val</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_heap</span><span class="params">(self, a_list)</span>:</span></div><div class="line">        i = len(a_list) // <span class="number">2</span></div><div class="line">        self.current_size = len(a_list)</div><div class="line">        self.heap_list = [<span class="number">0</span>] + a_list[:] <span class="comment"># append original list</span></div><div class="line">        <span class="keyword">while</span> (i &gt; <span class="number">0</span>):</div><div class="line">            <span class="comment"># build the heap we only need to deal the first part!</span></div><div class="line">            self.perc_down(i)</div><div class="line">            i=i<span class="number">-1</span></div><div class="line"></div><div class="line">a_list=[<span class="number">9</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">bh=BinHeap();</div><div class="line">bh.build_heap(a_list);</div><div class="line">print(bh.heap_list)</div><div class="line">print(bh.current_size)</div><div class="line">bh.insert(<span class="number">10</span>)</div><div class="line">bh.insert(<span class="number">7</span>)</div><div class="line">print(bh.heap_list)</div><div class="line">bh.del_min();</div><div class="line">print(bh.heap_list)</div><div class="line">print(bh.current_size)</div></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/05/python数据结构算法一一数据结构/" class="archive-article-date">
+  	<time datetime="2016-10-04T17:01:45.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/data-structures/">data structures</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-随笔_见到你真高兴" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/随笔_见到你真高兴/">见到你真高兴</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>从今天起，你要做一个不动声色的大人了。不准情绪化，不准偷偷想念，不准回头看。去过自己另外的生活。你要听话，不是所有鱼都会生活在同一片海里。<br>曾经那些美好都是早已经搁浅死在沙滩的鲸鱼。</p>
+</blockquote>
+<p></p><p></p>
+<p></p><p><br>小熊第一次看见正在吃草的兔子的时候，他的心像夏日里一瓷碗的酸梅汤，碎冰碰壁哐当当啷的响。</p>
+<p>从那天起，小熊开始注意到这只每天都来自己家门前草地吃草的灰色小兔子。</p>
+<p>兔子每天都起得很早，在太阳刚露出白色肚皮的时候，小熊就能看见她在沾满露水的草地上吃草，打滚。于是小熊想到了自己的小时候，有着妈妈的照顾，自己也是如此的无忧无虑，每天在吃喝玩乐中度过。记忆中的森林也是和现在呈现出一副不一样的光景，森林里每一棵树都像是一座碑塔，高耸入天，甚有气势。可是记忆不过是一种虚无缥缈的存在，它的存在仅仅是为了弥补时间的缺憾，好让我们在之后的漫长岁月里，多一个念想。</p>
+<p>兔子吃草很快，太阳抿嘴一笑的功夫，刷刷刷的就能把一大块区域的草地全部啃光。</p>
+<p>等到太阳再大一些的时候，兔子便会离开草地，一蹦一跳的融入周围的灌木丛。</p>
+<p>日子就这样一天一天的过去，小熊总算是吃完了去年掏的一整罐蜂蜜，门口草地上的草却每天都一个样。</p>
+<p>渐渐地，小熊忘记自己第一次见到兔子是什么时候了，他也从来没有和她说过话，甚至都没有从她的身边经过过。直到有一天，小熊发现兔子变了，她的毛发不再是黯淡无光转身就能融入灌木丛的灰色了，兔子披上了雪白的外衣，时不时还在阳光下露出漫长等待后的一丝闪光。</p>
+<p>凛冬已至。</p>
+<p>地球用了6亿年才诞生生命，然而小熊只用了一个冬眠的时间就决定鼓起勇气和兔子打招呼了。</p>
+<p>春天早早的就到来了，期待中的兔子却迟迟没有出现。小熊并没有放弃，就像相信阿基里斯一定能追上乌龟一般相信兔子一定会再来自己家门前的这块肥美草地吃草的。</p>
+<p>这段时间里，小熊每天都把自己安排的井井有条。</p>
+<p>☑ : 早起跑步<br>☑ : 去河边钓鱼<br>☑ : 看望妈妈并带上一罐蜂蜜<br>☐ : 睡觉前看完一本书</p>
+<p>就在春天的尾巴即将消失的时候，期待已久的画面终于到来了。</p>
+<p>这天和往常一样，小熊早早的起床准备一天的行程，但是当他看见草地上那个熟悉的灰色身影的时候，心里先是咯噔了一下，然后终于鼓足了勇气，向兔子问了声好。</p>
+<p>“你好哇兔子小姐”</p>
+<p>“HelloWorld!小熊先生”</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/01/随笔_见到你真高兴/" class="archive-article-date">
+  	<time datetime="2016-10-01T15:44:42.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-01</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-python数据结构算法一一排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -354,7 +673,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 16.67px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 16.67px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 10px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
