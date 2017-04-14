@@ -7,24 +7,30 @@
   <title>深入 Lua Garbage Collector(一) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="看到一个Bob Nystrom写的C语言实现的Garbage Collector
-[Baby’s First Garbage Collector]（http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）中文版戳
+Baby’s First Garbage Collector中文版戳
 借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
-##C Garbage Collec">
+Garbage Collector算法小结
+C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
+###">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Lua Garbage Collector(一)">
 <meta property="og:url" content="http://yoursite.com/2017/04/13/深入 Lua Garbage Collector(一)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="看到一个Bob Nystrom写的C语言实现的Garbage Collector
-[Baby’s First Garbage Collector]（http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）中文版戳
+Baby’s First Garbage Collector中文版戳
 借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
-##C Garbage Collec">
-<meta property="og:updated_time" content="2017-04-13T06:41:25.000Z">
+Garbage Collector算法小结
+C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
+###">
+<meta property="og:updated_time" content="2017-04-14T02:08:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(一)">
 <meta name="twitter:description" content="看到一个Bob Nystrom写的C语言实现的Garbage Collector
-[Baby’s First Garbage Collector]（http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）中文版戳
+Baby’s First Garbage Collector中文版戳
 借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
-##C Garbage Collec">
+Garbage Collector算法小结
+C Garbage Collector首先还是先来看看这个C的基本的垃圾回收器
+###">
   
   
     <link rel="icon" href="//favicon.png">
@@ -162,10 +168,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p></p><p><br>看到一个Bob Nystrom写的C语言实现的Garbage Collector</p>
-<p>[Baby’s First Garbage Collector]（<a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）" target="_blank" rel="external">http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/）</a><br><a href="https://segmentfault.com/a/1190000000364507" target="_blank" rel="external">中文版戳</a></p>
+<p><a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="external">Baby’s First Garbage Collector</a><br><a href="https://segmentfault.com/a/1190000000364507" target="_blank" rel="external">中文版戳</a></p>
 <p>借着这个小程序顺便深入地了解一下Lua的垃圾回收机制</p>
-<p>##C Garbage Collector</p>
-<p>首先还是先来看看这个C的基本的垃圾回收器</p>
+<h2 id="Garbage-Collector算法小结"><a href="#Garbage-Collector算法小结" class="headerlink" title="Garbage Collector算法小结"></a>Garbage Collector算法小结</h2><p><a href="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg" target="_blank" rel="external"></a></p>
+<h2 id="C-Garbage-Collector"><a href="#C-Garbage-Collector" class="headerlink" title="C Garbage Collector"></a>C Garbage Collector</h2><p>首先还是先来看看这个C的基本的垃圾回收器</p>
 <p>###</p>
 
       
@@ -327,7 +333,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 16.67px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 16.67px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 10px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 13.33px;">c</a> <a href="/tags/c-11/" style="font-size: 20px;">c++11</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
