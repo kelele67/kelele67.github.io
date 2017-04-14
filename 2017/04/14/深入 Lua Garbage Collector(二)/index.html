@@ -20,7 +20,7 @@ collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内�
 collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
 
 collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 102">
-<meta property="og:updated_time" content="2017-04-14T03:00:38.000Z">
+<meta property="og:updated_time" content="2017-04-14T07:44:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(二)">
 <meta name="twitter:description" content="Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
@@ -174,7 +174,7 @@ collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内�
 </li>
 <li><p>collectgarbage(“restart”): 重启垃圾收集器的自动运行。</p>
 </li>
-<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 （参见 §2.5）。 返回 间歇率 的前一个值。</p>
+<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 。 返回 间歇率 的前一个值。</p>
 </li>
 <li><p>collectgarbage(“setstepmul”): 返回 步进倍率 的前一个值。</p>
 </li>

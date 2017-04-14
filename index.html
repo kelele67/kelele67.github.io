@@ -163,7 +163,7 @@
 </li>
 <li><p>collectgarbage(“restart”): 重启垃圾收集器的自动运行。</p>
 </li>
-<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 （参见 §2.5）。 返回 间歇率 的前一个值。</p>
+<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 。 返回 间歇率 的前一个值。</p>
 </li>
 <li><p>collectgarbage(“setstepmul”): 返回 步进倍率 的前一个值。</p>
 </li>
@@ -280,9 +280,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p></p><p><br>看到一个Bob Nystrom写的C语言实现的Garbage Collector</p>
-<p><a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="external">Baby’s First Garbage Collector</a><br><a href="https://segmentfault.com/a/1190000000364507" target="_blank" rel="external">中文版戳</a></p>
+<p><a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="external">Baby’s First Garbage Collector</a></p>
 <p>借着这个小程序顺便深入地了解一下Lua的垃圾回收机制</p>
-<h2 id="Garbage-Collector算法小结"><a href="#Garbage-Collector算法小结" class="headerlink" title="Garbage Collector算法小结"></a>Garbage Collector算法小结</h2><p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg" alt=""></p>
+<h2 id="Garbage-Collector算法小结"><a href="#Garbage-Collector算法小结" class="headerlink" title="Garbage Collector算法小结"></a>Garbage Collector算法小结</h2><p>这是之前做的一点小笔记：</p>
+<p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg" alt=""></p>
 <h2 id="C-Garbage-Collector"><a href="#C-Garbage-Collector" class="headerlink" title="C Garbage Collector"></a>C Garbage Collector</h2><p>首先还是先来看看这个C的基本的垃圾回收器</p>
 <h3 id="采用的算法"><a href="#采用的算法" class="headerlink" title="采用的算法"></a>采用的算法</h3><p>用的是经典的 Mark &amp; Sweep 算法</p>
 <p>在上面的笔记里面已经介绍的很清楚了</p>
@@ -294,7 +295,7 @@
 </li>
 </ol>
 <h3 id="对象对"><a href="#对象对" class="headerlink" title="对象对"></a>对象对</h3><p>要想清理垃圾，首先我们得制造点垃圾出来</p>
-<p>首先假装我们正在为一种简单的语言编写一个解释器。它是动态的类型并且有两种类型的变量：int 和 pair。 下面是用枚举来标示一个对象的类型：</p>
+<p>所以假设我们正在为一种简单的语言编写一个解释器。它是动态的类型并且有两种类型的变量：int 和 pair。 下面是用枚举来标示一个对象的类型：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// pair : 任何一对东西</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</div><div class="line">    OBJ_INT,</div><div class="line">    OBJ_PAIR</div><div class="line">&#125; ObjectType;</div><div class="line"></div><div class="line"><span class="comment">// 因为一个对象在虚拟机中可以是这两个当中的任意一种类型，所以在C中用tagged union 来实现对象</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> sObject &#123;</div><div class="line">    <span class="comment">//表示对象类型：pair or int</span></div><div class="line">    ObjectType type;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> marked;</div><div class="line"></div><div class="line">    <span class="comment">//仅维持一张由所有分配过(内存)的对象(组成)的链表。</span></div><div class="line">    <span class="keyword">struct</span> sObject*next;</div><div class="line"></div><div class="line">    <span class="comment">//union持有这个数据</span></div><div class="line">    <span class="comment">//union就是一个结构体，它将字段重叠在内存中</span></div><div class="line">    <span class="keyword">union</span> &#123;</div><div class="line">        <span class="keyword">int</span> value;</div><div class="line"></div><div class="line">        <span class="keyword">struct</span> &#123;</div><div class="line">            <span class="keyword">struct</span> sObject* head;</div><div class="line">            <span class="keyword">struct</span> sObject* tail;</div><div class="line">        &#125;;</div><div class="line">    &#125;;</div><div class="line">&#125; Object;</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="小虚拟机"><a href="#小虚拟机" class="headerlink" title="小虚拟机"></a>小虚拟机</h3><p>虚拟机要么基于栈(JVM, CLR)，要么基于寄存器(Lua)，其实本质上说都是基于栈的，它用来保存一个表达式中间需要用到的临时变量和局部变量</p>
