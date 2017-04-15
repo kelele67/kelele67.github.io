@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Linux mount 学习(一) | 树犹如此|人何以堪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Linux mount介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。
+基本用法
+mount -t type -o options device dir
+
+
+device: 要挂载的设备
+
+dir: 挂载到哪个目录
+
+
+挂载 loop deviceISO文件
+需要用到loop device的最常见的场景是mount一个ISO文件，示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux mount 学习(一)">
+<meta property="og:url" content="http://yoursite.com/2017/01/15/Linux mount (一)/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="Linux mount介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。
+基本用法
+mount -t type -o options device dir
+
+
+device: 要挂载的设备
+
+dir: 挂载到哪个目录
+
+
+挂载 loop deviceISO文件
+需要用到loop device的最常见的场景是mount一个ISO文件，示例">
+<meta property="og:updated_time" content="2017-04-15T12:14:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux mount 学习(一)">
+<meta name="twitter:description" content="Linux mount介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。
+基本用法
+mount -t type -o options device dir
+
+
+device: 要挂载的设备
+
+dir: 挂载到哪个目录
+
+
+挂载 loop deviceISO文件
+需要用到loop device的最常见的场景是mount一个ISO文件，示例">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">kelele67</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">做一个富有的废物</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/about">关于本站</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">kelele67</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">kelele67</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">做一个富有的废物</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/about">关于本站</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="airticle-Linux mount (一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux mount 学习(一)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p></p>
+<h2 id="Linux-mount"><a href="#Linux-mount" class="headerlink" title="Linux mount"></a>Linux mount</h2><p>介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><blockquote>
+<p>mount -t type -o options device dir</p>
+</blockquote>
+<ul>
+<li><p>device: 要挂载的设备</p>
+</li>
+<li><p>dir: 挂载到哪个目录</p>
+</li>
+</ul>
+<h3 id="挂载-loop-device"><a href="#挂载-loop-device" class="headerlink" title="挂载 loop device"></a>挂载 loop device</h3><h4 id="ISO文件"><a href="#ISO文件" class="headerlink" title="ISO文件"></a>ISO文件</h4><blockquote>
+<p>需要用到loop device的最常见的场景是mount一个ISO文件，示例如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#利用mkisofs构建一个用于测试的iso文件</div><div class="line">kingand67@kelele67:~$ mkdir -p iso/subdir01</div><div class="line">kingand67@kelele67:~$ mkisofs -o ./test.iso ./iso</div><div class="line">I: -input-charset not specified, using utf-8 (detected in locale settings)</div><div class="line">Total translation table size: 0</div><div class="line">Total rockridge attributes bytes: 0</div><div class="line">Total directory bytes: 2048</div><div class="line">Path table size(bytes): 26</div><div class="line">Max brk space used 0</div><div class="line">175 extents written (0 MB)</div><div class="line"></div><div class="line"></div><div class="line">#mount ISO 到目录 /mnt</div><div class="line">kingand67@kelele67:~$ sudo mount ./test.iso /mnt</div><div class="line">mount: /dev/loop0 is write-protected, mounting read-only</div><div class="line"></div><div class="line">#mount成功，能看到里面的文件夹</div><div class="line">kingand67@kelele67:~$ ls /mnt</div><div class="line">subdir01</div><div class="line"></div><div class="line"></div><div class="line">#通过losetup命令可以看到占用了loop0设备</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/test.iso)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h4><blockquote>
+<p>loop device另一种常用的用法是虚拟一个硬盘，比如我想尝试下btrfs这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了，示例如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#因为btrfs对分区的大小有最小要求，所以利用dd命令创建一个128M的文件</div><div class="line">kingand67@kelele67:~$ dd if=/dev/zero bs=1M count=128 of=./vdisk.img</div><div class="line">128+0 records in</div><div class="line">128+0 records out</div><div class="line">134217728 bytes (134 MB, 128 MiB) copied, 0.116018 s, 1.2 GB/s</div><div class="line"></div><div class="line">#在这个文件里面创建btrfs文件系统</div><div class="line">#为了方便，我就把整个硬盘全部给btrfs文件系统</div><div class="line"></div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">The program &apos;mkfs.btrfs&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt install btrfs-tools</div><div class="line"></div><div class="line">#因为提示我们没有安装btrfs-tools，所以我们先安装</div><div class="line">kingand67@kelele67:~$ sudo apt install btrfs-tools</div><div class="line"></div><div class="line">#重新创建</div><div class="line">#输出了一些信息，提示创建成功</div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">btrfs-progs v4.4</div><div class="line">See http://btrfs.wiki.kernel.org for more information.</div><div class="line"></div><div class="line">Label:              (null)</div><div class="line">UUID:               67050364-6802-4ddd-adf0-257a0df7714c</div><div class="line">Node size:          16384</div><div class="line">Sector size:        4096</div><div class="line">Filesystem size:    128.00MiB</div><div class="line">Block group profiles:</div><div class="line">  Data:             single            8.00MiB</div><div class="line">  Metadata:         DUP              40.00MiB</div><div class="line">  System:           DUP              12.00MiB</div><div class="line">SSD detected:       no</div><div class="line">Incompat features:  extref, skinny-metadata</div><div class="line">Number of devices:  1</div><div class="line">Devices:</div><div class="line">   ID        SIZE  PATH</div><div class="line">    1   128.00MiB  ./vdisk.img</div><div class="line"></div><div class="line">#mount虚拟硬盘</div><div class="line">kingand67@kelele67:~$ sudo mount ./vdisk.img /mnt/</div><div class="line"></div><div class="line">#在虚拟硬盘中创建文件成功</div><div class="line">kingand67@kelele67:~$ sudo touch /mnt/aaaaaa</div><div class="line">kingand67@kelele67:~$ ls /mnt/</div><div class="line">aaaaaa</div><div class="line"></div><div class="line">#查看我们的loop device</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/vdisk.img)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="挂载多个设备到一个文件夹"><a href="#挂载多个设备到一个文件夹" class="headerlink" title="挂载多个设备到一个文件夹"></a>挂载多个设备到一个文件夹</h4><blockquote>
+<p>在上面的例子中，将test.iso和vdisk.img都mount到了/mnt目录下，这个在Linux下是支持的，默认会用后面的mount覆盖掉前面的mount，只有当umount后面的device后，原来的device才看的到。</p>
+</blockquote>
+<h4 id="挂载一个设备到多个目录"><a href="#挂载一个设备到多个目录" class="headerlink" title="挂载一个设备到多个目录"></a>挂载一个设备到多个目录</h4><blockquote>
+<p>当然我们也可以把一个设备mount到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
+</blockquote>
+<h4 id="bind-mount"><a href="#bind-mount" class="headerlink" title="bind mount"></a>bind mount</h4><blockquote>
+<p>bind mount功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转Linux的必备技能</p>
+</blockquote>
+<p>①基本功能</p>
+<blockquote>
+<p>bind mount会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#准备要用到的目录</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind1/sub1</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind2/sub2</div><div class="line"></div><div class="line"></div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">└── bind2</div><div class="line">    └── sub2</div><div class="line"></div><div class="line">4 directories, 0 files</div><div class="line"></div><div class="line">#bind mount后，bind2里面显示的就是bind1目录的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line"></div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
+<hr>
+<p>②readonly bind</p>
+<blockquote>
+<p>我们可以在bind的时候指定readonly，这样原来的目录还是能读写，但目的目录为只读</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">#通过readonly的方式bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       </div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line"></div><div class="line">4 directories, 0 files</div><div class="line"></div><div class="line">#bind2目录为只读，没法touch里面的文件</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind2/sub1/aaa</div><div class="line">touch: cannot touch &apos;./bind/bind2/sub1/aaa&apos;: Read-only file system</div><div class="line"></div><div class="line">#bind1还是能读写</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div><div class="line"></div><div class="line">#我们可以在bind1和bind2目录下看到刚创建的文件</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       └── aaa</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line">        └── aaa</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>如果我们想让当前目录readonly，那么可以bind自己，并且指定readonly参数：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#bind mount并且指定readonly</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind1</div><div class="line"></div><div class="line">#创建新文件失败</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div><div class="line">touch: cannot touch &apos;./bind/bind1/sub1/aaa&apos;: Read-only file system</div><div class="line"></div><div class="line">#umount之后，文件夹恢复到原来的读写权限</div><div class="line">kingand67@kelele67:~$ sudo umount ./bind/bind1/</div><div class="line"></div><div class="line">##touch文件成功</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div></pre></td></tr></table></figure>
+<hr>
+<p>③bind mount单个文件</p>
+<blockquote>
+<p>我们也可以bind mount单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#创建两个用于测试的文件</div><div class="line">kingand67@kelele67:~$ echo aaaaaa &gt; bind/aa</div><div class="line">kingand67@kelele67:~$ echo bbbbbb &gt; bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/aa</div><div class="line">aaaaaa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div><div class="line"></div><div class="line">#bind mount后，bb里面看到的是aa的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/aa bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">aaaaaa</div><div class="line"></div><div class="line">#即使我们删除aa文件，我们还是能够通过bb看到aa里面的内容</div><div class="line">kingand67@kelele67:~$ rm bind/aa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">aaaaaa</div><div class="line"></div><div class="line"></div><div class="line">#umount bb文件后，bb的内容出现了，不过aa的内容再也找不到了</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div></pre></td></tr></table></figure>
+<hr>
+<p>④move一个挂载点到另一个地方</p>
+<blockquote>
+<p>move操作可以将一个挂载点移动到别的地方，这里以bind mount为例来演示，当然其他类型的挂载点也可以通过move操作来移动。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">#umount上面操作所产生的挂载点</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bind1</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bind2</div><div class="line"></div><div class="line">#bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/bind1/ ./bind/bind2/</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind*</div><div class="line">./bind/bind1:</div><div class="line">sub1</div><div class="line"></div><div class="line">./bind/bind2:</div><div class="line">sub1</div><div class="line"></div><div class="line">#move操作要求mount point的父mount point不能为shared。</div><div class="line">#在这里./bind/bind2/的父mount point为&apos;/&apos;，所以需要将&apos;/&apos;变成private后才能做move操作</div><div class="line">#关于shared、private的含义将会在下一篇介绍</div><div class="line">kingand67@kelele67:~$ findmnt -o TARGET,PROPAGATION /</div><div class="line">TARGET PROPAGATION</div><div class="line">/      shared</div><div class="line">kingand67@kelele67:~$ sudo mount --make-private /</div><div class="line">kingand67@kelele67:~$ findmnt -o TARGET,PROPAGATION /</div><div class="line">TARGET PROPAGATION</div><div class="line">/      private</div><div class="line"></div><div class="line">#move成功，在mnt下能看到bind1里面的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --move ./bind/bind2/ /mnt</div><div class="line">kingand67@kelele67:~$ ls /mnt/</div><div class="line">sub1</div><div class="line"></div><div class="line">#由于bind2上的挂载点已经被移动到了/mnt上，于是能看到bind2目录下原来的文件了</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind2/</div><div class="line">sub2</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的mount操作，尤其是bind mount，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍mount相关的“Shared subtrees”</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000006878392" target="_blank" rel="external">Linux mount （第一部分）</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/01/15/Linux mount (一)/" class="archive-article-date">
+  	<time datetime="2017-01-15T05:05:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-15</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mount/">mount</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/02/13/C++11 并发学习(一)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++11 并发学习(一)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/14/浅析Linux初始化init系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅析Linux初始化init系统</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Linux mount (一)" data-title="Linux mount 学习(一)" data-url="http://yoursite.com/2017/01/15/Linux mount (一)/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"38d12c42fae50816089820c1b93c4785"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 kelele67
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+<script type="text/javascript">
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260501136'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260501136%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div class=&quot;text&quot; style=&quot; text-align:center;&quot;&gt;大三学生&lt;br&gt;就读于重庆大学 软件狗&lt;br&gt;&lt;br&gt; 喜欢python&lt;br&gt;自由的灵魂&lt;br&gt;&lt;br&gt;世界万物都是隐喻&lt;br&gt;我们是通过隐喻这个装置接受反讽&lt;br&gt;加深扩大自己&lt;/div&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
