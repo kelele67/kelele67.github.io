@@ -450,7 +450,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/14/C++11 并发学习(四)/">C++11 并发学习(三)</a>
+      <a class="article-title" href="/2017/02/14/C++11 并发学习(四)/">C++11 并发学习(四)</a>
     </h1>
   
 
@@ -1001,9 +1001,8 @@
 </li>
 <li><p>service ：代表一个后台服务进程，比如 mysqld。这是最常用的一类。</p>
 </li>
-</ul>
-<p>*socket ：此类配置单元封装系统和互联网中的一个 套接字 。当下，systemd 支持流式、数据报和连续包的 AF_INET、AF_INET6、AF_UNIX socket 。每一个套接字配置单元都有一个相应的服务配置单元 。相应的服务在第一个”连接”进入套接字时就会启动(例如：nscd.socket 在有新连接后便启动 nscd.service)。</p>
-<ul>
+<li><p>socket ：此类配置单元封装系统和互联网中的一个 套接字 。当下，systemd 支持流式、数据报和连续包的 AF_INET、AF_INET6、AF_UNIX socket 。每一个套接字配置单元都有一个相应的服务配置单元 。相应的服务在第一个”连接”进入套接字时就会启动(例如：nscd.socket 在有新连接后便启动 nscd.service)。</p>
+</li>
 <li><p>device ：此类配置单元封装一个存在于 Linux 设备树中的设备。每一个使用 udev 规则标记的设备都将会在 systemd 中作为一个设备配置单元出现。</p>
 </li>
 <li><p>mount ：此类配置单元封装文件系统结构层次中的一个挂载点。Systemd 将对这个挂载点进行监控和管理。比如可以在启动时自动将其挂载；可以在某些条件下自动卸载。Systemd 会将/etc/fstab 中的条目都转换为挂载点，并在开机时处理。</p>
