@@ -7,36 +7,36 @@
   <title>浅析Linux初始化init系统 | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="第一部分 sysvinit什么是sysvinit
-sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。
+sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX 。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。
 
 总结优点：
 
 概念简单。
 
-确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一个">
+确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析Linux初始化init系统">
 <meta property="og:url" content="http://yoursite.com/2017/01/14/浅析Linux初始化init系统/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="第一部分 sysvinit什么是sysvinit
-sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。
+sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX 。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。
 
 总结优点：
 
 概念简单。
 
-确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一个">
-<meta property="og:updated_time" content="2017-04-15T12:30:15.000Z">
+确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一">
+<meta property="og:updated_time" content="2017-04-17T08:48:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析Linux初始化init系统">
 <meta name="twitter:description" content="第一部分 sysvinit什么是sysvinit
-sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。
+sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX 。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。
 
 总结优点：
 
 概念简单。
 
-确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一个">
+确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一">
   
   
     <link rel="icon" href="//favicon.png">
@@ -176,7 +176,7 @@ sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System
         <p>
 
 </p><h2 id="第一部分-sysvinit"><a href="#第一部分-sysvinit" class="headerlink" title="第一部分 sysvinit"></a>第一部分 sysvinit</h2><h3 id="什么是sysvinit"><a href="#什么是sysvinit" class="headerlink" title="什么是sysvinit"></a>什么是sysvinit</h3><blockquote>
-<p>sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System V 系列 UNIX。它提供了比 BSD 风格 init 系统更高的灵活性。是已经风行了几十年的 UNIX init 系统，一直被各类 Linux 发行版所采用。</p>
+<p><strong>sysvinit</strong> 就是 <strong>system V</strong> 风格的 <strong>init</strong> 系统，顾名思义，它源于 <strong>System V</strong> 系列 <strong>UNIX</strong> 。它提供了比 <strong>BSD</strong> 风格 <strong>init</strong> 系统更高的灵活性。是已经风行了几十年的 <strong>UNIX init</strong> 系统，一直被各类 <strong>Linux</strong> 发行版所采用。</p>
 </blockquote>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优点：</p>
 <ul>
@@ -187,18 +187,18 @@ sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System
 </ul>
 <p>缺点：</p>
 <ul>
-<li><p>UpStart 和 systemd 支持并发启动，导致没有人可以确定地了解具体的启动顺序，排错不易。</p>
+<li><p><strong>UpStart</strong> 和 <strong>systemd</strong> 支持并发启动，导致没有人可以确定地了解具体的启动顺序，排错不易。</p>
 </li>
-<li><p>但是串行地执行脚本导致 sysvinit 运行效率较慢，在新的 IT 环境下，启动快慢成为一个重要问题。此外动态设备加载等 Linux 新特性也暴露出 sysvinit 设计的一些问题。</p>
+<li><p>但是串行地执行脚本导致 <strong>sysvinit</strong> 运行效率较慢，在新的 <strong>IT</strong> 环境下，启动快慢成为一个重要问题。此外动态设备加载等 <strong>Linux</strong> 新特性也暴露出 <strong>sysvinit</strong> 设计的一些问题。</p>
 </li>
 </ul>
-<p>Upstart 是第一个被广泛应用的新一代 init 系统。我们在接下来的第二部分介绍 UpStart</p>
-<h2 id="第二部分-UpStart"><a href="#第二部分-UpStart" class="headerlink" title="第二部分 UpStart"></a>第二部分 UpStart</h2><h3 id="什么是-UpStart"><a href="#什么是-UpStart" class="headerlink" title="什么是 UpStart"></a>什么是 UpStart</h3><p>假如您使用的 Linux 发行版是 Ubuntu，很可能会发现在您的计算机上找不到/etc/inittab 文件了，这是因为 Ubuntu 使用了一种被称为 upstart 的新型 init 系统。</p>
-<h3 id="为什么使用-UpStart"><a href="#为什么使用-UpStart" class="headerlink" title="为什么使用 UpStart"></a>为什么使用 UpStart</h3><p>随着不断的发展，人们发现经典的 sysvinit 已经不适合笔记本环境。</p>
+<p><strong>Upstart</strong> 是第一个被广泛应用的新一代 <strong>init</strong> 系统。我们在接下来的第二部分介绍 <strong>UpStart</strong></p>
+<h2 id="第二部分-UpStart"><a href="#第二部分-UpStart" class="headerlink" title="第二部分 UpStart"></a>第二部分 UpStart</h2><h3 id="什么是-UpStart"><a href="#什么是-UpStart" class="headerlink" title="什么是 UpStart"></a>什么是 UpStart</h3><p>假如您使用的 <strong>Linux</strong> 发行版是 <strong>Ubuntu</strong> ，很可能会发现在您的计算机上找不到 <strong>/etc/inittab</strong> 文件了，这是因为 <strong>Ubuntu</strong> 使用了一种被称为 <strong>upstart</strong> 的新型 <strong>init</strong> 系统。</p>
+<h3 id="为什么使用-UpStart"><a href="#为什么使用-UpStart" class="headerlink" title="为什么使用 UpStart"></a>为什么使用 UpStart</h3><p>随着不断的发展，人们发现经典的 <strong>sysvinit</strong> 已经不适合笔记本环境。</p>
 <p>原因在于：</p>
 <p>桌面系统或便携式设备的一个特点是经常重启，而且要频繁地使用硬件热插拔技术。</p>
-<p>Sysvinit 没有办法处理这类需求，它必须一次性把所有可能用到的服务都启动起来，即便是需要被初始化的设备并没有连接到系统上，CUPS 服务也必须启动。</p>
-<h3 id="UpStart优势"><a href="#UpStart优势" class="headerlink" title="UpStart优势"></a>UpStart优势</h3><p>UpStart 解决了之前提到的 sysvinit 的缺点。采用事件驱动模型，UpStart 可以：</p>
+<p><strong>Sysvinit</strong> 没有办法处理这类需求，它必须一次性把所有可能用到的服务都启动起来，即便是需要被初始化的设备并没有连接到系统上，<strong>CUPS</strong> 服务也必须启动。</p>
+<h3 id="UpStart优势"><a href="#UpStart优势" class="headerlink" title="UpStart优势"></a>UpStart优势</h3><p><strong>UpStart</strong> 解决了之前提到的 <strong>sysvinit</strong> 的缺点。采用事件驱动模型，<strong>UpStart</strong> 可以：</p>
 <ul>
 <li><p>更快地启动系统</p>
 </li>
@@ -208,16 +208,16 @@ sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System
 </li>
 </ul>
 <h3 id="UpStart命令"><a href="#UpStart命令" class="headerlink" title="UpStart命令"></a>UpStart命令</h3><ul>
-<li>可以用 initctl list 来查看所有工作的概况：</li>
+<li>可以用 <strong>initctl list</strong> 来查看所有工作的概况：</li>
 </ul>
-<h3 id="UpStart小结"><a href="#UpStart小结" class="headerlink" title="UpStart小结"></a>UpStart小结</h3><p>可以看到，UpStart 的设计比 SysVInit 更加先进。多数 Linux 发行版上已经不再使用 SysVInit，一部分发行版采用了 UpStart，比如 Ubuntu（Ubuntu16.04改用systemd）；而另外一些比如 Fedora，采用了一种被称为 systemd 的 init 系统。接下来我们再介绍 systemd。</p>
-<h2 id="第三部分-Systemd"><a href="#第三部分-Systemd" class="headerlink" title="第三部分 Systemd"></a>第三部分 Systemd</h2><h3 id="什么是-Systemd"><a href="#什么是-Systemd" class="headerlink" title="什么是 Systemd"></a>什么是 Systemd</h3><p>Systemd 是 Linux 系统中最新的初始化系统（init），它主要的设计目标是克服 sysvinit 固有的缺点，提高系统的启动速度。</p>
-<p>Systemd 的很多概念来源于苹果 Mac OS 操作系统上的 launchd</p>
+<h3 id="UpStart小结"><a href="#UpStart小结" class="headerlink" title="UpStart小结"></a>UpStart小结</h3><p>可以看到，<strong>UpStart</strong> 的设计比 <strong>SysVInit</strong> 更加先进。多数 <strong>Linux</strong> 发行版上已经不再使用 <strong>SysVInit</strong> ，一部分发行版采用了 <strong>UpStart</strong> ，比如 <strong>Ubuntu</strong>（Ubuntu16.04改用systemd）；而另外一些比如 <strong>Fedora</strong> ，采用了一种被称为 <strong>systemd</strong> 的 <strong>init</strong> 系统。接下来我们再介绍 <strong>systemd</strong> 。</p>
+<h2 id="第三部分-Systemd"><a href="#第三部分-Systemd" class="headerlink" title="第三部分 Systemd"></a>第三部分 Systemd</h2><h3 id="什么是-Systemd"><a href="#什么是-Systemd" class="headerlink" title="什么是 Systemd"></a>什么是 Systemd</h3><p><strong>Systemd</strong> 是 <strong>Linux</strong> 系统中最新的初始化系统（init），它主要的设计目标是克服 <strong>sysvinit</strong> 固有的缺点，提高系统的启动速度。</p>
+<p><strong>Systemd</strong> 的很多概念来源于苹果 <strong>Mac OS</strong> 操作系统上的 <strong>launchd</strong></p>
 <p>由于是最新的，所以我们着重了解一下</p>
 <h3 id="systemd-特性"><a href="#systemd-特性" class="headerlink" title="systemd 特性"></a>systemd 特性</h3><ul>
-<li><p>systemd 提供按需启动能力</p>
+<li><p><strong>systemd</strong> 提供按需启动能力</p>
 </li>
-<li><p>Systemd 采用 Linux 的 Cgroup 特性跟踪和管理进程的生命周期</p>
+<li><p><strong>Systemd</strong> 采用 <strong>Linux</strong> 的 <strong>Cgroup</strong> 特性跟踪和管理进程的生命周期</p>
 </li>
 <li><p>启动挂载点和自动挂载的管理</p>
 </li>
@@ -229,39 +229,39 @@ sysvinit 就是 system V 风格的 init 系统，顾名思义，它源于 System
 </li>
 </ul>
 <h3 id="Systemd-的基本概念"><a href="#Systemd-的基本概念" class="headerlink" title="Systemd 的基本概念"></a>Systemd 的基本概念</h3><ul>
-<li><p>单元的概念<br>系统初始化需要做的事情非常多。需要启动后台服务，比如启动 SSHD 服务；需要做配置工作，比如挂载文件系统。这个过程中的每一步都被 systemd 抽象为一个配置单元，即 unit。可以认为一个服务是一个配置单元；一个挂载点是一个配置单元；一个交换分区的配置是一个配置单元；等等。</p>
+<li><p>单元的概念<br>系统初始化需要做的事情非常多。需要启动后台服务，比如启动 <strong>SSHD</strong> 服务；需要做配置工作，比如挂载文件系统。这个过程中的每一步都被 <strong>systemd</strong> 抽象为一个配置单元，即 <strong>unit</strong> 。可以认为一个服务是一个配置单元；一个挂载点是一个配置单元；一个交换分区的配置是一个配置单元；等等。</p>
 </li>
-<li><p>service ：代表一个后台服务进程，比如 mysqld。这是最常用的一类。</p>
+<li><p>service ：代表一个后台服务进程，比如 <strong>mysqld</strong> 。这是最常用的一类。</p>
 </li>
 <li><p>socket ：此类配置单元封装系统和互联网中的一个 套接字 。当下，systemd 支持流式、数据报和连续包的 AF_INET、AF_INET6、AF_UNIX socket 。每一个套接字配置单元都有一个相应的服务配置单元 。相应的服务在第一个”连接”进入套接字时就会启动(例如：nscd.socket 在有新连接后便启动 nscd.service)。</p>
 </li>
-<li><p>device ：此类配置单元封装一个存在于 Linux 设备树中的设备。每一个使用 udev 规则标记的设备都将会在 systemd 中作为一个设备配置单元出现。</p>
+<li><p>device ：此类配置单元封装一个存在于 <strong>Linux</strong> 设备树中的设备。每一个使用 <strong>udev</strong> 规则标记的设备都将会在 <strong>systemd</strong> 中作为一个设备配置单元出现。</p>
 </li>
-<li><p>mount ：此类配置单元封装文件系统结构层次中的一个挂载点。Systemd 将对这个挂载点进行监控和管理。比如可以在启动时自动将其挂载；可以在某些条件下自动卸载。Systemd 会将/etc/fstab 中的条目都转换为挂载点，并在开机时处理。</p>
+<li><p>mount ：此类配置单元封装文件系统结构层次中的一个挂载点。 <strong>Systemd</strong> 将对这个挂载点进行监控和管理。比如可以在启动时自动将其挂载；可以在某些条件下自动卸载。<strong>Systemd</strong> 会将 <strong>/etc/fstab</strong> 中的条目都转换为挂载点，并在开机时处理。</p>
 </li>
-<li><p>automount ：此类配置单元封装系统结构层次中的一个自挂载点。每一个自挂载配置单元对应一个挂载配置单元 ，当该自动挂载点被访问时，systemd 执行挂载点中定义的挂载行为。</p>
+<li><p>automount ：此类配置单元封装系统结构层次中的一个自挂载点。每一个自挂载配置单元对应一个挂载配置单元 ，当该自动挂载点被访问时，<strong>systemd</strong> 执行挂载点中定义的挂载行为。</p>
 </li>
 <li><p>swap: 和挂载配置单元类似，交换配置单元用来管理交换分区。用户可以用交换配置单元来定义系统中的交换分区，可以让这些交换分区在启动时被激活。</p>
 </li>
 <li><p>target ：此类配置单元为其他配置单元进行逻辑分组。它们本身实际上并不做什么，只是引用其他配置单元而已。这样便可以对配置单元做一个统一的控制。这样就可以实现大家都已经非常熟悉的运行级别概念。</p>
 </li>
-<li><p>timer：定时器配置单元用来定时触发用户定义的操作，这类配置单元取代了 atd、crond 等传统的定时服务。</p>
+<li><p>timer：定时器配置单元用来定时触发用户定义的操作，这类配置单元取代了 <strong>atd</strong> 、 <strong>crond</strong> 等传统的定时服务。</p>
 </li>
-<li><p>snapshot ：与 target 配置单元相似，快照是一组配置单元。它保存了系统当前的运行状态。</p>
+<li><p>snapshot ：与 <strong>target</strong> 配置单元相似，快照是一组配置单元。它保存了系统当前的运行状态。</p>
 </li>
 </ul>
-<h3 id="Systemd-的并发启动原理"><a href="#Systemd-的并发启动原理" class="headerlink" title="Systemd 的并发启动原理"></a>Systemd 的并发启动原理</h3><p>如前所述，在 Systemd 中，所有的服务都并发启动，比如 Avahi、D-Bus、livirtd、X11、HAL 可以同时启动。乍一看，这似乎有点儿问题，比如 Avahi 需要 syslog 的服务，Avahi 和 syslog 同时启动，假设 Avahi 的启动比较快，所以 syslog 还没有准备好，可是 Avahi 又需要记录日志，这岂不是会出现问题？<br>Systemd 的开发人员仔细研究了服务之间相互依赖的本质问题，发现所谓依赖可以分为三个具体的类型，而每一个类型实际上都可以通过相应的技术解除依赖关系。</p>
-<h4 id="并发启动原理之一：解决-socket-依赖"><a href="#并发启动原理之一：解决-socket-依赖" class="headerlink" title="并发启动原理之一：解决 socket 依赖"></a>并发启动原理之一：解决 socket 依赖</h4><p>绝大多数的服务依赖是套接字依赖。比如服务 A 通过一个套接字端口 S1 提供自己的服务，其他的服务如果需要服务 A，则需要连接 S1。因此如果服务 A 尚未启动，S1 就不存在，其他的服务就会得到启动错误。所以传统地，人们需要先启动服务 A，等待它进入就绪状态，再启动其他需要它的服务。Systemd 认为，只要我们预先把 S1 建立好，那么其他所有的服务就可以同时启动而无需等待服务 A 来创建 S1 了。如果服务 A 尚未启动，那么其他进程向 S1 发送的服务请求实际上会被 Linux 操作系统缓存，其他进程会在这个请求的地方等待。一旦服务 A 启动就绪，就可以立即处理缓存的请求，一切都开始正常运行。<br>那么服务如何使用由 init 进程创建的套接字呢？<br>Linux 操作系统有一个特性，当进程调用 fork 或者 exec 创建子进程之后，所有在父进程中被打开的文件句柄 (file descriptor) 都被子进程所继承。套接字也是一种文件句柄，进程 A 可以创建一个套接字，此后当进程 A 调用 exec 启动一个新的子进程时，只要确保该套接字的 close_on_exec 标志位被清空，那么新的子进程就可以继承这个套接字。子进程看到的套接字和父进程创建的套接字是同一个系统套接字，就仿佛这个套接字是子进程自己创建的一样，没有任何区别。<br>这个特性以前被一个叫做 inetd 的系统服务所利用。Inetd 进程会负责监控一些常用套接字端口，比如 Telnet，当该端口有连接请求时，inetd 才启动 telnetd 进程，并把有连接的套接字传递给新的 telnetd 进程进行处理。这样，当系统没有 telnet 客户端连接时，就不需要启动 telnetd 进程。Inetd 可以代理很多的网络服务，这样就可以节约很多的系统负载和内存资源，只有当有真正的连接请求时才启动相应服务，并把套接字传递给相应的服务进程。<br>和 inetd 类似，systemd 是所有其他进程的父进程，它可以先建立所有需要的套接字，然后在调用 exec 的时候将该套接字传递给新的服务进程，而新进程直接使用该套接字进行服务即可。</p>
-<h4 id="并发启动原理之二：解决-D-Bus-依赖"><a href="#并发启动原理之二：解决-D-Bus-依赖" class="headerlink" title="并发启动原理之二：解决 D-Bus 依赖"></a>并发启动原理之二：解决 D-Bus 依赖</h4><p>D-Bus 是 desktop-bus 的简称，是一个低延迟、低开销、高可用性的进程间通信机制。它越来越多地用于应用程序之间通信，也用于应用程序和操作系统内核之间的通信。很多现代的服务进程都使用D-Bus 取代套接字作为进程间通信机制，对外提供服务。比如简化 Linux 网络配置的 NetworkManager 服务就使用 D-Bus 和其他的应用程序或者服务进行交互：邮件客户端软件 evolution 可以通过 D-Bus 从 NetworkManager 服务获取网络状态的改变，以便做出相应的处理。<br>D-Bus 支持所谓”bus activation”功能。如果服务 A 需要使用服务 B 的 D-Bus 服务，而服务 B 并没有运行，则 D-Bus 可以在服务 A 请求服务 B 的 D-Bus 时自动启动服务 B。而服务 A 发出的请求会被 D-Bus 缓存，服务 A 会等待服务 B 启动就绪。利用这个特性，依赖 D-Bus 的服务就可以实现并行启动。</p>
+<h3 id="Systemd-的并发启动原理"><a href="#Systemd-的并发启动原理" class="headerlink" title="Systemd 的并发启动原理"></a>Systemd 的并发启动原理</h3><p>如前所述，在 <strong>Systemd</strong> 中，所有的服务都并发启动，比如 <strong>Avahi</strong> 、<strong>D-Bus</strong> 、<strong>livirtd</strong> 、<strong>X11</strong> 、<strong>HAL</strong> 可以同时启动。乍一看，这似乎有点儿问题，比如 <strong>Avahi</strong> 需要 <strong>syslog</strong> 的服务， <strong>Avahi</strong> 和 <strong>syslog</strong> 同时启动，假设 <strong>Avahi</strong> 的启动比较快，所以 <strong>syslog</strong> 还没有准备好，可是 <strong>Avahi</strong> 又需要记录日志，这岂不是会出现问题？<br><strong>Systemd</strong> 的开发人员仔细研究了服务之间相互依赖的本质问题，发现所谓依赖可以分为三个具体的类型，而每一个类型实际上都可以通过相应的技术解除依赖关系。</p>
+<h4 id="并发启动原理之一：解决-socket-依赖"><a href="#并发启动原理之一：解决-socket-依赖" class="headerlink" title="并发启动原理之一：解决 socket 依赖"></a>并发启动原理之一：解决 <strong>socket</strong> 依赖</h4><p>绝大多数的服务依赖是套接字依赖。比如服务 A 通过一个套接字端口 S1 提供自己的服务，其他的服务如果需要服务 A，则需要连接 S1。因此如果服务 A 尚未启动，S1 就不存在，其他的服务就会得到启动错误。所以传统地，人们需要先启动服务 A，等待它进入就绪状态，再启动其他需要它的服务。Systemd 认为，只要我们预先把 S1 建立好，那么其他所有的服务就可以同时启动而无需等待服务 A 来创建 S1 了。如果服务 A 尚未启动，那么其他进程向 S1 发送的服务请求实际上会被 Linux 操作系统缓存，其他进程会在这个请求的地方等待。一旦服务 A 启动就绪，就可以立即处理缓存的请求，一切都开始正常运行。<br>那么服务如何使用由 init 进程创建的套接字呢？<br>Linux 操作系统有一个特性，当进程调用 fork 或者 exec 创建子进程之后，所有在父进程中被打开的文件句柄 (file descriptor) 都被子进程所继承。套接字也是一种文件句柄，进程 A 可以创建一个套接字，此后当进程 A 调用 exec 启动一个新的子进程时，只要确保该套接字的 close_on_exec 标志位被清空，那么新的子进程就可以继承这个套接字。子进程看到的套接字和父进程创建的套接字是同一个系统套接字，就仿佛这个套接字是子进程自己创建的一样，没有任何区别。<br>这个特性以前被一个叫做 inetd 的系统服务所利用。Inetd 进程会负责监控一些常用套接字端口，比如 Telnet，当该端口有连接请求时，inetd 才启动 telnetd 进程，并把有连接的套接字传递给新的 telnetd 进程进行处理。这样，当系统没有 telnet 客户端连接时，就不需要启动 telnetd 进程。Inetd 可以代理很多的网络服务，这样就可以节约很多的系统负载和内存资源，只有当有真正的连接请求时才启动相应服务，并把套接字传递给相应的服务进程。<br>和 inetd 类似，systemd 是所有其他进程的父进程，它可以先建立所有需要的套接字，然后在调用 exec 的时候将该套接字传递给新的服务进程，而新进程直接使用该套接字进行服务即可。</p>
+<h4 id="并发启动原理之二：解决-D-Bus-依赖"><a href="#并发启动原理之二：解决-D-Bus-依赖" class="headerlink" title="并发启动原理之二：解决 D-Bus 依赖"></a>并发启动原理之二：解决 <strong>D-Bus</strong> 依赖</h4><p>D-Bus 是 desktop-bus 的简称，是一个低延迟、低开销、高可用性的进程间通信机制。它越来越多地用于应用程序之间通信，也用于应用程序和操作系统内核之间的通信。很多现代的服务进程都使用D-Bus 取代套接字作为进程间通信机制，对外提供服务。比如简化 Linux 网络配置的 NetworkManager 服务就使用 D-Bus 和其他的应用程序或者服务进行交互：邮件客户端软件 evolution 可以通过 D-Bus 从 NetworkManager 服务获取网络状态的改变，以便做出相应的处理。<br>D-Bus 支持所谓”bus activation”功能。如果服务 A 需要使用服务 B 的 D-Bus 服务，而服务 B 并没有运行，则 D-Bus 可以在服务 A 请求服务 B 的 D-Bus 时自动启动服务 B。而服务 A 发出的请求会被 D-Bus 缓存，服务 A 会等待服务 B 启动就绪。利用这个特性，依赖 D-Bus 的服务就可以实现并行启动。</p>
 <h4 id="并发启动原理之三：解决文件系统依赖"><a href="#并发启动原理之三：解决文件系统依赖" class="headerlink" title="并发启动原理之三：解决文件系统依赖"></a>并发启动原理之三：解决文件系统依赖</h4><p>系统启动过程中，文件系统相关的活动是最耗时的，比如挂载文件系统，对文件系统进行磁盘检查（fsck），磁盘配额检查等都是非常耗时的操作。在等待这些工作完成的同时，系统处于空闲状态。那些想使用文件系统的服务似乎必须等待文件系统初始化完成才可以启动。但是 systemd 发现这种依赖也是可以避免的。<br>Systemd 参考了 autofs 的设计思路，使得依赖文件系统的服务和文件系统本身初始化两者可以并发工作。autofs 可以监测到某个文件系统挂载点真正被访问到的时候才触发挂载操作，这是通过内核 automounter 模块的支持而实现的。比如一个 open()系统调用作用在”/misc/cd/file1”的时候，/misc/cd 尚未执行挂载操作，此时 open()调用被挂起等待，Linux 内核通知 autofs，autofs 执行挂载。这时候，控制权返回给 open()系统调用，并正常打开文件。<br>Systemd 集成了 autofs 的实现，对于系统中的挂载点，比如/home，当系统启动的时候，systemd 为其创建一个临时的自动挂载点。在这个时刻/home 真正的挂载设备尚未启动好，真正的挂载操作还没有执行，文件系统检测也还没有完成。可是那些依赖该目录的进程已经可以并发启动，他们的 open()操作被内建在 systemd 中的 autofs 捕获，将该 open()调用挂起（可中断睡眠状态）。然后等待真正的挂载操作完成，文件系统检测也完成后，systemd 将该自动挂载点替换为真正的挂载点，并让 open()调用返回。由此，实现了那些依赖于文件系统的服务和文件系统本身同时并发启动。<br>当然对于”/“根目录的依赖实际上一定还是要串行执行，因为 systemd 自己也存放在/之下，必须等待系统根目录挂载检查好。<br>不过对于类似/home 等挂载点，这种并发可以提高系统的启动速度，尤其是当/home 是远程的 NFS 节点，或者是加密盘等，需要耗费较长的时间才可以准备就绪的情况下，因为并发启动，这段时间内，系统并不是完全无事可做，而是可以利用这段空余时间做更多的启动进程的事情，总的来说就缩短了系统启动时间。</p>
 <h3 id="Systemd优点"><a href="#Systemd优点" class="headerlink" title="Systemd优点"></a>Systemd优点</h3><ul>
 <li><p>令人惊奇的激进的并发启动能力，极大地提高了系统启动速度</p>
 </li>
-<li><p>用 CGroup 统计跟踪子进程，干净可靠</p>
+<li><p>用 <strong>CGroup</strong> 统计跟踪子进程，干净可靠</p>
 </li>
 </ul>
-<p>此外，和其前任不同的地方在于，systemd 已经不仅仅是一个初始化系统了。<br>Systemd 出色地替代了 sysvinit 的所有功能，但它并未就此自满。因为 init 进程是系统所有进程的父进程这样的特殊性，systemd 非常适合提供曾经由其他服务提供的功能，比如定时任务 (以前由 crond 完成) ；会话管理 (以前由 ConsoleKit/PolKit 等管理) 。仅仅从本文皮毛一样的介绍来看，Systemd 已经管得很多了，可它还在不断发展。它将逐渐成为一个多功能的系统环境，能够处理非常多的系统管理任务，有人甚至将它看作一个操作系统。</p>
-<h3 id="扩展话题"><a href="#扩展话题" class="headerlink" title="扩展话题"></a>扩展话题</h3><p><a href="https://askubuntu.com/questions/1792/how-can-i-suspend-hibernate-from-command-line?cm_mc_uid=05938828085514744326348&amp;cm_mc_sid_50200000=1492191801" target="_blank" rel="external">如何让 ubuntu 系统休眠</a>，可以使用底层的/sys/power/state 接口，也可以使用诸如 pm-utility 等高层接口。</p>
+<p>此外，和其前任不同的地方在于，<strong>systemd</strong> 已经不仅仅是一个初始化系统了。<br><strong>Systemd</strong> 出色地替代了 <strong>sysvinit</strong> 的所有功能，但它并未就此自满。因为 <strong>init</strong> 进程是系统所有进程的父进程这样的特殊性，<strong>systemd</strong> 非常适合提供曾经由其他服务提供的功能，比如定时任务 (以前由 <strong>crond</strong> 完成) ；会话管理 (以前由 <strong>ConsoleKit/PolKit</strong> 等管理) 。仅仅从本文皮毛一样的介绍来看，<strong>Systemd</strong> 已经管得很多了，可它还在不断发展。它将逐渐成为一个多功能的系统环境，能够处理非常多的系统管理任务，有人甚至将它看作一个操作系统。</p>
+<h3 id="扩展话题"><a href="#扩展话题" class="headerlink" title="扩展话题"></a>扩展话题</h3><p><a href="https://askubuntu.com/questions/1792/how-can-i-suspend-hibernate-from-command-line?cm_mc_uid=05938828085514744326348&amp;cm_mc_sid_50200000=1492191801" target="_blank" rel="external">如何让 <strong>ubuntu</strong> 系统休眠</a>，可以使用底层的/sys/power/state 接口，也可以使用诸如 pm-utility 等高层接口。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.ibm.com/developerworks/cn/linux/1407_liuming_init1/" target="_blank" rel="external">浅析 Linux 初始化 init系统</a></p>
 
       
@@ -432,7 +432,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 12.5px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

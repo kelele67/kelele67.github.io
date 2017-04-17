@@ -4,21 +4,81 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>关于本站 | 树犹如此|人何以堪</title>
+  <title>C语言标准库函数学习(一) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作者： kelele67 出处： http://kelele67.github.io/本文基于 知识共享署名-相同方式共享 4.0 国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名kelele67及链接。欢迎您捐赠本站，您的支持是我最大的动力！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于本站">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+  <meta name="description" content="CRT开始学习 CRT 的一些实现源码主要学习三个部分：
+
+字符串操作 String Manipulation
+
+缓冲区操作 Buffer Manipulation
+
+数据转换 Data Conversion
+
+
+学到的函数表String Manipulation
+
+
+函数
+原型
+功能
+
+
+
+
+strcat()
+char strcat(char dest, const char *src)
+连">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言标准库函数学习(一)">
+<meta property="og:url" content="http://yoursite.com/2016/12/05/C语言标准库函数学习(一)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="作者： kelele67 出处： http://kelele67.github.io/本文基于 知识共享署名-相同方式共享 4.0 国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名kelele67及链接。欢迎您捐赠本站，您的支持是我最大的动力！">
-<meta property="og:image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
-<meta property="og:image" content="http://oe9uedqb2.bkt.clouddn.com/apx07138xvvuj2wuau2h4c4.png">
-<meta property="og:updated_time" content="2016-09-30T19:35:00.000Z">
+<meta property="og:description" content="CRT开始学习 CRT 的一些实现源码主要学习三个部分：
+
+字符串操作 String Manipulation
+
+缓冲区操作 Buffer Manipulation
+
+数据转换 Data Conversion
+
+
+学到的函数表String Manipulation
+
+
+函数
+原型
+功能
+
+
+
+
+strcat()
+char strcat(char dest, const char *src)
+连">
+<meta property="og:updated_time" content="2017-04-17T08:54:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于本站">
-<meta name="twitter:description" content="作者： kelele67 出处： http://kelele67.github.io/本文基于 知识共享署名-相同方式共享 4.0 国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名kelele67及链接。欢迎您捐赠本站，您的支持是我最大的动力！">
-<meta name="twitter:image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
+<meta name="twitter:title" content="C语言标准库函数学习(一)">
+<meta name="twitter:description" content="CRT开始学习 CRT 的一些实现源码主要学习三个部分：
+
+字符串操作 String Manipulation
+
+缓冲区操作 Buffer Manipulation
+
+数据转换 Data Conversion
+
+
+学到的函数表String Manipulation
+
+
+函数
+原型
+功能
+
+
+
+
+strcat()
+char strcat(char dest, const char *src)
+连">
   
   
     <link rel="icon" href="//favicon.png">
@@ -137,7 +197,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="airticle-C语言标准库函数学习(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -147,7 +207,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      关于本站
+      C语言标准库函数学习(一)
     </h1>
   
 
@@ -155,15 +215,100 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <center><br><div style="MARGIN-TOP: 10px; FLOAT: left; MARGIN-LEFT: 10px; MARGIN-RIGHT: 10px"><br><img alt="" src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" width="90" height="100"><br></div><br></center><br><br><br><div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000"><br>作者： <a href="http://kelele67.github.io/" target="_blank" rel="external">kelele67</a> <br><br>出处： <a href="http://kelele67.github.io/" target="_blank" rel="external">http://kelele67.github.io/</a><br><br>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名<a href="http://kelele67.github.io/" target="_blank" rel="external">kelele67</a>及链接。<br></div><br><center><br>欢迎您捐赠本站，您的支持是我最大的动力！<br><img src="http://oe9uedqb2.bkt.clouddn.com/apx07138xvvuj2wuau2h4c4.png" alt=""><br></center>
+        <p>
+
+</p><h2 id="CRT"><a href="#CRT" class="headerlink" title="CRT"></a>CRT</h2><p>开始学习 <strong>CRT</strong> 的一些实现源码<br>主要学习三个部分：</p>
+<ul>
+<li><p>字符串操作 String Manipulation</p>
+</li>
+<li><p>缓冲区操作 Buffer Manipulation</p>
+</li>
+<li><p>数据转换 Data Conversion</p>
+</li>
+</ul>
+<h2 id="学到的函数表"><a href="#学到的函数表" class="headerlink" title="学到的函数表"></a>学到的函数表</h2><h3 id="String-Manipulation"><a href="#String-Manipulation" class="headerlink" title="String Manipulation"></a>String Manipulation</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>原型</th>
+<th style="text-align:right">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strcat()</td>
+<td>char <em>strcat(char </em>dest, const char *src)</td>
+<td style="text-align:right">连接两个字符串</td>
+</tr>
+<tr>
+<td>strcmp()</td>
+<td>int strcmp(const char <em>str1, const char </em>str2)</td>
+<td style="text-align:right">比较两个字符串</td>
+</tr>
+<tr>
+<td>strcpy()</td>
+<td>char <em>strcpy(char</em> dest, const char *src)</td>
+<td style="text-align:right">拷贝字符串到目的串</td>
+</tr>
+<tr>
+<td>strlen()</td>
+<td>unsigned in strlen(const char *str)</td>
+<td style="text-align:right">返回字符串str的长度（不包括’\0’)</td>
+</tr>
+<tr>
+<td>strchr()</td>
+<td>char <em>strchr(char </em>str, const char c)</td>
+<td style="text-align:right">查找str中首次出现c的位置</td>
+</tr>
+<tr>
+<td>strrchr()</td>
+<td>char <em>strrchr(char </em>str, const char c)</td>
+<td style="text-align:right">查找str中最后一次出现c的位置</td>
+</tr>
+<tr>
+<td>strcspn()</td>
+<td>size_t strcspn(const char <em>pstr, const char </em>strCharset)</td>
+<td style="text-align:right">返回strCharset中出现的第一个字符在pstr中的出现位置</td>
+</tr>
+<tr>
+<td>strspn()</td>
+<td>size_t strspn(const char <em>pstr, const char </em>strCharset)</td>
+<td style="text-align:right">返回后面字符串中第一个不在前者出现的下标</td>
+</tr>
+<tr>
+<td>strdup()</td>
+<td>char <em>strdup(const char </em>str)</td>
+<td style="text-align:right">功能为拷贝字符串到新建的内存</td>
+</tr>
+<tr>
+<td>strrev()</td>
+<td>char <em>strrev(char </em>str)</td>
+<td style="text-align:right">反转字符串</td>
+</tr>
+<tr>
+<td>strstr()</td>
+<td>char <em>strstr(const char str1, const char </em>str2)</td>
+<td style="text-align:right">查找字符串str2在str1中出现的位置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Buffer-Manipulation"><a href="#Buffer-Manipulation" class="headerlink" title="Buffer Manipulation"></a>Buffer Manipulation</h3><h3 id="Data-Conversion"><a href="#Data-Conversion" class="headerlink" title="Data Conversion"></a>Data Conversion</h3><blockquote>
+<p>大概学到的就是这些了<br>接下来我们一一的介绍</p>
+</blockquote>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/about/index.html" class="archive-article-date">
-  	<time datetime="2016-09-29T15:21:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-29</time>
+      <a href="/2016/12/05/C语言标准库函数学习(一)/" class="archive-article-date">
+  	<time datetime="2016-12-05T06:05:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-05</time>
 </a>
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
+	</div>
+
       
 
       <div class="clearfix"></div>
@@ -172,6 +317,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C语言标准库函数学习(二)一一字符串操作函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/11/kelele67的学习笔记-html小游戏(上)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">kelele67的学习笔记-html5小游戏(上)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -200,7 +364,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="关于本站" data-url="http://yoursite.com/about/index.html"></div>
+	<div class="ds-thread" data-thread-key="C语言标准库函数学习(一)" data-title="C语言标准库函数学习(一)" data-url="http://yoursite.com/2016/12/05/C语言标准库函数学习(一)/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -244,7 +408,7 @@ var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " 
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

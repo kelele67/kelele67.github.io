@@ -6,31 +6,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>深入 Lua Garbage Collector(二) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这一篇我们主要介绍一下Lua的GC机制
-Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+  <meta name="description" content="这一篇我们主要介绍一下 Lua 的 GC 机制
+Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:
 
 collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
 
-collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。">
+collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Lua Garbage Collector(二)">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/深入 Lua Garbage Collector(二)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="这一篇我们主要介绍一下Lua的GC机制
-Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+<meta property="og:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制
+Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:
 
 collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
 
-collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。">
-<meta property="og:updated_time" content="2017-04-15T10:33:40.000Z">
+collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
+<meta property="og:updated_time" content="2017-04-17T09:02:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(二)">
-<meta name="twitter:description" content="这一篇我们主要介绍一下Lua的GC机制
-Lua垃圾回收器函数Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:
+<meta name="twitter:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制
+Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:
 
 collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
 
-collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。">
+collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
   
   
     <link rel="icon" href="//favicon.png">
@@ -169,8 +169,8 @@ collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内�
       
         <p>
 
-</p><p>这一篇我们主要介绍一下Lua的GC机制</p>
-<h2 id="Lua垃圾回收器函数"><a href="#Lua垃圾回收器函数" class="headerlink" title="Lua垃圾回收器函数"></a>Lua垃圾回收器函数</h2><p>Lua 提供了以下函数collectgarbage ([opt [, arg]])用来控制自动内存管理:</p>
+</p><p>这一篇我们主要介绍一下 <strong>Lua</strong> 的 <strong>GC</strong> 机制</p>
+<h2 id="Lua垃圾回收器函数"><a href="#Lua垃圾回收器函数" class="headerlink" title="Lua垃圾回收器函数"></a>Lua垃圾回收器函数</h2><p><strong>Lua</strong> 提供了以下函数 <strong>collectgarbage ([opt [, arg]])</strong> 用来控制自动内存管理:</p>
 <ul>
 <li><p>collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：</p>
 </li>
@@ -190,9 +190,9 @@ collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内�
 <p>以下演示了一个简单的垃圾回收实例:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mytable = &#123;<span class="string">"apple"</span>, <span class="string">"orange"</span>, <span class="string">"banana"</span>&#125;</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div><div class="line"></div><div class="line">mytable = <span class="keyword">nil</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"collect"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div></pre></td></tr></table></figure>
 <hr>
-<h2 id="基本算法"><a href="#基本算法" class="headerlink" title="基本算法"></a>基本算法</h2><p>基本算法就是我们之前的Mark &amp; Sweep</p>
+<h2 id="基本算法"><a href="#基本算法" class="headerlink" title="基本算法"></a>基本算法</h2><p>基本算法就是我们之前的 <strong>Mark &amp; Sweep</strong></p>
 <blockquote>
-<p>首先，系统管理着所有已经创建了的对象。每个对象都有对其他对象的引用。root集合代表着已知的系统级别的对象引用。我们从root集合出发，就可以访问到系统引用到的所有对象。而没有被访问到的对象就是垃圾对象，需要被销毁。</p>
+<p>首先，系统管理着所有已经创建了的对象。每个对象都有对其他对象的引用。 <strong>root</strong> 集合代表着已知的系统级别的对象引用。我们从 <strong>root</strong> 集合出发，就可以访问到系统引用到的所有对象。而没有被访问到的对象就是垃圾对象，需要被销毁。</p>
 </blockquote>
 <p>我们可以将所有对象分成三个状态：</p>
 <p>①. White状态，也就是待访问状态。表示对象还没有被垃圾回收的标记过程访问到。</p>
@@ -202,12 +202,12 @@ collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">当前所有对象都是White状态;  </div><div class="line">将root集合引用到的对象从White设置成Gray，并放到Gray集合中;  </div><div class="line">while(Gray集合不为空)  </div><div class="line">&#123;  </div><div class="line">    从Gray集合中移除一个对象O，并将O设置成Black状态;  </div><div class="line">    for(O中每一个引用到的对象O1) &#123;  </div><div class="line">        if(O1在White状态) &#123;  </div><div class="line">            将O1从White设置成Gray，并放到到Gray集合中；  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line">for(任意一个对象O)&#123;  </div><div class="line">    if(O在White状态)  </div><div class="line">        销毁对象O;  </div><div class="line">    else  </div><div class="line">        将O设置成White状态;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <h2 id="Incremental-Garbage-Collection"><a href="#Incremental-Garbage-Collection" class="headerlink" title="Incremental Garbage Collection"></a>Incremental Garbage Collection</h2><blockquote>
-<p>上面的算法如果一次性执行，在对象很多的情况下，会执行很长时间，严重影响程序本身的响应速度。其中一个解决办法就是，可以将上面的算法分步执行，这样每个步骤所耗费的时间就比较小了。我们可以将上述算法改为以下下几个步骤。</p>
+<p>上面的算法如果一次性执行，在对象很多的情况下，会执行很长时间，严重影响程序本身的响应速度。其中一个解决办法就是，可以将上面的算法分步执行，这样每个步骤所耗费的时间就比较小了。我们可以将上述算法改为以下下几个步骤:</p>
 </blockquote>
 <ol>
-<li><p>首先标识所有的root对象</p>
+<li><p>首先标识所有的 <strong>root</strong> 对象</p>
 </li>
-<li><p>遍历访问所有的gray对象。如果超出了本次计算量上限，退出等待下一次遍历</p>
+<li><p>遍历访问所有的 <strong>gray</strong> 对象。如果超出了本次计算量上限，退出等待下一次遍历</p>
 </li>
 <li><p>销毁垃圾对象</p>
 </li>
@@ -217,7 +217,7 @@ collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内�
 </blockquote>
 <p>①. 将white对象设置成gray，并添加到gray列表中等待扫描。这样等于帮助整个GC的标识过程向前推进了一步。<br>②. 将black对象该回成gray，并添加到gray列表中等待扫描。这样等于使整个GC的标识过程后退了一步。</p>
 <blockquote>
-<p>这种垃圾回收方式被称为”Incremental Garbage Collection”(简称为”IGC”，Lua所采用的就是这种方法。使用”IGC”并不是没有代价的。IGC所检测出来的垃圾对象集合比实际的集合要小，也就是说，有些在GC过程中变成垃圾的对象，有可能在本轮GC中检测不到。不过，这些残余的垃圾对象一定会在下一轮GC被检测出来，不会造成泄露。</p>
+<p>这种垃圾回收方式被称为 <strong>Incremental Garbage Collection</strong> (简称为 <strong>IGC</strong> ， <strong>Lua</strong>所采用的就是这种方法。使用 <strong>IGC</strong> 并不是没有代价的。 <strong>IGC</strong> 所检测出来的垃圾对象集合比实际的集合要小，也就是说，有些在 <strong>GC</strong> 过程中变成垃圾的对象，有可能在本轮 <strong>GC</strong> 中检测不到。不过，这些残余的垃圾对象一定会在下一轮 <strong>GC</strong> 被检测出来，不会造成泄露。</p>
 </blockquote>
 
       
@@ -379,7 +379,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 12.5px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

@@ -25,7 +25,7 @@ std::thread 简单例子
 
 1234567891011121314151617#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;iostream&amp;gt;">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG2.jpeg">
-<meta property="og:updated_time" content="2017-04-14T07:41:38.000Z">
+<meta property="og:updated_time" content="2017-04-17T08:32:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++11 并发学习(二)">
 <meta name="twitter:description" content="学习自大神博客
@@ -183,21 +183,21 @@ std::thread 简单例子
 <h3 id="lt-mutex-gt"><a href="#lt-mutex-gt" class="headerlink" title="&lt; mutex&gt;"></a>&lt; mutex&gt;</h3><blockquote>
 <p>std::mutex 是C++11 中最基本的互斥量，std::mutex 对象提供了独占所有权的特性——即不支持递归地对 std::mutex 对象上锁，而 std::recursive_lock 则可以递归地对互斥量对象上锁。</p>
 </blockquote>
-<p>①. Mutex 系列类(四种)</p>
+<p>①. <strong>Mutex</strong> 系列类(四种)</p>
 <ul>
 <li>std::mutex，最基本的 Mutex 类。</li>
 <li>std::recursive_mutex，递归 Mutex 类。</li>
 <li>std::time_mutex，定时 Mutex 类。</li>
 <li>std::recursive_timed_mutex，定时递归 Mutex 类</li>
 </ul>
-<p>②. Lock 类（两种）</p>
+<p>②. <strong>Lock</strong> 类（两种）</p>
 <ul>
 <li>std::lock_guard，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁。</li>
 <li>std::unique_lock，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁，但提供了更好的上锁和解锁控制。</li>
 </ul>
 <h3 id="lt-condition-variable-gt"><a href="#lt-condition-variable-gt" class="headerlink" title="&lt; condition_variable&gt;"></a>&lt; condition_variable&gt;</h3><blockquote>
 <p>&lt; condition_variable &gt; 头文件主要包含了与条件变量相关的类和函数。与条件变量相关的类包括 std::condition_variable 和 std::condition_variable_any，还有枚举类型std::cv_status。另外还包括函数 std::notify_all_at_thread_exit()</p>
-<p>在 Linux 下是使用 Pthread 库中的 pthread<em>cond</em>*() 函数来实现条件变量相关的功能</p>
+<p>在 <strong>Linux</strong> 下是使用 <strong>Pthread</strong> 库中的 <strong>pthread<em>cond</em>*() </strong> 函数来实现条件变量相关的功能</p>
 </blockquote>
 <h3 id="lt-future-gt"><a href="#lt-future-gt" class="headerlink" title="&lt; future&gt;"></a>&lt; future&gt;</h3><blockquote>
 <p>C++11 标准中与异步任务系相关的类型主要是以下四种 std::promise，std::packaged_task（std::promise，std::packaged_task 也称为异步任务的提供者 Provider，此外 std::async 也可以作为异步任务的提供者，不过 std::async 并不是类，而是函数，本章后面会详细介绍异步任务的提供者 Provider），std::future，std::shared_future。另外 &lt; future&gt; 中还定义一些辅助的类，例如： std::future_error，std::future_errc，std::status，std::launch。</p>
@@ -205,7 +205,7 @@ std::thread 简单例子
 <p>之前也有提到，主要是用来实现异步</p>
 <h3 id="lt-atomic-gt"><a href="#lt-atomic-gt" class="headerlink" title="&lt; atomic&gt;"></a>&lt; atomic&gt;</h3><p>关于C++11的原子操作之前我有过笔记，下图</p>
 <p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG2.jpeg" alt=""></p>
-<p>好了，关于C++11的新特性大致的梳理了一遍，接下来我们先看看之前提到的那个C++11的线程池具体是怎么实现的吧</p>
+<p>好了，关于 <strong>C++11</strong> 的新特性大致的梳理了一遍，接下来我们先看看之前提到的那个 <strong>C++11</strong> 的线程池具体是怎么实现的吧</p>
 
       
     </div>
@@ -230,11 +230,11 @@ std::thread 简单例子
   
 <nav id="article-nav">
   
-    <a href="/2017/02/14/C++11 并发学习(三)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/02/14/C++11 并发学习(四)/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          C++11 并发学习(三)
+          C++11 并发学习(四)
         
       </div>
     </a>
@@ -375,7 +375,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 12.5px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     

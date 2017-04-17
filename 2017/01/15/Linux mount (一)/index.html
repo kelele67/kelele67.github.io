@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Linux mount 学习(一) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux mount介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。
+  <meta name="description" content="Linux mount介绍一些比较实用的 mount 用法，包括挂载内核中的虚拟文件系统、 loop device 和 bind mount 。
 基本用法1mount -t type -o options device dir
 
 
@@ -16,12 +16,12 @@ dir: 挂载到哪个目录
 
 
 挂载 loop deviceISO文件
-需要用到loop device的最常见的场景是mount一个ISO文件，示例">
+需要用到 loop device 的最常见的场景是 mount">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux mount 学习(一)">
 <meta property="og:url" content="http://yoursite.com/2017/01/15/Linux mount (一)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="Linux mount介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。
+<meta property="og:description" content="Linux mount介绍一些比较实用的 mount 用法，包括挂载内核中的虚拟文件系统、 loop device 和 bind mount 。
 基本用法1mount -t type -o options device dir
 
 
@@ -31,11 +31,11 @@ dir: 挂载到哪个目录
 
 
 挂载 loop deviceISO文件
-需要用到loop device的最常见的场景是mount一个ISO文件，示例">
-<meta property="og:updated_time" content="2017-04-15T12:27:19.000Z">
+需要用到 loop device 的最常见的场景是 mount">
+<meta property="og:updated_time" content="2017-04-17T08:53:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux mount 学习(一)">
-<meta name="twitter:description" content="Linux mount介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。
+<meta name="twitter:description" content="Linux mount介绍一些比较实用的 mount 用法，包括挂载内核中的虚拟文件系统、 loop device 和 bind mount 。
 基本用法1mount -t type -o options device dir
 
 
@@ -45,7 +45,7 @@ dir: 挂载到哪个目录
 
 
 挂载 loop deviceISO文件
-需要用到loop device的最常见的场景是mount一个ISO文件，示例">
+需要用到 loop device 的最常见的场景是 mount">
   
   
     <link rel="icon" href="//favicon.png">
@@ -183,7 +183,7 @@ dir: 挂载到哪个目录
     <div class="article-entry" itemprop="articleBody">
       
         <p></p><p></p>
-<h2 id="Linux-mount"><a href="#Linux-mount" class="headerlink" title="Linux mount"></a>Linux mount</h2><p>介绍一些比较实用的mount用法，包括挂载内核中的虚拟文件系统、loop device和bind mount。</p>
+<h2 id="Linux-mount"><a href="#Linux-mount" class="headerlink" title="Linux mount"></a>Linux mount</h2><p>介绍一些比较实用的 <strong>mount</strong> 用法，包括挂载内核中的虚拟文件系统、 <strong>loop device</strong> 和 <strong>bind mount</strong> 。</p>
 <h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount -t type -o options device dir</div></pre></td></tr></table></figure>
 <hr>
 <ul>
@@ -193,7 +193,7 @@ dir: 挂载到哪个目录
 </li>
 </ul>
 <h3 id="挂载-loop-device"><a href="#挂载-loop-device" class="headerlink" title="挂载 loop device"></a>挂载 loop device</h3><h4 id="ISO文件"><a href="#ISO文件" class="headerlink" title="ISO文件"></a>ISO文件</h4><blockquote>
-<p>需要用到loop device的最常见的场景是mount一个ISO文件，示例如下</p>
+<p>需要用到 <strong>loop device</strong> 的最常见的场景是 <strong>mount</strong> 一个 <strong>ISO</strong> 文件，示例如下</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#利用mkisofs构建一个用于测试的iso文件</div><div class="line">kingand67@kelele67:~$ mkdir -p iso/subdir01</div><div class="line">kingand67@kelele67:~$ mkisofs -o ./test.iso ./iso</div><div class="line">I: -input-charset not specified, using utf-8 (detected in locale settings)</div><div class="line">Total translation table size: 0</div><div class="line">Total rockridge attributes bytes: 0</div><div class="line">Total directory bytes: 2048</div><div class="line">Path table size(bytes): 26</div><div class="line">Max brk space used 0</div><div class="line">175 extents written (0 MB)</div></pre></td></tr></table></figure>
 <hr>
@@ -204,7 +204,7 @@ dir: 挂载到哪个目录
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#通过losetup命令可以看到占用了loop0设备</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/test.iso)</div></pre></td></tr></table></figure>
 <hr>
 <h4 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h4><blockquote>
-<p>loop device另一种常用的用法是虚拟一个硬盘，比如我想尝试下btrfs这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了，示例如下</p>
+<p><strong>loop device</strong> 另一种常用的用法是虚拟一个硬盘，比如我想尝试下 <strong>btrfs</strong> 这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了，示例如下</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#因为btrfs对分区的大小有最小要求，所以利用dd命令创建一个128M的文件</div><div class="line">kingand67@kelele67:~$ dd if=/dev/zero bs=1M count=128 of=./vdisk.img</div><div class="line">128+0 records in</div><div class="line">128+0 records out</div><div class="line">134217728 bytes (134 MB, 128 MiB) copied, 0.116018 s, 1.2 GB/s</div></pre></td></tr></table></figure>
 <hr>
@@ -221,17 +221,17 @@ dir: 挂载到哪个目录
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#查看我们的loop device</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/vdisk.img)</div></pre></td></tr></table></figure>
 <hr>
 <h4 id="挂载多个设备到一个文件夹"><a href="#挂载多个设备到一个文件夹" class="headerlink" title="挂载多个设备到一个文件夹"></a>挂载多个设备到一个文件夹</h4><blockquote>
-<p>在上面的例子中，将test.iso和vdisk.img都mount到了/mnt目录下，这个在Linux下是支持的，默认会用后面的mount覆盖掉前面的mount，只有当umount后面的device后，原来的device才看的到。</p>
+<p>在上面的例子中，将 <strong>test.iso</strong> 和 <strong>vdisk.img</strong> 都 <strong>mount</strong> 到了 <strong>/mnt</strong> 目录下，这个在 <strong>Linux</strong> 下是支持的，默认会用后面的 <strong>mount</strong> 覆盖掉前面的 <strong>mount</strong> ，只有当 <strong>umount</strong> 后面的 <strong>device</strong> 后，原来的 <strong>device</strong> 才看的到。</p>
 </blockquote>
 <h4 id="挂载一个设备到多个目录"><a href="#挂载一个设备到多个目录" class="headerlink" title="挂载一个设备到多个目录"></a>挂载一个设备到多个目录</h4><blockquote>
-<p>当然我们也可以把一个设备mount到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
+<p>当然我们也可以把一个设备 <strong>mount</strong> 到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
 </blockquote>
 <h4 id="bind-mount"><a href="#bind-mount" class="headerlink" title="bind mount"></a>bind mount</h4><blockquote>
-<p>bind mount功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转Linux的必备技能</p>
+<p><strong>bind mount</strong> 功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转 <strong>Linux</strong> 的必备技能</p>
 </blockquote>
 <p>①. 基本功能</p>
 <blockquote>
-<p>bind mount会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
+<p><strong>bind mount</strong> 会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#准备要用到的目录</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind1/sub1</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind2/sub2</div></pre></td></tr></table></figure>
 <hr>
@@ -241,7 +241,7 @@ dir: 挂载到哪个目录
 <hr>
 <p>②. readonly bind</p>
 <blockquote>
-<p>我们可以在bind的时候指定readonly，这样原来的目录还是能读写，但目的目录为只读</p>
+<p>我们可以在 <strong>bind</strong> 的时候指定 <strong>readonly</strong> ，这样原来的目录还是能读写，但目的目录为只读</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#通过readonly的方式bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       </div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line"></div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
 <hr>
@@ -252,7 +252,7 @@ dir: 挂载到哪个目录
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#我们可以在bind1和bind2目录下看到刚创建的文件</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       └── aaa</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line">        └── aaa</div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
-<p>如果我们想让当前目录readonly，那么可以bind自己，并且指定readonly参数：</p>
+<p>如果我们想让当前目录 <strong>readonly</strong> ，那么可以 <strong>bind</strong> 自己，并且指定 <strong>readonly</strong> 参数：</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#bind mount并且指定readonly</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind1</div></pre></td></tr></table></figure>
 <hr>
@@ -264,7 +264,7 @@ dir: 挂载到哪个目录
 <hr>
 <p>③. bind mount单个文件</p>
 <blockquote>
-<p>我们也可以bind mount单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
+<p>我们也可以 <strong>bind mount</strong> 单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#创建两个用于测试的文件</div><div class="line">kingand67@kelele67:~$ echo aaaaaa &gt; bind/aa</div><div class="line">kingand67@kelele67:~$ echo bbbbbb &gt; bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/aa</div><div class="line">aaaaaa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div></pre></td></tr></table></figure>
 <hr>
@@ -288,7 +288,7 @@ dir: 挂载到哪个目录
 <hr>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#由于bind2上的挂载点已经被移动到了/mnt上，于是能看到bind2目录下原来的文件了</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind2/</div><div class="line">sub2</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的mount操作，尤其是bind mount，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍mount相关的“Shared subtrees”</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的 <strong>mount</strong> 操作，尤其是 <strong>bind mount</strong> ，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍 <strong>mount</strong> 相关的 <strong>“Shared subtrees”</strong></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000006878392" target="_blank" rel="external">Linux mount （第一部分）</a></p>
 
       
@@ -459,7 +459,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/algorithm/" style="font-size: 20px;">algorithm</a> <a href="/tags/animation/" style="font-size: 16.67px;">animation</a> <a href="/tags/c/" style="font-size: 16.67px;">c</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/concurrency/" style="font-size: 20px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 13.33px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/lua/" style="font-size: 13.33px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/swift/" style="font-size: 16.67px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 13.33px;">thread</a> <a href="/tags/threadpool/" style="font-size: 13.33px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 12.5px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
