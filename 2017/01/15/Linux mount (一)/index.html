@@ -32,7 +32,7 @@ dir: 挂载到哪个目录
 
 挂载 loop deviceISO文件
 需要用到 loop device 的最常见的场景是 mount">
-<meta property="og:updated_time" content="2017-04-17T08:53:37.000Z">
+<meta property="og:updated_time" content="2017-04-18T10:02:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux mount 学习(一)">
 <meta name="twitter:description" content="Linux mount介绍一些比较实用的 mount 用法，包括挂载内核中的虚拟文件系统、 loop device 和 bind mount 。
@@ -204,8 +204,60 @@ dir: 挂载到哪个目录
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#通过losetup命令可以看到占用了loop0设备</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/test.iso)</div></pre></td></tr></table></figure>
 <hr>
 <h4 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h4><blockquote>
-<p><strong>loop device</strong> 另一种常用的用法是虚拟一个硬盘，比如我想尝试下 <strong>btrfs</strong> 这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了，示例如下</p>
+<p><strong>loop device</strong> 另一种常用的用法是虚拟一个硬盘，比如我想尝试下 <strong>btrfs</strong> 这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了</p>
 </blockquote>
+<p>首先我们介绍 <strong>dd</strong> 命令：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。</p>
+<p>包含的参数有参数：</p>
+<ol>
+<li><p>if=文件名：输入文件名，缺省为标准输入。即指定源文件。&lt; if=input file &gt;</p>
+</li>
+<li><p>of=文件名：输出文件名，缺省为标准输出。即指定目的文件。&lt; of=output file &gt;</p>
+</li>
+<li><p>ibs=bytes：一次读入bytes个字节，即指定一个块大小为bytes个字节。</p>
+</li>
+<li><p>obs=bytes：一次输出bytes个字节，即指定一个块大小为bytes个字节。</p>
+</li>
+<li><p>bs=bytes：同时设置读入/输出的块大小为bytes个字节。</p>
+</li>
+<li><p>cbs=bytes：一次转换bytes个字节，即指定转换缓冲区大小。</p>
+</li>
+<li><p>skip=blocks：从输入文件开头跳过blocks个块后再开始复制。</p>
+</li>
+<li><p>seek=blocks：从输出文件开头跳过blocks个块后再开始复制。</p>
+</li>
+</ol>
+<p>注意：通常只用当输出文件是磁盘或磁带时才有效，即备份到磁盘或磁带时才有效。</p>
+<ol>
+<li><p>count=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。</p>
+</li>
+<li><p>conv=conversion：用指定的参数转换文件：</p>
+<ul>
+<li><p>ascii：转换ebcdic为ascii</p>
+</li>
+<li><p>ebcdic：转换ascii为ebcdic</p>
+</li>
+<li><p>ibm：转换ascii为alternate ebcdic</p>
+</li>
+<li><p>block：把每一行转换为长度为cbs，不足部分用空格填充</p>
+</li>
+<li><p>unblock：使每一行的长度都为cbs，不足部分用空格填充</p>
+</li>
+<li><p>lcase：把大写字符转换为小写字符</p>
+</li>
+<li><p>ucase：把小写字符转换为大写字符</p>
+</li>
+<li><p>swab：交换输入的每对字节</p>
+</li>
+<li><p>noerror：出错时不停止</p>
+</li>
+<li><p>notrunc：不截短输出文件</p>
+</li>
+<li><p>sync：将每个输入块填充到ibs个字节，不足部分用空（NUL）字符补齐。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>具体示例如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#因为btrfs对分区的大小有最小要求，所以利用dd命令创建一个128M的文件</div><div class="line">kingand67@kelele67:~$ dd if=/dev/zero bs=1M count=128 of=./vdisk.img</div><div class="line">128+0 records in</div><div class="line">128+0 records out</div><div class="line">134217728 bytes (134 MB, 128 MiB) copied, 0.116018 s, 1.2 GB/s</div></pre></td></tr></table></figure>
 <hr>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#在这个文件里面创建btrfs文件系统</div><div class="line">#为了方便，我就把整个硬盘全部给btrfs文件系统</div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">The program &apos;mkfs.btrfs&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt install btrfs-tools</div></pre></td></tr></table></figure>
@@ -288,7 +340,7 @@ dir: 挂载到哪个目录
 <hr>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#由于bind2上的挂载点已经被移动到了/mnt上，于是能看到bind2目录下原来的文件了</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind2/</div><div class="line">sub2</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的 <strong>mount</strong> 操作，尤其是 <strong>bind mount</strong> ，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍 <strong>mount</strong> 相关的 <strong>“Shared subtrees”</strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的 <strong>mount</strong> 操作，尤其是 <strong>bind mount</strong> ，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍 <strong>mount</strong> 相关的 <strong>Shared subtrees</strong></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000006878392" target="_blank" rel="external">Linux mount （第一部分）</a></p>
 
       
@@ -314,11 +366,11 @@ dir: 挂载到哪个目录
   
 <nav id="article-nav">
   
-    <a href="/2017/02/13/C++11 并发学习(一)/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/01/16/Linux mount(二)/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          C++11 并发学习(一)
+          Linux mount 学习(二)
         
       </div>
     </a>
@@ -459,7 +511,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 12.5px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/mount/" style="font-size: 10px;">mount</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 15px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12.5px;">mount</a> <a href="/tags/muffer-manipulation/" style="font-size: 10px;">muffer manipulation</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
