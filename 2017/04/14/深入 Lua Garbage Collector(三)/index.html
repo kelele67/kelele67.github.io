@@ -18,7 +18,9 @@ table
 function  
 userdata  
 thread 
-其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回收的">
+
+
+其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Lua Garbage Collector(三)">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/深入 Lua Garbage Collector(三)/index.html">
@@ -35,8 +37,10 @@ table
 function  
 userdata  
 thread 
-其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回收的">
-<meta property="og:updated_time" content="2017-04-19T10:23:18.000Z">
+
+
+其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回">
+<meta property="og:updated_time" content="2017-04-19T11:42:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(三)">
 <meta name="twitter:description" content="Lua 源码阅读的源码来自 lua-5.3.0
@@ -51,7 +55,9 @@ table
 function  
 userdata  
 thread 
-其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回收的">
+
+
+其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回">
   
   
     <link rel="icon" href="//favicon.png">
@@ -201,20 +207,18 @@ thread
 <li>table  </li>
 <li>function  </li>
 <li>userdata  </li>
-<li>thread <blockquote>
-<p>其中，只有 <strong>string table function thread</strong> 四种在 <strong>vm</strong> 中以引用方式共享，是需要被 <strong>GC</strong> 管理回收的对象。其它类型都以值形式存在。</p>
-</blockquote>
-</li>
+<li>thread </li>
 </ul>
 <blockquote>
+<p>其中，只有 <strong>string table function thread</strong> 四种在 <strong>vm</strong> 中以引用方式共享，是需要被 <strong>GC</strong> 管理回收的对象。其它类型都以值形式存在。</p>
 <p>但在 <strong>Lua</strong> 的实现中，还有两种类型的对象需要被 <strong>GC</strong> 管理。分别是 <strong>proto</strong> （可以看作未绑定 upvalue 的函数）， <strong>upvalue</strong> （多个 upvalue 会引用同一个值）。</p>
 </blockquote>
 <h3 id="保存值的形式"><a href="#保存值的形式" class="headerlink" title="保存值的形式"></a>保存值的形式</h3><p>Lua 是以 union + type 的形式保存值</p>
-<p>96行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">** Union of all Lua values</div><div class="line">*/</div><div class="line">typedef union Value Value;</div></pre></td></tr></table></figure></p>
+<p>在lobject.h中<br>96行<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">** Union of all Lua values</div><div class="line">*/</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> Value Value;</div></pre></td></tr></table></figure></p>
 <hr>
-<p>101-108行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">*</div><div class="line">** Tagged Values. This is the basic representation of values <span class="keyword">in</span> Lua,</div><div class="line">** an actual value plus a tag with its <span class="built_in">type</span>.</div><div class="line">*/</div><div class="line"></div><div class="line">#define TValuefields    Value value_; int tt_</div><div class="line"></div><div class="line">typedef struct lua_TValue TValue;</div></pre></td></tr></table></figure></p>
+<p>101-108行<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">*</div><div class="line">** Tagged Values. This is the basic representation of values in Lua,</div><div class="line">** an actual value plus a tag with its type.</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TValuefields    Value value_; int tt_</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> lua_TValue TValue;</div></pre></td></tr></table></figure></p>
 <hr>
-<p>279-286行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">union Value &#123;</div><div class="line">  GCObject *gc;    /* collectable objects */</div><div class="line">  void *p;         /* light userdata */</div><div class="line">  int b;           /* booleans */</div><div class="line">  lua_CFunction f; /* light C functions */</div><div class="line">  lua_Integer i;   /* integer numbers */</div><div class="line">  lua_Number n;    /* float numbers */</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>279-286行<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">union</span> Value &#123;</div><div class="line">  GCObject *gc;    <span class="comment">/* collectable objects */</span></div><div class="line">  <span class="keyword">void</span> *p;         <span class="comment">/* light userdata */</span></div><div class="line">  <span class="keyword">int</span> b;           <span class="comment">/* booleans */</span></div><div class="line">  lua_CFunction f; <span class="comment">/* light C functions */</span></div><div class="line">  lua_Integer i;   <span class="comment">/* integer numbers */</span></div><div class="line">  lua_Number n;    <span class="comment">/* float numbers */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <hr>
 <p>我们可以看到，Value 以 union 方式定义。如果是需要被 GC 管理的对象，就以 GCObject 指针形式保存，否则直接存值。在代码的其它部分，并不直接使用 Value 类型，而是 TValue 类型。它比 Value 多了一个类型标识。用 int tt 记录。通常的系统中，每个 TValue 长为 12 字节。</p>
 <p>这里作者也有提到在 32 位系统下，为何不用某种 trick 把 type 压缩到前 8 字节内<br>具体考虑到的是可移植性的原因：</p>
