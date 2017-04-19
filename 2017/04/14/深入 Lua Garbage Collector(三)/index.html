@@ -40,7 +40,7 @@ thread
 
 
 其中，只有 string table function thread 四种在 vm 中以引用方式共享，是需要被 GC 管理回">
-<meta property="og:updated_time" content="2017-04-19T11:45:01.000Z">
+<meta property="og:updated_time" content="2017-04-19T13:20:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(三)">
 <meta name="twitter:description" content="Lua 源码阅读的源码来自 lua-5.3.0
@@ -240,7 +240,7 @@ thread
 <p>一个完整的 lua 虚拟机在运行时，可有多个 lua_State ，即多个 thread 。它们会共享一些数据。这些数据放在 global_State *l_G 域中。其中自然也包括所有 GCobject 的链表。</p>
 </blockquote>
 <h3 id="allgc"><a href="#allgc" class="headerlink" title="allgc"></a>allgc</h3><blockquote>
-<p>所有的 string 则以 stringtable 结构保存在 stringtable strt 域。string 的值类型为 TString ，它和其它 GCObject 一样，拥有 CommonHeader 。但需要注意，CommonHeader 中的 next 域却和其它类型的单向链表意义不同。它被挂接在 stringtable 这个 hash 表中。这也是我们之前有提到过的。</p>
+<p>所有的 string 则以 stringtable 结构保存在 stringtable strt 域。string 的值类型为 TString ，它和其它 GCObject 一样，拥有 CommonHeader 。但需要注意，CommonHeader 中的 next 域却和其它类型的单向链表意义不同。它被挂接在 stringtable 这个 hash 表中。</p>
 <p>除 string 外的 GCObject 链表头放在 allgc 域中<br>在  lstate.h 122 行：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GCObject *allgc;  <span class="comment">/* list of all collectable objects */</span></div></pre></td></tr></table></figure></p>
 </blockquote>
 <hr>
@@ -251,6 +251,13 @@ thread
 <blockquote>
 <p>upvalue 在 C 中类型为 UpVal ，也是一个 GCObject 。但这里被特殊处理。为什么会这样？因为 Lua 的 GC可以分步扫描。别的类型被新创建时，都可以直接作为一个白色节点（新节点）挂接在整个系统中。但 upvalue 却是对已有的对象的间接引用，不是新数据。一旦 GC 在 mark 的过程中（ gc 状态为 GCSpropagate ），则需增加屏障 luaC_barrier 。对于这个问题，会在以后详细展开。</p>
 </blockquote>
+<h3 id="userdata"><a href="#userdata" class="headerlink" title="userdata"></a>userdata</h3><p>lua 还有另一种数据类型创建时的挂接过程也被特殊处理。那就是 userdata 。<br>见 lstring.c 的 170 行：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function">Udata *<span class="title">luaS_newudata</span> <span class="params">(lua_State *L, <span class="keyword">size_t</span> s)</span> </span>&#123;</div><div class="line">  Udata *u;</div><div class="line">  GCObject *o;</div><div class="line">  <span class="keyword">if</span> (s &gt; MAX_SIZE - <span class="keyword">sizeof</span>(Udata))</div><div class="line">    luaM_toobig(L);</div><div class="line">  o = luaC_newobj(L, LUA_TUSERDATA, sizeludata(s));</div><div class="line">  u = gco2u(o);</div><div class="line">  u-&gt;len = s;</div><div class="line">  u-&gt;metatable = <span class="literal">NULL</span>;</div><div class="line">  setuservalue(L, u, luaO_nilobject);</div><div class="line">  <span class="keyword">return</span> u;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p>这里调用 luaC_newobj 来挂接新的 Udata 对象，但是把所有 userdata 全部挂接在其它类型之后</p>
+<p>这样做的原因是：<br>所有 userdata 都可能有 gc 方法（其它类型则没有）。需要统一去调用这些 gc 方面，则应该有一个途径来单独遍历所有的 userdata 。除此之外，userdata 和其它 GCObject 的处理方式则没有区别，故依旧挂接在整个 GCObject 链表上而不需要单独再分出一个链表。<br>处理 userdata 的流程见 lgc.c 的 860 行<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">** move all unreachable objects (or 'all' objects) that need</div><div class="line">** finalization from list 'finobj' to list 'tobefnz' (to be finalized)</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">separatetobefnz</span> <span class="params">(global_State *g, <span class="keyword">int</span> all)</span> </span>&#123;</div></pre></td></tr></table></figure></p>
+<p>这个函数会把所有带有 gc 方法的 userdata 挑出来，放到一个循环链表中。在Lua5.3中，这个循环链表在 global_State 的 tobefnz 域。需要调用 gc 方法的这些 userdata 在当个 gc 循环是不能被直接清除的。所以在 mark 环节的最后，会被重新 mark 为不可清除节点。<br>见 lgc.c 的 285 行：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">** mark all objects in list of being-finalized</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">markbeingfnz</span> <span class="params">(global_State *g)</span> </span>&#123;</div><div class="line">  GCObject *o;</div><div class="line">  <span class="keyword">for</span> (o = g-&gt;tobefnz; o != <span class="literal">NULL</span>; o = o-&gt;next)</div><div class="line">    markobject(g, o);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样，可以保证在调用 gc 方法环节，这些对象的内存都没有被释放。但因为这些对象被设置了 finalized 标记。（通过 markfinalized ），下一次 gc 过程不会进入 tmudata 链表，将会被正确清理。</p>
+<p>具体 userdata 的清理流程，会在后面展开解释。</p>
 <hr>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.codingnow.com/2011/03/lua_gc_1.html" target="_blank" rel="external">云风的 BLOG</a></p>
 
