@@ -16,7 +16,7 @@
 <meta property="og:description" content="容器简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。
 容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范具体见Open Container Initiative(OCI)。
 容器和虚拟机对于一个接触虚拟机很久的人来说，因为用的 MAC ，所">
-<meta property="og:updated_time" content="2017-04-18T09:59:58.000Z">
+<meta property="og:updated_time" content="2017-04-19T11:47:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux容器">
 <meta name="twitter:description" content="容器简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。
@@ -165,8 +165,7 @@
 <h2 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h2><p>对于一个接触虚拟机很久的人来说，因为用的 <strong>MAC</strong> ，所以从大一开始我就安装了 <strong>windows</strong> 的虚拟机，当然很大一部分原因是因为要用 <strong>VS</strong> 开始学习编程，但是更多的还是用来打撸了哈哈，后来大二我安装了 <strong>Ubuntu</strong> ，这是我第一次接触Linux系统，虽然感觉和 <strong>macOS</strong> 差不多的样子，但是还是让我深深地爱上了 <strong>Linux</strong> 。</p>
 <p>扯得有点远了，其实虚拟机和容器是完全不同的技术，虽然他们都是为了让我们有一个不同的系统来安装我们需要的环境或者是其他，但是从本质上来说容器例如 <strong>Docker</strong> 是一个使用了 <strong>Linux Namespace</strong> 和 <strong>Cgroups</strong> 的虚拟化工具，而虚拟机则是一套完整的系统环境。</p>
 <p>我们接下来的学习也是围绕这容器使用到的<br><strong>Namespace</strong> 和 <strong>Cgroups</strong> 这两个经典的 <strong>Linux</strong> 功能来进行的。</p>
-<p>##容器特点</p>
-<h3 id="不同的Linux发行版可以共享内核"><a href="#不同的Linux发行版可以共享内核" class="headerlink" title="不同的Linux发行版可以共享内核"></a>不同的Linux发行版可以共享内核</h3><blockquote>
+<h2 id="容器特点"><a href="#容器特点" class="headerlink" title="容器特点"></a>容器特点</h2><h3 id="不同的Linux发行版可以共享内核"><a href="#不同的Linux发行版可以共享内核" class="headerlink" title="不同的Linux发行版可以共享内核"></a>不同的Linux发行版可以共享内核</h3><blockquote>
 <p>当进程开始运行后，进程和内核的交互就是系统调用，当进程需要访问由内核管理的资源时，采用软件中断的方式和内核交互，每个系统调用都有一个中断号，并且这个号不会随着内核版本变化而变化。</p>
 </blockquote>
 <p>并且Linux内核和应用层进程之间的关系是松耦合的，只要保证两个条件：</p>
@@ -222,8 +221,8 @@
     </a>
   
   
-    <a href="/2017/01/16/Linux mount 技巧/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux编译技巧</div>
+    <a href="/2017/01/16/Linux mount(二)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux mount 学习(二)</div>
       <i class="icon-circle-right"></i>
     </a>
   
