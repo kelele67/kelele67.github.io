@@ -135,6 +135,116 @@
       <div class="body-wrap">
         
   
+    <article id="airticle-深入 Lua Garbage Collector(三)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/深入 Lua Garbage Collector(三)/">深入 Lua Garbage Collector(三)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+</p><h2 id="Lua-源码"><a href="#Lua-源码" class="headerlink" title="Lua 源码"></a>Lua 源码</h2><p>阅读的源码来自 <strong>lua-5.3.0</strong></p>
+<h3 id="GC对象"><a href="#GC对象" class="headerlink" title="GC对象"></a>GC对象</h3><p>在 Lua 中，一共只有 9 种数据类型：</p>
+<ul>
+<li>nil </li>
+<li>boolean </li>
+<li>lightuserdata </li>
+<li>number </li>
+<li>string </li>
+<li>table  </li>
+<li>function  </li>
+<li>userdata  </li>
+<li>thread <blockquote>
+<p>其中，只有 <strong>string table function thread</strong> 四种在 <strong>vm</strong> 中以引用方式共享，是需要被 <strong>GC</strong> 管理回收的对象。其它类型都以值形式存在。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>但在 <strong>Lua</strong> 的实现中，还有两种类型的对象需要被 <strong>GC</strong> 管理。分别是 <strong>proto</strong> （可以看作未绑定 upvalue 的函数）， <strong>upvalue</strong> （多个 upvalue 会引用同一个值）。</p>
+</blockquote>
+<h3 id="保存值的形式"><a href="#保存值的形式" class="headerlink" title="保存值的形式"></a>保存值的形式</h3><p>Lua 是以 union + type 的形式保存值</p>
+<p>96行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">** Union of all Lua values</div><div class="line">*/</div><div class="line">typedef union Value Value;</div></pre></td></tr></table></figure></p>
+<hr>
+<p>101-108行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">*</div><div class="line">** Tagged Values. This is the basic representation of values <span class="keyword">in</span> Lua,</div><div class="line">** an actual value plus a tag with its <span class="built_in">type</span>.</div><div class="line">*/</div><div class="line"></div><div class="line">#define TValuefields    Value value_; int tt_</div><div class="line"></div><div class="line">typedef struct lua_TValue TValue;</div></pre></td></tr></table></figure></p>
+<hr>
+<p>279-286行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">union Value &#123;</div><div class="line">  GCObject *gc;    /* collectable objects */</div><div class="line">  void *p;         /* light userdata */</div><div class="line">  int b;           /* booleans */</div><div class="line">  lua_CFunction f; /* light C functions */</div><div class="line">  lua_Integer i;   /* integer numbers */</div><div class="line">  lua_Number n;    /* float numbers */</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<hr>
+<p>我们可以看到，Value 以 union 方式定义。如果是需要被 GC 管理的对象，就以 GCObject 指针形式保存，否则直接存值。在代码的其它部分，并不直接使用 Value 类型，而是 TValue 类型。它比 Value 多了一个类型标识。用 int tt 记录。通常的系统中，每个 TValue 长为 12 字节。</p>
+<p>这里作者也有提到在 32 位系统下，为何不用某种 trick 把 type 压缩到前 8 字节内<br>具体考虑到的是可移植性的原因：</p>
+<blockquote>
+<p>Several dynamically-typed languages (e.g., the original implementa-<br>tion of Smalltalk80 [9]) use spare bits in each pointer to store the value’s type tag. This trick works in most machines because, due to alignment, the last two or three bits of a pointer are always zero, and therefore can be used for other purposes. However, this technique is neither portable nor implementable in ANSI C.<br>The C standard does not even ensures that a pointer ts in any integral type<br>and so there is no standard way to perform bit manipulation over pointers.</p>
+</blockquote>
+<h3 id="GCObject"><a href="#GCObject" class="headerlink" title="GCObject"></a>GCObject</h3><p>所有的 <strong>GCObject</strong> 都有一个相同的数据头，叫作 <strong>CommonHeader</strong> 。</p>
+<p>在lobject.h里81行我们可以找到它的定义。使用宏定义的目的是为了能够包含在其他的object中。C 语言不支持结构的继承。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">** Common Header <span class="keyword">for</span> all collectable objects (<span class="keyword">in</span> macro form, to be</div><div class="line">** included <span class="keyword">in</span> other objects)</div><div class="line">*/</div><div class="line">#define CommonHeader    GCObject *<span class="built_in">next</span>; lu_byte tt; lu_byte marked</div></pre></td></tr></table></figure></p>
+<hr>
+<blockquote>
+<p>从这里我们可以看到：所有的 GCObject 都用一个单向链表串了起来。每个对象都以 tt 来识别其类型。marked 域用于标记清除的工作。</p>
+<p>标记清除算法是一种简单的 GC 算法。每次 GC 过程，先以若干根节点开始，逐个把直接以及间接和它们相关的节点都做上标记。对于 Lua ，这个过程很容易实现。因为所有 GObject 都在同一个链表上，当标记完成后，遍历这个链表，把未被标记的节点一一删除即可。</p>
+<p>实际上，Lua不只用一条链表来保存所有的 GCObject 。这是因为我们要清除的string table function thread中的 string 类型有其特殊性。<br>所有的 string 放在一张大的 hash 表中。它需要保证系统中不会有值相同的 string 被创建两份。<br>所以 string 是被单独管理的，而不串在 GCObject 的链表中。</p>
+</blockquote>
+<h3 id="lua-State"><a href="#lua-State" class="headerlink" title="lua_State"></a>lua_State</h3><p>lua_State 是 Lua 虚拟机的外在数据形式，取名 State 意为 Lua虚拟机 的当前状态。全局 State 引用了整个虚拟机的所有数据。而虚拟机的运转恰恰是 Lua 的核心部分。这个全局 State 定义在 lstate.h 中149-172行：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">** <span class="string">'per thread'</span> state</div><div class="line">*/</div><div class="line">struct lua_State &#123;</div><div class="line">  CommonHeader;</div><div class="line">  lu_byte status;</div><div class="line">  StkId top;  /* first free slot <span class="keyword">in</span> the stack */</div><div class="line">  global_State *l_G;</div><div class="line">  CallInfo *ci;  /* call info <span class="keyword">for</span> current <span class="function"><span class="keyword">function</span> */</span></div><div class="line">  <span class="title">const</span> <span class="title">Instruction</span> *<span class="title">oldpc</span>;  /* <span class="title">last</span> <span class="title">pc</span> <span class="title">traced</span> */</div><div class="line">  <span class="title">StkId</span> <span class="title">stack_last</span>;  /* <span class="title">last</span> <span class="title">free</span> <span class="title">slot</span> <span class="title">in</span> <span class="title">the</span> <span class="title">stack</span> */</div><div class="line">  <span class="title">StkId</span> <span class="title">stack</span>;  /* <span class="title">stack</span> <span class="title">base</span> */</div><div class="line">  <span class="title">UpVal</span> *<span class="title">openupval</span>;  /* <span class="title">list</span> <span class="title">of</span> <span class="title">open</span> <span class="title">upvalues</span> <span class="title">in</span> <span class="title">this</span> <span class="title">stack</span> */</div><div class="line">  <span class="title">GCObject</span> *<span class="title">gclist</span>;</div><div class="line">  <span class="title">struct</span> <span class="title">lua_State</span> *<span class="title">twups</span>;  /* <span class="title">list</span> <span class="title">of</span> <span class="title">threads</span> <span class="title">with</span> <span class="title">open</span> <span class="title">upvalues</span> */</div><div class="line">  <span class="title">struct</span> <span class="title">lua_longjmp</span> *<span class="title">errorJmp</span>;  /* <span class="title">current</span> <span class="title">error</span> <span class="title">recover</span> <span class="title">point</span> */</div><div class="line">  <span class="title">CallInfo</span> <span class="title">base_ci</span>;  /* <span class="title">CallInfo</span> <span class="title">for</span> <span class="title">first</span> <span class="title">level</span> <span class="params">(C calling Lua)</span> */</div><div class="line">  lua_Hook hook;</div><div class="line">  ptrdiff_t errfunc;  /* current <span class="built_in">error</span> handling <span class="function"><span class="keyword">function</span> <span class="params">(stack index)</span></span> */</div><div class="line">  int stacksize;</div><div class="line">  int basehookcount;</div><div class="line">  int hookcount;</div><div class="line">  unsigned short nny;  /* number of non-yieldable calls <span class="keyword">in</span> stack */</div><div class="line">  unsigned short nCcalls;  /* number of nested C calls */</div><div class="line">  lu_byte hookmask;</div><div class="line">  lu_byte allowhook;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>一个完整的 lua 虚拟机在运行时，可有多个 lua_State ，即多个 thread 。它们会共享一些数据。这些数据放在 global_State *l_G 域中。其中自然也包括所有 GCobject 的链表。</p>
+</blockquote>
+<h3 id="allgc"><a href="#allgc" class="headerlink" title="allgc"></a>allgc</h3><blockquote>
+<p>所有的 string 则以 stringtable 结构保存在 stringtable strt 域。string 的值类型为 TString ，它和其它 GCObject 一样，拥有 CommonHeader 。但需要注意，CommonHeader 中的 next 域却和其它类型的单向链表意义不同。它被挂接在 stringtable 这个 hash 表中。这也是我们之前有提到过的。</p>
+<p>除 string 外的 GCObject 链表头放在 allgc 域中<br>在  lstate.h 122 行：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GCObject *allgc;  /* list of all collectable objects */</div></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<p>。初始化时，这个域被初始化为主线程。见 lstate.c 253 行，lua_newthread 函数中：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/* link it on list <span class="string">'allgc'</span> */</div><div class="line">L1-&gt;<span class="built_in">next</span> = g-&gt;allgc;</div><div class="line">g-&gt;allgc = obj2gco(L1);</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="link函数"><a href="#link函数" class="headerlink" title="link函数"></a>link函数</h3><p>每当一个新的 GCobject 被创建出来，都会被挂接到这个链表上,link函数主要是：</p>
+<p>lgc.c 145-206行<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">void luaC_barrier_ (lua_State *L, GCObject *o, GCObject *v) &#123;</div><div class="line">  global_State *g = G(L);</div><div class="line">  lua_assert(isblack(o) &amp;&amp; iswhite(v) &amp;&amp; !isdead(g, v) &amp;&amp; !isdead(g, o));</div><div class="line">  <span class="keyword">if</span> (keepinvariant(g))  /* must keep invariant? */</div><div class="line">    reallymarkobject(g, v);  /* restore invariant */</div><div class="line">  <span class="keyword">else</span> &#123;  /* sweep phase */</div><div class="line">    lua_assert(issweepphase(g));</div><div class="line">    makewhite(g, o);  /* mark main obj. as white to avoid other barriers */</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void luaC_upvalbarrier_ (lua_State *L, UpVal *uv) &#123;</div><div class="line">  global_State *g = G(L);</div><div class="line">  GCObject *o = gcvalue(uv-&gt;v);</div><div class="line">  lua_assert(!upisopen(uv));  /* ensured by macro luaC_upvalbarrier */</div><div class="line">  <span class="keyword">if</span> (keepinvariant(g))</div><div class="line">    markobject(g, o);</div><div class="line">&#125;</div><div class="line"></div><div class="line">GCObject *luaC_newobj (lua_State *L, int tt, size_t sz) &#123;</div><div class="line">  global_State *g = G(L);</div><div class="line">  GCObject *o = cast(GCObject *, luaM_newobject(L, novariant(tt), sz));</div><div class="line">  o-&gt;marked = luaC_white(g);</div><div class="line">  o-&gt;tt = tt;</div><div class="line">  o-&gt;<span class="built_in">next</span> = g-&gt;allgc;</div><div class="line">  g-&gt;allgc = o;</div><div class="line">  <span class="keyword">return</span> o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>upvalue 在 C 中类型为 UpVal ，也是一个 GCObject 。但这里被特殊处理。为什么会这样？因为 Lua 的 GC可以分步扫描。别的类型被新创建时，都可以直接作为一个白色节点（新节点）挂接在整个系统中。但 upvalue 却是对已有的对象的间接引用，不是新数据。一旦 GC 在 mark 的过程中（ gc 状态为 GCSpropagate ），则需增加屏障 luaC_barrier 。对于这个问题，会在以后详细展开。</p>
+</blockquote>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.codingnow.com/2011/03/lua_gc_1.html" target="_blank" rel="external">云风的 BLOG</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/14/深入 Lua Garbage Collector(三)/" class="archive-article-date">
+  	<time datetime="2017-04-14T14:20:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-14</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="airticle-深入 Lua Garbage Collector(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -978,147 +1088,6 @@
 
 
   
-    <article id="airticle-Linux mount(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/16/Linux mount(二)/">Linux mount 学习(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p></p>
-<h2 id="Shared-subtrees"><a href="#Shared-subtrees" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
-<p>简单点说， <strong>Shared subtrees</strong> 就是一种控制子挂载点能否在其他地方被看到的技术，它只会在 <strong>bind mount</strong> 和 <strong>mount namespace</strong> 中用到，属于不怎么常用的功能。本篇将以 <strong>bind mount</strong> 为例对 <strong>Shared subtrees</strong> 做一个简单介绍</p>
-</blockquote>
-<h2 id="Shared-subtrees-1"><a href="#Shared-subtrees-1" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
-<p>回想一下上一篇中介绍的bind mount部分，如果bind在一起的两个目录下的子目录再挂载了设备的话，他们之间还能相互看到子目录里挂载的内容吗？ 比如在第一个目录下的子目录里面再mount了一个设备，那么在另一个目录下面能看到这个mount的设备里面的东西吗？答案是要看bind mount的propagation type。那什么是propagation type呢？</p>
-</blockquote>
-<p>peer group和propagation type都是随着shared subtrees一起被引入的概念，下面分别对他们做一个介绍。</p>
-<h3 id="peer-group"><a href="#peer-group" class="headerlink" title="peer group"></a>peer group</h3><p>peer group 就是一挂载点的集合，他们之间可以共享挂载信息。</p>
-<ul>
-<li><p>mount-bind使得源和目的挂载点属于同一个peer group</p>
-</li>
-<li><p>创建新的mount namespace，新的和老的namespace里相同挂载点就会属于同一个peer group，因为新namespace会拷贝一份老namespace的挂载点信息</p>
-</li>
-</ul>
-<h3 id="propagation-type"><a href="#propagation-type" class="headerlink" title="propagation type"></a>propagation type</h3><blockquote>
-<p>这是一个标志，决定修改挂载点的时候会不会影响相同的peer group</p>
-</blockquote>
-<ul>
-<li><p>MS_SHARED: 挂载信息会在同一个peer group的不同挂载点之间共享传播</p>
-</li>
-<li><p>MS_PRIVATE: 挂载信息根本就不共享，也即private的挂载点不会属于任何peer group</p>
-</li>
-<li><p>MS_SLAVE: 信息的传播是单向的，在同一个peer group里面，master的挂载点下面发生变化的时候，slave的挂载点下面也跟着变化，但反之则不然，slave下发生变化的时候不会通知master，master不会发生变化。</p>
-</li>
-<li><p>MS_UNBINDABLE: 这个和MS_PRIVATE相同，只是这种类型的挂载点不能作为bind mount的源，主要用来防止递归嵌套情况的出现</p>
-</li>
-</ul>
-<h3 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h3><ul>
-<li><p>propagation type是挂载点的属性，每个挂载点都是独立的</p>
-</li>
-<li><p>挂载点是有父子关系的，比如挂载点/和/mnt/cdrom，/mnt/cdrom都是‘/’的子挂载点，‘/’是/mnt/cdrom的父挂载点</p>
-</li>
-<li><p>默认情况下，如果父挂载点是MS_SHARED，那么子挂载点也是MS_SHARED的，否则子挂载点将会是MS_PRIVATE，跟爷爷挂载点没有关系</p>
-</li>
-</ul>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#准备4个虚拟的disk</div><div class="line">kingand67@kelele67:~$ mkdir disks &amp;&amp; cd disks</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk1.img</div><div class="line">32+0 records in</div><div class="line">32+0 records out</div><div class="line">33554432 bytes (34 MB, 32 MiB) copied, 0.0203764 s, 1.6 GB/s</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk2.img</div><div class="line">32+0 records in</div><div class="line">32+0 records out</div><div class="line">33554432 bytes (34 MB, 32 MiB) copied, 0.0316243 s, 1.1 GB/s</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk3.img</div><div class="line">32+0 records in</div><div class="line">32+0 records out</div><div class="line">33554432 bytes (34 MB, 32 MiB) copied, 0.0227662 s, 1.5 GB/s</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk4.img</div><div class="line">32+0 records in</div><div class="line">32+0 records out</div><div class="line">33554432 bytes (34 MB, 32 MiB) copied, 0.0322572 s, 1.0 GB/s</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">#并在上面创建ext2文件系统，用于后续的mount测试</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk1.img</div><div class="line">mke2fs 1.42.13 (17-May-2015)</div><div class="line">Discarding device blocks: done                            </div><div class="line">Creating filesystem with 32768 1k blocks and 8192 inodes</div><div class="line">Filesystem UUID: d34a16ed-3d87-4fa3-adeb-185ca6816a7c</div><div class="line">Superblock backups stored on blocks: </div><div class="line">	8193, 24577</div><div class="line">Allocating group tables: done                            </div><div class="line">Writing inode tables: done                            </div><div class="line">Writing superblocks and filesystem accounting information: done</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk2.img</div><div class="line">mke2fs 1.42.13 (17-May-2015)</div><div class="line">Discarding device blocks: done                            </div><div class="line">Creating filesystem with 32768 1k blocks and 8192 inodes</div><div class="line">Filesystem UUID: 5a615c9b-bb6b-4c56-82ee-24af8efbb3a2</div><div class="line">Superblock backups stored on blocks: </div><div class="line">	8193, 24577</div><div class="line">Allocating group tables: done                            </div><div class="line">Writing inode tables: done                            </div><div class="line">Writing superblocks and filesystem accounting information: done</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk3.img</div><div class="line">mke2fs 1.42.13 (17-May-2015)</div><div class="line">Discarding device blocks: done                            </div><div class="line">Creating filesystem with 32768 1k blocks and 8192 inodes</div><div class="line">Filesystem UUID: c4d0aca6-d952-4d9f-8270-0147a8912cab</div><div class="line">Superblock backups stored on blocks: </div><div class="line">	8193, 24577</div><div class="line">Allocating group tables: done                            </div><div class="line">Writing inode tables: done                            </div><div class="line">Writing superblocks and filesystem accounting information: done</div><div class="line">&lt;p&gt;</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk4.img</div><div class="line">mke2fs 1.42.13 (17-May-2015)</div><div class="line">Discarding device blocks: done                            </div><div class="line">Creating filesystem with 32768 1k blocks and 8192 inodes</div><div class="line">Filesystem UUID: fa60b67e-4d98-41f3-8db5-27c06882df02</div><div class="line">Superblock backups stored on blocks: </div><div class="line">	8193, 24577</div><div class="line">Allocating group tables: done                            </div><div class="line">Writing inode tables: done                            </div><div class="line">Writing superblocks and filesystem accounting information: done</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#准备两个目录用于挂载上面创建的disk</div><div class="line">kingand67@kelele67:~/disks$ mkdir disk1 disk2</div><div class="line">kingand67@kelele67:~/disks$ ls</div><div class="line">disk1  disk1.img  disk2  disk2.img  disk3.img  disk4.im</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#确保根目录的propagation type是shared，</div><div class="line">#这一步是为了保证大家的操作结果和示例中的一样</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-shared /</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="查看-propagation-type-和-peer-group"><a href="#查看-propagation-type-和-peer-group" class="headerlink" title="查看 propagation type 和 peer group"></a>查看 propagation type 和 peer group</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#显式的以shared方式挂载disk1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-shared ./disk1.img ./disk1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#显式的以private方式挂载disk2</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-private ./disk2.img ./disk2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#mountinfo比mounts文件包含有更多的关于挂载点的信息</div><div class="line">#这里sed主要用来过滤掉跟当前主题无关的信息</div><div class="line">#shared:111表示挂载点/home/dev/disks/disk1是以shared方式挂载，且peer group id为111</div><div class="line">#而挂载点/home/dev/disks/disk2没有相关信息，表示是以private方式挂载</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#分别在disk1和disk2目录下创建目录disk3和disk4，然后挂载disk3，disk4到这两个目录</div><div class="line">kingand67@kelele67:~/disks$ sudo mkdir ./disk1/disk3 ./disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk4.img ./disk2/disk4</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#查看挂载信息，第一列的数字是挂载点ID，第二例是父挂载点ID，</div><div class="line">#从结果来看，150和162的类型都是shared，而179和173的类型都是private的，</div><div class="line">#说明在默认mount的情况下，子挂载点会继承父挂载点的propagation type</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime </div><div class="line">162 150 7:2 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:117 </div><div class="line">293 156 7:3 / /home/kingand67/disks/disk2/disk4 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="shared-和-private-mount"><a href="#shared-和-private-mount" class="headerlink" title="shared 和 private mount"></a>shared 和 private mount</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount掉disk3和disk4，创建两个新的目录bind1和bind2用于bind测试</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk1/disk3 </div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ mkdir bind1 bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#bind的方式挂载disk1到bind1，disk2到bind2</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind ./disk1 ./bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind ./disk2 ./bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#查看挂载信息，显然默认情况下bind1和bind2的propagation type继承自父挂载点22(/)，都是shared。</div><div class="line">#由于bind2的源挂载点disk2是private的，所以bind2没有和disk2在同一个peer group里面，</div><div class="line">#而是重新创建了一个新的peer group，这个group里面就只有它一个。</div><div class="line">#因为150和162都是shared类型且是通过bind方式mount在一起的，所以他们属于同一个peer group 111。</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">168 22 7:1 / /home/kingand67/disks/bind2 rw,relatime shared:127</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#ID为24的挂载点为根目录的挂载点</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep ^22| sed &apos;s/-.*//&apos;</div><div class="line">22 0 8:1 / / rw,relatime shared:1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#这时disk3和disk4目录都是空的</div><div class="line">kingand67@kelele67:~/disks$ ls bind1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ ls bind2/disk4/</div><div class="line">kingand67@kelele67:~/disks$ ls disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ ls disk2/disk4/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#重新挂载disk3和disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk4.img ./disk2/disk4/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#由于disk1/和bind1/属于同一个peer group，</div><div class="line">#所以在挂载了disk3后，在两个目录下都能看到disk3下的内容</div><div class="line">kingand67@kelele67:~/disks$ ls disk1/disk3/</div><div class="line">lost+found</div><div class="line">kingand67@kelele67:~/disks$ ls bind1/disk3/</div><div class="line">lost+found</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#而disk2/是private类型的，所以在他下面挂载disk4不会通知bind2，</div><div class="line">#于是bind2下的disk4目录是空的</div><div class="line">kingand67@kelele67:~/disks$ ls disk2/disk4/</div><div class="line">lost+found</div><div class="line">kingand67@kelele67:~/disks$ ls bind2/disk4/</div><div class="line">kingand67@kelele67:~/disks$</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#再看看disk3，虽然174和175的父挂载点不一样，但由于他们父挂载点属于同一个peer group，</div><div class="line">#且disk3是以默认方式挂载的，所以他们属于同一个peer group</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |egrep &quot;disk3&quot;| sed &apos;s/-.*//&apos;</div><div class="line">174 150 7:2 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:133 </div><div class="line">175 162 7:2 / /home/kingand67/disks/bind1/disk3 rw,relatime shared:133</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount bind1/disk3后，disk1/disk3也相应的自动umount掉了</div><div class="line">kingand67@kelele67:~/disks$ sudo umount bind1/disk3</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo | grep disk3</div><div class="line">kingand67@kelele67:~/disks$</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="slave-mount"><a href="#slave-mount" class="headerlink" title="slave mount"></a>slave mount</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#umount除disk1的所有其他挂载点</div><div class="line">kingand67@kelele67:~/disks$ sudo umount ./disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/bind2</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#确认只剩disk1</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#分别显式的用shared和slave的方式bind disk1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind --make-shared ./disk1 ./bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind --make-slave ./bind1 ./bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#150、156和162都属于同一个peer group，</div><div class="line">#master:105表示/home/dev/disks/bind2是peer group 105的slave</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#mount disk3到disk1的子目录disk3下</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#其他两个目录bin1和bind2里面也挂载成功，说明master发生变化的时候，slave会跟着变化</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111 </div><div class="line">168 150 7:1 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:127 </div><div class="line">170 162 7:1 / /home/kingand67/disks/bind2/disk3 rw,relatime master:127 </div><div class="line">169 156 7:1 / /home/kingand67/disks/bind1/disk3 rw,relatime shared:127</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#umount disk3，然后mount disk3到bind2目录下</div><div class="line">kingand67@kelele67:~/disks$ sudo umount ./disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./bind2/disk3/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#由于bind2的propagation type是slave，所以disk1和bind1两个挂载点下面不会挂载disk3</div><div class="line">#从168的类型可以看出，当父挂载点162是slave类型时，默认情况下其子挂载点168是private类型</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111 </div><div class="line">168 162 7:1 / /home/kingand67/disks/bind2/disk3 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果用到了 <strong>bind mount</strong> 和 <strong>mount namespace</strong> ，在挂载设备的时候就需要注意一下父挂载点是否和其他挂载点有 <strong>peer group</strong> 关系，如果有且父挂载点是 <strong>shared</strong> ，就说明你挂载的设备除了在当前挂载点可以看到，在父挂载点的 <strong>peer group</strong> 的下面也可以看到。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000006899213" target="_blank" rel="external">Linux mount （第二部分）</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/01/16/Linux mount(二)/" class="archive-article-date">
-  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-16</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mount/">mount</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1205,7 +1174,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 15px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 17.5px;">algorithm</a> <a href="/tags/animation/" style="font-size: 15px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 17.5px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 17.5px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 12.5px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/lua/" style="font-size: 12.5px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12.5px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12.5px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12.5px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 16px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 14px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 14px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
     			</div>
     	</section>
     
