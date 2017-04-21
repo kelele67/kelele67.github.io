@@ -135,6 +135,424 @@
       <div class="body-wrap">
         
   
+    <article id="airticle-C语言标准库函数学习(二)一一字符串操作函数" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/">C语言标准库函数学习(二)一一字符串操作函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+</p><h2 id="String-Manipulation-字符串操作函数"><a href="#String-Manipulation-字符串操作函数" class="headerlink" title="String Manipulation 字符串操作函数"></a>String Manipulation 字符串操作函数</h2><h3 id="strcat"><a href="#strcat" class="headerlink" title="strcat()"></a>strcat()</h3><blockquote>
+<p>连接两个字符串</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.strcat()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcat</span><span class="params">(<span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">char</span> *src)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *addr = dest;</div><div class="line">    <span class="comment">//find '\0'</span></div><div class="line">    <span class="keyword">while</span> (*dest) &#123;</div><div class="line">        dest++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (*dest++ = *src++) &#123;&#125;;</div><div class="line">    <span class="keyword">return</span> addr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><em>相关</em>：strncat:连接前n个字符串</p>
+<h3 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp()"></a>strcmp()</h3><blockquote>
+<p>比较两个字符串</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//2.strcmp()</span></div><div class="line"><span class="comment">// &gt; p</span></div><div class="line"><span class="comment">// = 0</span></div><div class="line"><span class="comment">// &lt; n</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">strcmp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str1, <span class="keyword">const</span> <span class="keyword">char</span> *str2)</span> </span>&#123;</div><div class="line">    <span class="keyword">while</span> (*str1 == *str2) &#123;</div><div class="line">        <span class="keyword">if</span> (*str1 == <span class="string">'\0'</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        str1++;</div><div class="line">        str2++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> *str1 - *str2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><em>相关</em>：strncmp:比较前n个字符串</p>
+<h3 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy()"></a>strcpy()</h3><blockquote>
+<p>拷贝字符串内容到目的串</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//3.strcpy()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcpy</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">char</span> *src)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *addr = dest;</div><div class="line">    <span class="keyword">while</span> (*dest++ = *src++) &#123;&#125;;</div><div class="line">    <span class="keyword">return</span> addr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><em>相关</em>：strncpy:拷贝前n个字符串</p>
+<h3 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h3><blockquote>
+<p>返回字符串str的长度（不包括’\0’)</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//4.strlen()</span></div><div class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">strlen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>&#123;</div><div class="line">    <span class="keyword">unsigned</span> len = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (*str != <span class="string">'\0'</span>) &#123;</div><div class="line">        len++;</div><div class="line">        str++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="strchr"><a href="#strchr" class="headerlink" title="strchr()"></a>strchr()</h3><p>&gt;</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//5.strchr()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strchr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">const</span> <span class="keyword">char</span> c)</span> </span>&#123;</div><div class="line">    <span class="keyword">while</span> (*str != <span class="string">'\0'</span> &amp;&amp; *str != c) &#123;</div><div class="line">        str++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> (*src == c ? str : <span class="literal">NULL</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="strrchr"><a href="#strrchr" class="headerlink" title="strrchr()"></a>strrchr()</h3><p>&gt;</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//6.strrchr() last find c</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strrchr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">const</span> <span class="keyword">char</span> c)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *p = str + <span class="built_in">strlen</span>(str);</div><div class="line">    <span class="keyword">while</span> (p != str &amp;&amp; *p != c) &#123;</div><div class="line">        p--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (p == str &amp;&amp; *p != c) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="strcspn"><a href="#strcspn" class="headerlink" title="strcspn()"></a>strcspn()</h3><blockquote>
+<p>在字符串pstr中搜寻strCharsret中所出现的字符，返回strCharset中出现的第一个字符在pstr中的出现位置。简单的说，若strcspn返回的数值为n，则代表字符串strCharsrt开头连续有n个字符不包含在pstr内的字符。</p>
+</blockquote>
+<p>这个函数实现的非常巧妙，所以我们重点介绍一下</p>
+<p>例如：对于字符’1’,其ASCII码味0x31，右移3位得到6，和7与运算得到1，也就是在map[6]中的第一位.</p>
+<p>具体思想：<br>一个unsigend char有8位，拆为高5位与低3位。前5位的范围有0~32，所以申请32大小的数组map。直接将前5位映射成成数组下标，后3位范围0~7，正好是每一项char（8bit）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//7. tstrCSpn</span></div><div class="line"><span class="comment">//sublime</span></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">tstrCSpn</span><span class="params">(<span class="keyword">const</span> tChar *pStr, <span class="keyword">const</span> tChar *pStrSet)</span> </span>&#123;</div><div class="line">    <span class="comment">// map有32个字节的大小，也就是256个bit，可把map堪称一个2维数组[32][8]</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="built_in">map</span>[<span class="number">32</span>] = &#123;<span class="number">0</span>&#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 每个ASCII码(设为c)有8bit，把它分成2部分，低3位构成下标j(通过c&amp;7(2进制为111)),</span></div><div class="line">    <span class="comment">// 高5位构成下标i(通过c&gt;&gt;3得到)。这样在map[i][j]中置1表示字符存在</span></div><div class="line">    <span class="keyword">while</span> (*pStrSet) &#123;</div><div class="line">        <span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] = <span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] | (<span class="number">1</span> &lt;&lt; (*pStrSet &amp; <span class="number">7</span>));</div><div class="line">        pStrSet++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">map</span>[<span class="number">0</span>] = <span class="built_in">map</span>[<span class="number">0</span>] | <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">    <span class="keyword">while</span> (!(<span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] &amp; (<span class="number">1</span> &lt;&lt; (*pStrSet &amp; <span class="number">7</span>)))) &#123;</div><div class="line">        count++;</div><div class="line">        pStr++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><em>相关</em>：strspn:返回后面字符串中第一个不在前者出现的下标</p>
+<h3 id="strdup"><a href="#strdup" class="headerlink" title="strdup()"></a>strdup()</h3><blockquote>
+<p>拷贝字符串到新建的内存</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//8. strdup()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strdup</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *p = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">if</span> (str &amp;&amp; (p = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="built_in">strlen</span>(str) + <span class="number">1</span>))) &#123;</div><div class="line">        <span class="built_in">strcpy</span>(p, str);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="strrev"><a href="#strrev" class="headerlink" title="strrev()"></a>strrev()</h3><blockquote>
+<p>反转字符串</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//9. strrev()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strrev</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (str == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">char</span> *start = str;</div><div class="line">    <span class="keyword">char</span> *end = str + <span class="built_in">strlen</span>(str) - <span class="number">1</span>;</div><div class="line">    <span class="keyword">char</span> temp;</div><div class="line">    <span class="keyword">while</span> (start &lt; end) &#123;</div><div class="line">        temp = *start;</div><div class="line">        *start = *end;</div><div class="line">        *end = temp;</div><div class="line"></div><div class="line">        start++;</div><div class="line">        end--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> str;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h3><blockquote>
+<p>查找字符串str2在str1中出现的位置</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//10. strstr()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strstr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> str1, <span class="keyword">const</span> <span class="keyword">char</span> str2)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> length1 = <span class="built_in">strlen</span>(st1);</div><div class="line">    <span class="keyword">int</span> length2 = <span class="built_in">strlen</span>(st2);</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (length1 &gt; length2) &#123;</div><div class="line">        length1--;</div><div class="line">        <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(str1, str2, length2)) &#123;</div><div class="line">            <span class="keyword">return</span> str1;</div><div class="line">        &#125;</div><div class="line">        str1++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">inline</span> tChar *<span class="title">tStrStr</span><span class="params">(tChar *pStr, tChar *pSubStr)</span> </span>&#123;</div><div class="line">    tChar *b = pSubStr;</div><div class="line">    <span class="keyword">if</span> (*b == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="keyword">return</span> pStr;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    tChar *a = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">for</span> ( ; *pStr != <span class="literal">NULL</span>; pStr++) &#123;</div><div class="line">        <span class="keyword">if</span> (*pStr != *b) &#123;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        a = pStr;</div><div class="line">        <span class="keyword">while</span> (<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (*b == <span class="literal">NULL</span>) &#123;</div><div class="line">                <span class="keyword">return</span> pStr;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (*a++ != *b++) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        b = pSubStr;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/" class="archive-article-date">
+  	<time datetime="2016-12-06T01:15:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-06</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string-manipulation/">string manipulation</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-C语言标准库函数学习(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/05/C语言标准库函数学习(一)/">C语言标准库函数学习(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+</p><h2 id="CRT"><a href="#CRT" class="headerlink" title="CRT"></a>CRT</h2><p>开始学习 <strong>CRT</strong> 的一些实现源码<br>主要学习三个部分：</p>
+<ul>
+<li><p>字符串操作 String Manipulation</p>
+</li>
+<li><p>缓冲区操作 Buffer Manipulation</p>
+</li>
+<li><p>数据转换 Data Conversion</p>
+</li>
+</ul>
+<h2 id="学到的函数表"><a href="#学到的函数表" class="headerlink" title="学到的函数表"></a>学到的函数表</h2><h3 id="String-Manipulation"><a href="#String-Manipulation" class="headerlink" title="String Manipulation"></a>String Manipulation</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>原型</th>
+<th style="text-align:right">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strcat()</td>
+<td>char <em>strcat(char </em>dest, const char *src)</td>
+<td style="text-align:right">连接两个字符串</td>
+</tr>
+<tr>
+<td>strcmp()</td>
+<td>int strcmp(const char <em>str1, const char </em>str2)</td>
+<td style="text-align:right">比较两个字符串</td>
+</tr>
+<tr>
+<td>strcpy()</td>
+<td>char <em>strcpy(char</em> dest, const char *src)</td>
+<td style="text-align:right">拷贝字符串到目的串</td>
+</tr>
+<tr>
+<td>strlen()</td>
+<td>unsigned in strlen(const char *str)</td>
+<td style="text-align:right">返回字符串str的长度（不包括’\0’)</td>
+</tr>
+<tr>
+<td>strchr()</td>
+<td>char <em>strchr(char </em>str, const char c)</td>
+<td style="text-align:right">查找str中首次出现c的位置</td>
+</tr>
+<tr>
+<td>strrchr()</td>
+<td>char <em>strrchr(char </em>str, const char c)</td>
+<td style="text-align:right">查找str中最后一次出现c的位置</td>
+</tr>
+<tr>
+<td>strcspn()</td>
+<td>size_t strcspn(const char <em>pstr, const char </em>strCharset)</td>
+<td style="text-align:right">返回strCharset中出现的第一个字符在pstr中的出现位置</td>
+</tr>
+<tr>
+<td>strspn()</td>
+<td>size_t strspn(const char <em>pstr, const char </em>strCharset)</td>
+<td style="text-align:right">返回后面字符串中第一个不在前者出现的下标</td>
+</tr>
+<tr>
+<td>strdup()</td>
+<td>char <em>strdup(const char </em>str)</td>
+<td style="text-align:right">功能为拷贝字符串到新建的内存</td>
+</tr>
+<tr>
+<td>strrev()</td>
+<td>char <em>strrev(char </em>str)</td>
+<td style="text-align:right">反转字符串</td>
+</tr>
+<tr>
+<td>strstr()</td>
+<td>char <em>strstr(const char str1, const char </em>str2)</td>
+<td style="text-align:right">查找字符串str2在str1中出现的位置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Buffer-Manipulation"><a href="#Buffer-Manipulation" class="headerlink" title="Buffer Manipulation"></a>Buffer Manipulation</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>原型</th>
+<th style="text-align:right">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Data-Conversion"><a href="#Data-Conversion" class="headerlink" title="Data Conversion"></a>Data Conversion</h3><blockquote>
+<p>大概学到的就是这些了<br>接下来我们一一的介绍</p>
+</blockquote>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/12/05/C语言标准库函数学习(一)/" class="archive-article-date">
+  	<time datetime="2016-12-05T06:05:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-05</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-kelele67的学习笔记-html小游戏" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/11/kelele67的学习笔记-html小游戏/">kelele67的学习笔记-html5小游戏</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="tinyHeart"><a href="#tinyHeart" class="headerlink" title="tinyHeart"></a>tinyHeart</h1><p>之前一直在做 <strong>swift</strong> 在IOS上的一些界面设计啊，动画效果啥的，主要是来自简书上看到的<a href="http://www.jianshu.com/p/52032bc4cbe4" target="_blank" rel="external">自学 iOS - 三十天三十个 Swift 项目</a>。这个项目我才做了几个。打算做完了再整合成一篇文章发表出来。结果学到一半就。。不过有一点可以辩解的是，之前的确是一直在不断的学啊学。感觉自己身心疲惫，也是有点学不动了，但是现在又充满了动力蛤蛤。</p>
+<p>最近为了学（fu）习 <strong>web</strong> 开发，决定做一个慕课网的教程<a href="http://www.imooc.com/learn/515" target="_blank" rel="external">HTML5小游戏—爱心鱼</a></p>
+<p>想起来还有一件让我充满动力的事就是除了自习室有空调能够暖和过冬以外就是我的sublime换了一个主题，代码颜色变得超好看，我超喜欢的，哈哈哈我是不会告诉你是 <strong>Boxy Nova.sublime-theme</strong>这个主题的。</p>
+<p>这个爱心鱼html5小游戏的制作通过以下几个步骤进行：</p>
+<ol>
+<li>页面搭建</li>
+<li>绘制</li>
+</ol>
+<hr>
+<h2 id="页面搭建"><a href="#页面搭建" class="headerlink" title="页面搭建"></a>页面搭建</h2><p>主要就是建立src资源文件夹和js文件夹再加上一个html文件就行了</p>
+<p>首先是html文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;tinyHeart&lt;/title&gt;</div><div class="line">    &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">            body&#123;</div><div class="line">                padding-top: 10px;</div><div class="line">            &#125;</div><div class="line">            .all_bg&#123;</div><div class="line">                width: 800px;</div><div class="line">                height: 600px;</div><div class="line">                margin: 0px auto;</div><div class="line">            &#125;</div><div class="line">            #allcanvas&#123;</div><div class="line">                position: relative;</div><div class="line">                width: 800px;</div><div class="line">                height: 600px</div><div class="line">                margin: 0px;</div><div class="line">            &#125;</div><div class="line">            #canvas1&#123;</div><div class="line">                position: absolute;</div><div class="line">                bottom: 0;</div><div class="line">                left: 0;</div><div class="line">                z-index: 1;</div><div class="line">            &#125;</div><div class="line">            #canvas2&#123;</div><div class="line">                position: absolute;</div><div class="line">                bottom: 0;</div><div class="line">                left: 0;</div><div class="line">                z-index: 0;</div><div class="line">            &#125;</div><div class="line">            &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=&quot;all_bg&quot;&gt;</div><div class="line">    &lt;div class=&quot;allcanvas&quot;&gt;</div><div class="line">    &lt;canvas id=&quot;canvas1&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;</div><div class="line">    &lt;canvas id=&quot;canvas2&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot; src =&quot;js/main.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>还有main.js文件，把准备工作做好</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> can1;</div><div class="line"><span class="keyword">var</span> can2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ctx1;</div><div class="line"><span class="keyword">var</span> ctx2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> canWidth;</div><div class="line"><span class="keyword">var</span> canHeight;</div><div class="line"></div><div class="line"><span class="keyword">var</span> lastTime;</div><div class="line"><span class="keyword">var</span> deltaTime;<span class="comment">//两帧之间的时间差</span></div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.onload = game;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">game</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    init();</div><div class="line">    lastTime = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = <span class="number">0</span>;</div><div class="line">    gameloop();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//获得canvas context</span></div><div class="line">    can1 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas1"</span>);<span class="comment">//前面的 fishes, dust, UI, circle</span></div><div class="line">    ctx1 = can1.getContext(<span class="string">'2d'</span>);</div><div class="line">    can2 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas2"</span>);<span class="comment">//后面的 bg, ane, fruits</span></div><div class="line">    ctx2 = can2.getContext(<span class="string">'2d'</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameloop</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">window</span>.requestAnimFrame(gameloop);</div><div class="line">    <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = now - lastTime;</div><div class="line">    lastTime = now;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在html文件中添加js文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot; src =&quot;js/background.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h2><ol>
+<li>绘制背景</li>
+<li>海葵绘制</li>
+<li>果实绘制（静态果实）</li>
+<li>果实绘制（果实上浮）</li>
+<li>果实绘制（果实数量绘制）</li>
+<li>大鱼绘制</li>
+<li>大鱼随鼠标移动</li>
+<li>大鱼和果实的碰撞检测</li>
+<li>优化</li>
+<li>小鱼绘制</li>
+</ol>
+<h3 id="1-绘制背景"><a href="#1-绘制背景" class="headerlink" title="1.绘制背景"></a>1.绘制背景</h3><p>编写background.js文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawBackground</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    ctx2.drawImage(bgPic, <span class="number">0</span>, <span class="number">0</span>, canWidth, canHeight);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>把背景图片路径导入到main.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> can1;</div><div class="line"><span class="keyword">var</span> can2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ctx1;</div><div class="line"><span class="keyword">var</span> ctx2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> canWidth;</div><div class="line"><span class="keyword">var</span> canHeight;</div><div class="line"></div><div class="line"><span class="keyword">var</span> lastTime;</div><div class="line"><span class="keyword">var</span> deltaTime;<span class="comment">//两帧之间的时间差</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bgPic = <span class="keyword">new</span> Image();</div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.onload = game;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">game</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    init();</div><div class="line">    lastTime = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = <span class="number">0</span>;</div><div class="line">    gameloop();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//获得canvas context</span></div><div class="line">    can1 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas1"</span>);<span class="comment">//前面的 fishes, dust, UI, circle</span></div><div class="line">    ctx1 = can1.getContext(<span class="string">'2d'</span>);</div><div class="line">    can2 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas2"</span>);<span class="comment">//后面的 bg, ane, fruits</span></div><div class="line">    ctx2 = can2.getContext(<span class="string">'2d'</span>);</div><div class="line"></div><div class="line">    bgPic.src = <span class="string">"./src/background.jpg"</span>;</div><div class="line"></div><div class="line">    canWidth = can1.width;</div><div class="line">    canHeight = can1.height;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameloop</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">window</span>.requestAnimFrame(gameloop);</div><div class="line">    <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = now - lastTime;</div><div class="line">    lastTime = now;</div><div class="line"></div><div class="line">    drawBackground();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-海葵绘制"><a href="#2-海葵绘制" class="headerlink" title="2.海葵绘制"></a>2.海葵绘制</h3><p>建立ane.js文件定义海葵</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> aneObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x = [];</div><div class="line">    <span class="keyword">this</span>.len = [];</div><div class="line">&#125;</div><div class="line">aneObj.prototype.num = <span class="number">50</span>;</div><div class="line"><span class="comment">//初始化海葵</span></div><div class="line">aneObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.x[i] = i * <span class="number">16</span> + <span class="built_in">Math</span>.random() * <span class="number">20</span>;</div><div class="line">        <span class="keyword">this</span>.len[i] = <span class="number">200</span> + <span class="built_in">Math</span>.random() * <span class="number">50</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">aneObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    ctx2.save();</div><div class="line">    ctx2.globalAlpha = <span class="number">0.6</span>;</div><div class="line">    ctx2.lineWidth = <span class="number">20</span>;</div><div class="line">    ctx2.lineCap = <span class="string">"round"</span>;</div><div class="line">    ctx2.strokeStyle = <span class="string">"#3b154e"</span><span class="comment">//先设置style</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//beginPath, moveTo, lineTo, stroke, strokeStyle, lineWidth, lineCap</span></div><div class="line">        ctx2.beginPath();</div><div class="line">        ctx2.moveTo(<span class="keyword">this</span>.x[i], canHeight);</div><div class="line">        ctx2.lineTo(<span class="keyword">this</span>.x[i], canHeight - <span class="keyword">this</span>.len[i]);</div><div class="line">        ctx2.stroke();</div><div class="line">    &#125;</div><div class="line">    ctx2.restore();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>同样的在main.js中绘制海葵</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> can1;</div><div class="line"><span class="keyword">var</span> can2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ctx1;</div><div class="line"><span class="keyword">var</span> ctx2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> canWidth;</div><div class="line"><span class="keyword">var</span> canHeight;</div><div class="line"></div><div class="line"><span class="keyword">var</span> lastTime;</div><div class="line"><span class="keyword">var</span> deltaTime;<span class="comment">//两帧之间的时间差</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bgPic = <span class="keyword">new</span> Image();</div><div class="line"></div><div class="line"><span class="keyword">var</span> ane;</div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.onload = game;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">game</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    init();</div><div class="line">    lastTime = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = <span class="number">0</span>;</div><div class="line">    gameloop();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//获得canvas context</span></div><div class="line">    can1 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas1"</span>);<span class="comment">//前面的 fishes, dust, UI, circle</span></div><div class="line">    ctx1 = can1.getContext(<span class="string">'2d'</span>);</div><div class="line">    can2 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas2"</span>);<span class="comment">//后面的 bg, ane, fruits</span></div><div class="line">    ctx2 = can2.getContext(<span class="string">'2d'</span>);</div><div class="line"></div><div class="line">    bgPic.src = <span class="string">"./src/background.jpg"</span>;</div><div class="line"></div><div class="line">    canWidth = can1.width;</div><div class="line">    canHeight = can1.height;</div><div class="line"></div><div class="line">    ane = <span class="keyword">new</span> aneObj();</div><div class="line">    ane.init();</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameloop</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">window</span>.requestAnimFrame(gameloop);</div><div class="line">    <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = now - lastTime;</div><div class="line">    lastTime = now;</div><div class="line"></div><div class="line">    drawBackground();</div><div class="line">    ane.draw();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>继续在html文件中添加js文件（接下来的步骤就省略这一步了，老是写这一步好麻烦，我好懒啊啊啊~)</p>
+<p>最后画出来是酱紫的</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-11-11%2016.57.22.png" alt=""></h2><h3 id="3-果实绘制"><a href="#3-果实绘制" class="headerlink" title="3.果实绘制"></a>3.果实绘制</h3><ol>
+<li>果实绘制（静态果实）</li>
+<li>果实绘制（果实上浮）</li>
+<li>果实绘制（果实数量绘制）</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fruitObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.alive = [];<span class="comment">//bool</span></div><div class="line">    <span class="keyword">this</span>.x = [];</div><div class="line">    <span class="keyword">this</span>.y = [];</div><div class="line">    <span class="keyword">this</span>.aneID = [];</div><div class="line">    <span class="keyword">this</span>.l = [];<span class="comment">//果实的大小</span></div><div class="line">    <span class="keyword">this</span>.spd =[];<span class="comment">//果实自己的速度</span></div><div class="line">    <span class="keyword">this</span>.fruitType = [];<span class="comment">//果实类型</span></div><div class="line">    <span class="keyword">this</span>.orange = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.blue = <span class="keyword">new</span> Image();</div><div class="line">&#125;</div><div class="line">fruitObj.prototype.num = <span class="number">30</span>;</div><div class="line">fruitObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.alive[i] = <span class="literal">false</span>;</div><div class="line">        <span class="keyword">this</span>.x[i] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">this</span>.y[i] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">this</span>.aneID[i] = <span class="number">0</span>;<span class="comment">//哪一个海葵</span></div><div class="line">        <span class="keyword">this</span>.spd[i] = <span class="built_in">Math</span>.random() * <span class="number">0.02</span> + <span class="number">0.005</span>;</div><div class="line">        <span class="comment">//this.born(i);</span></div><div class="line">        <span class="keyword">this</span>.fruitType[i] = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.orange.src = <span class="string">"./src/fruit.png"</span>;</div><div class="line">    <span class="keyword">this</span>.blue.src = <span class="string">"./src/blue.png"</span>;</div><div class="line">&#125;</div><div class="line">fruitObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> pic;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.alive[i])</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.fruitType[i] == <span class="string">"blue"</span>) &#123;   <span class="comment">//判断蓝色还是黄色果实</span></div><div class="line">                pic = <span class="keyword">this</span>.blue;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                pic = <span class="keyword">this</span>.orange;</div><div class="line">            &#125;</div><div class="line">        <span class="comment">//draw</span></div><div class="line">        <span class="comment">//find an ane, grow, fly up</span></div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.l[i] &lt;= <span class="number">14</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">this</span>.l[i] += <span class="keyword">this</span>.spd[i] * deltaTime;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//果实上升的速度变化</span></div><div class="line">                <span class="keyword">this</span>.y[i] -= <span class="keyword">this</span>.spd[i] * <span class="number">8</span> * deltaTime;</div><div class="line">                ctx2.drawImage(pic, <span class="keyword">this</span>.x[i]-<span class="keyword">this</span>.l[i] / <span class="number">2</span>, <span class="keyword">this</span>.y[i]-<span class="keyword">this</span>.l[i] / <span class="number">2</span>, <span class="keyword">this</span>.l[i], <span class="keyword">this</span>.l[i]);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.y[i] &lt; <span class="number">10</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">this</span>.alive[i] = <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fruitObj.prototype.born = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> aneID = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * ane.num);</div><div class="line">    <span class="comment">//this.aneID[i] = Math.floor(Math.random() * ane.num);</span></div><div class="line">    <span class="comment">//果实出生点</span></div><div class="line">    <span class="keyword">this</span>.x[i] = ane.x[aneID];</div><div class="line">    <span class="keyword">this</span>.y[i] = canHeight - ane.len[aneID];</div><div class="line">    <span class="keyword">this</span>.l[i] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">this</span>.alive[i] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">var</span> fruRand = <span class="built_in">Math</span>.random();</div><div class="line">    <span class="keyword">if</span>(fruRand &lt; <span class="number">0.2</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.fruitType[i] = <span class="string">"blue"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">this</span>.fruitType[i] = <span class="string">"orange"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fruitObj.prototype.dead = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.alive[i] = <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fruitMonitor</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fruit.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(fruit.alive[i]) &#123;</div><div class="line">            num++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(num &lt; <span class="number">15</span>)</div><div class="line">    &#123;</div><div class="line">        sendFruit();</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendFruit</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fruit.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(!fruit.alive[i])</div><div class="line">        &#123;</div><div class="line">            fruit.born(i);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// fruitObj.prototype.update = function()</span></div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//  var num = 0;</span></div><div class="line"><span class="comment">//  for(var i = 0; i &lt; this.alive[i]; i++)</span></div><div class="line"><span class="comment">//  &#123;</span></div><div class="line"><span class="comment">//      if(this.alive[i]) num++;</span></div><div class="line"><span class="comment">//  &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<hr>
+<h3 id="6-大鱼绘制"><a href="#6-大鱼绘制" class="headerlink" title="6. 大鱼绘制"></a>6. 大鱼绘制</h3><ol>
+<li>大鱼绘制</li>
+<li>大鱼随鼠标移动</li>
+<li>大鱼和果实的碰撞检测</li>
+</ol>
+<h4 id="大鱼的绘制及随鼠标移动"><a href="#大鱼的绘制及随鼠标移动" class="headerlink" title="大鱼的绘制及随鼠标移动"></a>大鱼的绘制及随鼠标移动</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> dadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x;</div><div class="line">    <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">this</span>.angle;</div><div class="line">    <span class="keyword">this</span>.bigEye = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.bigBody = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.bigTail = <span class="keyword">new</span> Image();</div><div class="line">&#125;</div><div class="line"></div><div class="line">dadObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x = canWidth * <span class="number">0.5</span>;</div><div class="line">    <span class="keyword">this</span>.y = canHeight * <span class="number">0.5</span>;</div><div class="line">    <span class="keyword">this</span>.angle = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.bigEye.src = <span class="string">"./src/bigEye0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.bigBody.src = <span class="string">"./src/bigSwim0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.bigTail.src = <span class="string">"./src/bigTail0.png"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dadObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//lerp x, y 趋向于一个目标值</span></div><div class="line">    <span class="keyword">this</span>.x = lerpDistance(mx, <span class="keyword">this</span>.x, <span class="number">0.9</span>);</div><div class="line">    <span class="keyword">this</span>.y = lerpDistance(my, <span class="keyword">this</span>.y, <span class="number">0.9</span>);</div><div class="line"></div><div class="line">    <span class="comment">//delta angle</span></div><div class="line">    <span class="comment">//Math.atan2(y, x)</span></div><div class="line">    <span class="keyword">var</span> deltaY = my - <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">var</span> deltaX = mx - <span class="keyword">this</span>.x;</div><div class="line">    <span class="comment">//大鱼运动时旋转角度</span></div><div class="line">    <span class="keyword">var</span> beta = <span class="built_in">Math</span>.atan2(deltaY, deltaX) + <span class="built_in">Math</span>.PI;</div><div class="line"></div><div class="line">    <span class="comment">//lerp angle </span></div><div class="line">    <span class="keyword">this</span>.angle = lerpAngle(beta, <span class="keyword">this</span>.angle, <span class="number">0.7</span>);</div><div class="line"></div><div class="line">    ctx1.save();<span class="comment">//仅适用于大鱼</span></div><div class="line">    ctx1.translate(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</div><div class="line">    ctx1.rotate(<span class="keyword">this</span>.angle);</div><div class="line"></div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.bigTail, -<span class="keyword">this</span>.bigTail.width * <span class="number">0.5</span> + <span class="number">30</span>, -<span class="keyword">this</span>.bigTail.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.bigBody, -<span class="keyword">this</span>.bigBody.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.bigBody.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.bigEye, -<span class="keyword">this</span>.bigEye.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.bigEye.height * <span class="number">0.5</span>);</div><div class="line"></div><div class="line">    ctx1.restore();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h4><p>添加collision.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断大鱼和果实的距离</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">dadFruitsCollision</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fruit.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(fruit.alive[i])</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//calculate length</span></div><div class="line">            <span class="keyword">var</span> l = calLength2(fruit.x[i], fruit.y[i], dad.x, dad.y);</div><div class="line">            <span class="keyword">if</span>(l &lt; <span class="number">400</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">//fruit eaten</span></div><div class="line">                fruit.dead(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="10-小鱼绘制"><a href="#10-小鱼绘制" class="headerlink" title="10. 小鱼绘制"></a>10. 小鱼绘制</h3><ol>
+<li>优化</li>
+<li>小鱼绘制</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> babyObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x;</div><div class="line">    <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">this</span>.angle;</div><div class="line">    <span class="keyword">this</span>.babyEye = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.babyBody = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.babyTail = <span class="keyword">new</span> Image();</div><div class="line">&#125;</div><div class="line"></div><div class="line">babyObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x = canWidth * <span class="number">0.5</span> - <span class="number">50</span>;</div><div class="line">    <span class="keyword">this</span>.y = canHeight * <span class="number">0.5</span> + <span class="number">50</span>;</div><div class="line">    <span class="keyword">this</span>.angle = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.babyEye.src = <span class="string">"./src/babyEye0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.babyBody.src = <span class="string">"./src/babyFade0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.babyTail.src = <span class="string">"./src/babyTail0.png"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">babyObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//lerp x, y</span></div><div class="line">    <span class="keyword">this</span>.x = lerpDistance(dad.x, <span class="keyword">this</span>.x, <span class="number">0.98</span>)</div><div class="line">    <span class="keyword">this</span>.y = lerpDistance(dad.y, <span class="keyword">this</span>.y, <span class="number">0.98</span>)</div><div class="line"></div><div class="line">    <span class="comment">//lerp angle    </span></div><div class="line">    <span class="keyword">var</span> deltaY = dad.y - <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">var</span> deltaX = dad.x - <span class="keyword">this</span>.x;</div><div class="line">    <span class="comment">//大鱼运动时旋转角度</span></div><div class="line">    <span class="keyword">var</span> beta = <span class="built_in">Math</span>.atan2(deltaY, deltaX) + <span class="built_in">Math</span>.PI;<span class="comment">// [-PI, PI]</span></div><div class="line"></div><div class="line">    <span class="comment">//lerp angle </span></div><div class="line">    <span class="keyword">this</span>.angle = lerpAngle(beta, <span class="keyword">this</span>.angle, <span class="number">0.7</span>);</div><div class="line">    <span class="comment">//ctx1</span></div><div class="line">    ctx1.save();</div><div class="line">    <span class="comment">//translate() 转移原点API</span></div><div class="line">    ctx1.translate(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</div><div class="line">    ctx1.rotate(<span class="keyword">this</span>.angle);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.babyTail, -<span class="keyword">this</span>.babyTail.width * <span class="number">0.5</span> + <span class="number">23</span>, -<span class="keyword">this</span>.babyTail.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.babyBody, -<span class="keyword">this</span>.babyBody.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.babyBody.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.babyEye, -<span class="keyword">this</span>.babyEye.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.babyEye.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.restore();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>到这里，我们的游戏的上半部分都完成了，接下来我们要做的就是添加一些动态效果。</p>
+</blockquote>
+<p>以上用到的很多函数都封装在了commonFunction.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.requestAnimFrame = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.requestAnimationFrame || <span class="built_in">window</span>.webkitRequestAnimationFrame || <span class="built_in">window</span>.mozRequestAnimationFrame || <span class="built_in">window</span>.oRequestAnimationFrame || <span class="built_in">window</span>.msRequestAnimationFrame ||</div><div class="line">        <span class="function"><span class="keyword">function</span>(<span class="params"> <span class="regexp">/* function FrameRequestCallback */</span> callback, <span class="regexp">/* DOMElement Element */</span> element</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="built_in">window</span>.setTimeout(callback, <span class="number">1000</span> / <span class="number">60</span>);</div><div class="line">        &#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">calLength2</span>(<span class="params">x1, y1, x2, y2</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(x1 - x2, <span class="number">2</span>) + <span class="built_in">Math</span>.pow(y1 - y2, <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomColor</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> col = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line">    col[<span class="number">0</span>] = <span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">155</span>;</div><div class="line">    col[<span class="number">0</span>] = col[<span class="number">0</span>].toFixed();</div><div class="line">    col[<span class="number">1</span>] = <span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">155</span>;</div><div class="line">    col[<span class="number">1</span>] = col[<span class="number">1</span>].toFixed();</div><div class="line">    col[<span class="number">2</span>] = <span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">155</span>;</div><div class="line">    col[<span class="number">2</span>] = col[<span class="number">2</span>].toFixed();</div><div class="line">    <span class="keyword">var</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">3</span>);</div><div class="line">    col[num] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> <span class="string">"rgba("</span> + col[<span class="number">0</span>] + <span class="string">","</span> + col[<span class="number">1</span>] + <span class="string">","</span> + col[<span class="number">2</span>] + <span class="string">","</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lerpAngle</span>(<span class="params">a, b, t</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> d = b - a;</div><div class="line">    <span class="keyword">if</span> (d &gt; <span class="built_in">Math</span>.PI) d = d - <span class="number">2</span> * <span class="built_in">Math</span>.PI;</div><div class="line">    <span class="keyword">if</span> (d &lt; -<span class="built_in">Math</span>.PI) d = d + <span class="number">2</span> * <span class="built_in">Math</span>.PI;</div><div class="line">    <span class="keyword">return</span> a + d * t;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lerpDistance</span>(<span class="params">aim, cur, ratio</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> delta = cur - aim;</div><div class="line">    <span class="keyword">return</span> aim + delta * ratio;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">inOboundary</span>(<span class="params">arrX, arrY, l, r, t, b</span>) </span>&#123; <span class="comment">//在l r t b范围内的检测</span></div><div class="line">    <span class="keyword">return</span> arrX &gt; l &amp;&amp; arrX &lt; r &amp;&amp; arrY &gt; t &amp;&amp; arrY &lt; b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rgbColor</span>(<span class="params">r, g, b</span>) </span>&#123;</div><div class="line">    r = <span class="built_in">Math</span>.round(r * <span class="number">256</span>);</div><div class="line">    g = <span class="built_in">Math</span>.round(g * <span class="number">256</span>);</div><div class="line">    b = <span class="built_in">Math</span>.round(b * <span class="number">256</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">"rgba("</span> + r + <span class="string">","</span> + g + <span class="string">","</span> + b + <span class="string">",1)"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rgbNum</span>(<span class="params">r, g, b</span>) </span>&#123;</div><div class="line">    r = <span class="built_in">Math</span>.round(r * <span class="number">256</span>);</div><div class="line">    g = <span class="built_in">Math</span>.round(g * <span class="number">256</span>);</div><div class="line">    b = <span class="built_in">Math</span>.round(b * <span class="number">256</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">"rgba("</span> + r + <span class="string">","</span> + g + <span class="string">","</span> + b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rnd</span>(<span class="params">m</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> n = m || <span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.random() * n;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rateRandom</span>(<span class="params">m, n</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> sum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; (n - m); i++) &#123;</div><div class="line">        sum += i;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> ran = <span class="built_in">Math</span>.random() * sum;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; (n - m); i++) &#123;</div><div class="line">        ran -= i;</div><div class="line">        <span class="keyword">if</span> (ran &lt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> i - <span class="number">1</span> + m;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">distance</span>(<span class="params">x1, y1, x2, y2, l</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="built_in">Math</span>.abs(x1 - x2);</div><div class="line">    <span class="keyword">var</span> y = <span class="built_in">Math</span>.abs(y1 - y2);</div><div class="line">    <span class="keyword">if</span> (x &lt; l &amp;&amp; y &lt; l) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">AABBbox</span>(<span class="params">object1, w1, h1, object2, w2, h2, overlap</span>) </span>&#123;</div><div class="line">    A1 = object1.x + overlap;</div><div class="line">    B1 = object1.x + w1 - overlap;</div><div class="line">    C1 = object1.y + overlap;</div><div class="line">    D1 = object1.y + h1 - overlap;</div><div class="line"></div><div class="line">    A2 = object2.x + overlap;</div><div class="line">    B2 = object2.x + w2 - overlap;</div><div class="line">    C2 = object2.y + overlap;</div><div class="line">    D2 = object2.y + h2 - overlap;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (A1 &gt; B2 || B1 &lt; A2 || C1 &gt; D2 || D1 &lt; C2) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">dis2</span>(<span class="params">x, y, x0, y0</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> dx = x - x0;</div><div class="line">    <span class="keyword">var</span> dy = y - y0;</div><div class="line">    <span class="keyword">return</span> dx * dx + dy * dy;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rndi2</span>(<span class="params">m, n</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="built_in">Math</span>.random() * (n - m) + m;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(a);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/11/kelele67的学习笔记-html小游戏/" class="archive-article-date">
+  	<time datetime="2016-11-11T08:24:41.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-11</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-kelele67的学习笔记-swift动画学习（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/11/kelele67的学习笔记-swift动画学习（三）/">kelele67的学习笔记-swift动画学习（三）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Swift3-0-动画编程-3"><a href="#Swift3-0-动画编程-3" class="headerlink" title="Swift3.0 动画编程(3)"></a>Swift3.0 动画编程(3)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自老镇swift课堂: 舞动Swift-Swift动画编程指南</a></p>
+<h2 id="自定义警告框动画"><a href="#自定义警告框动画" class="headerlink" title="自定义警告框动画"></a>自定义警告框动画</h2><p>用到JNW框架</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/11/kelele67的学习笔记-swift动画学习（三）/" class="archive-article-date">
+  	<time datetime="2016-10-11T09:56:12.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-11</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="airtcile-使用-iOS-10-的-Speech-框架构建语音转文本应用" class="article article-type-airtcile" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -558,211 +976,9 @@
 
 
   
-    <article id="post-随笔_见到你真高兴" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/随笔_见到你真高兴/">见到你真高兴</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>从今天起，你要做一个不动声色的大人了。不准情绪化，不准偷偷想念，不准回头看。去过自己另外的生活。你要听话，不是所有鱼都会生活在同一片海里。<br>曾经那些美好都是早已经搁浅死在沙滩的鲸鱼。</p>
-</blockquote>
-<p></p><p></p>
-<p></p><p><br>小熊第一次看见正在吃草的兔子的时候，他的心像夏日里一瓷碗的酸梅汤，碎冰碰壁哐当当啷的响。</p>
-<p>从那天起，小熊开始注意到这只每天都来自己家门前草地吃草的灰色小兔子。</p>
-<p>兔子每天都起得很早，在太阳刚露出白色肚皮的时候，小熊就能看见她在沾满露水的草地上吃草，打滚。于是小熊想到了自己的小时候，有着妈妈的照顾，自己也是如此的无忧无虑，每天在吃喝玩乐中度过。记忆中的森林也是和现在呈现出一副不一样的光景，森林里每一棵树都像是一座碑塔，高耸入天，甚有气势。可是记忆不过是一种虚无缥缈的存在，它的存在仅仅是为了弥补时间的缺憾，好让我们在之后的漫长岁月里，多一个念想。</p>
-<p>兔子吃草很快，太阳抿嘴一笑的功夫，刷刷刷的就能把一大块区域的草地全部啃光。</p>
-<p>等到太阳再大一些的时候，兔子便会离开草地，一蹦一跳的融入周围的灌木丛。</p>
-<p>日子就这样一天一天的过去，小熊总算是吃完了去年掏的一整罐蜂蜜，门口草地上的草却每天都一个样。</p>
-<p>渐渐地，小熊忘记自己第一次见到兔子是什么时候了，他也从来没有和她说过话，甚至都没有从她的身边经过过。直到有一天，小熊发现兔子变了，她的毛发不再是黯淡无光转身就能融入灌木丛的灰色了，兔子披上了雪白的外衣，时不时还在阳光下露出漫长等待后的一丝闪光。</p>
-<p>凛冬已至。</p>
-<p>地球用了6亿年才诞生生命，然而小熊只用了一个冬眠的时间就决定鼓起勇气和兔子打招呼了。</p>
-<p>春天早早的就到来了，期待中的兔子却迟迟没有出现。小熊并没有放弃，就像相信阿基里斯一定能追上乌龟一般相信兔子一定会再来自己家门前的这块肥美草地吃草的。</p>
-<p>这段时间里，小熊每天都把自己安排的井井有条。</p>
-<p>☑ : 早起跑步<br>☑ : 去河边钓鱼<br>☑ : 看望妈妈并带上一罐蜂蜜<br>☐ : 睡觉前看完一本书</p>
-<p>就在春天的尾巴即将消失的时候，期待已久的画面终于到来了。</p>
-<p>这天和往常一样，小熊早早的起床准备一天的行程，但是当他看见草地上那个熟悉的灰色身影的时候，心里先是咯噔了一下，然后终于鼓足了勇气，向兔子问了声好。</p>
-<p>“你好哇兔子小姐”</p>
-<p>“HelloWorld!小熊先生”</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/01/随笔_见到你真高兴/" class="archive-article-date">
-  	<time datetime="2016-10-01T15:44:42.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-01</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-python数据结构算法一一排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/python数据结构算法一一排序/">kelele67的学习笔记-python数据结构算法（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python数据结构篇-2"><a href="#Python数据结构篇-2" class="headerlink" title="Python数据结构篇(2)"></a>Python数据结构篇(2)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><ol>
-<li>冒泡排序：O(n2)</li>
-<li>选择排序：O(n2)</li>
-<li>插入排序：O(n2)O(n2)</li>
-<li>快速排序：O(nlogn) ~ O(n2)</li>
-<li>合并排序：O(nlogn)</li>
-<li>希尔排序：[O(n),O(n2)]</li>
-</ol>
-<hr>
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序(bubble sort)：每个回合都从第一个元素开始和它后面的元素比较，如果比它后面的元素更大的话就交换，一直重复，直到这个元素到了它能到达的位置。每次遍历都将剩下的元素中最大的那个放到了序列的“最后”(除去了前面已经排好的那些元素)注意检测是否已经完成了排序，如果已完成就可以退出了。时间复杂度O(n2)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">short_bubble_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    exchanges = <span class="keyword">True</span></div><div class="line">    pass_num = len(a_list) - <span class="number">1</span></div><div class="line">    <span class="keyword">while</span> pass_num &gt; <span class="number">0</span> <span class="keyword">and</span> exchanges:</div><div class="line">        exchanges = <span class="keyword">False</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(pass_num):</div><div class="line">            <span class="keyword">if</span> a_list[i] &gt; a_list[i + <span class="number">1</span>]:</div><div class="line">                exchanges = <span class="keyword">True</span></div><div class="line">                a_list[i], a_list[i + <span class="number">1</span>] = a_list[i + <span class="number">1</span>], a_list[i]</div><div class="line">        pass_num = pass_num - <span class="number">1</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    a_list = [<span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">80</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">110</span>, <span class="number">100</span>]</div><div class="line">    short_bubble_sort(a_list)</div><div class="line">    print(a_list)</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>选择排序(selection sort)：每个回合都选择出剩下的元素中最大的那个，选择的方法是首先默认第一元素是最大的，如果后面的元素比它大的话，那就更新剩下的最大的元素值，找到剩下元素中最大的之后将它放入到合适的位置就行了。和冒泡排序类似，只是找剩下的元素中最大的方式不同而已。时间复杂度O(n2)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">selection_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    <span class="keyword">for</span> fill_slot <span class="keyword">in</span> range(len(a_list) - <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>):</div><div class="line">        pos_of_max = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> location <span class="keyword">in</span> range(<span class="number">1</span>, fill_slot + <span class="number">1</span>):</div><div class="line">            <span class="keyword">if</span> a_list[location] &gt; a_list[pos_of_max]:</div><div class="line">                pos_of_max = location</div><div class="line">        a_list[fill_slot], a_list[pos_of_max] = a_list[pos_of_max], a_list[fill_slot]</div><div class="line"></div><div class="line">a_list = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">17</span>, <span class="number">77</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</div><div class="line">selection_sort(a_list)</div><div class="line">print(a_list)</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>插入排序(insertion sort)：每次假设前面的元素都是已经排好序了的，然后将当前位置的元素插入到原来的序列中，为了尽快地查找合适的插入位置，可以使用二分查找。时间复杂度O(n2)O(n2)，别误以为二分查找可以降低它的复杂度，因为插入排序还需要移动元素的操作！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertion_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, len(a_list)):</div><div class="line">        current_value = a_list[index]</div><div class="line">        position = index</div><div class="line">        <span class="keyword">while</span> position &gt; <span class="number">0</span> <span class="keyword">and</span> a_list[position - <span class="number">1</span>] &gt; current_value:</div><div class="line">            a_list[position] = a_list[position - <span class="number">1</span>]</div><div class="line">            position = position - <span class="number">1</span></div><div class="line">        a_list[position] = current_value</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertion_sort_binarysearch</span><span class="params">(a_list)</span>:</span></div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>, len(a_list)):</div><div class="line">        current_value = a_list[index]</div><div class="line">        positon = index</div><div class="line">        low = <span class="number">0</span></div><div class="line">        high = index - <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> low&lt;= high:</div><div class="line">            mid = (low + high)/<span class="number">2</span></div><div class="line">            <span class="keyword">if</span> a_list[mid] &gt; current_value:</div><div class="line">                high = mid - <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                low = mid + <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> positon&gt; low:</div><div class="line">            a_list[positon] = a_list[positon - <span class="number">1</span>]</div><div class="line">            positon = positon - <span class="number">1</span></div><div class="line">            a_list[positon] = current_value</div><div class="line"></div><div class="line">a_list = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">15</span>, <span class="number">77</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</div><div class="line">insertion_sort(a_list)</div><div class="line">print(a_list)</div><div class="line">insertion_sort_binarysearch(a_list)</div><div class="line">print(a_list)</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序(quick sort)：<br>想法一：如下图所示，它选择第一个元素作为主元，它同样可以按照下面提到的算法导论中将数组分成了4个不同的部分，但是这里其实有更好的解释方法。首先，它每次都是选择第一个元素都为主元，这个回合就是要确定主元的位置；然后，有两个指针，一个 <strong>leftmark</strong> 指向主元的后面一个位置，另一个 <strong>rightmark</strong> 指向要排序的数组最后一个元素；接着，两个指针分别向中间移动 <strong>leftmark</strong>遇到比主元大的元素停止，<strong>rightmark</strong> 遇到比主元小的元素停止，如果此时 <strong>leftmark</strong> &lt; <strong>rightmark</strong>，也就是说中间还有未处理(未确定与主元大小关系)的元素，那么就交换 <strong>leftmark</strong> 和 <strong>rightmark</strong> 位置上的元素，然后重复刚才的移动操作，直到 <strong>rightmark</strong> &lt; <strong>leftmark</strong>；最后，停止移动时候 <strong>rightmark</strong>就是主元要放置的位置，因为它停在一个比主元小的元素的位置上，之后交换主元和 <strong>rightmark</strong>指向的元素即可。完了之后，递归地对主元左右两边的数组进行排序即可。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(a_list)</span>:</span></div><div class="line">    quick_sort_hepler(a_list, <span class="number">0</span>, len(a_list) - <span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort_hepler</span><span class="params">(a_list, first, last)</span>:</span></div><div class="line">    <span class="keyword">if</span> first &lt; last:</div><div class="line">        split_point = partition(a_list, first, last)</div><div class="line">        quick_sort_hepler(a_list, first, split_point - <span class="number">1</span>)</div><div class="line">        quick_sort_hepler(a_list, split_point + <span class="number">1</span>, last)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(a_list, first, last)</span>:</span></div><div class="line">    pivot_value = a_list[first]</div><div class="line">    left_mark = first + <span class="number">1</span></div><div class="line">    right_mark = last</div><div class="line">    done = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">not</span> done:</div><div class="line">        <span class="keyword">while</span> left_mark &lt;= right_mark <span class="keyword">and</span> a_list[left_mark] &lt;= pivot_value:</div><div class="line">            left_mark = left_mark + <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> a_list[right_mark] &gt;= pivot_value <span class="keyword">and</span> right_mark &gt;= left_mark:</div><div class="line">            right_mark = right_mark - <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> right_mark &lt; left_mark:</div><div class="line">            done = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            temp = a_list[left_mark]</div><div class="line">            a_list[left_mark] = a_list[right_mark]</div><div class="line">            a_list[right_mark] = temp</div><div class="line">    temp = a_list[first]</div><div class="line">    a_list[first] = a_list[right_mark]</div><div class="line">    a_list[right_mark] = temp</div><div class="line">    <span class="keyword">return</span> right_mark</div><div class="line"></div><div class="line">a_list = [<span class="number">54</span>, <span class="number">26</span>, <span class="number">93</span>, <span class="number">17</span>, <span class="number">77</span>, <span class="number">31</span>, <span class="number">44</span>, <span class="number">55</span>, <span class="number">20</span>]</div><div class="line">quick_sort(a_list)</div><div class="line">print(a_list)</div></pre></td></tr></table></figure>
-<hr>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/01/python数据结构算法一一排序/" class="archive-article-date">
-  	<time datetime="2016-09-30T17:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-01</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-python数据结构算法一一查找" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/30/python数据结构算法一一查找/">kelele67的学习笔记-python数据结构算法（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python数据结构篇-1"><a href="#Python数据结构篇-1" class="headerlink" title="Python数据结构篇(1)"></a>Python数据结构篇(1)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><ol>
-<li>顺序查找：O(n)</li>
-<li>二分查找：O(lgn)</li>
-<li>Hash查找：O(1)</li>
-</ol>
-<hr>
-<h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sequential_search</span><span class="params">(a_list, item)</span>:</span></div><div class="line">    pos = <span class="number">0</span></div><div class="line">    found = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> pos &lt; len(a_list) <span class="keyword">and</span> <span class="keyword">not</span> found:</div><div class="line">        <span class="keyword">if</span> a_list[pos] == item:</div><div class="line">            found = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            pos += <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> found</div><div class="line"></div><div class="line">test_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">32</span>, <span class="number">8</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">42</span>, <span class="number">13</span>, <span class="number">0</span>]</div><div class="line"><span class="keyword">print</span> (sequential_search(test_list, <span class="number">3</span>))</div><div class="line"><span class="keyword">print</span> (sequential_search(test_list, <span class="number">13</span>))</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(a_list, item)</span>:</span></div><div class="line">    first = <span class="number">0</span></div><div class="line">    last = len(a_list) - <span class="number">1</span></div><div class="line">    found = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> first &lt;= last <span class="keyword">and</span> <span class="keyword">not</span> found:</div><div class="line">        midpoint = first + (last + first)//<span class="number">2</span></div><div class="line">        <span class="keyword">if</span> a_list[midpoint] == item:</div><div class="line">            found = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> item &lt; a_list[midpoint]:</div><div class="line">                last = midpoint - <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                first = midpoint + <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> found</div><div class="line">test_list = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">32</span>, <span class="number">42</span>]</div><div class="line">print(binary_search(test_list, <span class="number">3</span>))</div><div class="line">print(binary_search(test_list, <span class="number">13</span>))</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="哈希查找"><a href="#哈希查找" class="headerlink" title="哈希查找"></a>哈希查找</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HashTable</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.size = <span class="number">11</span></div><div class="line">        self.slots = [<span class="keyword">None</span>] * self.size</div><div class="line">        self.data = [<span class="keyword">None</span>] * self.size</div><div class="line"></div><div class="line">        <span class="comment"># put data in slot</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put_data_in_slot</span><span class="params">(self, key, data, slot)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.slots[slot] == <span class="keyword">None</span>:</div><div class="line">            self.slots[slot] = key</div><div class="line">            self.data[slot] = data</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> self.slots[slot] == key:</div><div class="line">                self.data[slot] = data</div><div class="line">                <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key, data)</span>:</span></div><div class="line">        slot = self.hash_function(key, self.size)</div><div class="line">        result = self.put_data_in_slot(key, data, slot)</div><div class="line">        <span class="keyword">while</span> <span class="keyword">not</span> result:</div><div class="line">            slot = self.rehash(slot, self.size)</div><div class="line">            result = self.put_data_in_slot(key, data, slot)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hash_function</span><span class="params">(self, key, size)</span>:</span></div><div class="line">        <span class="keyword">return</span> key % size</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rehash</span><span class="params">(self, old_hash, size)</span>:</span></div><div class="line">        <span class="keyword">return</span> (old_hash + <span class="number">1</span>) % size</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></div><div class="line">        start_slot = self.hash_function(key, len(self.slots))</div><div class="line">        data = <span class="keyword">None</span></div><div class="line">        stop = <span class="keyword">False</span></div><div class="line">        found = <span class="keyword">False</span></div><div class="line">        position = start_slot</div><div class="line">        <span class="keyword">while</span> self.slots[position] != <span class="keyword">None</span> <span class="keyword">and</span> <span class="keyword">not</span> found <span class="keyword">and</span> <span class="keyword">not</span> stop:</div><div class="line">            <span class="keyword">if</span> self.slots[position] == key:</div><div class="line">                found = <span class="keyword">True</span></div><div class="line">                data = self.data[position]</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                position = self.rehash(position, len(self.slots))</div><div class="line">                <span class="keyword">if</span> position == start_slot:</div><div class="line">                    stop = <span class="keyword">True</span></div><div class="line">        <span class="keyword">return</span> data</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, key)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.get(key)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, data)</span>:</span></div><div class="line">        self.put(key, data)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    table = HashTable()</div><div class="line">    table[<span class="number">54</span>] = <span class="string">'cat'</span></div><div class="line">    table[<span class="number">26</span>] = <span class="string">'dog'</span></div><div class="line">    table[<span class="number">93</span>] = <span class="string">'lion'</span></div><div class="line">    table[<span class="number">17</span>] = <span class="string">'tiger'</span></div><div class="line">    table[<span class="number">77</span>] = <span class="string">'bird'</span></div><div class="line">    table[<span class="number">44</span>] = <span class="string">'goat'</span></div><div class="line">    table[<span class="number">55</span>] = <span class="string">'pig'</span></div><div class="line">    table[<span class="number">20</span>] = <span class="string">'chicken'</span></div><div class="line">    <span class="keyword">print</span> table.slots</div><div class="line">    <span class="keyword">print</span> table.data</div></pre></td></tr></table></figure>
-<hr>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/09/30/python数据结构算法一一查找/" class="archive-article-date">
-  	<time datetime="2016-09-29T16:03:52.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-30</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/search/">search</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -846,7 +1062,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 16px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 14px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 14px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/udp/" style="font-size: 10px;">udp</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     			</div>
     	</section>
     

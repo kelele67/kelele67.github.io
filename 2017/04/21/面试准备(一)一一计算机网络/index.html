@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>面试准备(一)一一计算机网络之TCP | 树犹如此|人何以堪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报
+
+TCP
+字节流协议
+
+三次握手、四次挥手
+
+重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试准备(一)一一计算机网络之TCP">
+<meta property="og:url" content="http://yoursite.com/2017/04/21/面试准备(一)一一计算机网络/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报
+
+TCP
+字节流协议
+
+三次握手、四次挥手
+
+重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）">
+<meta property="og:updated_time" content="2017-04-21T06:47:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试准备(一)一一计算机网络之TCP">
+<meta name="twitter:description" content="此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报
+
+TCP
+字节流协议
+
+三次握手、四次挥手
+
+重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">kelele67</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">做一个富有的废物</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/about">关于本站</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">kelele67</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">kelele67</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">做一个富有的废物</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/about">关于本站</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="airticle-面试准备(一)一一计算机网络" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      面试准备(一)一一计算机网络之TCP
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+<blockquote>
+<p>此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报</p>
+</blockquote>
+</p><h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><ul>
+<li><p>字节流协议</p>
+</li>
+<li><p>三次握手、四次挥手</p>
+</li>
+<li><p>重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）</p>
+</li>
+</ul>
+<h3 id="TCP过程"><a href="#TCP过程" class="headerlink" title="TCP过程"></a>TCP过程</h3><p>提供一个思路过程（不够细致严谨，仅适用于让你讲的清除）：</p>
+<p>三次握手</p>
+<p>首先客户端和服务端都是关闭的<br>     ↓       ↓<br>  主动打开   被动打开<br>此时客户端状态为 <strong>SYN_SENT</strong> 、服务端状态从 <strong>LISTEN</strong> 状态 到 <strong>SYN_RCVD</strong><br>     ↓①                              ↓②<br> 发送一个SYN J                  发送SYN K 和ACK J+1<br>此时客户端和服务端状态都为 <strong>ESTABLISHED</strong> ，他们进行数据传输<br>     ↓③<br> 发送一个ACK K+1</p>
+<p>四次挥手：</p>
+<p>首先客户端和服务端都是连接的<br>     ↓        ↓<br>  主动关闭    被动关闭<br>此时客户端状态为 <strong>FIN_WAIT1</strong> 、服务端状态为 <strong>CLOSED_WAIT</strong><br>     ↓①                    ↓②<br>发送一个FIN M          发送一个ACK M+1<br>此时服务端状态为 <strong>LAST_ACK</strong> 、客户端状态为 <strong>FIN_WAIT2</strong><br>     ↓③                     ↓④<br>发送一个FIN N          发送一个ACK N+1<br>此时客户端状态为 <strong>TIME_WAIT</strong> 、服务端状态为 <strong>CLOSED</strong></p>
+<h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><blockquote>
+<p>这时，你就会被问到TIME_WAIT的相关知识 如果没被问到，你就自己说了吧</p>
+</blockquote>
+<p>主要说说设置TIME_WAIT的原因吧</p>
+<ul>
+<li>设置TIME_WAIT的原因</li>
+</ul>
+<p>从两个方面来说吧，首先可靠地实现TCP全双工连接(这里可以用英文说 full duplex)的终止，因为客户端需要维持这个TIME_WAIT这个将关未关的状态来发送最后一个ACK，(这让我想到了中学生物书那个奄奄一息在生命的最后关头完成交配保留了自己染色体为遗传学研究做出了巨大贡献的果蝇hhh)，如果它直接CLOSED的话，客户端会相应一个RST(进阶)，服务器收到后会响应一个错误</p>
+<p>第二个方面是TIME_WAIT允许了旧的重复分节在网络中消逝，因为在这个状态下的客户端不允许启动新的连接，而这个状态持续2MSL(进阶)，于是就保证了当建立新的TCP连接的时候，旧的重复分节在网络中消逝。</p>
+<ul>
+<li>大量的TIME_WAIT</li>
+</ul>
+<p>在HTTP协议中，关闭TCP连接的是Server端，这样，Server端会进入TIME_WAIT状态，可想而知，对于访问量大的Web Server，会存在大量的TIME_WAIT状态。</p>
+<p>解决办法：<br>①. 开启socket重用，允许将TIME_WAIT的socket重新用于TCP连接<br>②. 开启快速回收。</p>
+<blockquote>
+<p>然后你就被问到 TCP为什么需要3次握手与4次挥手</p>
+</blockquote>
+<p>三次握手：为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误</p>
+<p>四次挥手：因为tcp是全双工模式(这里可以用英文说 full duplex)，接收到FIN时意味将没有数据再发来，但是还是可以继续发送数据。</p>
+<h2 id="TCP进阶"><a href="#TCP进阶" class="headerlink" title="TCP进阶"></a>TCP进阶</h2><p>每个状态一句话简洁解释，可以把这个嵌入到前面的部分：</p>
+<h3 id="三次握手状态："><a href="#三次握手状态：" class="headerlink" title="三次握手状态："></a>三次握手状态：</h3><ul>
+<li><p>LISTEN:<br>表示服务器端的某个SOCKET处于监听状态。 </p>
+</li>
+<li><p>SYN_SENT: 当客户端SOCKET执行CONNECT连接时，发送SYN，随即进入到SYN_SENT，并等待服务端发送的SYN, ACK</p>
+</li>
+<li><p>SYN_RCVD:<br>服务端接受到了SYN报文。</p>
+</li>
+</ul>
+<blockquote>
+<p>在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netstat你是很难看到这种状态的，除非你特意写了一个客户端测试程序，故意将三次TCP握手过程中最后一个 ACK报文不予发送。因此这种状态时，当收到客户端的ACK报文后，它会进入到ESTABLISHED状态。（服务器端）</p>
+</blockquote>
+<ul>
+<li>ESTABLISHED：表示连接已经建立了。</li>
+</ul>
+<h3 id="四次挥手状态："><a href="#四次挥手状态：" class="headerlink" title="四次挥手状态："></a>四次挥手状态：</h3><ul>
+<li>FIN_WAIT_1:<br>表示等待对方的FIN报文。</li>
+</ul>
+<blockquote>
+<p>其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。（主动方）</p>
+</blockquote>
+<ul>
+<li>FIN_WAIT_2：<br>对方回应ACK报文后，则进入到FIN_WAIT_2状态。</li>
+</ul>
+<blockquote>
+<p>上面已经详细解释了这种状态，实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你(ACK信息)，稍后再关闭连接。（主动方）</p>
+</blockquote>
+<ul>
+<li>TIME_WAIT:<br>收到了对方的FIN报文，并发送出了ACK报文，即将CLOSED。</li>
+</ul>
+<blockquote>
+<p>表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FIN_WAIT_1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。（主动方）</p>
+</blockquote>
+<ul>
+<li>CLOSING（比较少见）:<br>表示双方都正在关闭SOCKET连接</li>
+</ul>
+<blockquote>
+<p>这种状态比较特殊，实际情况中应该是很少见，属于一种比较罕见的例外状态。正常情况下，当你发送FIN报文后，按理来说是应该先收到（或同时收到）对方的 ACK报文，再收到对方的FIN报文。但是CLOSING状态表示你发送FIN报文后，并没有收到对方的ACK报文，反而却也收到了对方的FIN报文。什么情况下会出现此种情况呢？其实细想一下，也不难得出结论：那就是如果双方几乎在同时close一个SOCKET的话，那么就出现了双方同时发送FIN报文的情况，也即会出现CLOSING状态，表示双方都正在关闭SOCKET连接。</p>
+</blockquote>
+<ul>
+<li>CLOSE_WAIT:<br>这种状态的含义其实是表示在等待关闭。</li>
+</ul>
+<blockquote>
+<p>当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。（被动方）</p>
+</blockquote>
+<ul>
+<li>LAST_ACK:<br>等待最后一个ACK，即将CLOSED。</li>
+</ul>
+<blockquote>
+<p>这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。（被动方）</p>
+</blockquote>
+<ul>
+<li>CLOSED:<br>表示连接中断。</li>
+</ul>
+<p>下面这两个术语也是之前有提到的，如果不熟悉可以不提：</p>
+<h3 id="RST"><a href="#RST" class="headerlink" title="RST"></a>RST</h3><p>在TCP协议中RST表示复位，用来异常的关闭连接，在TCP的设计中它是不可或缺的。发送RST包关闭连接时，不必等缓冲区的包都发出去，直接就丢弃缓存区的包发送RST包。而接收端收到RST包后，也不必发送ACK包来确认。</p>
+<h3 id="MSL"><a href="#MSL" class="headerlink" title="MSL"></a>MSL</h3><p>MSL(Maximum Segment Lifetime)报文最长存活时间</p>
+<h2 id="TCP高端"><a href="#TCP高端" class="headerlink" title="TCP高端"></a>TCP高端</h2><p>适用于BAT等公司，不过感觉这些问题真的是对于软件工程的学生来说有点难了，本人也是一知半解，但不排除还是会被之前说到的第二种面试官所问到，或者他是为了提醒你不要骄傲还是有很多东西要学的</p>
+<h3 id="tcp窗口滑动以及拥塞控制"><a href="#tcp窗口滑动以及拥塞控制" class="headerlink" title="tcp窗口滑动以及拥塞控制"></a>tcp窗口滑动以及拥塞控制</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/xifeijian/article/details/12777187" target="_blank" rel="external">TCP为什么需要3次握手与4次挥手</a><br><a href="http://blog.chinaunix.net/uid-26275986-id-4109679.html" target="_blank" rel="external">tcp窗口滑动以及拥塞控制</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/21/面试准备(一)一一计算机网络/" class="archive-article-date">
+  	<time datetime="2017-04-21T05:20:04.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-21</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcp/">tcp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udp/">udp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/15/深入 Lua Garbage Collector(四)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入 Lua Garbage Collector(四)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="面试准备(一)一一计算机网络" data-title="面试准备(一)一一计算机网络之TCP" data-url="http://yoursite.com/2017/04/21/面试准备(一)一一计算机网络/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"38d12c42fae50816089820c1b93c4785"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 kelele67
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+<script type="text/javascript">
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260501136'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260501136%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/udp/" style="font-size: 10px;">udp</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div class=&quot;text&quot; style=&quot; text-align:center;&quot;&gt;大三学生&lt;br&gt;就读于重庆大学 软件狗&lt;br&gt;&lt;br&gt; 喜欢python&lt;br&gt;自由的灵魂&lt;br&gt;&lt;br&gt;世界万物都是隐喻&lt;br&gt;我们是通过隐喻这个装置接受反讽&lt;br&gt;加深扩大自己&lt;/div&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

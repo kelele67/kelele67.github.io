@@ -135,6 +135,200 @@
       <div class="body-wrap">
         
   
+    <article id="airticle-面试准备(一)一一计算机网络" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/面试准备(一)一一计算机网络/">面试准备(一)一一计算机网络之TCP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+<blockquote>
+<p>此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报</p>
+</blockquote>
+</p><h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><ul>
+<li><p>字节流协议</p>
+</li>
+<li><p>三次握手、四次挥手</p>
+</li>
+<li><p>重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）</p>
+</li>
+</ul>
+<h3 id="TCP过程"><a href="#TCP过程" class="headerlink" title="TCP过程"></a>TCP过程</h3><p>提供一个思路过程（不够细致严谨，仅适用于让你讲的清除）：</p>
+<p>三次握手</p>
+<p>首先客户端和服务端都是关闭的<br>     ↓       ↓<br>  主动打开   被动打开<br>此时客户端状态为 <strong>SYN_SENT</strong> 、服务端状态从 <strong>LISTEN</strong> 状态 到 <strong>SYN_RCVD</strong><br>     ↓①                              ↓②<br> 发送一个SYN J                  发送SYN K 和ACK J+1<br>此时客户端和服务端状态都为 <strong>ESTABLISHED</strong> ，他们进行数据传输<br>     ↓③<br> 发送一个ACK K+1</p>
+<p>四次挥手：</p>
+<p>首先客户端和服务端都是连接的<br>     ↓        ↓<br>  主动关闭    被动关闭<br>此时客户端状态为 <strong>FIN_WAIT1</strong> 、服务端状态为 <strong>CLOSED_WAIT</strong><br>     ↓①                    ↓②<br>发送一个FIN M          发送一个ACK M+1<br>此时服务端状态为 <strong>LAST_ACK</strong> 、客户端状态为 <strong>FIN_WAIT2</strong><br>     ↓③                     ↓④<br>发送一个FIN N          发送一个ACK N+1<br>此时客户端状态为 <strong>TIME_WAIT</strong> 、服务端状态为 <strong>CLOSED</strong></p>
+<h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><blockquote>
+<p>这时，你就会被问到TIME_WAIT的相关知识 如果没被问到，你就自己说了吧</p>
+</blockquote>
+<p>主要说说设置TIME_WAIT的原因吧</p>
+<ul>
+<li>设置TIME_WAIT的原因</li>
+</ul>
+<p>从两个方面来说吧，首先可靠地实现TCP全双工连接(这里可以用英文说 full duplex)的终止，因为客户端需要维持这个TIME_WAIT这个将关未关的状态来发送最后一个ACK，(这让我想到了中学生物书那个奄奄一息在生命的最后关头完成交配保留了自己染色体为遗传学研究做出了巨大贡献的果蝇hhh)，如果它直接CLOSED的话，客户端会相应一个RST(进阶)，服务器收到后会响应一个错误</p>
+<p>第二个方面是TIME_WAIT允许了旧的重复分节在网络中消逝，因为在这个状态下的客户端不允许启动新的连接，而这个状态持续2MSL(进阶)，于是就保证了当建立新的TCP连接的时候，旧的重复分节在网络中消逝。</p>
+<ul>
+<li>大量的TIME_WAIT</li>
+</ul>
+<p>在HTTP协议中，关闭TCP连接的是Server端，这样，Server端会进入TIME_WAIT状态，可想而知，对于访问量大的Web Server，会存在大量的TIME_WAIT状态。</p>
+<p>解决办法：<br>①. 开启socket重用，允许将TIME_WAIT的socket重新用于TCP连接<br>②. 开启快速回收。</p>
+<blockquote>
+<p>然后你就被问到 TCP为什么需要3次握手与4次挥手</p>
+</blockquote>
+<p>三次握手：为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误</p>
+<p>四次挥手：因为tcp是全双工模式(这里可以用英文说 full duplex)，接收到FIN时意味将没有数据再发来，但是还是可以继续发送数据。</p>
+<h2 id="TCP进阶"><a href="#TCP进阶" class="headerlink" title="TCP进阶"></a>TCP进阶</h2><p>每个状态一句话简洁解释，可以把这个嵌入到前面的部分：</p>
+<h3 id="三次握手状态："><a href="#三次握手状态：" class="headerlink" title="三次握手状态："></a>三次握手状态：</h3><ul>
+<li><p>LISTEN:<br>表示服务器端的某个SOCKET处于监听状态。 </p>
+</li>
+<li><p>SYN_SENT: 当客户端SOCKET执行CONNECT连接时，发送SYN，随即进入到SYN_SENT，并等待服务端发送的SYN, ACK</p>
+</li>
+<li><p>SYN_RCVD:<br>服务端接受到了SYN报文。</p>
+</li>
+</ul>
+<blockquote>
+<p>在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netstat你是很难看到这种状态的，除非你特意写了一个客户端测试程序，故意将三次TCP握手过程中最后一个 ACK报文不予发送。因此这种状态时，当收到客户端的ACK报文后，它会进入到ESTABLISHED状态。（服务器端）</p>
+</blockquote>
+<ul>
+<li>ESTABLISHED：表示连接已经建立了。</li>
+</ul>
+<h3 id="四次挥手状态："><a href="#四次挥手状态：" class="headerlink" title="四次挥手状态："></a>四次挥手状态：</h3><ul>
+<li>FIN_WAIT_1:<br>表示等待对方的FIN报文。</li>
+</ul>
+<blockquote>
+<p>其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。（主动方）</p>
+</blockquote>
+<ul>
+<li>FIN_WAIT_2：<br>对方回应ACK报文后，则进入到FIN_WAIT_2状态。</li>
+</ul>
+<blockquote>
+<p>上面已经详细解释了这种状态，实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你(ACK信息)，稍后再关闭连接。（主动方）</p>
+</blockquote>
+<ul>
+<li>TIME_WAIT:<br>收到了对方的FIN报文，并发送出了ACK报文，即将CLOSED。</li>
+</ul>
+<blockquote>
+<p>表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FIN_WAIT_1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。（主动方）</p>
+</blockquote>
+<ul>
+<li>CLOSING（比较少见）:<br>表示双方都正在关闭SOCKET连接</li>
+</ul>
+<blockquote>
+<p>这种状态比较特殊，实际情况中应该是很少见，属于一种比较罕见的例外状态。正常情况下，当你发送FIN报文后，按理来说是应该先收到（或同时收到）对方的 ACK报文，再收到对方的FIN报文。但是CLOSING状态表示你发送FIN报文后，并没有收到对方的ACK报文，反而却也收到了对方的FIN报文。什么情况下会出现此种情况呢？其实细想一下，也不难得出结论：那就是如果双方几乎在同时close一个SOCKET的话，那么就出现了双方同时发送FIN报文的情况，也即会出现CLOSING状态，表示双方都正在关闭SOCKET连接。</p>
+</blockquote>
+<ul>
+<li>CLOSE_WAIT:<br>这种状态的含义其实是表示在等待关闭。</li>
+</ul>
+<blockquote>
+<p>当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。（被动方）</p>
+</blockquote>
+<ul>
+<li>LAST_ACK:<br>等待最后一个ACK，即将CLOSED。</li>
+</ul>
+<blockquote>
+<p>这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。（被动方）</p>
+</blockquote>
+<ul>
+<li>CLOSED:<br>表示连接中断。</li>
+</ul>
+<p>下面这两个术语也是之前有提到的，如果不熟悉可以不提：</p>
+<h3 id="RST"><a href="#RST" class="headerlink" title="RST"></a>RST</h3><p>在TCP协议中RST表示复位，用来异常的关闭连接，在TCP的设计中它是不可或缺的。发送RST包关闭连接时，不必等缓冲区的包都发出去，直接就丢弃缓存区的包发送RST包。而接收端收到RST包后，也不必发送ACK包来确认。</p>
+<h3 id="MSL"><a href="#MSL" class="headerlink" title="MSL"></a>MSL</h3><p>MSL(Maximum Segment Lifetime)报文最长存活时间</p>
+<h2 id="TCP高端"><a href="#TCP高端" class="headerlink" title="TCP高端"></a>TCP高端</h2><p>适用于BAT等公司，不过感觉这些问题真的是对于软件工程的学生来说有点难了，本人也是一知半解，但不排除还是会被之前说到的第二种面试官所问到，或者他是为了提醒你不要骄傲还是有很多东西要学的</p>
+<h3 id="tcp窗口滑动以及拥塞控制"><a href="#tcp窗口滑动以及拥塞控制" class="headerlink" title="tcp窗口滑动以及拥塞控制"></a>tcp窗口滑动以及拥塞控制</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/xifeijian/article/details/12777187" target="_blank" rel="external">TCP为什么需要3次握手与4次挥手</a><br><a href="http://blog.chinaunix.net/uid-26275986-id-4109679.html" target="_blank" rel="external">tcp窗口滑动以及拥塞控制</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/21/面试准备(一)一一计算机网络/" class="archive-article-date">
+  	<time datetime="2017-04-21T05:20:04.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-21</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcp/">tcp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udp/">udp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="airticle-深入 Lua Garbage Collector(四)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/深入 Lua Garbage Collector(四)/">深入 Lua Garbage Collector(四)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/04/15/深入 Lua Garbage Collector(四)/" class="archive-article-date">
+  	<time datetime="2017-04-15T05:14:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-15</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="airticle-深入 Lua Garbage Collector(三)" class="article article-type-airticle" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -893,228 +1087,9 @@
 
 
   
-    <article id="airticle-Linux容器" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/18/Linux容器/">Linux容器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>
-
-</p><h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。</p>
-<p>容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范具体见<a href="https://www.opencontainers.org/" target="_blank" rel="external">Open Container Initiative(OCI)</a>。</p>
-<h2 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h2><p>对于一个接触虚拟机很久的人来说，因为用的 <strong>MAC</strong> ，所以从大一开始我就安装了 <strong>windows</strong> 的虚拟机，当然很大一部分原因是因为要用 <strong>VS</strong> 开始学习编程，但是更多的还是用来打撸了哈哈，后来大二我安装了 <strong>Ubuntu</strong> ，这是我第一次接触Linux系统，虽然感觉和 <strong>macOS</strong> 差不多的样子，但是还是让我深深地爱上了 <strong>Linux</strong> 。</p>
-<p>扯得有点远了，其实虚拟机和容器是完全不同的技术，虽然他们都是为了让我们有一个不同的系统来安装我们需要的环境或者是其他，但是从本质上来说容器例如 <strong>Docker</strong> 是一个使用了 <strong>Linux Namespace</strong> 和 <strong>Cgroups</strong> 的虚拟化工具，而虚拟机则是一套完整的系统环境。</p>
-<p>我们接下来的学习也是围绕这容器使用到的<br><strong>Namespace</strong> 和 <strong>Cgroups</strong> 这两个经典的 <strong>Linux</strong> 功能来进行的。</p>
-<h2 id="容器特点"><a href="#容器特点" class="headerlink" title="容器特点"></a>容器特点</h2><h3 id="不同的Linux发行版可以共享内核"><a href="#不同的Linux发行版可以共享内核" class="headerlink" title="不同的Linux发行版可以共享内核"></a>不同的Linux发行版可以共享内核</h3><blockquote>
-<p>当进程开始运行后，进程和内核的交互就是系统调用，当进程需要访问由内核管理的资源时，采用软件中断的方式和内核交互，每个系统调用都有一个中断号，并且这个号不会随着内核版本变化而变化。</p>
-</blockquote>
-<p>并且Linux内核和应用层进程之间的关系是松耦合的，只要保证两个条件：</p>
-<ul>
-<li>内核能识别应用层程序的格式</li>
-<li>应用层需要的系统调用内核能支持</li>
-</ul>
-<p>由于Linux下可执行文件和动态库的格式以及系统调用的接口都比较稳定，所以不同的Linux发行版在大部分情况下都可以共享同一个内核</p>
-<h3 id="启动迅速"><a href="#启动迅速" class="headerlink" title="启动迅速"></a>启动迅速</h3><blockquote>
-<p>容器的本质是一个或多个进程以及他们所能访问的资源的集合。启动一个容器的步骤大概就是：</p>
-</blockquote>
-<ul>
-<li><p>配置好相关资源，如内存、磁盘、网络等配置资源就是往系统中添加一些配置，非常快</p>
-</li>
-<li><p>初始化容器所用到的文件目录结构由于Linux下有COW（copy on write）的文件系统，如Btrfs、aufs，所以可以很快的根据镜像生成容器的文件系统目录结构。</p>
-</li>
-<li><p>启动进程和启动一个普通的进程没有区别，对Linux内核来说，所有的应用层进程都是一样的</p>
-</li>
-</ul>
-<p>从上面可以看出启动容器的过程中没有耗时的操作，这也是为什么容器能在毫秒级别启动起来的原因</p>
-<p>接下来我们就先来学习 <strong>Namespace</strong> 的相关知识</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/01/18/Linux容器/" class="archive-article-date">
-  	<time datetime="2017-01-18T10:13:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-18</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cgroup/">cgroup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namespace/">namespace</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-Linux mount(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/16/Linux mount(二)/">Linux mount 学习(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p></p>
-<h2 id="Shared-subtrees"><a href="#Shared-subtrees" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
-<p>简单点说， <strong>Shared subtrees</strong> 就是一种控制子挂载点能否在其他地方被看到的技术，它只会在 <strong>bind mount</strong> 和 <strong>mount namespace</strong> 中用到，属于不怎么常用的功能。本篇将以 <strong>bind mount</strong> 为例对 <strong>Shared subtrees</strong> 做一个简单介绍</p>
-</blockquote>
-<h2 id="Shared-subtrees-1"><a href="#Shared-subtrees-1" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
-<p>回想一下上一篇中介绍的bind mount部分，如果bind在一起的两个目录下的子目录再挂载了设备的话，他们之间还能相互看到子目录里挂载的内容吗？ 比如在第一个目录下的子目录里面再mount了一个设备，那么在另一个目录下面能看到这个mount的设备里面的东西吗？答案是要看bind mount的propagation type。那什么是propagation type呢？</p>
-</blockquote>
-<p>peer group和propagation type都是随着shared subtrees一起被引入的概念，下面分别对他们做一个介绍。</p>
-<h3 id="peer-group"><a href="#peer-group" class="headerlink" title="peer group"></a>peer group</h3><p>peer group 就是一挂载点的集合，他们之间可以共享挂载信息。</p>
-<ul>
-<li><p>mount-bind使得源和目的挂载点属于同一个peer group</p>
-</li>
-<li><p>创建新的mount namespace，新的和老的namespace里相同挂载点就会属于同一个peer group，因为新namespace会拷贝一份老namespace的挂载点信息</p>
-</li>
-</ul>
-<h3 id="propagation-type"><a href="#propagation-type" class="headerlink" title="propagation type"></a>propagation type</h3><blockquote>
-<p>这是一个标志，决定修改挂载点的时候会不会影响相同的peer group</p>
-</blockquote>
-<ul>
-<li><p>MS_SHARED: 挂载信息会在同一个peer group的不同挂载点之间共享传播</p>
-</li>
-<li><p>MS_PRIVATE: 挂载信息根本就不共享，也即private的挂载点不会属于任何peer group</p>
-</li>
-<li><p>MS_SLAVE: 信息的传播是单向的，在同一个peer group里面，master的挂载点下面发生变化的时候，slave的挂载点下面也跟着变化，但反之则不然，slave下发生变化的时候不会通知master，master不会发生变化。</p>
-</li>
-<li><p>MS_UNBINDABLE: 这个和MS_PRIVATE相同，只是这种类型的挂载点不能作为bind mount的源，主要用来防止递归嵌套情况的出现</p>
-</li>
-</ul>
-<h3 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h3><ul>
-<li><p>propagation type是挂载点的属性，每个挂载点都是独立的</p>
-</li>
-<li><p>挂载点是有父子关系的，比如挂载点/和/mnt/cdrom，/mnt/cdrom都是‘/’的子挂载点，‘/’是/mnt/cdrom的父挂载点</p>
-</li>
-<li><p>默认情况下，如果父挂载点是MS_SHARED，那么子挂载点也是MS_SHARED的，否则子挂载点将会是MS_PRIVATE，跟爷爷挂载点没有关系</p>
-</li>
-</ul>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#准备4个虚拟的disk</div><div class="line">kingand67@kelele67:~$ mkdir disks &amp;&amp; cd disks</div><div class="line"></div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk1.img</div><div class="line">32+0 records in</div><div class="line">32+0 records out</div><div class="line">33554432 bytes (34 MB, 32 MiB) copied, 0.0203764 s, 1.6 GB/s</div><div class="line"></div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk2.img</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk3.img</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk4.img</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#并在上面创建ext2文件系统，用于后续的mount测试</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk1.img</div><div class="line">mke2fs 1.42.13 (17-May-2015)</div><div class="line">Discarding device blocks: done                            </div><div class="line">Creating filesystem with 32768 1k blocks and 8192 inodes</div><div class="line">Filesystem UUID: d34a16ed-3d87-4fa3-adeb-185ca6816a7c</div><div class="line">Superblock backups stored on blocks: </div><div class="line">	8193, 24577</div><div class="line">Allocating group tables: done                            </div><div class="line">Writing inode tables: done                            </div><div class="line">Writing superblocks and filesystem accounting information: done</div><div class="line"></div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk2.img</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk3.img</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk4.img</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#准备两个目录用于挂载上面创建的disk</div><div class="line">kingand67@kelele67:~/disks$ mkdir disk1 disk2</div><div class="line">kingand67@kelele67:~/disks$ ls</div><div class="line">disk1  disk1.img  disk2  disk2.img  disk3.img  disk4.im</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#确保根目录的propagation type是shared，</div><div class="line">#这一步是为了保证大家的操作结果和示例中的一样</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-shared /</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="查看-propagation-type-和-peer-group"><a href="#查看-propagation-type-和-peer-group" class="headerlink" title="查看 propagation type 和 peer group"></a>查看 propagation type 和 peer group</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#显式的以shared方式挂载disk1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-shared ./disk1.img ./disk1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#显式的以private方式挂载disk2</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-private ./disk2.img ./disk2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#mountinfo比mounts文件包含有更多的关于挂载点的信息</div><div class="line">#这里sed主要用来过滤掉跟当前主题无关的信息</div><div class="line">#shared:111表示挂载点/home/dev/disks/disk1是以shared方式挂载，且peer group id为111</div><div class="line">#而挂载点/home/dev/disks/disk2没有相关信息，表示是以private方式挂载</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#分别在disk1和disk2目录下创建目录disk3和disk4，然后挂载disk3，disk4到这两个目录</div><div class="line">kingand67@kelele67:~/disks$ sudo mkdir ./disk1/disk3 ./disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk4.img ./disk2/disk4</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#查看挂载信息，第一列的数字是挂载点ID，第二例是父挂载点ID，</div><div class="line">#从结果来看，150和162的类型都是shared，而179和173的类型都是private的，</div><div class="line">#说明在默认mount的情况下，子挂载点会继承父挂载点的propagation type</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime </div><div class="line">162 150 7:2 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:117 </div><div class="line">293 156 7:3 / /home/kingand67/disks/disk2/disk4 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="shared-和-private-mount"><a href="#shared-和-private-mount" class="headerlink" title="shared 和 private mount"></a>shared 和 private mount</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount掉disk3和disk4，创建两个新的目录bind1和bind2用于bind测试</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk1/disk3 </div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ mkdir bind1 bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#bind的方式挂载disk1到bind1，disk2到bind2</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind ./disk1 ./bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind ./disk2 ./bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#查看挂载信息，显然默认情况下bind1和bind2的propagation type继承自父挂载点22(/)，都是shared。</div><div class="line">#由于bind2的源挂载点disk2是private的，所以bind2没有和disk2在同一个peer group里面，</div><div class="line">#而是重新创建了一个新的peer group，这个group里面就只有它一个。</div><div class="line">#因为150和162都是shared类型且是通过bind方式mount在一起的，所以他们属于同一个peer group 111。</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">168 22 7:1 / /home/kingand67/disks/bind2 rw,relatime shared:127</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#ID为24的挂载点为根目录的挂载点</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep ^22| sed &apos;s/-.*//&apos;</div><div class="line">22 0 8:1 / / rw,relatime shared:1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#这时disk3和disk4目录都是空的</div><div class="line">kingand67@kelele67:~/disks$ ls bind1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ ls bind2/disk4/</div><div class="line">kingand67@kelele67:~/disks$ ls disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ ls disk2/disk4/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#重新挂载disk3和disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk4.img ./disk2/disk4/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#由于disk1/和bind1/属于同一个peer group，</div><div class="line">#所以在挂载了disk3后，在两个目录下都能看到disk3下的内容</div><div class="line">kingand67@kelele67:~/disks$ ls disk1/disk3/</div><div class="line">lost+found</div><div class="line">kingand67@kelele67:~/disks$ ls bind1/disk3/</div><div class="line">lost+found</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#而disk2/是private类型的，所以在他下面挂载disk4不会通知bind2，</div><div class="line">#于是bind2下的disk4目录是空的</div><div class="line">kingand67@kelele67:~/disks$ ls disk2/disk4/</div><div class="line">lost+found</div><div class="line">kingand67@kelele67:~/disks$ ls bind2/disk4/</div><div class="line">kingand67@kelele67:~/disks$</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#再看看disk3，虽然174和175的父挂载点不一样，但由于他们父挂载点属于同一个peer group，</div><div class="line">#且disk3是以默认方式挂载的，所以他们属于同一个peer group</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |egrep &quot;disk3&quot;| sed &apos;s/-.*//&apos;</div><div class="line">174 150 7:2 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:133 </div><div class="line">175 162 7:2 / /home/kingand67/disks/bind1/disk3 rw,relatime shared:133</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount bind1/disk3后，disk1/disk3也相应的自动umount掉了</div><div class="line">kingand67@kelele67:~/disks$ sudo umount bind1/disk3</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo | grep disk3</div><div class="line">kingand67@kelele67:~/disks$</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="slave-mount"><a href="#slave-mount" class="headerlink" title="slave mount"></a>slave mount</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#umount除disk1的所有其他挂载点</div><div class="line">kingand67@kelele67:~/disks$ sudo umount ./disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/bind2</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#确认只剩disk1</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#分别显式的用shared和slave的方式bind disk1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind --make-shared ./disk1 ./bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind --make-slave ./bind1 ./bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#150、156和162都属于同一个peer group，</div><div class="line">#master:105表示/home/dev/disks/bind2是peer group 105的slave</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#mount disk3到disk1的子目录disk3下</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#其他两个目录bin1和bind2里面也挂载成功，说明master发生变化的时候，slave会跟着变化</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111 </div><div class="line">168 150 7:1 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:127 </div><div class="line">170 162 7:1 / /home/kingand67/disks/bind2/disk3 rw,relatime master:127 </div><div class="line">169 156 7:1 / /home/kingand67/disks/bind1/disk3 rw,relatime shared:127</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#umount disk3，然后mount disk3到bind2目录下</div><div class="line">kingand67@kelele67:~/disks$ sudo umount ./disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./bind2/disk3/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#由于bind2的propagation type是slave，所以disk1和bind1两个挂载点下面不会挂载disk3</div><div class="line">#从168的类型可以看出，当父挂载点162是slave类型时，默认情况下其子挂载点168是private类型</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111 </div><div class="line">168 162 7:1 / /home/kingand67/disks/bind2/disk3 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果用到了 <strong>bind mount</strong> 和 <strong>mount namespace</strong> ，在挂载设备的时候就需要注意一下父挂载点是否和其他挂载点有 <strong>peer group</strong> 关系，如果有且父挂载点是 <strong>shared</strong> ，就说明你挂载的设备除了在当前挂载点可以看到，在父挂载点的 <strong>peer group</strong> 的下面也可以看到。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000006899213" target="_blank" rel="external">Linux mount （第二部分）</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/01/16/Linux mount(二)/" class="archive-article-date">
-  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-16</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mount/">mount</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1198,7 +1173,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 16px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 14px;">gc</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 14px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/udp/" style="font-size: 10px;">udp</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     			</div>
     	</section>
     

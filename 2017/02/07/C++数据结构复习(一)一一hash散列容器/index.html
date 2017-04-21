@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>C++数据结构复习(一)一一hash散列容器 | 树犹如此|人何以堪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一道经典的LeetCode题
+Given nums = [2, 7, 11, 15], target = 9,Because nums[0] + nums[1] = 2 + 7 = 9,return [0, 1].
+
+这里我们用的解法是用一个hash表，储存每一个数对应的下标这大概是我第一次使用hash
+12345678910111213141516171819class Solution &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++数据结构复习(一)一一hash散列容器">
+<meta property="og:url" content="http://yoursite.com/2017/02/07/C++数据结构复习(一)一一hash散列容器/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="一道经典的LeetCode题
+Given nums = [2, 7, 11, 15], target = 9,Because nums[0] + nums[1] = 2 + 7 = 9,return [0, 1].
+
+这里我们用的解法是用一个hash表，储存每一个数对应的下标这大概是我第一次使用hash
+12345678910111213141516171819class Solution &amp;">
+<meta property="og:updated_time" content="2017-04-21T03:45:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++数据结构复习(一)一一hash散列容器">
+<meta name="twitter:description" content="一道经典的LeetCode题
+Given nums = [2, 7, 11, 15], target = 9,Because nums[0] + nums[1] = 2 + 7 = 9,return [0, 1].
+
+这里我们用的解法是用一个hash表，储存每一个数对应的下标这大概是我第一次使用hash
+12345678910111213141516171819class Solution &amp;">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">kelele67</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">做一个富有的废物</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/about">关于本站</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">kelele67</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">kelele67</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">做一个富有的废物</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/about">关于本站</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="airticle-C++数据结构复习(一)一一hash散列容器" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++数据结构复习(一)一一hash散列容器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+</p><h2 id="一道经典的LeetCode题"><a href="#一道经典的LeetCode题" class="headerlink" title="一道经典的LeetCode题"></a><a href="https://leetcode.com/problems/two-sum/#/description" target="_blank" rel="external">一道经典的LeetCode题</a></h2><blockquote>
+<p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
+</blockquote>
+<p>这里我们用的解法是用一个hash表，储存每一个数对应的下标<br>这大概是我第一次使用hash</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mapping;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            mapping[nums[i]] = i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            <span class="keyword">const</span> <span class="keyword">int</span> gap = target - nums[i];</div><div class="line">            <span class="keyword">if</span> ( mapping[gap] &gt; i) &#123;</div><div class="line">                result.push_back(i);</div><div class="line">                result.push_back(mapping[gap]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="散列表的冲突处理"><a href="#散列表的冲突处理" class="headerlink" title="散列表的冲突处理"></a>散列表的冲突处理</h2><p>这里介绍一下我认为还是比较重要的冲突处理</p>
+<h3 id="闭散列法（开放定址法）"><a href="#闭散列法（开放定址法）" class="headerlink" title="闭散列法（开放定址法）"></a>闭散列法（开放定址法）</h3><blockquote>
+<p>当插入元素的时候，一旦发生了散列冲突，就去寻找下一个空的散列地址供插入，而查找的时候逐个查找，直到碰到开放的地址查找失败。闭散列法是通过将冲突的元素以一定的模式存储在原散列的空间中。<br>之所以叫做闭散列法，就是因为冲突的元素没有开辟额外的存储空间，还是在原先hash表的空间范围之内。<br>　　(1). 线性探测法：将散列表看作是一个循环向量，若初始地址是f(key)=d，则依照顺序d、d+1、d+2…的顺序取查找，即f(key)=(f(key)+1)mod N;<br>　　(2). 二次探测法：基本思路和线性探测法一致，只是搜索的步长和方向更加的多样，会交替以两个方向，步长为搜索次数的平方来查找；<br>　　(3). 双重散列法：通常双重散列法是开放地址中最好的方法，其通过提供hash()和rehash()两个函数，前者产生冲突的时候，定制化后者rehash()重新寻址，其机制比前面两种固定格式的要灵活的多；<br>　　开放定址法一般用于冲突极少的情况，同时因为没有用到指针，所以对于数据的传输是友好的。</p>
+</blockquote>
+<h3 id="开散列法"><a href="#开散列法" class="headerlink" title="开散列法"></a>开散列法</h3><p>　与前面闭散列法对应的开散列法，一般也叫作拉链法或者链地址法，通过将冲突的元素组织在链表中，采用链表遍历的方式查找。链地址法和上面的开放定址法最大的优势是解决方法直观，实现起来简单，尤其在删除元素的时候此处只是简单的链表操作，但是前面需要考虑后面可能有元素，处理会比较复杂。同事开散列法可以存储超过散列表容量个数的元素。<br>　　(1). 链地址法：相同散列值的记录放到同一个链表中，他们在同一个Bucket中；<br>SGI STL中hash table使用的是开链法进行的冲突处理。所以我们重点介绍一下：</p>
+<pre><code>他的结构图如下：
+![](http://oe9uinblw.bkt.clouddn.com/stl-hash-table.png)
+具体的实现我最近还会总结一下STL，有兴趣的也可以关注一下
+</code></pre><p>　　(2). 公共溢出法：将所有的冲突都放到一个公共的溢出表中去，适用于冲突情况很小的时候。<br>　　除了使用传统的链表，还可以使用dynamic array的方式存储，分配的时候也可以预分配多个，以保证对CPU的缓存优化友好。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://taozj.org/201611/data-structure-and-algorithm-%281%29-hash.html" target="_blank" rel="external">taozj的博客</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/02/07/C++数据结构复习(一)一一hash散列容器/" class="archive-article-date">
+  	<time datetime="2017-02-07T09:19:32.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-07</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hash/">hash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/02/07/C++数据结构复习(二)一一排序算法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++数据结构复习(二)一一排序算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/18/Linux容器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux容器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="C++数据结构复习(一)一一hash散列容器" data-title="C++数据结构复习(一)一一hash散列容器" data-url="http://yoursite.com/2017/02/07/C++数据结构复习(一)一一hash散列容器/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"38d12c42fae50816089820c1b93c4785"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 kelele67
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+<script type="text/javascript">
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260501136'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260501136%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/udp/" style="font-size: 10px;">udp</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div class=&quot;text&quot; style=&quot; text-align:center;&quot;&gt;大三学生&lt;br&gt;就读于重庆大学 软件狗&lt;br&gt;&lt;br&gt; 喜欢python&lt;br&gt;自由的灵魂&lt;br&gt;&lt;br&gt;世界万物都是隐喻&lt;br&gt;我们是通过隐喻这个装置接受反讽&lt;br&gt;加深扩大自己&lt;/div&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
