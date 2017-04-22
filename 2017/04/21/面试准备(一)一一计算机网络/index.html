@@ -26,7 +26,7 @@ TCP
 三次握手、四次挥手
 
 重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）">
-<meta property="og:updated_time" content="2017-04-21T06:47:46.000Z">
+<meta property="og:updated_time" content="2017-04-22T07:01:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试准备(一)一一计算机网络之TCP">
 <meta name="twitter:description" content="此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报
@@ -188,9 +188,9 @@ TCP
 </ul>
 <h3 id="TCP过程"><a href="#TCP过程" class="headerlink" title="TCP过程"></a>TCP过程</h3><p>提供一个思路过程（不够细致严谨，仅适用于让你讲的清除）：</p>
 <p>三次握手</p>
-<p>首先客户端和服务端都是关闭的<br>     ↓       ↓<br>  主动打开   被动打开<br>此时客户端状态为 <strong>SYN_SENT</strong> 、服务端状态从 <strong>LISTEN</strong> 状态 到 <strong>SYN_RCVD</strong><br>     ↓①                              ↓②<br> 发送一个SYN J                  发送SYN K 和ACK J+1<br>此时客户端和服务端状态都为 <strong>ESTABLISHED</strong> ，他们进行数据传输<br>     ↓③<br> 发送一个ACK K+1</p>
+<p>首先客户端和服务端都是关闭的<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>&nbsp;&nbsp;&nbsp;&nbsp;主动打开&nbsp;&nbsp;被动打开<br>此时客户端状态为 <strong>SYN_SENT</strong> 、服务端状态从 <strong>LISTEN</strong> 状态 到 <strong>SYN_RCVD</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓①&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓②<br> 发送一个SYN J&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发送SYN K 和 ACK J+1<br>此时客户端和服务端状态都为 <strong>ESTABLISHED</strong> ，他们进行数据传输<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓③<br>发送一个ACK K+1</p>
 <p>四次挥手：</p>
-<p>首先客户端和服务端都是连接的<br>     ↓        ↓<br>  主动关闭    被动关闭<br>此时客户端状态为 <strong>FIN_WAIT1</strong> 、服务端状态为 <strong>CLOSED_WAIT</strong><br>     ↓①                    ↓②<br>发送一个FIN M          发送一个ACK M+1<br>此时服务端状态为 <strong>LAST_ACK</strong> 、客户端状态为 <strong>FIN_WAIT2</strong><br>     ↓③                     ↓④<br>发送一个FIN N          发送一个ACK N+1<br>此时客户端状态为 <strong>TIME_WAIT</strong> 、服务端状态为 <strong>CLOSED</strong></p>
+<p>首先客户端和服务端都是连接的<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>&nbsp;&nbsp;&nbsp;&nbsp;主动关闭&nbsp;&nbsp;被动关闭<br>此时客户端状态为 <strong>FIN_WAIT1</strong> 、服务端状态为 <strong>CLOSED_WAIT</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓①&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓②<br>发送一个FIN M&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发送一个ACK M+1<br>此时服务端状态为 <strong>LAST_ACK</strong> 、客户端状态为 <strong>FIN_WAIT2</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓③&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓④<br>发送一个FIN N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发送一个ACK N+1<br>此时客户端状态为 <strong>TIME_WAIT</strong> 、服务端状态为 <strong>CLOSED</strong></p>
 <h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><blockquote>
 <p>这时，你就会被问到TIME_WAIT的相关知识 如果没被问到，你就自己说了吧</p>
 </blockquote>
@@ -265,10 +265,85 @@ TCP
 <li>CLOSED:<br>表示连接中断。</li>
 </ul>
 <p>下面这两个术语也是之前有提到的，如果不熟悉可以不提：</p>
-<h3 id="RST"><a href="#RST" class="headerlink" title="RST"></a>RST</h3><p>在TCP协议中RST表示复位，用来异常的关闭连接，在TCP的设计中它是不可或缺的。发送RST包关闭连接时，不必等缓冲区的包都发出去，直接就丢弃缓存区的包发送RST包。而接收端收到RST包后，也不必发送ACK包来确认。</p>
+<h3 id="RST"><a href="#RST" class="headerlink" title="RST"></a>RST</h3><p>RST：TCP首部中的6个标志比特之一,表示重置连接、复位连接。</p>
+<p>在TCP协议中RST表示复位，用来异常的关闭连接，在TCP的设计中它是不可或缺的。发送RST包关闭连接时，不必等缓冲区的包都发出去，直接就丢弃缓存区的包发送RST包。而接收端收到RST包后，也不必发送ACK包来确认。</p>
+<blockquote>
+<p>出现RST包的原因：</p>
+</blockquote>
+<ul>
+<li><p>服务器端口未打开而客户端来连接时</p>
+</li>
+<li><p>在一个已关闭的SOCKET上收到数据</p>
+</li>
+<li><p>请求超时</p>
+</li>
+<li><p>提前关闭</p>
+</li>
+</ul>
 <h3 id="MSL"><a href="#MSL" class="headerlink" title="MSL"></a>MSL</h3><p>MSL(Maximum Segment Lifetime)报文最长存活时间</p>
-<h2 id="TCP高端"><a href="#TCP高端" class="headerlink" title="TCP高端"></a>TCP高端</h2><p>适用于BAT等公司，不过感觉这些问题真的是对于软件工程的学生来说有点难了，本人也是一知半解，但不排除还是会被之前说到的第二种面试官所问到，或者他是为了提醒你不要骄傲还是有很多东西要学的</p>
-<h3 id="tcp窗口滑动以及拥塞控制"><a href="#tcp窗口滑动以及拥塞控制" class="headerlink" title="tcp窗口滑动以及拥塞控制"></a>tcp窗口滑动以及拥塞控制</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/xifeijian/article/details/12777187" target="_blank" rel="external">TCP为什么需要3次握手与4次挥手</a><br><a href="http://blog.chinaunix.net/uid-26275986-id-4109679.html" target="_blank" rel="external">tcp窗口滑动以及拥塞控制</a></p>
+<h2 id="TCP高端"><a href="#TCP高端" class="headerlink" title="TCP高端"></a>TCP高端</h2><p>适用于BAT等公司，不过感觉这些问题真的是对于软件工程的学生来说有点难了，本人也是一知半解，不过事实上还是很容易理解的也没有到rbtree(然而面试经常会被问到)那种变态程度(心中的痛),但不排除还是会被之前说到的第二种面试官所问到，或者他是为了提醒你不要骄傲还是有很多东西要学的。</p>
+<h3 id="tcp窗口滑动以及拥塞控制"><a href="#tcp窗口滑动以及拥塞控制" class="headerlink" title="tcp窗口滑动以及拥塞控制"></a>tcp窗口滑动以及拥塞控制</h3><blockquote>
+<p>TCP协议作为一个可靠的面向流的传输协议，其可靠性和流量控制由滑动窗口协议保证，而拥塞控制则由控制窗口结合一系列的控制算法实现</p>
+</blockquote>
+<h4 id="滑动窗口协议"><a href="#滑动窗口协议" class="headerlink" title="滑动窗口协议"></a>滑动窗口协议</h4><p>该协议允许发送方在停止并等待确认前发送多个数据分组。由于发送方不必每发一个分组就停下来等待确认，因此该协议可以加速数据的传输，提高网络吞吐量。</p>
+<blockquote>
+<p>为了减少发送方等待ACK的时间</p>
+</blockquote>
+<p>个人总结的要点：</p>
+<p>窗口：</p>
+<p>①发送方和接收方都有一个序列号和一个窗口(窗口可以变化但是一般简单实现是固定的，只有它大于0才能操作)。</p>
+<p>②发送方发送的时候检查序列号是否超出窗口。</p>
+<p>③接收方接收数据是检查是否在窗口内，不在就丢弃。</p>
+<p>滑动：</p>
+<p>④只有接收窗口向前滑动并且ACK了，发送窗口才有可能向前滑动。</p>
+<blockquote>
+<p>注意事项</p>
+</blockquote>
+<p>（1）发送方不必发送一个全窗口大小的数据。</p>
+<p>（2）来自接收方的一个报文段确认数据并把窗口向右边滑动，这是因为窗口的大小是相对于确认序号的。</p>
+<p>（3）窗口的大小可以减小，但是窗口的右边沿却不能够向左移动。</p>
+<p>（4）接收方在发送一个ACK前不必等待窗口被填满。</p>
+<h4 id="流量控制一一数据不要太快"><a href="#流量控制一一数据不要太快" class="headerlink" title="流量控制一一数据不要太快"></a>流量控制一一数据不要太快</h4><ul>
+<li>TCP利用滑动窗口实现流量控制的机制</li>
+</ul>
+<p>所谓流量控制，主要是接收方传递信息给发送方，使其不要发送数据太快，是一种端到端的控制。主要的方式就是返回的ACK中会包含自己的接收窗口的大小，并且利用大小来控制发送方的数据发送。</p>
+<blockquote>
+<p>就比如说，接收端会告诉发送端我的rwnd也就是缓冲区还能接收多少数据，并且引入了持续计时器(Persistence timer)，当发送端收到对方没有窗口的通知时启动计时器，时间到则发送一个一字节的探测报文。目的就是为了解决一方等待通知，一方等待数据的死锁状态。</p>
+</blockquote>
+<ul>
+<li>如何考虑流量控制中的传输效率</li>
+</ul>
+<p>主要从两个方面提高</p>
+<p>①一个是尽可能一次多发送几个字节</p>
+<blockquote>
+<p>Nagle算法</p>
+</blockquote>
+<p>该算法为了减少广域网的小分组数目，从而减小网络拥塞的出现</p>
+<p>简单点的说就是它只允许TCP上最多只有一个未被确认的小分组，然后趁机收集所有的小分组，在ACK到来之时一次性以一个分组发出去。其中小分组的定义是小于MSS(Maximum Segment Size最大报文段长度)的任何分组。</p>
+<p>这里给出它的伪代码，有兴趣的可以去看看Linux内核里面的实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> there <span class="keyword">is</span> new data to send <span class="comment">#有数据要发送</span></div><div class="line">    <span class="comment"># 发送窗口缓冲区和队列数据 &gt;=mss，队列数据（available #data）为原有的队列数据加上新到来的数据</span></div><div class="line">    <span class="comment"># 也就是说缓冲区数据超过mss大小，nagle算法尽可能发送足够大的数据包</span></div><div class="line">    <span class="keyword">if</span> the window size &gt;= MSS <span class="keyword">and</span> available data <span class="keyword">is</span> &gt;= MSS </div><div class="line">        send complete MSS segment now <span class="comment"># 立即发送</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">if</span> there <span class="keyword">is</span> unconfirmed data still <span class="keyword">in</span> the pipe <span class="comment">#前一次发送的包没有收到ack</span></div><div class="line">            <span class="comment"># 将该包数据放入队列中，直到收到一个ack再发送缓冲区数据</span></div><div class="line">            enqueue data <span class="keyword">in</span> the buffer until an acknowledge <span class="keyword">is</span> received </div><div class="line">        <span class="keyword">else</span></div><div class="line">            send data immediately <span class="comment"># 立即发送</span></div><div class="line">        end <span class="keyword">if</span></div><div class="line">    end <span class="keyword">if</span></div><div class="line">end <span class="keyword">if</span></div></pre></td></tr></table></figure>
+<hr>
+<p>②另一个是在窗口空余比较多的时候通知发送方一次多发送多个字节</p>
+<blockquote>
+<p>ACK延迟确认</p>
+</blockquote>
+<p>说到Nagle算法就不得不提和它配合使用的ACK延迟确认了</p>
+<p>简单的说就是在发送数据的时候顺便把上一个的ACK也一起打包了</p>
+<h4 id="拥塞控制一一这样传数据会慢一点"><a href="#拥塞控制一一这样传数据会慢一点" class="headerlink" title="拥塞控制一一这样传数据会慢一点"></a>拥塞控制一一这样传数据会慢一点</h4><blockquote>
+<p>这部分我们需要了解的就是四个点：</p>
+</blockquote>
+<ul>
+<li>慢开始<br>简单来说就是刚开始发送数据的时候从1开始依次递增2的指数级，最后到达最大限制的话就使用下面的算法。</li>
+<li>拥塞控制<br>主要就是拥塞避免算法：每经过一个往返时间RTT(Round-Trip Time 往返时延)就把发送方的拥塞窗口+1，即让拥塞窗口缓慢地增大，按照线性规律增长。</li>
+</ul>
+<p>以上两个好基友经常作为一个整体使用，目的就是为了减少拥塞发生时发送的数据，使得发生拥塞的路由器有足够的时间来处理那些积压的分组。</p>
+<ul>
+<li>快重传<br>字面意思，当包出现错误，立马重传。</li>
+<li>快恢复<br>其实就是回到原点，在快重传之后回到最开始的慢开始。</li>
+</ul>
+<p>以上两个好基友解决的则是减少拥塞发生时重传时间。<br>一个减少数据，一个减少时间，这样就达到了拥塞控制的目的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实在整理的过程中发现，大部分都是计算机网络课上讲过的知识，只是自己以前没有认真听<br>(ノへ￣、)捂脸</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/xifeijian/article/details/12777187" target="_blank" rel="external">TCP为什么需要3次握手与4次挥手</a><br><a href="http://blog.chinaunix.net/uid-26275986-id-4109679.html" target="_blank" rel="external">tcp窗口滑动以及拥塞控制</a></p>
 
       
     </div>
@@ -280,7 +355,7 @@ TCP
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcp/">tcp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udp/">udp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hentai/">hentai</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcp/">tcp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 	</div>
 
       
@@ -429,7 +504,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/udp/" style="font-size: 10px;">udp</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hentai/" style="font-size: 10px;">hentai</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     			</div>
     	</section>
     
