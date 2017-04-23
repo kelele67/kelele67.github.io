@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   
+  <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
   <title>树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="做一个富有的废物">
@@ -17,29 +19,35 @@
 <meta name="twitter:description" content="做一个富有的废物">
   
   
-    <link rel="icon" href="//icon/cola.ico">
+    <link rel="icon" href="/icon/cola.ico">
   
-  <script src="/style.js"></script>
+  <link rel="stylesheet" type="text/css" href="/./main.f6a68c.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+  
+
   
 
 </head>
 
 <body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			
 			<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
-			
 		</a>
-
 		<hgroup>
 		  <h1 class="header-author"><a href="/">kelele67</a></h1>
 		</hgroup>
-
 		
 		<p class="header-subtitle">做一个富有的废物</p>
 		
@@ -54,34 +62,24 @@
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
-	        
     		
     			
-    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
-    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
-            
-    			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
-    			
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
 		</nav>
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+					<a class="github" target="_blank" href="https://github.com/kelele67" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -89,57 +87,69 @@
 </div>
 
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">kelele67</h1>
-  	</div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				
-					<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
-				
+				<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author">kelele67</h1>
+			  <h1 class="header-author js-header-author">kelele67</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">做一个富有的废物</p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>做一个富有的废物<i class="icon icon-quo-right"></i></p>
 			
-			<nav class="header-menu">
-				<ul>
+			
+			
 				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/about">关于本站</a></li>
-		        
-				</ul>
-			</nav>
+			
+				
+			
+			
+			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+						<a class="github" target="_blank" href="https://github.com/kelele67" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/about">关于本站</a></li>
+		        
+				</ul>
+			</nav>
 		</header>				
 	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
 </nav>
 
-      <div class="body-wrap">
-        
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            
   
-    <article id="airticle-面试准备(二)一一计算机网络之HTTP" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-面试准备(二)一一计算机网络之HTTP" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -149,26 +159,51 @@
     </h1>
   
 
+        
+        <a href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/" class="archive-article-date">
+  	<time datetime="2017-04-22T08:06:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-22</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
         <p></p>
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/" class="archive-article-date">
-  	<time datetime="2017-04-22T08:06:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-22</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hentai/">hentai</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hentai</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -178,17 +213,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-面试准备(一)一一计算机网络之TCP" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-面试准备(一)一一计算机网络之TCP" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -198,6 +225,11 @@
     </h1>
   
 
+        
+        <a href="/2017/04/21/面试准备(一)一一计算机网络之TCP/" class="archive-article-date">
+  	<time datetime="2017-04-21T05:20:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-21</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -375,20 +407,40 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/xifeijian/article/details/12777187" target="_blank" rel="external">TCP为什么需要3次握手与4次挥手</a><br><a href="http://blog.chinaunix.net/uid-26275986-id-4109679.html" target="_blank" rel="external">tcp窗口滑动以及拥塞控制</a></p>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/04/21/面试准备(一)一一计算机网络之TCP/" class="archive-article-date">
-  	<time datetime="2017-04-21T05:20:04.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-21</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hentai/">hentai</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tcp/">tcp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tcp</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hentai</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/21/面试准备(一)一一计算机网络之TCP/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -398,17 +450,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-深入 Lua Garbage Collector(四)" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-深入 Lua Garbage Collector(四)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -418,6 +462,11 @@
     </h1>
   
 
+        
+        <a href="/2017/04/15/深入 Lua Garbage Collector(四)/" class="archive-article-date">
+  	<time datetime="2017-04-15T05:14:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -426,20 +475,40 @@
 
 </p>
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/04/15/深入 Lua Garbage Collector(四)/" class="archive-article-date">
-  	<time datetime="2017-04-15T05:14:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-15</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/15/深入 Lua Garbage Collector(四)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -449,17 +518,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-深入 Lua Garbage Collector(三)" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-深入 Lua Garbage Collector(三)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -469,6 +530,11 @@
     </h1>
   
 
+        
+        <a href="/2017/04/14/深入 Lua Garbage Collector(三)/" class="archive-article-date">
+  	<time datetime="2017-04-14T14:20:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -541,20 +607,40 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.codingnow.com/2011/03/lua_gc_1.html" target="_blank" rel="external">云风的 BLOG</a></p>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/04/14/深入 Lua Garbage Collector(三)/" class="archive-article-date">
-  	<time datetime="2017-04-14T14:20:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-14</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(三)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -564,17 +650,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-深入 Lua Garbage Collector(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-深入 Lua Garbage Collector(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -584,6 +662,11 @@
     </h1>
   
 
+        
+        <a href="/2017/04/14/深入 Lua Garbage Collector(二)/" class="archive-article-date">
+  	<time datetime="2017-04-14T02:50:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -643,20 +726,40 @@
 <p>在下一篇中我们将会具体的来看一看 <strong>Lua</strong> 的 <strong>GC源码</strong></p>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/04/14/深入 Lua Garbage Collector(二)/" class="archive-article-date">
-  	<time datetime="2017-04-14T02:50:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-14</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(二)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -666,17 +769,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-深入 Lua Garbage Collector(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-深入 Lua Garbage Collector(一)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -686,6 +781,11 @@
     </h1>
   
 
+        
+        <a href="/2017/04/13/深入 Lua Garbage Collector(一)/" class="archive-article-date">
+  	<time datetime="2017-04-13T01:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-13</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -728,20 +828,40 @@
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个简单的收集器与目前 <strong>Ruby</strong> 和 <strong>Lua</strong> 中的收集器非常的相似，所以下一次我们将深入了解 <strong>Lua</strong> 的 <strong>GC</strong> 机制。</p>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/04/13/深入 Lua Garbage Collector(一)/" class="archive-article-date">
-  	<time datetime="2017-04-13T01:54:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-04-13</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/13/深入 Lua Garbage Collector(一)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -751,17 +871,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-Linux下的轻量服务器实现" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-Linux下的轻量服务器实现" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -771,6 +883,11 @@
     </h1>
   
 
+        
+        <a href="/2017/03/31/Linux下的轻量服务器实现/" class="archive-article-date">
+  	<time datetime="2017-03-31T03:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-31</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -847,20 +964,44 @@
 <p><a href="https://github.com/kelele67/Buffalo" target="_blank" rel="external">项目地址</a></p>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/03/31/Linux下的轻量服务器实现/" class="archive-article-date">
-  	<time datetime="2017-03-31T03:53:23.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-03-31</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-server/">web server</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web server</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/31/Linux下的轻量服务器实现/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -870,17 +1011,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-C++11 并发学习(四)" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-C++11 并发学习(四)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -890,6 +1023,11 @@
     </h1>
   
 
+        
+        <a href="/2017/02/15/C++11 并发学习(四)/" class="archive-article-date">
+  	<time datetime="2017-02-15T06:52:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-15</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -917,234 +1055,44 @@
 <hr>
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/02/15/C++11 并发学习(四)/" class="archive-article-date">
-  	<time datetime="2017-02-15T06:52:04.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-15</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-C++11 并发学习(三)" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/14/C++11 并发学习(三)/">C++11 并发学习(三)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="C-11-ThreadPool-简单实现"><a href="#C-11-ThreadPool-简单实现" class="headerlink" title="C++11 ThreadPool 简单实现"></a>C++11 ThreadPool 简单实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;condition_variable&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;type_traits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// C++11 版的 线程池</span></div><div class="line"><span class="keyword">namespace</span> zl</div><div class="line">&#123;</div><div class="line">    <span class="keyword">class</span> ThreadsGuard</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        ThreadsGuard(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; v)</div><div class="line">            : threads_(v)</div><div class="line">        &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ~ThreadsGuard()</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i != threads_.size(); ++i)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (threads_[i].joinable())</div><div class="line">                &#123;</div><div class="line">                    threads_[i].join();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadsGuard(ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">        ThreadsGuard(<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; threads_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">class</span> ThreadPool</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>()&gt; task_type;</div><div class="line"></div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">explicit</span> <span class="title">ThreadPool</span><span class="params">(<span class="keyword">int</span> n = <span class="number">0</span>)</span></span>;</div><div class="line"></div><div class="line">        ~ThreadPool()</div><div class="line">        &#123;</div><div class="line">            stop();</div><div class="line">            cond_.notify_all();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            stop_.store(<span class="literal">true</span>, <span class="built_in">std</span>::memory_order_release);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">        <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt; add(Function&amp;&amp;, Args&amp;&amp;...);</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadPool(ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool(<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; stop_;</div><div class="line">        <span class="built_in">std</span>::mutex mtx_;</div><div class="line">        <span class="built_in">std</span>::condition_variable cond_;</div><div class="line"></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;task_type&gt; tasks_;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads_;</div><div class="line">        zl::ThreadsGuard tg_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">inline</span> ThreadPool::ThreadPool(<span class="keyword">int</span> n)</div><div class="line">        : stop_(<span class="literal">false</span>)</div><div class="line">        , tg_(threads_)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> nthreads = n;</div><div class="line">        <span class="keyword">if</span> (nthreads &lt;= <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            nthreads = <span class="built_in">std</span>::thread::hardware_concurrency();</div><div class="line">            nthreads = (nthreads == <span class="number">0</span> ? <span class="number">2</span> : nthreads);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != nthreads; ++i)</div><div class="line">        &#123;</div><div class="line">            threads_.push_back(<span class="built_in">std</span>::thread([<span class="keyword">this</span>]&#123;</div><div class="line">                <span class="keyword">while</span> (!stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                &#123;</div><div class="line">                    task_type task;</div><div class="line">                    &#123;</div><div class="line">                        <span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; ulk(<span class="keyword">this</span>-&gt;mtx_);</div><div class="line">                        <span class="keyword">this</span>-&gt;cond_.wait(ulk, [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> stop_.load(<span class="built_in">std</span>::memory_order_acquire) || !<span class="keyword">this</span>-&gt;tasks_.empty(); &#125;);</div><div class="line">                        <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                            <span class="keyword">return</span>;</div><div class="line">                        task = <span class="built_in">std</span>::move(<span class="keyword">this</span>-&gt;tasks_.front());</div><div class="line">                        <span class="keyword">this</span>-&gt;tasks_.pop();</div><div class="line">                    &#125;</div><div class="line">                    task();</div><div class="line">                &#125;</div><div class="line">            &#125;));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">    <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt;</div><div class="line">        ThreadPool::add(Function&amp;&amp; fcn, Args&amp;&amp;... args)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type return_type;</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::packaged_task&lt;return_type()&gt; task;</div><div class="line"></div><div class="line">        <span class="keyword">auto</span> t = <span class="built_in">std</span>::make_shared&lt;task&gt;(<span class="built_in">std</span>::bind(<span class="built_in">std</span>::forward&lt;Function&gt;(fcn), <span class="built_in">std</span>::forward&lt;Args&gt;(args)...));</div><div class="line">        <span class="keyword">auto</span> ret = t-&gt;get_future();</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lg(mtx_);</div><div class="line">            <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"thread pool has stopped"</span>);</div><div class="line">            tasks_.emplace([t]&#123;(*t)(); &#125;);</div><div class="line">        &#125;</div><div class="line">        cond_.notify_one();</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span>  <span class="comment">/* THREAD_POOL_H */</span></span></div></pre></td></tr></table></figure>
-<hr>
-<h2 id="线程池的具体思路就不多说了，我们主要说一下用到的-c-11-的部分"><a href="#线程池的具体思路就不多说了，我们主要说一下用到的-c-11-的部分" class="headerlink" title="线程池的具体思路就不多说了，我们主要说一下用到的 c++11 的部分"></a>线程池的具体思路就不多说了，我们主要说一下用到的 <strong>c++11</strong> 的部分</h2><h3 id="首先是建立了一个-std-vector-lt-std-thread-gt-amp-v-的容器"><a href="#首先是建立了一个-std-vector-lt-std-thread-gt-amp-v-的容器" class="headerlink" title="首先是建立了一个 std::vector&lt; std::thread&gt;&amp; v 的容器"></a>首先是建立了一个 std::vector&lt; std::thread&gt;&amp; v 的容器</h3><h3 id="定义了一个原子操作-std-atomic-lt-bool-gt-stop-对bool进行了原子性封装"><a href="#定义了一个原子操作-std-atomic-lt-bool-gt-stop-对bool进行了原子性封装" class="headerlink" title="定义了一个原子操作 std::atomic&lt; bool&gt; stop_  对bool进行了原子性封装"></a>定义了一个原子操作 std::atomic&lt; bool&gt; stop_  对bool进行了原子性封装</h3><h3 id="然后不仅用到了-std-lock-guard，还用了相比其提供了更好的上锁和解锁控制的-std-unique-lock。"><a href="#然后不仅用到了-std-lock-guard，还用了相比其提供了更好的上锁和解锁控制的-std-unique-lock。" class="headerlink" title="然后不仅用到了 std::lock_guard，还用了相比其提供了更好的上锁和解锁控制的 std::unique_lock。"></a>然后不仅用到了 std::lock_guard，还用了相比其提供了更好的上锁和解锁控制的 std::unique_lock。</h3><p>这里主要介绍一下操作更为丰富的 <strong>std::unique_lock</strong></p>
-<blockquote>
-<p>顾名思义，<strong>unique_lock</strong> 对象以独占所有权的方式（unique owership）管理 <strong>mutex</strong> 对象的上锁和解锁操作，所谓独占所有权，就是没有其他的 <strong>unique_lock</strong> 对象同时拥有某个 <strong>mutex</strong> 对象的所有权。</p>
-</blockquote>
-<p>  ①. 上锁/解锁操作：lock，try_lock，try_lock_for，try_lock_until 和 unlock</p>
-<p>  ②. 修改操作：移动赋值(move assignment)(前面已经介绍过了)，交换(swap)（与另一个 std::unique_lock 对象交换它们所管理的 Mutex 对象的所有权），释放(release)（返回指向它所管理的 Mutex 对象的指针，并释放所有权）</p>
-<p>  ③. 获取属性操作：owns_lock（返回当前 std::unique_lock 对象是否获得了锁）、operator bool()（与 owns_lock 功能相同，返回当前 std::unique_lock 对象是否获得了锁）、mutex（返回当前 std::unique_lock 对象所管理的 Mutex 对象的指针）。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><blockquote>
-<p>感觉这个例子还是用到挺多 <strong>C++11</strong> 的特性，在这里还是得一一解释一下（只是简单解释一下，关于C++还有很多要学的，我目前也只是个菜鸡啊。。。 <strong>C++</strong> 太棒了！特性多到你学不完→→手动滑稽）：</p>
-</blockquote>
-<h3 id="首先是std-function"><a href="#首先是std-function" class="headerlink" title="首先是std::function"></a>首先是std::function</h3><p>简单的来说就是：</p>
-<blockquote>
-<p>通过std::function对 <strong>C++</strong> 中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std::function对象；让我们不再纠结那么多的可调用实体。一切变的简单粗暴。</p>
-</blockquote>
-<p>其实就是以前我们用函数指针来统一处理不同的函数对象类型，现在我们可以使用更安全的std::function来完成这些任务。</p>
-<p>在上述例子中，使用它来定义了一个任务类型对象</p>
-<p>typedef std::function&lt; void()&gt; task_type;</p>
-<p><a href="http://www.jellythink.com/archives/771" target="_blank" rel="external">更为深入地学习，可以看这篇博客</a></p>
-<h3 id="std-memory-order"><a href="#std-memory-order" class="headerlink" title="std::memory_order"></a>std::memory_order</h3><p>C++11 中规定了6种访存次序(Memory Order)，<a href="https://www.zhihu.com/question/24301047" target="_blank" rel="external">知乎上给出了通俗的解释</a></p>
-<ul>
-<li>momory_order_relaxed,</li>
-<li>memory_order_consume,</li>
-<li>memory_order_acquire,</li>
-<li>memory_order_release,</li>
-<li>memory_order_acq_rel,</li>
-<li>memory_order_seq_cst.</li>
-</ul>
-<blockquote>
-<p>虽然有6个选项，其实表示的是三种内存模型</p>
-</blockquote>
-<ul>
-<li><p>sequential consistent(memory_order_seq_cst)</p>
-</li>
-<li><p>relaxed(memory_order_seq_cst)</p>
-</li>
-<li><p>acquire release(memory_order_consume, memory_order_acquire, memory_order_release, memory_order_acq_rel) </p>
-</li>
-</ul>
-<p>我们这里用到的是获取-释放次序 <em>acquire release</em></p>
-<blockquote>
-<p>目的就是限制两个来自不同线程的原子操作的顺序，具体的操作就是需要两个线程进行一下同步，同步对一个变量的读写操作…</p>
-</blockquote>
-<p>①. 原子 <strong>load</strong> 操作：</p>
-<p>while (!stop_.load(std::memory_order_acquire))</p>
-<p>②. 原子 <strong>store</strong> 操作：</p>
-<p>std::memory_order_release</p>
-<h3 id="std-result-of"><a href="#std-result-of" class="headerlink" title="std::result_of"></a>std::result_of</h3><p>其实这个就是和我们之前的auto decltype都是属于自动类型推导，主要是使我们的代码可读易维护</p>
-<p>我们这里用的<br>std::future&lt; typename std::result_of&lt; Function(Args…)&gt;::type&gt; add(Function&amp;&amp;, Args&amp;&amp;…);<br>就是为了获取function的返回值</p>
-<blockquote>
-<p>result_of 其实就是通过decltype来推导函数的返回类型</p>
-</blockquote>
-<h3 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a>std::move</h3><p>在C++11中，标准库在&lt; utility&gt;中提供了一个有用的函数std::move，这个函数的名字具有迷惑性，因为实际上std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而我们可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：<br>static_cast&lt; T&amp;&amp;&gt;(lvalue);</p>
-<blockquote>
-<p>值得一提的是，被转化的左值，其生命期并没有随着左右值的转化而改变。如果读者期望std::move转化的左值变量lvalue能立即被析构，那么肯定会失望了。</p>
-</blockquote>
-<h3 id="std-packaged-task"><a href="#std-packaged-task" class="headerlink" title="std::packaged_task"></a>std::packaged_task</h3><p>std::packaged_task它包装了一个可调用的目标（如function, lambda expression, bind expression, or another function object）,以便异步调用，它和promise在某种程度上有点像，promise保存了一个共享状态的值，而packaged_task保存的是一个函数</p>
-<p>typedef std::packaged_task&lt; return_type()&gt; task;</p>
-<h3 id="std-make-shared"><a href="#std-make-shared" class="headerlink" title="std::make_shared"></a>std::make_shared</h3><p>C++11 中引入了智能指针, 同时还有一个模板函数 std::make_shared 可以返回一个指定类型的 std::shared_ptr：</p>
-<p>struct A;<br>std::shared_ptr&lt; A&gt; p1 = std::make_shared&lt; A&gt;();<br>std::shared_ptr&lt; A&gt; p2(new A);</p>
-<p>①. 如果是使用 <strong>new</strong> ：</p>
-<p>auto p = new widget();<br>shared_ptr sp1{ p }, sp2{ sp1 };<br>需要两次内存分配</p>
-<p>②. 然而使用 <strong>make_shared</strong> 的话：</p>
-<p>auto sp1 = make_shared(), sp2{ sp1 };</p>
-<p>所以我们这里 <strong>std::make_shared</strong> 其实就是为了代替 <strong>new</strong><br>auto t = std::make_shared&lt; task&gt;(std::bind(std::forward&lt; Function&gt;(fcn), std::forward&lt; Args&gt;(args)…));</p>
-<p><a href="http://www.tuicool.com/articles/F3u6jy" target="_blank" rel="external">想要进一步了解它与std::shared_ptr的构造函数比较的戳</a></p>
-<p>总结一些我们需要了解的就是：</p>
-<p>①. 同直接使用new相比，make函数减小了代码重复，提高的异常安全，并且对于std::make_shared和std::allcoated_shared，生成的代码会更小更快。</p>
-<p>②. 不能使用make函数的情况包括我们需要定制删除器和期望直接传递大括号初始化器。</p>
-<p>③. 对于std::shared_ptr，额外的不建议使用make函数的情况包括：<br>（1）定制内存管理的类<br>（2）关注内存的系统，非常大的对象，以及生存期比 std::shared_ptr长的std::weak_ptr</p>
-<p>下一篇我们将会实现C++11多线程下各种生产者消费者模型</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/02/14/C++11 并发学习(三)/" class="archive-article-date">
-  	<time datetime="2017-02-14T04:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/threadpool/">threadpool</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">threadpool</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-C++11 并发学习(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/14/C++11 并发学习(二)/">C++11 并发学习(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="线程详解"><a href="#线程详解" class="headerlink" title="线程详解"></a>线程详解</h2><p>具体源码的大家有兴趣的可以去查看<a href="http://www.open-std.org/" target="_blank" rel="external">c++ 标准委员会的官方文档</a></p>
-<p>在这里我主要讲一下他们的主要结构以及主要用法</p>
-<h3 id="lt-thread-gt"><a href="#lt-thread-gt" class="headerlink" title="&lt; thread&gt;"></a>&lt; thread&gt;</h3><ol>
-<li>std::thread 简单例子</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span> <span class="comment">// std::cout</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span>   <span class="comment">// std::thread</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_task</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello thread"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(thread_task)</span></span>;</div><div class="line">    t.join();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="lt-mutex-gt"><a href="#lt-mutex-gt" class="headerlink" title="&lt; mutex&gt;"></a>&lt; mutex&gt;</h3><blockquote>
-<p>std::mutex 是C++11 中最基本的互斥量，std::mutex 对象提供了独占所有权的特性——即不支持递归地对 std::mutex 对象上锁，而 std::recursive_lock 则可以递归地对互斥量对象上锁。</p>
-</blockquote>
-<p>①. <strong>Mutex</strong> 系列类(四种)</p>
-<ul>
-<li>std::mutex，最基本的 Mutex 类。</li>
-<li>std::recursive_mutex，递归 Mutex 类。</li>
-<li>std::time_mutex，定时 Mutex 类。</li>
-<li>std::recursive_timed_mutex，定时递归 Mutex 类</li>
-</ul>
-<p>②. <strong>Lock</strong> 类（两种）</p>
-<ul>
-<li>std::lock_guard，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁。</li>
-<li>std::unique_lock，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁，但提供了更好的上锁和解锁控制。</li>
-</ul>
-<h3 id="lt-condition-variable-gt"><a href="#lt-condition-variable-gt" class="headerlink" title="&lt; condition_variable&gt;"></a>&lt; condition_variable&gt;</h3><blockquote>
-<p>&lt; condition_variable &gt; 头文件主要包含了与条件变量相关的类和函数。与条件变量相关的类包括 std::condition_variable 和 std::condition_variable_any，还有枚举类型std::cv_status。另外还包括函数 std::notify_all_at_thread_exit()</p>
-<p>在 <strong>Linux</strong> 下是使用 <strong>Pthread</strong> 库中的 <strong>pthread<em>cond</em>*() </strong> 函数来实现条件变量相关的功能</p>
-</blockquote>
-<h3 id="lt-future-gt"><a href="#lt-future-gt" class="headerlink" title="&lt; future&gt;"></a>&lt; future&gt;</h3><blockquote>
-<p>C++11 标准中与异步任务系相关的类型主要是以下四种 std::promise，std::packaged_task（std::promise，std::packaged_task 也称为异步任务的提供者 Provider，此外 std::async 也可以作为异步任务的提供者，不过 std::async 并不是类，而是函数，本章后面会详细介绍异步任务的提供者 Provider），std::future，std::shared_future。另外 &lt; future&gt; 中还定义一些辅助的类，例如： std::future_error，std::future_errc，std::status，std::launch。</p>
-</blockquote>
-<p>之前也有提到，主要是用来实现异步</p>
-<h3 id="lt-atomic-gt"><a href="#lt-atomic-gt" class="headerlink" title="&lt; atomic&gt;"></a>&lt; atomic&gt;</h3><p>关于C++11的原子操作之前我有过笔记，下图</p>
-<p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG2.jpeg" alt=""></p>
-<p>好了，关于 <strong>C++11</strong> 的新特性大致的梳理了一遍，接下来我们先看看之前提到的那个 <strong>C++11</strong> 的线程池具体是怎么实现的吧</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/02/14/C++11 并发学习(二)/" class="archive-article-date">
-  	<time datetime="2017-02-13T17:02:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-14</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
 
 
 
@@ -1153,11 +1101,13 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
 
+          </div>
+        </div>
       </div>
       <footer id="footer">
   <div class="outer">
@@ -1170,82 +1120,296 @@
       	</div>
     </div>
   </div>
-<script type="text/javascript">
-var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260501136'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260501136%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
-</script>
 </footer>
     </div>
     <script>
 	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
+		mathjax: false,
 		isHome: true,
 		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		root: "/"
+		root: "/",
+		innerArchive: true,
+		showTags: false
 	}
 </script>
 
-<script src="/./main.js"></script>
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),g=e(75),m=r(g),w=e(70);l(),(0,w.addLoadEvent)(function(){m.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),g=x[f],m=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&m&&void 0!==m[a],s&&a in x||(l=s?m[a]:e[a],x[a]=d&&"function"!=typeof m[a]?e[a]:h&&s?i(l,r):b&&m[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&g&&!g[a]&&u(g,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,g,m,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=g==h,M=!1,A=t.prototype,T=A[p]||A[v]||g&&A[g],L=T||j(g),N=g?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,g)if(O={values:E?L:j(h),keys:m?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),g=e(10),m=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),g(t),n=w(n,!0),g(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){g(t);for(var e,r=b(n=m(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=m(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(m(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:m(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){var n=t.getAttribute("target");n&&""!==n||t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.f6a68c.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
 
 
     
-<div class="tools-col">
-  <ul class="btn-wrap">
-    
-      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
     
     
-      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+      
+      
+      
+    
+      
+      
+      
     
     
+
+    <ul style="width: 70%">
     
-      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
     
-  </ul>
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      
+        
+    </ul>
+  </div>
   <div class="tools-wrap">
     
-    	<section class="tools-section tools-section-all chose">
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">concurrency</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">threadpool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">c</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CRT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">buffer manipulation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">string manipulation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mount</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web server</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">namespace</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">cgroup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">release</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">tmpfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">make</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ccache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">html5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">swift</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">animation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">search</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">data structures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">trees</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">solution</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">lua</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">gc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">siri</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sysvinit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">upstart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">systemd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tcp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hentai</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            3、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
     	</section>
     
 
     
-    	<section class="tools-section tools-section-tag">
-    			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hentai/" style="font-size: 12px;">hentai</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 12px;">面试</a>
-    			</div>
-    	</section>
-    
 
     
-
-    
-    	<section class="tools-section tools-section-me">
+    	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
   	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div class=&quot;text&quot; style=&quot; text-align:center;&quot;&gt;大三学生&lt;br&gt;就读于重庆大学 软件狗&lt;br&gt;&lt;br&gt; 喜欢python&lt;br&gt;自由的灵魂&lt;br&gt;&lt;br&gt;世界万物都是隐喻&lt;br&gt;我们是通过隐喻这个装置接受反讽&lt;br&gt;加深扩大自己&lt;/div&gt;</div>
   	  	
@@ -1284,7 +1448,7 @@ MathJax.Hub.Queue(function() {
 
                 <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
                 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
 

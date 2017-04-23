@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   
+  <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
   <title>树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="做一个富有的废物">
@@ -17,29 +19,35 @@
 <meta name="twitter:description" content="做一个富有的废物">
   
   
-    <link rel="icon" href="//icon/cola.ico">
+    <link rel="icon" href="/icon/cola.ico">
   
-  <script src="/style.js"></script>
+  <link rel="stylesheet" type="text/css" href="/./main.f6a68c.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+  
+
   
 
 </head>
 
 <body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			
 			<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
-			
 		</a>
-
 		<hgroup>
 		  <h1 class="header-author"><a href="/">kelele67</a></h1>
 		</hgroup>
-
 		
 		<p class="header-subtitle">做一个富有的废物</p>
 		
@@ -54,34 +62,24 @@
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
-	        
     		
     			
-    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
-    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
     			
             
     			
-            
-    			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
-    			
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
 		</nav>
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+					<a class="github" target="_blank" href="https://github.com/kelele67" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+					<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -89,88 +87,279 @@
 </div>
 
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">kelele67</h1>
-  	</div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				
-					<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
-				
+				<img src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author">kelele67</h1>
+			  <h1 class="header-author js-header-author">kelele67</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">做一个富有的废物</p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>做一个富有的废物<i class="icon icon-quo-right"></i></p>
 			
-			<nav class="header-menu">
-				<ul>
+			
+			
 				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/about">关于本站</a></li>
-		        
-				</ul>
-			</nav>
+			
+				
+			
+			
+			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="https://github.com/kelele67" title="github">github</a>
+						<a class="github" target="_blank" href="https://github.com/kelele67" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo">weibo</a>
+						<a class="weibo" target="_blank" href="http://weibo.com/kelele67" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu">zhihu</a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/liu-qi-21-51" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/about">关于本站</a></li>
+		        
+				</ul>
+			</nav>
 		</header>				
 	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
 </nav>
 
-      <div class="body-wrap">
-        
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            
   
-    <article id="airticle-C语言标准库函数学习(三)一一缓冲区操作函数" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-Linux mount (一)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/">C语言标准库函数学习(三)一一缓冲区操作函数</a>
+      <a class="article-title" href="/2017/01/15/Linux mount (一)/">Linux mount 学习(一)</a>
     </h1>
   
 
+        
+        <a href="/2017/01/15/Linux mount (一)/" class="archive-article-date">
+  	<time datetime="2017-01-15T05:05:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-15</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>
+        <p></p><p></p>
+<h2 id="Linux-mount"><a href="#Linux-mount" class="headerlink" title="Linux mount"></a>Linux mount</h2><p>介绍一些比较实用的 <strong>mount</strong> 用法，包括挂载内核中的虚拟文件系统、 <strong>loop device</strong> 和 <strong>bind mount</strong> 。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount -t type -o options device dir</div></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li><p>device: 要挂载的设备</p>
+</li>
+<li><p>dir: 挂载到哪个目录</p>
+</li>
+</ul>
+<h3 id="挂载-loop-device"><a href="#挂载-loop-device" class="headerlink" title="挂载 loop device"></a>挂载 loop device</h3><h4 id="ISO文件"><a href="#ISO文件" class="headerlink" title="ISO文件"></a>ISO文件</h4><blockquote>
+<p>需要用到 <strong>loop device</strong> 的最常见的场景是 <strong>mount</strong> 一个 <strong>ISO</strong> 文件，示例如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#利用mkisofs构建一个用于测试的iso文件</div><div class="line">kingand67@kelele67:~$ mkdir -p iso/subdir01</div><div class="line">kingand67@kelele67:~$ mkisofs -o ./test.iso ./iso</div><div class="line">I: -input-charset not specified, using utf-8 (detected in locale settings)</div><div class="line">Total translation table size: 0</div><div class="line">Total rockridge attributes bytes: 0</div><div class="line">Total directory bytes: 2048</div><div class="line">Path table size(bytes): 26</div><div class="line">Max brk space used 0</div><div class="line">175 extents written (0 MB)</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#mount ISO 到目录 /mnt</div><div class="line">kingand67@kelele67:~$ sudo mount ./test.iso /mnt</div><div class="line">mount: /dev/loop0 is write-protected, mounting read-only</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#mount成功，能看到里面的文件夹</div><div class="line">kingand67@kelele67:~$ ls /mnt</div><div class="line">subdir01</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#通过losetup命令可以看到占用了loop0设备</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/test.iso)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h4><blockquote>
+<p><strong>loop device</strong> 另一种常用的用法是虚拟一个硬盘，比如我想尝试下 <strong>btrfs</strong> 这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了</p>
+</blockquote>
+<p>首先我们介绍 <strong>dd</strong> 命令：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。</p>
+<p>包含的参数有参数：</p>
+<ol>
+<li><p>if=文件名：输入文件名，缺省为标准输入。即指定源文件。&lt; if=input file &gt;</p>
+</li>
+<li><p>of=文件名：输出文件名，缺省为标准输出。即指定目的文件。&lt; of=output file &gt;</p>
+</li>
+<li><p>ibs=bytes：一次读入bytes个字节，即指定一个块大小为bytes个字节。</p>
+</li>
+<li><p>obs=bytes：一次输出bytes个字节，即指定一个块大小为bytes个字节。</p>
+</li>
+<li><p>bs=bytes：同时设置读入/输出的块大小为bytes个字节。</p>
+</li>
+<li><p>cbs=bytes：一次转换bytes个字节，即指定转换缓冲区大小。</p>
+</li>
+<li><p>skip=blocks：从输入文件开头跳过blocks个块后再开始复制。</p>
+</li>
+<li><p>seek=blocks：从输出文件开头跳过blocks个块后再开始复制。</p>
+</li>
+</ol>
+<p>注意：通常只用当输出文件是磁盘或磁带时才有效，即备份到磁盘或磁带时才有效。</p>
+<ol>
+<li><p>count=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。</p>
+</li>
+<li><p>conv=conversion：用指定的参数转换文件：</p>
+<ul>
+<li><p>ascii：转换ebcdic为ascii</p>
+</li>
+<li><p>ebcdic：转换ascii为ebcdic</p>
+</li>
+<li><p>ibm：转换ascii为alternate ebcdic</p>
+</li>
+<li><p>block：把每一行转换为长度为cbs，不足部分用空格填充</p>
+</li>
+<li><p>unblock：使每一行的长度都为cbs，不足部分用空格填充</p>
+</li>
+<li><p>lcase：把大写字符转换为小写字符</p>
+</li>
+<li><p>ucase：把小写字符转换为大写字符</p>
+</li>
+<li><p>swab：交换输入的每对字节</p>
+</li>
+<li><p>noerror：出错时不停止</p>
+</li>
+<li><p>notrunc：不截短输出文件</p>
+</li>
+<li><p>sync：将每个输入块填充到ibs个字节，不足部分用空（NUL）字符补齐。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>具体示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#因为btrfs对分区的大小有最小要求，所以利用dd命令创建一个128M的文件</div><div class="line">kingand67@kelele67:~$ dd if=/dev/zero bs=1M count=128 of=./vdisk.img</div><div class="line">128+0 records in</div><div class="line">128+0 records out</div><div class="line">134217728 bytes (134 MB, 128 MiB) copied, 0.116018 s, 1.2 GB/s</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#在这个文件里面创建btrfs文件系统</div><div class="line">#为了方便，我就把整个硬盘全部给btrfs文件系统</div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">The program &apos;mkfs.btrfs&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt install btrfs-tools</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#因为提示我们没有安装btrfs-tools，所以我们先安装</div><div class="line">kingand67@kelele67:~$ sudo apt install btrfs-tools</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#重新创建</div><div class="line">#输出了一些信息，提示创建成功</div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">btrfs-progs v4.4</div><div class="line">See http://btrfs.wiki.kernel.org for more information.</div><div class="line">Label:              (null)</div><div class="line">UUID:               67050364-6802-4ddd-adf0-257a0df7714c</div><div class="line">Node size:          16384</div><div class="line">Sector size:        4096</div><div class="line">Filesystem size:    128.00MiB</div><div class="line">Block group profiles:</div><div class="line">  Data:             single            8.00MiB</div><div class="line">  Metadata:         DUP              40.00MiB</div><div class="line">  System:           DUP              12.00MiB</div><div class="line">SSD detected:       no</div><div class="line">Incompat features:  extref, skinny-metadata</div><div class="line">Number of devices:  1</div><div class="line">Devices:</div><div class="line">   ID        SIZE  PATH</div><div class="line">    1   128.00MiB  ./vdisk.img</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#mount虚拟硬盘</div><div class="line">kingand67@kelele67:~$ sudo mount ./vdisk.img /mnt/</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#在虚拟硬盘中创建文件成功</div><div class="line">kingand67@kelele67:~$ sudo touch /mnt/aaaaaa</div><div class="line">kingand67@kelele67:~$ ls /mnt/</div><div class="line">aaaaaa</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#查看我们的loop device</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/vdisk.img)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="挂载多个设备到一个文件夹"><a href="#挂载多个设备到一个文件夹" class="headerlink" title="挂载多个设备到一个文件夹"></a>挂载多个设备到一个文件夹</h4><blockquote>
+<p>在上面的例子中，将 <strong>test.iso</strong> 和 <strong>vdisk.img</strong> 都 <strong>mount</strong> 到了 <strong>/mnt</strong> 目录下，这个在 <strong>Linux</strong> 下是支持的，默认会用后面的 <strong>mount</strong> 覆盖掉前面的 <strong>mount</strong> ，只有当 <strong>umount</strong> 后面的 <strong>device</strong> 后，原来的 <strong>device</strong> 才看的到。</p>
+</blockquote>
+<h4 id="挂载一个设备到多个目录"><a href="#挂载一个设备到多个目录" class="headerlink" title="挂载一个设备到多个目录"></a>挂载一个设备到多个目录</h4><blockquote>
+<p>当然我们也可以把一个设备 <strong>mount</strong> 到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
+</blockquote>
+<h4 id="bind-mount"><a href="#bind-mount" class="headerlink" title="bind mount"></a>bind mount</h4><blockquote>
+<p><strong>bind mount</strong> 功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转 <strong>Linux</strong> 的必备技能</p>
+</blockquote>
+<p>①. 基本功能</p>
+<blockquote>
+<p><strong>bind mount</strong> 会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#准备要用到的目录</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind1/sub1</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind2/sub2</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">└── bind2</div><div class="line">    └── sub2</div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#bind mount后，bind2里面显示的就是bind1目录的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
+<hr>
+<p>②. readonly bind</p>
+<blockquote>
+<p>我们可以在 <strong>bind</strong> 的时候指定 <strong>readonly</strong> ，这样原来的目录还是能读写，但目的目录为只读</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#通过readonly的方式bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       </div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line"></div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#bind2目录为只读，没法touch里面的文件</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind2/sub1/aaa</div><div class="line">touch: cannot touch &apos;./bind/bind2/sub1/aaa&apos;: Read-only file system</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#bind1还是能读写</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#我们可以在bind1和bind2目录下看到刚创建的文件</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       └── aaa</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line">        └── aaa</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>如果我们想让当前目录 <strong>readonly</strong> ，那么可以 <strong>bind</strong> 自己，并且指定 <strong>readonly</strong> 参数：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#bind mount并且指定readonly</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind1</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#创建新文件失败</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div><div class="line">touch: cannot touch &apos;./bind/bind1/sub1/aaa&apos;: Read-only file system</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#umount之后，文件夹恢复到原来的读写权限</div><div class="line">kingand67@kelele67:~$ sudo umount ./bind/bind1/</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##touch文件成功</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div></pre></td></tr></table></figure>
+<hr>
+<p>③. bind mount单个文件</p>
+<blockquote>
+<p>我们也可以 <strong>bind mount</strong> 单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#创建两个用于测试的文件</div><div class="line">kingand67@kelele67:~$ echo aaaaaa &gt; bind/aa</div><div class="line">kingand67@kelele67:~$ echo bbbbbb &gt; bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/aa</div><div class="line">aaaaaa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#bind mount后，bb里面看到的是aa的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/aa bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">aaaaaa</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#即使我们删除aa文件，我们还是能够通过bb看到aa里面的内容</div><div class="line">kingand67@kelele67:~$ rm bind/aa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">aaaaaa</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount bb文件后，bb的内容出现了，不过aa的内容再也找不到了</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div></pre></td></tr></table></figure>
+<hr>
+<p>④. move一个挂载点到另一个地方</p>
+<blockquote>
+<p>move操作可以将一个挂载点移动到别的地方，这里以bind mount为例来演示，当然其他类型的挂载点也可以通过move操作来移动。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#umount上面操作所产生的挂载点</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bind1</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bind2</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/bind1/ ./bind/bind2/</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind*</div><div class="line">./bind/bind1:</div><div class="line">sub1</div><div class="line"></div><div class="line">./bind/bind2:</div><div class="line">sub1</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#move操作要求mount point的父mount point不能为shared。</div><div class="line">#在这里./bind/bind2/的父mount point为&apos;/&apos;，所以需要将&apos;/&apos;变成private后才能做move操作</div><div class="line">#关于shared、private的含义将会在下一篇介绍</div><div class="line">kingand67@kelele67:~$ findmnt -o TARGET,PROPAGATION /</div><div class="line">TARGET PROPAGATION</div><div class="line">/      shared</div><div class="line">kingand67@kelele67:~$ sudo mount --make-private /</div><div class="line">kingand67@kelele67:~$ findmnt -o TARGET,PROPAGATION /</div><div class="line">TARGET PROPAGATION</div><div class="line">/      private</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#move成功，在mnt下能看到bind1里面的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --move ./bind/bind2/ /mnt</div><div class="line">kingand67@kelele67:~$ ls /mnt/</div><div class="line">sub1</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#由于bind2上的挂载点已经被移动到了/mnt上，于是能看到bind2目录下原来的文件了</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind2/</div><div class="line">sub2</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的 <strong>mount</strong> 操作，尤其是 <strong>bind mount</strong> ，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍 <strong>mount</strong> 相关的 <strong>Shared subtrees</strong></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000006878392" target="_blank" rel="external">Linux mount （第一部分）</a></p>
 
-</p><h2 id="Buffer-Manipulation-缓冲区操作函数"><a href="#Buffer-Manipulation-缓冲区操作函数" class="headerlink" title="Buffer Manipulation 缓冲区操作函数"></a>Buffer Manipulation 缓冲区操作函数</h2>
+      
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/" class="archive-article-date">
-  	<time datetime="2016-12-07T03:29:32.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-07</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/buffer-manipulation/">buffer manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mount</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/15/Linux mount (一)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -180,17 +369,499 @@
 
 
 
+  
+    <article id="airticle-浅析Linux初始化init系统" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/14/浅析Linux初始化init系统/">浅析Linux初始化init系统</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/14/浅析Linux初始化init系统/" class="archive-article-date">
+  	<time datetime="2017-01-14T03:50:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+</p><h2 id="第一部分-sysvinit"><a href="#第一部分-sysvinit" class="headerlink" title="第一部分 sysvinit"></a>第一部分 sysvinit</h2><h3 id="什么是sysvinit"><a href="#什么是sysvinit" class="headerlink" title="什么是sysvinit"></a>什么是sysvinit</h3><blockquote>
+<p><strong>sysvinit</strong> 就是 <strong>system V</strong> 风格的 <strong>init</strong> 系统，顾名思义，它源于 <strong>System V</strong> 系列 <strong>UNIX</strong> 。它提供了比 <strong>BSD</strong> 风格 <strong>init</strong> 系统更高的灵活性。是已经风行了几十年的 <strong>UNIX init</strong> 系统，一直被各类 <strong>Linux</strong> 发行版所采用。</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优点：</p>
+<ul>
+<li><p>概念简单。</p>
+</li>
+<li><p>确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一个执行完毕再执行下一个，这非常有益于错误排查。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p><strong>UpStart</strong> 和 <strong>systemd</strong> 支持并发启动，导致没有人可以确定地了解具体的启动顺序，排错不易。</p>
+</li>
+<li><p>但是串行地执行脚本导致 <strong>sysvinit</strong> 运行效率较慢，在新的 <strong>IT</strong> 环境下，启动快慢成为一个重要问题。此外动态设备加载等 <strong>Linux</strong> 新特性也暴露出 <strong>sysvinit</strong> 设计的一些问题。</p>
+</li>
+</ul>
+<p><strong>Upstart</strong> 是第一个被广泛应用的新一代 <strong>init</strong> 系统。我们在接下来的第二部分介绍 <strong>UpStart</strong></p>
+<h2 id="第二部分-UpStart"><a href="#第二部分-UpStart" class="headerlink" title="第二部分 UpStart"></a>第二部分 UpStart</h2><h3 id="什么是-UpStart"><a href="#什么是-UpStart" class="headerlink" title="什么是 UpStart"></a>什么是 UpStart</h3><p>假如您使用的 <strong>Linux</strong> 发行版是 <strong>Ubuntu</strong> ，很可能会发现在您的计算机上找不到 <strong>/etc/inittab</strong> 文件了，这是因为 <strong>Ubuntu</strong> 使用了一种被称为 <strong>upstart</strong> 的新型 <strong>init</strong> 系统。</p>
+<h3 id="为什么使用-UpStart"><a href="#为什么使用-UpStart" class="headerlink" title="为什么使用 UpStart"></a>为什么使用 UpStart</h3><p>随着不断的发展，人们发现经典的 <strong>sysvinit</strong> 已经不适合笔记本环境。</p>
+<p>原因在于：</p>
+<p>桌面系统或便携式设备的一个特点是经常重启，而且要频繁地使用硬件热插拔技术。</p>
+<p><strong>Sysvinit</strong> 没有办法处理这类需求，它必须一次性把所有可能用到的服务都启动起来，即便是需要被初始化的设备并没有连接到系统上，<strong>CUPS</strong> 服务也必须启动。</p>
+<h3 id="UpStart优势"><a href="#UpStart优势" class="headerlink" title="UpStart优势"></a>UpStart优势</h3><p><strong>UpStart</strong> 解决了之前提到的 <strong>sysvinit</strong> 的缺点。采用事件驱动模型，<strong>UpStart</strong> 可以：</p>
+<ul>
+<li><p>更快地启动系统</p>
+</li>
+<li><p>当新硬件被发现时动态启动服务</p>
+</li>
+<li><p>硬件被拔除时动态停止服务</p>
+</li>
+</ul>
+<h3 id="UpStart命令"><a href="#UpStart命令" class="headerlink" title="UpStart命令"></a>UpStart命令</h3><ul>
+<li>可以用 <strong>initctl list</strong> 来查看所有工作的概况：</li>
+</ul>
+<h3 id="UpStart小结"><a href="#UpStart小结" class="headerlink" title="UpStart小结"></a>UpStart小结</h3><p>可以看到，<strong>UpStart</strong> 的设计比 <strong>SysVInit</strong> 更加先进。多数 <strong>Linux</strong> 发行版上已经不再使用 <strong>SysVInit</strong> ，一部分发行版采用了 <strong>UpStart</strong> ，比如 <strong>Ubuntu</strong>（Ubuntu16.04改用systemd）；而另外一些比如 <strong>Fedora</strong> ，采用了一种被称为 <strong>systemd</strong> 的 <strong>init</strong> 系统。接下来我们再介绍 <strong>systemd</strong> 。</p>
+<h2 id="第三部分-Systemd"><a href="#第三部分-Systemd" class="headerlink" title="第三部分 Systemd"></a>第三部分 Systemd</h2><h3 id="什么是-Systemd"><a href="#什么是-Systemd" class="headerlink" title="什么是 Systemd"></a>什么是 Systemd</h3><p><strong>Systemd</strong> 是 <strong>Linux</strong> 系统中最新的初始化系统（init），它主要的设计目标是克服 <strong>sysvinit</strong> 固有的缺点，提高系统的启动速度。</p>
+<p><strong>Systemd</strong> 的很多概念来源于苹果 <strong>Mac OS</strong> 操作系统上的 <strong>launchd</strong></p>
+<p>由于是最新的，所以我们着重了解一下</p>
+<h3 id="systemd-特性"><a href="#systemd-特性" class="headerlink" title="systemd 特性"></a>systemd 特性</h3><ul>
+<li><p><strong>systemd</strong> 提供按需启动能力</p>
+</li>
+<li><p><strong>Systemd</strong> 采用 <strong>Linux</strong> 的 <strong>Cgroup</strong> 特性跟踪和管理进程的生命周期</p>
+</li>
+<li><p>启动挂载点和自动挂载的管理</p>
+</li>
+<li><p>实现事务性依赖关系管理</p>
+</li>
+<li><p>能够对系统进行快照和恢复</p>
+</li>
+<li><p>日志服务</p>
+</li>
+</ul>
+<h3 id="Systemd-的基本概念"><a href="#Systemd-的基本概念" class="headerlink" title="Systemd 的基本概念"></a>Systemd 的基本概念</h3><ul>
+<li><p>单元的概念<br>系统初始化需要做的事情非常多。需要启动后台服务，比如启动 <strong>SSHD</strong> 服务；需要做配置工作，比如挂载文件系统。这个过程中的每一步都被 <strong>systemd</strong> 抽象为一个配置单元，即 <strong>unit</strong> 。可以认为一个服务是一个配置单元；一个挂载点是一个配置单元；一个交换分区的配置是一个配置单元；等等。</p>
+</li>
+<li><p>service ：代表一个后台服务进程，比如 <strong>mysqld</strong> 。这是最常用的一类。</p>
+</li>
+<li><p>socket ：此类配置单元封装系统和互联网中的一个 套接字 。当下，systemd 支持流式、数据报和连续包的 AF_INET、AF_INET6、AF_UNIX socket 。每一个套接字配置单元都有一个相应的服务配置单元 。相应的服务在第一个”连接”进入套接字时就会启动(例如：nscd.socket 在有新连接后便启动 nscd.service)。</p>
+</li>
+<li><p>device ：此类配置单元封装一个存在于 <strong>Linux</strong> 设备树中的设备。每一个使用 <strong>udev</strong> 规则标记的设备都将会在 <strong>systemd</strong> 中作为一个设备配置单元出现。</p>
+</li>
+<li><p>mount ：此类配置单元封装文件系统结构层次中的一个挂载点。 <strong>Systemd</strong> 将对这个挂载点进行监控和管理。比如可以在启动时自动将其挂载；可以在某些条件下自动卸载。<strong>Systemd</strong> 会将 <strong>/etc/fstab</strong> 中的条目都转换为挂载点，并在开机时处理。</p>
+</li>
+<li><p>automount ：此类配置单元封装系统结构层次中的一个自挂载点。每一个自挂载配置单元对应一个挂载配置单元 ，当该自动挂载点被访问时，<strong>systemd</strong> 执行挂载点中定义的挂载行为。</p>
+</li>
+<li><p>swap: 和挂载配置单元类似，交换配置单元用来管理交换分区。用户可以用交换配置单元来定义系统中的交换分区，可以让这些交换分区在启动时被激活。</p>
+</li>
+<li><p>target ：此类配置单元为其他配置单元进行逻辑分组。它们本身实际上并不做什么，只是引用其他配置单元而已。这样便可以对配置单元做一个统一的控制。这样就可以实现大家都已经非常熟悉的运行级别概念。</p>
+</li>
+<li><p>timer：定时器配置单元用来定时触发用户定义的操作，这类配置单元取代了 <strong>atd</strong> 、 <strong>crond</strong> 等传统的定时服务。</p>
+</li>
+<li><p>snapshot ：与 <strong>target</strong> 配置单元相似，快照是一组配置单元。它保存了系统当前的运行状态。</p>
+</li>
+</ul>
+<h3 id="Systemd-的并发启动原理"><a href="#Systemd-的并发启动原理" class="headerlink" title="Systemd 的并发启动原理"></a>Systemd 的并发启动原理</h3><p>如前所述，在 <strong>Systemd</strong> 中，所有的服务都并发启动，比如 <strong>Avahi</strong> 、<strong>D-Bus</strong> 、<strong>livirtd</strong> 、<strong>X11</strong> 、<strong>HAL</strong> 可以同时启动。乍一看，这似乎有点儿问题，比如 <strong>Avahi</strong> 需要 <strong>syslog</strong> 的服务， <strong>Avahi</strong> 和 <strong>syslog</strong> 同时启动，假设 <strong>Avahi</strong> 的启动比较快，所以 <strong>syslog</strong> 还没有准备好，可是 <strong>Avahi</strong> 又需要记录日志，这岂不是会出现问题？<br><strong>Systemd</strong> 的开发人员仔细研究了服务之间相互依赖的本质问题，发现所谓依赖可以分为三个具体的类型，而每一个类型实际上都可以通过相应的技术解除依赖关系。</p>
+<h4 id="并发启动原理之一：解决-socket-依赖"><a href="#并发启动原理之一：解决-socket-依赖" class="headerlink" title="并发启动原理之一：解决 socket 依赖"></a>并发启动原理之一：解决 <strong>socket</strong> 依赖</h4><p>绝大多数的服务依赖是套接字依赖。比如服务 A 通过一个套接字端口 S1 提供自己的服务，其他的服务如果需要服务 A，则需要连接 S1。因此如果服务 A 尚未启动，S1 就不存在，其他的服务就会得到启动错误。所以传统地，人们需要先启动服务 A，等待它进入就绪状态，再启动其他需要它的服务。Systemd 认为，只要我们预先把 S1 建立好，那么其他所有的服务就可以同时启动而无需等待服务 A 来创建 S1 了。如果服务 A 尚未启动，那么其他进程向 S1 发送的服务请求实际上会被 Linux 操作系统缓存，其他进程会在这个请求的地方等待。一旦服务 A 启动就绪，就可以立即处理缓存的请求，一切都开始正常运行。<br>那么服务如何使用由 init 进程创建的套接字呢？<br>Linux 操作系统有一个特性，当进程调用 fork 或者 exec 创建子进程之后，所有在父进程中被打开的文件句柄 (file descriptor) 都被子进程所继承。套接字也是一种文件句柄，进程 A 可以创建一个套接字，此后当进程 A 调用 exec 启动一个新的子进程时，只要确保该套接字的 close_on_exec 标志位被清空，那么新的子进程就可以继承这个套接字。子进程看到的套接字和父进程创建的套接字是同一个系统套接字，就仿佛这个套接字是子进程自己创建的一样，没有任何区别。<br>这个特性以前被一个叫做 inetd 的系统服务所利用。Inetd 进程会负责监控一些常用套接字端口，比如 Telnet，当该端口有连接请求时，inetd 才启动 telnetd 进程，并把有连接的套接字传递给新的 telnetd 进程进行处理。这样，当系统没有 telnet 客户端连接时，就不需要启动 telnetd 进程。Inetd 可以代理很多的网络服务，这样就可以节约很多的系统负载和内存资源，只有当有真正的连接请求时才启动相应服务，并把套接字传递给相应的服务进程。<br>和 inetd 类似，systemd 是所有其他进程的父进程，它可以先建立所有需要的套接字，然后在调用 exec 的时候将该套接字传递给新的服务进程，而新进程直接使用该套接字进行服务即可。</p>
+<h4 id="并发启动原理之二：解决-D-Bus-依赖"><a href="#并发启动原理之二：解决-D-Bus-依赖" class="headerlink" title="并发启动原理之二：解决 D-Bus 依赖"></a>并发启动原理之二：解决 <strong>D-Bus</strong> 依赖</h4><p>D-Bus 是 desktop-bus 的简称，是一个低延迟、低开销、高可用性的进程间通信机制。它越来越多地用于应用程序之间通信，也用于应用程序和操作系统内核之间的通信。很多现代的服务进程都使用D-Bus 取代套接字作为进程间通信机制，对外提供服务。比如简化 Linux 网络配置的 NetworkManager 服务就使用 D-Bus 和其他的应用程序或者服务进行交互：邮件客户端软件 evolution 可以通过 D-Bus 从 NetworkManager 服务获取网络状态的改变，以便做出相应的处理。<br>D-Bus 支持所谓”bus activation”功能。如果服务 A 需要使用服务 B 的 D-Bus 服务，而服务 B 并没有运行，则 D-Bus 可以在服务 A 请求服务 B 的 D-Bus 时自动启动服务 B。而服务 A 发出的请求会被 D-Bus 缓存，服务 A 会等待服务 B 启动就绪。利用这个特性，依赖 D-Bus 的服务就可以实现并行启动。</p>
+<h4 id="并发启动原理之三：解决文件系统依赖"><a href="#并发启动原理之三：解决文件系统依赖" class="headerlink" title="并发启动原理之三：解决文件系统依赖"></a>并发启动原理之三：解决文件系统依赖</h4><p>系统启动过程中，文件系统相关的活动是最耗时的，比如挂载文件系统，对文件系统进行磁盘检查（fsck），磁盘配额检查等都是非常耗时的操作。在等待这些工作完成的同时，系统处于空闲状态。那些想使用文件系统的服务似乎必须等待文件系统初始化完成才可以启动。但是 systemd 发现这种依赖也是可以避免的。<br>Systemd 参考了 autofs 的设计思路，使得依赖文件系统的服务和文件系统本身初始化两者可以并发工作。autofs 可以监测到某个文件系统挂载点真正被访问到的时候才触发挂载操作，这是通过内核 automounter 模块的支持而实现的。比如一个 open()系统调用作用在”/misc/cd/file1”的时候，/misc/cd 尚未执行挂载操作，此时 open()调用被挂起等待，Linux 内核通知 autofs，autofs 执行挂载。这时候，控制权返回给 open()系统调用，并正常打开文件。<br>Systemd 集成了 autofs 的实现，对于系统中的挂载点，比如/home，当系统启动的时候，systemd 为其创建一个临时的自动挂载点。在这个时刻/home 真正的挂载设备尚未启动好，真正的挂载操作还没有执行，文件系统检测也还没有完成。可是那些依赖该目录的进程已经可以并发启动，他们的 open()操作被内建在 systemd 中的 autofs 捕获，将该 open()调用挂起（可中断睡眠状态）。然后等待真正的挂载操作完成，文件系统检测也完成后，systemd 将该自动挂载点替换为真正的挂载点，并让 open()调用返回。由此，实现了那些依赖于文件系统的服务和文件系统本身同时并发启动。<br>当然对于”/“根目录的依赖实际上一定还是要串行执行，因为 systemd 自己也存放在/之下，必须等待系统根目录挂载检查好。<br>不过对于类似/home 等挂载点，这种并发可以提高系统的启动速度，尤其是当/home 是远程的 NFS 节点，或者是加密盘等，需要耗费较长的时间才可以准备就绪的情况下，因为并发启动，这段时间内，系统并不是完全无事可做，而是可以利用这段空余时间做更多的启动进程的事情，总的来说就缩短了系统启动时间。</p>
+<h3 id="Systemd优点"><a href="#Systemd优点" class="headerlink" title="Systemd优点"></a>Systemd优点</h3><ul>
+<li><p>令人惊奇的激进的并发启动能力，极大地提高了系统启动速度</p>
+</li>
+<li><p>用 <strong>CGroup</strong> 统计跟踪子进程，干净可靠</p>
+</li>
+</ul>
+<p>此外，和其前任不同的地方在于，<strong>systemd</strong> 已经不仅仅是一个初始化系统了。<br><strong>Systemd</strong> 出色地替代了 <strong>sysvinit</strong> 的所有功能，但它并未就此自满。因为 <strong>init</strong> 进程是系统所有进程的父进程这样的特殊性，<strong>systemd</strong> 非常适合提供曾经由其他服务提供的功能，比如定时任务 (以前由 <strong>crond</strong> 完成) ；会话管理 (以前由 <strong>ConsoleKit/PolKit</strong> 等管理) 。仅仅从本文皮毛一样的介绍来看，<strong>Systemd</strong> 已经管得很多了，可它还在不断发展。它将逐渐成为一个多功能的系统环境，能够处理非常多的系统管理任务，有人甚至将它看作一个操作系统。</p>
+<h3 id="扩展话题"><a href="#扩展话题" class="headerlink" title="扩展话题"></a>扩展话题</h3><p><a href="https://askubuntu.com/questions/1792/how-can-i-suspend-hibernate-from-command-line?cm_mc_uid=05938828085514744326348&amp;cm_mc_sid_50200000=1492191801" target="_blank" rel="external">如何让 <strong>ubuntu</strong> 系统休眠</a>，可以使用底层的/sys/power/state 接口，也可以使用诸如 pm-utility 等高层接口。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.ibm.com/developerworks/cn/linux/1407_liuming_init1/" target="_blank" rel="external">浅析 Linux 初始化 init系统</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sysvinit</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">upstart</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">systemd</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/14/浅析Linux初始化init系统/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
 
 
 
 
 
   
-    <article id="airticle-C语言标准库函数学习(二)一一字符串操作函数" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-Zookeeper C API学习(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/13/Zookeeper C API学习(二)/">Zookeeper C API学习(二)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/13/Zookeeper C API学习(二)/" class="archive-article-date">
+  	<time datetime="2017-01-13T02:04:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-13</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br><a href="http://www.cnblogs.com/haippy/archive/2013/02/21/2919365.html" target="_blank" rel="external">学习自大神博客</a></p>
+<h2 id="zookeeper总结"><a href="#zookeeper总结" class="headerlink" title="zookeeper总结"></a>zookeeper总结</h2><p>我们先来总结一下zookeeper的相关知识，大致的了解下他</p>
+<h3 id="barrier：栅栏，对齐不同资源的准备状态"><a href="#barrier：栅栏，对齐不同资源的准备状态" class="headerlink" title="barrier：栅栏，对齐不同资源的准备状态"></a>barrier：栅栏，对齐不同资源的准备状态</h3><ul>
+<li><p>Barrier：等待所有资源enter后统一leave</p>
+</li>
+<li><p>DoubleBarrier：所有资源waitOnBarrier，等待代码removeBarrier后统一执行。</p>
+</li>
+</ul>
+<hr>
+<h3 id="cache：缓存"><a href="#cache：缓存" class="headerlink" title="cache：缓存"></a>cache：缓存</h3><ul>
+<li><p>nodecache：监控ZNode的一个子节点，设置一个数值</p>
+</li>
+<li><p>pathcache：监控ZNode，设置多个数值</p>
+</li>
+<li><p>treecache：nodecache+pathcache</p>
+</li>
+</ul>
+<hr>
+<h3 id="counter：计数器"><a href="#counter：计数器" class="headerlink" title="counter：计数器"></a>counter：计数器</h3><ul>
+<li><p>int计数器</p>
+</li>
+<li><p>long计数器</p>
+</li>
+</ul>
+<hr>
+<h3 id="discovery-框架扩展功能以rpc服务注册为例"><a href="#discovery-框架扩展功能以rpc服务注册为例" class="headerlink" title="discovery 框架扩展功能以rpc服务注册为例"></a>discovery 框架扩展功能以rpc服务注册为例</h3><hr>
+<h3 id="framework-框架代码build模式写法"><a href="#framework-框架代码build模式写法" class="headerlink" title="framework 框架代码build模式写法"></a>framework 框架代码build模式写法</h3><hr>
+<h3 id="leaderelection：节点选举"><a href="#leaderelection：节点选举" class="headerlink" title="leaderelection：节点选举"></a>leaderelection：节点选举</h3><ul>
+<li>LeaderSelector：当takeLeadership执行完后释放领导权。（这里可以是业务逻辑）</li>
+</ul>
+<hr>
+<h3 id="lock：锁"><a href="#lock：锁" class="headerlink" title="lock：锁"></a>lock：锁</h3><ul>
+<li><p>ReadWrite：读写锁，写锁中可以用到读锁反之不能</p>
+</li>
+<li><p>InterProcessMutex：共享锁，在一个线程中可重入</p>
+</li>
+<li><p>InterProcessSemaphoreMutex：互斥锁，同一线程不可冲入（第二个申请锁操作会阻塞）</p>
+</li>
+<li><p>MultiLock：组合锁，可以组合多种锁类型比如组合共享锁和互斥锁</p>
+</li>
+<li><p>InterProcessSemaphoreV2：信号量，超所信号量则阻塞</p>
+</li>
+</ul>
+<hr>
+<h3 id="node：节点"><a href="#node：节点" class="headerlink" title="node：节点"></a>node：节点</h3><ul>
+<li>临时节点：创建服务的时候以临时节点创建名字服务，当服务关闭的时候临时节点消失</li>
+</ul>
+<hr>
+<h3 id="queue：队列（数据量不大，不要求高性能的时候可以用）"><a href="#queue：队列（数据量不大，不要求高性能的时候可以用）" class="headerlink" title="queue：队列（数据量不大，不要求高性能的时候可以用）"></a>queue：队列（数据量不大，不要求高性能的时候可以用）</h3><ul>
+<li><p>buildDelayQueue：延时队列</p>
+</li>
+<li><p>buildIdQueue：唯一ID队列</p>
+</li>
+<li><p>buildPriorityQueue：优先级队列</p>
+</li>
+</ul>
+<hr>
+<h2 id="ZooKeeper典型应用场景一览"><a href="#ZooKeeper典型应用场景一览" class="headerlink" title="ZooKeeper典型应用场景一览"></a>ZooKeeper典型应用场景一览</h2><p>来自淘宝的总结</p>
+<h3 id="数据发布与订阅（配置中心）"><a href="#数据发布与订阅（配置中心）" class="headerlink" title="数据发布与订阅（配置中心）"></a>数据发布与订阅（配置中心）</h3><p>发布与订阅模型，即所谓的配置中心，顾名思义就是发布者将数据发布到ZK节点上，供订阅者动态获取数据，实现配置信息的集中式管理和动态更新。例如全局的配置信息，服务式服务框架的服务地址列表等就非常适合使用。</p>
+<ul>
+<li>应用中用到的一些配置信息放到ZK上进行集中管理。这类场景通常是这样：应用在启动的时候会主动来获取一次配置，同时，在节点上注册一个Watcher，这样一来，以后每次配置有更新的时候，都会实时通知到订阅的客户端，从来达到获取最新配置信息的目的。</li>
+<li>分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在ZK的一些指定节点，供各个客户端订阅使用。</li>
+<li>分布式日志收集系统。这个系统的核心工作是收集分布在不同机器的日志。收集器通常是按照应用来分配收集任务单元，因此需要在ZK上创建一个以应用名作为path的节点P，并将这个应用的所有机器ip，以子节点的形式注册到节点P上，这样一来就能够实现机器变动的时候，能够实时通知到收集器调整任务分配。</li>
+<li>系统中有些信息需要动态获取，并且还会存在人工手动去修改这个信息的发问。通常是暴露出接口，例如JMX接口，来获取一些运行时的信息。引入ZK之后，就不用自己实现一套方案了，只要将这些信息存放到指定的ZK节点上即可。</li>
+</ul>
+<p>注意：在上面提到的应用场景中，有个默认前提是：数据量很小，但是数据更新可能会比较快的场景。</p>
+<hr>
+<h3 id="负载匀衡"><a href="#负载匀衡" class="headerlink" title="负载匀衡"></a>负载匀衡</h3><p>这里说的负载均衡是指软负载均衡。在分布式环境中，为了保证高可用性，通常同一个应用或同一个服务的提供方都会部署多份，达到对等服务。而消费者就须要在这些对等的服务器中选择一个来执行相关的业务逻辑，其中比较典型的是消息中间件中的生产者，消费者负载均衡。<br>消息中间件中发布者和订阅者的负载均衡，linkedin开源的<a href="https://github.com/oscarpfernandez/KafkaMQ" target="_blank" rel="external">KafkaMQ</a>和阿里开源的<a href="https://github.com/zhangxw0325/metaq" target="_blank" rel="external">metaq</a>都是通过zookeeper来做到生产者、消费者的负载均衡。这里以metaq为例如讲下：</p>
+<blockquote>
+<p>生产者负载均衡：</p>
+</blockquote>
+<p>metaq发送消息的时候，生产者在发送消息的时候必须选择一台broker上的一个分区来发送消息，因此metaq在运行过程中，会把所有broker和对应的分区信息全部注册到ZK指定节点上，默认的策略是一个依次轮询的过程，生产者在通过ZK获取分区列表之后，会按照brokerId和partition的顺序排列组织成一个有序的分区列表，发送的时候按照从头到尾循环往复的方式选择一个分区来发送消息。</p>
+<blockquote>
+<p>消费负载均衡：</p>
+</blockquote>
+<p>在消费过程中，一个消费者会消费一个或多个分区中的消息，但是一个分区只会由一个消费者来消费。MetaQ的消费策略是：</p>
+<ul>
+<li>每个分区针对同一个group只挂载一个消费者。</li>
+<li>如果同一个group的消费者数目大于分区数目，则多出来的消费者将不参与消费。</li>
+<li>如果同一个group的消费者数目小于分区数目，则有部分消费者需要额外承担消费任务。<br>在某个消费者故障或者重启等情况下，其他消费者会感知到这一变化（通过 zookeeper watch消费者列表），然后重新进行负载均衡，保证所有的分区都有消费者进行消费。</li>
+</ul>
+<hr>
+<h3 id="命名服务-Naming-Service"><a href="#命名服务-Naming-Service" class="headerlink" title="命名服务(Naming Service)"></a>命名服务(Naming Service)</h3><p>命名服务也是分布式系统中比较常见的一类场景。在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）。其中较为常见的就是一些分布式服务框架中的服务地址列表。通过调用ZK提供的创建节点的API，能够很容易创建一个全局唯一的path，这个path就可以作为一个名称。<br>阿里巴巴集团开源的分布式服务框架Dubbo中使用ZooKeeper来作为其命名服务，维护全局的服务地址列表，<a href="https://github.com/alibaba/dubbo" target="_blank" rel="external">点击这里查看Dubbo开源项目</a>。在Dubbo实现中：</p>
+<p><strong>服务提供者</strong> 在启动的时候，向ZK上的指定节点/dubbo/${serviceName}/providers目录下写入自己的URL地址，这个操作就完成了服务的发布。</p>
+<p><strong>服务消费者</strong> 启动的时候，订阅/dubbo/${serviceName}/providers目录下的提供者URL地址， 并向/dubbo/${serviceName} /consumers目录下写入自己的URL地址。</p>
+<p>注意，所有向ZK上注册的地址都是临时节点，这样就能够保证服务提供者和消费者能够自动感应资源的变化。</p>
+<p>另外，Dubbo还有针对服务粒度的监控，方法是订阅/dubbo/${serviceName}目录下所有提供者和消费者的信息。</p>
+<hr>
+<h3 id="分布式通知-协调"><a href="#分布式通知-协调" class="headerlink" title="分布式通知/协调"></a>分布式通知/协调</h3><p>ZooKeeper中特有watcher注册与异步通知机制，能够很好的实现分布式环境下不同系统之间的通知与协调，实现对数据变更的实时处理。使用方法通常是不同系统都对ZK上同一个znode进行注册，监听znode的变化（包括znode本身内容及子节点的），其中一个系统update了znode，那么另一个系统能够收到通知，并作出相应处理</p>
+<ul>
+<li>另一种心跳检测机制：检测系统和被检测系统之间并不直接关联起来，而是通过zk上某个节点关联，大大减少系统耦合。</li>
+<li>另一种系统调度模式：某系统有控制台和推送系统两部分组成，控制台的职责是控制推送系统进行相应的推送工作。管理人员在控制台作的一些操作，实际上是修改了ZK上某些节点的状态，而ZK就把这些变化通知给他们注册Watcher的客户端，即推送系统，于是，作出相应的推送任务。</li>
+<li>另一种工作汇报模式：一些类似于任务分发系统，子任务启动后，到zk来注册一个临时节点，并且定时将自己的进度进行汇报（将进度写回这个临时节点），这样任务管理者就能够实时知道任务进度。</li>
+</ul>
+<p>总之，使用zookeeper来进行分布式通知和协调能够大大降低系统之间的耦合</p>
+<hr>
+<h3 id="集群管理与Master选举"><a href="#集群管理与Master选举" class="headerlink" title="集群管理与Master选举"></a>集群管理与Master选举</h3><ul>
+<li>集群机器监控：这通常用于那种对集群中机器状态，机器在线率有较高要求的场景，能够快速对集群中机器变化作出响应。这样的场景中，往往有一个监控系统，实时检测集群机器是否存活。过去的做法通常是：监控系统通过某种手段（比如ping）定时检测每个机器，或者每个机器自己定时向监控系统汇报“我还活着”。 这种做法可行，但是存在两个比较明显的问题：</li>
+</ul>
+<p>①. 集群中机器有变动的时候，牵连修改的东西比较多。<br>②. 有一定的延时。</p>
+<p>利用ZooKeeper有两个特性，就可以实时另一种集群机器存活性监控系统：</p>
+<p>①. 客户端在节点 x 上注册一个Watcher，那么如果 x?的子节点变化了，会通知该客户端。<br>②. 创建EPHEMERAL类型的节点，一旦客户端和服务器的会话结束或过期，那么该节点就会消失。</p>
+<p>例如，监控系统在 /clusterServers 节点上注册一个Watcher，以后每动态加机器，那么就往 /clusterServers 下创建一个 EPHEMERAL类型的节点：/clusterServers/{hostname}. 这样，监控系统就能够实时知道机器的增减情况，至于后续处理就是监控系统的业务了。</p>
+<ul>
+<li>Master选举则是zookeeper中最为经典的应用场景了。</li>
+</ul>
+<p>在分布式环境中，相同的业务应用分布在不同的机器上，有些业务逻辑（例如一些耗时的计算，网络I/O处理），往往只需要让整个集群中的某一台机器进行执行，其余机器可以共享这个结果，这样可以大大减少重复劳动，提高性能，于是这个master选举便是这种场景下的碰到的主要问题。</p>
+<p>利用ZooKeeper的强一致性，能够保证在分布式高并发情况下节点创建的全局唯一性，即：同时有多个客户端请求创建 /currentMaster 节点，最终一定只有一个客户端请求能够创建成功。利用这个特性，就能很轻易的在分布式环境中进行集群选取了。</p>
+<p>另外，这种场景演化一下，就是动态Master选举。这就要用到?EPHEMERAL_SEQUENTIAL类型节点的特性了。</p>
+<p>上文中提到，所有客户端创建请求，最终只有一个能够创建成功。在这里稍微变化下，就是允许所有请求都能够创建成功，但是得有个创建顺序，于是所有的请求最终在ZK上创建结果的一种可能情况是这样： /currentMaster/{sessionId}-1 ,?/currentMaster/{sessionId}-2 ,?/currentMaster/{sessionId}-3 ….. 每次选取序列号最小的那个机器作为Master，如果这个机器挂了，由于他创建的节点会马上小时，那么之后最小的那个机器就是Master了。</p>
+<ul>
+<li><p>在搜索系统中，如果集群中每个机器都生成一份全量索引，不仅耗时，而且不能保证彼此之间索引数据一致。因此让集群中的Master来进行全量索引的生成，然后同步到集群中其它机器。另外，Master选举的容灾措施是，可以随时进行手动指定master，就是说应用在zk在无法获取master信息时，可以通过比如http方式，向一个地方获取master。</p>
+</li>
+<li><p>在Hbase中，也是使用ZooKeeper来实现动态HMaster的选举。在Hbase实现中，会在ZK上存储一些ROOT表的地址和HMaster的地址，HRegionServer也会把自己以临时节点（Ephemeral）的方式注册到Zookeeper中，使得HMaster可以随时感知到各个HRegionServer的存活状态，同时，一旦HMaster出现问题，会重新选举出一个HMaster来运行，从而避免了HMaster的单点问题</p>
+</li>
+</ul>
+<hr>
+<h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><p>分布式锁，这个主要得益于ZooKeeper为我们保证了数据的强一致性。锁服务可以分为两类，一个是保持独占，另一个是控制时序。</p>
+<ul>
+<li><p>所谓保持独占，就是所有试图来获取这个锁的客户端，最终只有一个可以成功获得这把锁。通常的做法是把zk上的一个znode看作是一把锁，通过create znode的方式来实现。所有客户端都去创建 /distribute_lock 节点，最终成功创建的那个客户端也即拥有了这把锁。</p>
+</li>
+<li><p>控制时序，就是所有视图来获取这个锁的客户端，最终都是会被安排执行，只是有个全局时序了。做法和上面基本类似，只是这里 /distribute_lock 已经预先存在，客户端在它下面创建临时有序节点（这个可以通过节点的属性控制：CreateMode.EPHEMERAL_SEQUENTIAL来指定）。Zk的父节点（/distribute_lock）维持一份sequence,保证子节点创建的时序性，从而也形成了每个客户端的全局时序。</p>
+</li>
+</ul>
+<hr>
+<h3 id="分布式队列"><a href="#分布式队列" class="headerlink" title="分布式队列"></a>分布式队列</h3><p>队列方面，简单地讲有两种:</p>
+<ul>
+<li><p>一种是常规的先进先出队列，另一种是要等到队列成员聚齐之后的才统一按序执行。对于第一种先进先出队列，和分布式锁服务中的控制时序场景基本原理一致，这里不再赘述。</p>
+</li>
+<li><p>第二种队列其实是在FIFO队列的基础上作了一个增强。通常可以在 /queue 这个znode下预先建立一个/queue/num 节点，并且赋值为n（或者直接给/queue赋值n），表示队列大小，之后每次有队列成员加入后，就判断下是否已经到达队列大小，决定是否可以开始执行了。这种用法的典型场景是，分布式环境中，一个大任务Task A，需要在很多子任务完成（或条件就绪）情况下才能进行。这个时候，凡是其中一个子任务完成（就绪），那么就去 /taskList 下建立自己的临时时序节点（CreateMode.EPHEMERAL_SEQUENTIAL），当 /taskList 发现自己下面的子节点满足指定个数，就可以进行下一步按序进行处理了。</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/13/Zookeeper C API学习(二)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="airticle-Zookeeper C API学习(一)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/13/Zookeeper C API学习(一)/">Zookeeper C API学习(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/13/Zookeeper C API学习(一)/" class="archive-article-date">
+  	<time datetime="2017-01-13T01:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br><a href="http://www.cnblogs.com/haippy/archive/2013/02/21/2919365.html" target="_blank" rel="external">学习自大神博客</a></p>
+<h3 id="Zookeeper-安装"><a href="#Zookeeper-安装" class="headerlink" title="Zookeeper 安装"></a>Zookeeper 安装</h3><p>因为之前也上了大数据的选修，安装过 大象<strong>Hadoop</strong> ，所以说这个小动物园的安装当然是不在话下辣，毕竟也是被各种安装环境虐的死去活来的 → → 最近也打算开始研究 <strong>Docker</strong> 了，打算学习完 <strong>Zookeeper</strong> 就开始</p>
+<p>安装好了</p>
+<p><img src="" alt=""></p>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>成功</p>
+<p><img src="" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/13/Zookeeper C API学习(一)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="airticle-C语言标准库函数学习(三)一一缓冲区操作函数" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/">C语言标准库函数学习(三)一一缓冲区操作函数</a>
+    </h1>
+  
+
+        
+        <a href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/" class="archive-article-date">
+  	<time datetime="2016-12-07T03:29:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>
+
+</p><h2 id="Buffer-Manipulation-缓冲区操作函数"><a href="#Buffer-Manipulation-缓冲区操作函数" class="headerlink" title="Buffer Manipulation 缓冲区操作函数"></a>Buffer Manipulation 缓冲区操作函数</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CRT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">buffer manipulation</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="airticle-C语言标准库函数学习(二)一一字符串操作函数" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
       <header class="article-header">
         
@@ -200,6 +871,11 @@
     </h1>
   
 
+        
+        <a href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/" class="archive-article-date">
+  	<time datetime="2016-12-06T01:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-06</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -261,20 +937,40 @@
 <hr>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/" class="archive-article-date">
-  	<time datetime="2016-12-06T01:15:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-06</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string-manipulation/">string manipulation</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CRT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">string manipulation</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -284,17 +980,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="airticle-C语言标准库函数学习(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+    <article id="airticle-C语言标准库函数学习(一)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -304,6 +992,11 @@
     </h1>
   
 
+        
+        <a href="/2016/12/05/C语言标准库函数学习(一)/" class="archive-article-date">
+  	<time datetime="2016-12-05T06:05:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-05</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -405,20 +1098,36 @@
 </blockquote>
 
       
+
+      
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/12/05/C语言标准库函数学习(一)/" class="archive-article-date">
-  	<time datetime="2016-12-05T06:05:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-05</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CRT</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/05/C语言标准库函数学习(一)/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
@@ -428,17 +1137,9 @@
 
 
 
-
-
-
-
-
   
-    <article id="post-kelele67的学习笔记-html小游戏" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-kelele67的学习笔记-html小游戏" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
@@ -448,6 +1149,11 @@
     </h1>
   
 
+        
+        <a href="/2016/11/11/kelele67的学习笔记-html小游戏/" class="archive-article-date">
+  	<time datetime="2016-11-11T08:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-11</time>
+</a>
+        
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -524,427 +1230,36 @@
 <hr>
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/11/kelele67的学习笔记-html小游戏/" class="archive-article-date">
-  	<time datetime="2016-11-11T08:24:41.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-11</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-kelele67的学习笔记-swift动画学习（三）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/11/kelele67的学习笔记-swift动画学习（三）/">kelele67的学习笔记-swift动画学习（三）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Swift3-0-动画编程-3"><a href="#Swift3-0-动画编程-3" class="headerlink" title="Swift3.0 动画编程(3)"></a>Swift3.0 动画编程(3)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自老镇swift课堂: 舞动Swift-Swift动画编程指南</a></p>
-<h2 id="自定义警告框动画"><a href="#自定义警告框动画" class="headerlink" title="自定义警告框动画"></a>自定义警告框动画</h2><p>用到JNW框架</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/10/11/kelele67的学习笔记-swift动画学习（三）/" class="archive-article-date">
-  	<time datetime="2016-10-11T09:56:12.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-11</time>
-</a>
       
 	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">html5</a>
+        		</li>
+      		
+		</ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/11/11/kelele67的学习笔记-html小游戏/">展开全文 >></a>
+        </p>
+      
+
+      
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airtcile-使用-iOS-10-的-Speech-框架构建语音转文本应用" class="article article-type-airtcile" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/10/使用-iOS-10-的-Speech-框架构建语音转文本应用/">使用 iOS 10 的 Speech 框架构建语音转文本应用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://swift.gg/2016/09/30/siri-speech-framework/" target="_blank" rel="external">学习自SwiftGG</a></p>
-<blockquote>
-<p>在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，那就是 Speech 框架。事实上，Siri 的语音识别正是由 Speech Kit 提供支持。就目前来说，可用的语音识别框架并非没有，但是它们要么太贵，要么不够好。在本教程中，我将会向你演示如何使用 Speech Kit 来创建一个像 Siri 一样的应用来进行语音到文本的转换。</p>
-</blockquote>
-<h1 id="应用界面设计"><a href="#应用界面设计" class="headerlink" title="应用界面设计"></a>应用界面设计</h1><p>由于界面比较简单，就直接在<a href="https://github.com/appcoda/SpeechToTextDemo/raw/master/SiriDemoStarter.zip" target="_blank" rel="external">这里</a>下载初始工程，然后再继续进行完善。</p>
-<hr>
-<h1 id="使用-Speech-框架"><a href="#使用-Speech-框架" class="headerlink" title="使用 Speech 框架"></a>使用 Speech 框架</h1><p>要使用 <strong>Speech</strong> 框架，第一件要做的事自然是引入这个框架，并遵循 <strong>SFSpeechRecognizerDelegate</strong> 协议。所以，我们先引入该框架，然后将它的协议添加到 <strong>ViewController.swift</strong> 类中。此时 <strong>ViewController.swift</strong> 应该是这样的：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> Speech</div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">SFSpeechRecognizerDelegate</span> </span>&#123;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textView: <span class="type">UITextView</span>!</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> microphoneButton: <span class="type">UIButton</span>!</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">microphoneTapped</span><span class="params">(<span class="number">_</span> sender: AnyObject)</span></span> &#123;</div><div class="line"> </div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h1 id="用户权限"><a href="#用户权限" class="headerlink" title="用户权限"></a>用户权限</h1><p>在使用 <strong>Speech</strong> 框架进行语音识别之前，你必须先请求用户许可，原因是识别不仅发生在 iOS 设备本地，还需要依赖 <strong>Apple</strong> 的服务器。具体来说，所有音频数据都会被传输到苹果后台进行处理。因此需要获取用户的权限。<br>我们将在 <strong>ViewDidLoad</strong>方法中处理授权。其中包括用户必须允许应用使用的音频输入和语音识别权限。首先，声明一个名为 <strong>speechRecognizer</strong> 的变量：<br> <strong>private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: “en-US”))</strong><br>然后将 ViewDidLoad 方法修改为下面这样：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line">    </div><div class="line">    microphoneButton.isEnabled = <span class="literal">false</span>  <span class="comment">// 在语音识别被激活前，默认设置麦克风按钮为禁用状态</span></div><div class="line">    </div><div class="line">    speechRecognizer.delegate = <span class="keyword">self</span>  <span class="comment">// 将语音识别中的 delegate 设置为 ViewContriller 中的 self</span></div><div class="line">    </div><div class="line">    <span class="type">SFSpeechRecognizer</span>.requestAuthorization&#123;(authStatus) <span class="keyword">in</span>  <span class="comment">// 通过调用 SFSpeechRecognizer.requestAuthorization 来请求语音识别权限</span></div><div class="line">        </div><div class="line">        <span class="keyword">var</span> isButtonEnabled = <span class="literal">false</span></div><div class="line">        </div><div class="line">        <span class="keyword">switch</span> authStatus&#123;  <span class="comment">// 检查验证状态</span></div><div class="line">        <span class="keyword">case</span> .authorized:</div><div class="line">            isButtonEnabled = <span class="literal">true</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> .denied:</div><div class="line">            isButtonEnabled = <span class="literal">false</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"User denied access to speech recognition"</span>)</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> . restricted:</div><div class="line">            isButtonEnabled = <span class="literal">false</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Speech recognition restricted on this device"</span>)</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> .notDetermined:</div><div class="line">            isButtonEnabled = <span class="literal">false</span></div><div class="line">            <span class="built_in">print</span>(<span class="string">"Speech recognition not yet authorized"</span>)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="type">OperationQueue</span>.main.addOperation &#123;</div><div class="line">            <span class="keyword">self</span>.microphoneButton.isEnabled = isButtonEnabled</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">            </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<h1 id="提供授权信息"><a href="#提供授权信息" class="headerlink" title="提供授权信息"></a>提供授权信息</h1><blockquote>
-<p>Apple 要求应用为所有请求的权限提供自定义消息，对于语音权限的情况，我们必须为两个行为请求授权：</p>
-<ol>
-<li>麦克风的使用</li>
-<li>语音的识别</li>
-</ol>
-</blockquote>
-<p>要自定义消息，你需要在 info.plist 文件中定义这些消息。</p>
-<p>让我们打开 <strong>info.plist</strong> 文件的源代码。方法是在 <strong>info.plist</strong> 上点击右键。然后选择 <strong>Open As</strong> &gt; <strong>Source Code</strong>。最后，复制下面的 <strong>XML</strong> 代码并将它们插入到 <strong></strong> 标签前。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSMicrophoneUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span>  <span class="tag">&lt;<span class="name">string</span>&gt;</span>Your microphone will be used to record your speech when you press the &amp;quot;Start Recording&amp;quot; button.<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSSpeechRecognitionUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span>  <span class="tag">&lt;<span class="name">string</span>&gt;</span>Speech recognition will be used to determine which words you speak into this device&amp;apos;s microphone.<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure>
-<hr>
-<p>已经将两个 <strong>key</strong> 添加到 <strong>info.plist</strong> 中了：</p>
-<p><strong>NSMicrophoneUsageDescription</strong> – 音频输入授权请求的自定义信息。注意，音频输入授权请求只发生在用户点击麦克风按钮的时候。<br><strong>NSSpeechRecognitionUsageDescription</strong> – 语音识别授权请求的自定义信息。</p>
-<h1 id="处理语音信息"><a href="#处理语音信息" class="headerlink" title="处理语音信息"></a>处理语音信息</h1><p>首先，在 <strong>ViewController</strong> 中定义下述对象：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> recognitionRequest: <span class="type">SFSpeechAudioBufferRecognitionRequest</span>?</div><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> recognitionTask: <span class="type">SFSpeechRecognitionTask</span>?</div><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> audioEngine = <span class="type">AVAudioEngine</span>()</div></pre></td></tr></table></figure>
-<hr>
-<ol>
-<li><strong>recognitionRequest</strong> 对象用于处理语音识别请求，为语音识别提供音频输入。</li>
-<li><strong>recognitionTask</strong>可以将识别请求的结果返回给你，它带来了极大的便利，必要时，可以取消或停止任务。</li>
-<li>最后的 <strong>audioEngine</strong> 是音频引擎。它的存在使得你能够进行音频输入。</li>
-</ol>
-<p>接下来，让我们创建一个名为 <strong>startRecording()</strong> 的新函数：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">startRecording</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="comment">// 检查 recognitionTask 的运行状态，如果正在运行，取消任务</span></div><div class="line">    <span class="keyword">if</span> recognitionTask != <span class="literal">nil</span>&#123;</div><div class="line">        recognitionTask?.cancel()</div><div class="line">        recognitionTask = <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> audioSession = <span class="type">AVAudioSession</span>.sharedInstance()  <span class="comment">//  创建一个 AVAudioSession 对象为音频录制做准备。</span></div><div class="line">    <span class="keyword">do</span>&#123;</div><div class="line">        <span class="keyword">try</span> audioSession.setCategory(<span class="type">AVAudioSessionCategoryRecord</span>)</div><div class="line">        <span class="keyword">try</span> audioSession.setMode(<span class="type">AVAudioSessionModeMeasurement</span>)</div><div class="line">        <span class="keyword">try</span> audioSession.setActive(<span class="literal">true</span>, with: .notifyOthersOnDeactivation)</div><div class="line">    &#125;<span class="keyword">catch</span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"audioSession properties weren't set because of an error"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// 创建 SFSpeechAudioBufferRecognitionRequest 对象，然后我们就可以利用它将音频数据传输到 Apple 的服务器。</span></div><div class="line">    recognitionRequest = <span class="type">SFSpeechAudioBufferRecognitionRequest</span>()</div><div class="line">    </div><div class="line">    <span class="comment">// 检查 audioEngine (你的设备)是否支持音频输入以录音。如果不支持，报一个 fatal error</span></div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> inputNode = audioEngine.inputNode <span class="keyword">else</span>&#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"Audio engine has no input node"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> recognitionRequest = recognitionRequest <span class="keyword">else</span>&#123;</div><div class="line">        <span class="built_in">fatalError</span>(<span class="string">"Unable to creat an SFSpeechAudioBufferRecognitionRequest object"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// 告诉 recognitionRequest 不要等到录音完成才发送请求，而是在用户说话时一部分一部分发送语音识别数据。</span></div><div class="line">    recognitionRequest.shouldReportPartialResults = <span class="literal">true</span></div><div class="line">    </div><div class="line">    <span class="comment">// 在调用 speechRecognizer 的 recognitionTask 函数时开始识别。该函数有一个完成回调函数，每次识别引擎收到输入时都会调用它，在修改当前识别结果，亦或是取消或停止时，返回一个最终记录。</span></div><div class="line">    recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest, resultHandler:&#123;(result, error) <span class="keyword">in</span></div><div class="line">        <span class="comment">// 定义一个 boolean 变量来表示识别是否已结束。</span></div><div class="line">        <span class="keyword">var</span> isFinal = <span class="literal">false</span></div><div class="line">        <span class="comment">// 倘若结果非空，则设置 textView.text 属性为结果中的最佳记录。同时若为最终结果，将 isFinal 置为 true。</span></div><div class="line">        <span class="keyword">if</span> result != <span class="literal">nil</span> &#123;</div><div class="line">            <span class="keyword">self</span>.textView.text = result?.bestTranscription.formattedString</div><div class="line">            isFinal = (result?.isFinal)!</div><div class="line">        &#125; <span class="comment">// 检查 audioEngine (你的设备)是否支持音频输入以录音。如果不支持，报一个 fatal error</span></div><div class="line">        </div><div class="line">        <span class="comment">// 如果请求没有错误或已经收到最终结果，停止 audioEngine (音频输入)，recognitionRequest 和 recognitionTask。同时，将开始录音按钮的状态切换为可用。</span></div><div class="line">        <span class="keyword">if</span> error != <span class="literal">nil</span> || isFinal &#123;</div><div class="line">            <span class="keyword">self</span>.audioEngine.stop()</div><div class="line">            inputNode.removeTap(onBus: <span class="number">0</span>)</div><div class="line">            </div><div class="line">            <span class="keyword">self</span>.recognitionRequest = <span class="literal">nil</span></div><div class="line">            <span class="keyword">self</span>.recognitionTask = <span class="literal">nil</span></div><div class="line">            </div><div class="line">            <span class="keyword">self</span>.microphoneButton.isEnabled = <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    <span class="comment">// 向 recognitionRequest 添加一个音频输入。值得留意的是，在 recognitionTask 启动后再添加音频输入完全没有问题。Speech 框架会在添加了音频输入之后立即开始识别任务。</span></div><div class="line">    <span class="keyword">let</span> recordingFormat = inputNode.outputFormat(forBus: <span class="number">0</span>)</div><div class="line">    inputNode.installTap(onBus: <span class="number">0</span>, bufferSize: <span class="number">1024</span>, format: recordingFormat)&#123;(buffer, when) <span class="keyword">in</span></div><div class="line">        <span class="keyword">self</span>.recognitionRequest?.append(buffer)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// 将 audioEngine 设为准备就绪状态，并启动引擎。</span></div><div class="line">    audioEngine.prepare()</div><div class="line">    </div><div class="line">    <span class="keyword">do</span>&#123;</div><div class="line">        <span class="keyword">try</span> audioEngine.start()</div><div class="line">    &#125; <span class="keyword">catch</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"audioEngine couldn't start because of an error"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    textView.text = <span class="string">"Say something, I'm listening!"</span></div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h1 id="触发语音识别"><a href="#触发语音识别" class="headerlink" title="触发语音识别"></a>触发语音识别</h1><p>在创建语音识别任务时，我们首先得确保语音识别的可用性，因此，需要向 <strong>ViewController</strong> 添加一个 <strong>delegate</strong> 方法。如果语音识别不可用，或是改变了状态，应随之设置 <strong>microphoneButton.enable</strong> 属性。针对这个方案，我们实现了 <strong>SFSpeechRecognizerDelegate</strong> 协议的 <strong>availabilityDidChange</strong> 方法。详细实现如下所示：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">speechRecognizer</span><span class="params">(<span class="number">_</span> speechRecognizer:SFSpeechRecognizer, </span></span></div><div class="line">    availabilityDidChange available: Bool) &#123;</div><div class="line">        f available &#123;</div><div class="line">            microphoneButton.isEnabled = <span class="literal">true</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                microphoneButton.isEnabled = <span class="literal">false</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<hr>
-<p>这个方法会在按钮的可用性改变时被调用。如果语音识别可用，录音按钮也将被启用。<br>最后，我们还需要更新一下 <strong>microphoneTapped(sender:)</strong> 方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 这个函数的用途是检查 audioEngine 是否在运行。</span></div><div class="line"> 如果正在运行，停止 audioEngine，终止recognitionRequest 的音频输入，禁用 microphoneButton，并将按钮文字改为“开始录音”。</div><div class="line"> 若 audioEngine 正在工作，则应用应该调用 startRecording()，以及设置按钮的文字为“停止录音“*/</div><div class="line"></div><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">microphoneTapped</span><span class="params">(<span class="number">_</span> sender: AnyObject)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> audioEngine.isRunning &#123;</div><div class="line">        audioEngine.stop()</div><div class="line">        recognitionRequest?.endAudio()</div><div class="line">        microphoneButton.isEnabled = <span class="literal">false</span></div><div class="line">        microphoneButton.setTitle(<span class="string">"Start Recording"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        startRecording()</div><div class="line">        microphoneButton.setTitle(<span class="string">"Stop Recording"</span>, <span class="keyword">for</span>: .normal)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>设计图形界面</li>
-<li><strong>func viewDidLoad()</strong> ：请求用户许可</li>
-<li>将两个 key 添加到 <strong>info.plist</strong> ：提供授权信息</li>
-<li><strong>fuc startRecording()</strong> ：处理语音信息</li>
-<li><strong>func speechRecognizer</strong> ：确保语音识别的可用性</li>
-<li><strong>fuc microphoneTapped(sender:)</strong> : 启用录音按钮</li>
-</ul>
-<p>Speech 框架使用的语音识别框架与 Siri 相同。该 API 虽小，但功能十分强大，为开发者创造像是获取音频文件记录一样震撼的东西提供了极大的便利。</p>
-<p>视频资料：<br><a href="https://developer.apple.com/videos/play/wwdc2016/509/" target="_blank" rel="external">WWDC 2016 的 session 509</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/10/使用-iOS-10-的-Speech-框架构建语音转文本应用/" class="archive-article-date">
-  	<time datetime="2016-10-09T16:40:32.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-10</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/siri/">siri</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airtcle-kelele67的学习笔记-swift动画学习（二）" class="article article-type-airtcle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/06/kelele67的学习笔记-swift动画学习（二）/">kelele67的学习笔记-swift动画学习（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Swift3-0-动画编程-2"><a href="#Swift3-0-动画编程-2" class="headerlink" title="Swift3.0 动画编程(2)"></a>Swift3.0 动画编程(2)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自老镇swift课堂: 舞动Swift-Swift动画编程指南</a></p>
-<h2 id="JNWSpring-Animation"><a href="#JNWSpring-Animation" class="headerlink" title="JNWSpring Animation"></a>JNWSpring Animation</h2><ul>
-<li>JNWSpringAnimation 是 CAKeyframeAnimation 的子类，它支持创建阻尼动画效果。</li>
-<li>尽管，JNWSpringAnimation 是 CAKeyframeAnimation 的子类，但是，你应该把他当做 CABasicAnimation 的子类来使用:)。</li>
-<li>把4个<a href="https://github.com/jwilling/JNWSpringAnimation" target="_blank" rel="external">源文件</a>拷贝到你的工程当中。</li>
-<li>你可以使用专用的初始化方法 +animationWithKeyPath:。当然，你也可以使用 +animation 方法，之后再来设置 keyPath 。目前所有兼容的属性动画都包含在头文件当中。<br><strong>JNWSpringAnimation *animation = [JNWSpringAnimation animationWithKeyPath:@”position.x”];</strong></li>
-<li>下一步，fromeValue 与 toValue 属性需要插入正确的值。<br><strong>animation.toValue = @(toX);animation.fromValue = @(currentX);</strong></li>
-<li>最后，阻尼动画的一些参数也可以修改，目前包括 stiffness（生硬程度），damping（衰弱程度）以及 mass（质量）。<br><strong>animation.mass = 30; // this will move extremely slowly// and so on</strong></li>
-<li>这个动画本身可以被任何CAAnimation的子类接收，你可以将他添加到CALayer中。</li>
-</ul>
-<p><img src="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-10-10%2015.28.39.png" alt=""></p>
-<h3 id="CAKeyframeAnimation"><a href="#CAKeyframeAnimation" class="headerlink" title="CAKeyframeAnimation"></a>CAKeyframeAnimation</h3><ul>
-<li>关键帧动画</li>
-<li>多个关键帧组成动画</li>
-<li>可以设置时间间隔</li>
-<li>设置位移，缩放等动画属性</li>
-</ul>
-<h3 id="JNW-缩放动画"><a href="#JNW-缩放动画" class="headerlink" title="JNW-缩放动画"></a>JNW-缩放动画</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  JNWSpring Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/10.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="comment">//*缩放动画</span></div><div class="line">        <span class="comment">// 创建jnw对象</span></div><div class="line">        <span class="keyword">let</span> scale = <span class="type">JNWSpringAnimation</span>(keyPath:<span class="string">"transform.scale"</span>)</div><div class="line">        <span class="comment">// 设置阻尼值</span></div><div class="line">        scale?.damping = <span class="number">6</span></div><div class="line">        <span class="comment">// 弹性系数</span></div><div class="line">        scale?.stiffness = <span class="number">100</span></div><div class="line">        <span class="comment">// 设置质量</span></div><div class="line">        scale?.mass = <span class="number">2</span></div><div class="line">        </div><div class="line">        <span class="comment">// 设置初始值和结束值</span></div><div class="line">        scale?.fromValue = <span class="number">1</span></div><div class="line">        </div><div class="line">        scale?.toValue = <span class="number">2</span></div><div class="line">        </div><div class="line">        <span class="comment">// 将JNW赋予redBall</span></div><div class="line">        redBall.layer.add(scale!, forKey: scale?.keyPath)</div><div class="line">        <span class="comment">// 手动设置到结束状态</span></div><div class="line">        redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="JNW-旋转动画"><a href="#JNW-旋转动画" class="headerlink" title="JNW-旋转动画"></a>JNW-旋转动画</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  JNWSpring Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/10.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line"><span class="comment">//        redBall.layer.cornerRadius = 50 使用红色方块</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line"></div><div class="line">        <span class="comment">// *旋转动画</span></div><div class="line">        <span class="comment">// 创建jnw对象</span></div><div class="line">        <span class="keyword">let</span> rotation = <span class="type">JNWSpringAnimation</span>(keyPath:<span class="string">"transform.rotation"</span>)</div><div class="line">        <span class="comment">// 设置阻尼值</span></div><div class="line">        rotation?.damping = <span class="number">6</span></div><div class="line">        <span class="comment">// 弹性系数</span></div><div class="line">        rotation?.stiffness = <span class="number">100</span></div><div class="line">        <span class="comment">// 设置质量</span></div><div class="line">        rotation?.mass = <span class="number">2</span></div><div class="line">        </div><div class="line">        <span class="comment">// 设置初始值和结束值</span></div><div class="line">        rotation?.fromValue = <span class="number">0</span></div><div class="line">        </div><div class="line">        rotation?.toValue = <span class="type">M_PI_2</span></div><div class="line">        </div><div class="line">        <span class="comment">// 将JNW赋予redBall</span></div><div class="line">        redBall.layer.add(rotation!, forKey: rotation?.keyPath)</div><div class="line">        <span class="comment">// 手动设置到结束状态</span></div><div class="line">        redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(rotationAngle: <span class="type">CGFloat</span>(<span class="type">M_PI_2</span>))</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="JNW-位移动画"><a href="#JNW-位移动画" class="headerlink" title="JNW-位移动画"></a>JNW-位移动画</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  JNWSpring Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/10.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line"><span class="comment">//        redBall.layer.cornerRadius = 50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line"></div><div class="line">        <span class="comment">//*位移动画</span></div><div class="line">        <span class="comment">// 创建jnw对象</span></div><div class="line">        <span class="keyword">let</span> move = <span class="type">JNWSpringAnimation</span>(keyPath:<span class="string">"transform.translation.x"</span>)</div><div class="line">        <span class="comment">// 设置阻尼值</span></div><div class="line">        move?.damping = <span class="number">6</span></div><div class="line">        <span class="comment">// 弹性系数</span></div><div class="line">        move?.stiffness = <span class="number">100</span></div><div class="line">        <span class="comment">// 设置质量</span></div><div class="line">        move?.mass = <span class="number">2</span></div><div class="line">        <span class="comment">// 设置初始值和结束值</span></div><div class="line">        move?.fromValue = <span class="number">0</span></div><div class="line">        </div><div class="line">        move?.toValue = <span class="number">400</span></div><div class="line">        </div><div class="line">        <span class="comment">// 将JNW赋予redBall</span></div><div class="line">        redBall.layer.add(move!, forKey: move?.keyPath)</div><div class="line">        <span class="comment">// 手动设置到结束状态</span></div><div class="line">        redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">400</span>, y: <span class="number">0</span>)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="组合动画"><a href="#组合动画" class="headerlink" title="组合动画"></a>组合动画</h2><p>把每个实例加起来就可以实现 <strong>JNW</strong> 的组合动画了，把之前注释掉的代码还原就能实现放大旋转位移动画了。</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/06/kelele67的学习笔记-swift动画学习（二）/" class="archive-article-date">
-  	<time datetime="2016-10-06T12:41:06.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-06</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-kelele67的学习笔记-swift动画学习（一）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/06/kelele67的学习笔记-swift动画学习（一）/">kelele67的学习笔记-swift动画学习（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Swift3-0-动画编程-1"><a href="#Swift3-0-动画编程-1" class="headerlink" title="Swift3.0 动画编程(1)"></a>Swift3.0 动画编程(1)</h1><p><a href="http://www.swiftv.cn/course/i275v5lz" target="_blank" rel="external">学习自老镇swift课堂: 舞动Swift-Swift动画编程指南</a></p>
-<blockquote>
-<p>在iOS的世界中，很多应用有着相似的颜色，相似的排版，可谓千篇一律。<br>即使Apple的UI设计与用户体验相当的出色，也难免产生审美疲劳。<br>为了寻求差异化，新颖的动画设计是一个很好的突破口。</p>
-</blockquote>
-<p>最近突然对swift感兴趣，刚好一直用的mbp，想起上次用xcode想学习一下o-c还是几年前了，很惭愧没有坚持下去，不过现在学习swift也是个不错的选择。<br>不过有点坑的是视频教程用的swift是2.x，现在swift到了3.0，又更新了一大波坑，还得自己去填TAT估计等明年出了4.0才会稳定下来，据说到时候swift语法和API都会稳定并且向上兼容，估计会掀起一番swift热吧，所以趁现在先学为快。:-D</p>
-<hr>
-<h2 id="Core-Animation-目前苹果的API-Reference已更名为Core-Graphics"><a href="#Core-Animation-目前苹果的API-Reference已更名为Core-Graphics" class="headerlink" title="Core Animation(目前苹果的API Reference已更名为Core Graphics)"></a>Core Animation(目前苹果的API Reference已更名为Core Graphics)</h2><blockquote>
-<p>Core Animation是iOS与OS X平台上负责图形渲染与动画的基础设施。Core Animation可以动画视图和其他的可视元素，为你完成了动画所需的大部分绘帧工作。你只需配置少量的动画参数（如开始点位置和结束点的位置）即可施展Core Animation魔法。Core Animation将大部分实际的绘图任务交给了图形硬件来处理，图形硬件会加速图形渲染的速度。这种自动化的图形加速技术让动画拥有更高的帧率并且更加的平滑，而且不会加重CPU的负担而影响程序的运行速度。</p>
-</blockquote>
-<h3 id="Core-Animation放大动画"><a href="#Core-Animation放大动画" class="headerlink" title="Core Animation放大动画"></a>Core Animation放大动画</h3><p><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform" target="_blank" rel="external">运用CGAffineTransform结构</a>实现了红色的圆放大动画</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">            animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform = <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>)</div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="Core-Animation组合动画"><a href="#Core-Animation组合动画" class="headerlink" title="Core Animation组合动画"></a>Core Animation组合动画</h3><p><a href="https://developer.apple.com/reference/coregraphics/cgaffinetransform/1455996-concatenating" target="_blank" rel="external">使用 concatenating(_:)</a>实现了红色的圆向右放大后变绿的组合动画</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.5</span>, delay: <span class="number">0</span>, options: [.curveEaseInOut],</div><div class="line">                       animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform =</div><div class="line">                        <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>).concatenating(<span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">250</span>, y: <span class="number">50</span>))</div><div class="line">                        </div><div class="line">                        redBall.backgroundColor = <span class="type">UIColor</span>.green</div><div class="line"></div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="Core-Animation弹性动画"><a href="#Core-Animation弹性动画" class="headerlink" title="Core Animation弹性动画"></a>Core Animation弹性动画</h3><p>增加阻尼和初速度来使动画弹跳起来</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  ViewController.swift</span></div><div class="line"><span class="comment">//  Core Animation 01</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//  Created by 刘启 on 2016/10/6.</span></div><div class="line"><span class="comment">//  Copyright © 2016年 刘启. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> redBall = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">50</span>, y: <span class="number">50</span>, width: <span class="number">100</span>, height: <span class="number">100</span>))</div><div class="line">        redBall.backgroundColor = <span class="type">UIColor</span>.red</div><div class="line">        redBall.layer.cornerRadius = <span class="number">50</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(redBall)</div><div class="line">        </div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">2</span>, delay: <span class="number">0</span>, usingSpringWithDamping: <span class="number">0.3</span>, <span class="comment">//阻尼（减速度）</span></div><div class="line">                       initialSpringVelocity: <span class="number">0</span>, <span class="comment">//初始速度</span></div><div class="line">                       options: [.curveEaseInOut],</div><div class="line">                       animations: &#123;() -&gt; <span class="type">Void</span> <span class="keyword">in</span> redBall.transform =</div><div class="line">                        <span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(scaleX: <span class="number">2</span>, y: <span class="number">2</span>).concatenating(<span class="type">CGAffineTransform</span>.<span class="keyword">init</span>(translationX: <span class="number">150</span>, y: <span class="number">50</span>))</div><div class="line">                        </div><div class="line">                        redBall.backgroundColor = <span class="type">UIColor</span>.green</div><div class="line"></div><div class="line">            &#125;, completion: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/06/kelele67的学习笔记-swift动画学习（一）/" class="archive-article-date">
-  	<time datetime="2016-10-06T09:56:12.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-06</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-ubuntu16-04终端闪退" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/05/ubuntu16-04终端闪退/">ubuntu16.04终端闪退</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p><br>其实就是我作死把oh-my-zsh的路径弄坏了，然后不知怎么的zsh也打不开了，最后才想起在.profilerc里面把之前添加的exec zsh给删除了。</p>
-<p>之前本来是想在ubuntu里面搭建hexo的，但是zsh和shell的路径一直弄不好导致nodejs的版本一直有问题，然后hexo也搭建不了，最后只好在macos下面搭建了hexo。</p>
-<p>不过搭建环境真的好累人，每次都是各种问题，各种百度google，有时间得尝试下docker。</p>
-<p>路漫漫。。。</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/05/ubuntu16-04终端闪退/" class="archive-article-date">
-  	<time datetime="2016-10-05T03:23:23.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solution/">solution</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-python数据结构算法一一树" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/05/python数据结构算法一一树/">kelele67的学习笔记-python数据结构算法（四）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python数据结构篇-4"><a href="#Python数据结构篇-4" class="headerlink" title="Python数据结构篇(4)"></a>Python数据结构篇(4)</h1><p><a href="http://hujiaweibujidao.github.io/" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><ol>
-<li>BST 二叉搜索树</li>
-<li>AVL 平衡二叉查找树</li>
-</ol>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/10/05/python数据结构算法一一树/" class="archive-article-date">
-  	<time datetime="2016-10-04T17:21:10.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-05</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/trees/">trees</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
 
 
 
@@ -953,11 +1268,13 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
 
+          </div>
+        </div>
       </div>
       <footer id="footer">
   <div class="outer">
@@ -970,82 +1287,296 @@
       	</div>
     </div>
   </div>
-<script type="text/javascript">
-var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260501136'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1260501136%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
-</script>
 </footer>
     </div>
     <script>
 	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
+		mathjax: false,
 		isHome: true,
 		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		root: "/"
+		root: "/",
+		innerArchive: true,
+		showTags: false
 	}
 </script>
 
-<script src="/./main.js"></script>
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),g=e(75),m=r(g),w=e(70);l(),(0,w.addLoadEvent)(function(){m.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),g=x[f],m=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&m&&void 0!==m[a],s&&a in x||(l=s?m[a]:e[a],x[a]=d&&"function"!=typeof m[a]?e[a]:h&&s?i(l,r):b&&m[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&g&&!g[a]&&u(g,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,g,m,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=g==h,M=!1,A=t.prototype,T=A[p]||A[v]||g&&A[g],L=T||j(g),N=g?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,g)if(O={values:E?L:j(h),keys:m?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),g=e(10),m=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),g(t),n=w(n,!0),g(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){g(t);for(var e,r=b(n=m(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=m(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(m(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:m(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){var n=t.getAttribute("target");n&&""!==n||t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.f6a68c.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
 
 
     
-<div class="tools-col">
-  <ul class="btn-wrap">
-    
-      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
     
     
-      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+      
+      
+      
+    
+      
+      
+      
     
     
+
+    <ul style="width: 70%">
     
-      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
     
-  </ul>
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      
+        
+    </ul>
+  </div>
   <div class="tools-wrap">
     
-    	<section class="tools-section tools-section-all chose">
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">concurrency</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">threadpool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">c</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CRT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">buffer manipulation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">string manipulation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mount</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web server</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">namespace</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">cgroup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">release</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">tmpfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">make</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ccache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">html5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">swift</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">animation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">search</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">data structures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">trees</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">solution</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">lua</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">gc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">siri</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sysvinit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">upstart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">systemd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tcp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hentai</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            3、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
     	</section>
     
 
     
-    	<section class="tools-section tools-section-tag">
-    			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hentai/" style="font-size: 12px;">hentai</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 12px;">面试</a>
-    			</div>
-    	</section>
-    
 
     
-
-    
-    	<section class="tools-section tools-section-me">
+    	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
   	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div class=&quot;text&quot; style=&quot; text-align:center;&quot;&gt;大三学生&lt;br&gt;就读于重庆大学 软件狗&lt;br&gt;&lt;br&gt; 喜欢python&lt;br&gt;自由的灵魂&lt;br&gt;&lt;br&gt;世界万物都是隐喻&lt;br&gt;我们是通过隐喻这个装置接受反讽&lt;br&gt;加深扩大自己&lt;/div&gt;</div>
   	  	
@@ -1084,7 +1615,7 @@ MathJax.Hub.Queue(function() {
 
                 <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
                 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
 
