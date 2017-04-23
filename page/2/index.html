@@ -135,6 +135,69 @@
       <div class="body-wrap">
         
   
+    <article id="airticle-C++11 并发学习(一)" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/13/C++11 并发学习(一)/">C++11 并发学习(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
+<h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><blockquote>
+<p>与并发相近的另一个概念是并行(Parallel)。和并发所描述的情况一样，并行也是指两个或多个任务被同时执行。但是严格来讲，并发和并行的概念并是不等同的，两者存在很大的差别。下面我们来看看计算机科学家们是怎么区分并发和并行的。</p>
+<p>并发是一个处理器同时处理多个任务，而并行是多个处理器或者是多核的处理器同时处理多个不同的任务。前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生。</p>
+</blockquote>
+<h2 id="C-并发"><a href="#C-并发" class="headerlink" title="C++并发"></a>C++并发</h2><h3 id="C-11多线程相关的头文件"><a href="#C-11多线程相关的头文件" class="headerlink" title="C++11多线程相关的头文件"></a>C++11多线程相关的头文件</h3><blockquote>
+<p>C++11 新标准中引入了五个头文件来支持多线程编程，它们分别是 &lt; atomic&gt;, &lt; thread&gt;, &lt; mutex&gt;, &lt; condition_variable&gt; 和 &lt; future&gt;。</p>
+</blockquote>
+<p>①. &lt; atomic&gt;：该头文主要声明了两个类, std::atomic 和 std::atomic_flag，另外还声明了一套 C 风格的原子类型和与 C 兼容的原子操作的函数。<br>&lt; atomic&gt; 一一 可以用来实现数据结构的无锁结构</p>
+<p>②. &lt; thread&gt;：该头文件主要声明了 std::thread 类，另外 std::this_thread 命名空间也在该头文件中。<br>之前在Linux下写多线程的时候用的Pthread，但是在实现线程池的时候，有用到过C++11的<thread>，具体是学习自<a href="https://github.com/lizhenghn123/zl_threadpool" target="_blank" rel="external">这个大神的C++的线程池demo</a></thread></p>
+<p>③. &lt; mutex&gt;：该头文件主要声明了与互斥量(Mutex)相关的类，包括 std::mutex_* 一系列类，std::lock_guard, std::unique_lock, 以及其他的类型和函数。</p>
+<p>④. &lt; condition_variable&gt;：该头文件主要声明了与条件变量相关的类，包括 std::condition_variable 和 std::condition_variable_any。</p>
+<p>⑤. &lt; future&gt;：该头文件主要声明了 std::promise, std::package_task 两个 Provider 类，以及 std::future 和 std::shared_future 两个 Future 类，另外还有一些与之相关的类型和函数，std::async() 函数就声明在此头文件中。<br>这里介绍一下std::async() 一一 用来优雅的实现C++异步，一般和std::future()一起使用，前者用于创建异步任务，后者从异步任务中获取结果。</p>
+<p>接下来我们就是要具体地学习每一个部分了，不过大部分就是之前学习过，用过的，应该学起来还是很快的。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/02/13/C++11 并发学习(一)/" class="archive-article-date">
+  	<time datetime="2017-02-13T02:58:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-02-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrency/">concurrency</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="airticle-C++数据结构复习(二)一一排序算法" class="article article-type-airticle" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -341,6 +404,131 @@
 
 
   
+    <article id="airticle-Linux编译技巧" class="article article-type-airticle" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/16/Linux编译技巧/">Linux编译技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p></p>
+<h2 id="编译技巧"><a href="#编译技巧" class="headerlink" title="编译技巧"></a>编译技巧</h2><p>从mount引发的血案</p>
+<h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><blockquote>
+<p>项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。</p>
+</blockquote>
+<h3 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h3><p>tmpfs在类Unix操作系统上是一个常见的名称会用来做为暂时的档案储存方式，在更多的情况下，它会用虚拟的内存而不是一个永久保存的媒体来做为在档案系统上的使用。tmpfs可以使用您的内存或swap分区来存储文件。</p>
+<p>tmpfs是基于Linux的虚拟内存管理子系统，面向普通用户的，根据用户需要随时可以创建此类型目录，以方便快捷地获得飞一样的读写速度。</p>
+<p>当用户创建了此类型的目录后，剩下的工作就交给MMU来完成，不论是最终是在物理内存中还是在SWAP中，都尽可能地满足用户的需求。</p>
+<p>这就是我们之前提到过的 <strong>虚拟硬盘</strong></p>
+<blockquote>
+<p>把文件放到内存上做编译，尤其如果编译器需要生成很多临时文件的话，比在磁盘上快多了。</p>
+</blockquote>
+<p>在Linux中，直接mount一个tmpfs就可以了。而且对所编译的工程没有任何要求，也不用改动编译环境。</p>
+<p>刚好我们复习一下之前学习到的一些mount的命令：</p>
+<p>①. mount -t tmpfs tmpfs ~/build -o size=1G</p>
+<ul>
+<li><p>-t 对应的是类型</p>
+</li>
+<li><p>-o 对应的是选项</p>
+</li>
+</ul>
+<p>②. df -lh</p>
+<ul>
+<li><p>-l 只显示本地文件</p>
+</li>
+<li><p>-h 可读</p>
+</li>
+</ul>
+<p>用df就能看出有tmpfs的挂载点：</p>
+<p>用来检查linux服务器的文件系统的磁盘空间占用情况。</p>
+<hr>
+<p>用2.6.32.2的Linux Kernel来测试一下编译速度：</p>
+<ul>
+<li><p>用物理磁盘：40分16秒</p>
+</li>
+<li><p>用tmpfs：39分56秒</p>
+</li>
+</ul>
+<blockquote>
+<p>呃……没什么变化。看来编译慢很大程度上瓶颈并不在IO上面。但对于一个实际项目来说，编译过程中可能还会有打包等IO密集的操作，所以只要可能，用tmpfs是有益无害的。当然对于大项目来说，你需要有足够的内存才能负担得起这个tmpfs的开销。</p>
+</blockquote>
+<h3 id="make-j"><a href="#make-j" class="headerlink" title="make -j"></a>make -j</h3><p>既然IO不是瓶颈，那CPU就应该是一个影响编译速度的重要因素了。</p>
+<p>用make -j带一个参数，可以把项目在进行并行编译，比如在一台双核的机器上，完全可以用make -j4，让make最多允许4个编译命令同时执行，这样可以更有效的利用CPU资源。</p>
+<blockquote>
+<p>还是用Kernel来测试：</p>
+</blockquote>
+<ul>
+<li><p>用make： 40分16秒</p>
+</li>
+<li><p>用make -j4：23分16秒</p>
+</li>
+<li><p>用make -j8：22分59秒</p>
+</li>
+</ul>
+<p>由此看来，在多核 <strong>CPU</strong> 上，适当的进行并行编译还是可以明显提高编译速度的。但并行的任务不宜太多，一般是以 <strong>CPU</strong> 的核心数目的两倍为宜。</p>
+<p>不过这个方案不是完全没有 <strong>cost</strong> 的，如果项目的 <strong>Makefile</strong> 不规范，没有正确的设置好依赖关系，并行编译的结果就是编译不能正常进行。如果依赖关系设置过于保守，则可能本身编译的可并行度就下降了，也不能取得最佳的效果。</p>
+<h3 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a>ccache</h3><p>ccache用于把编译的中间结果进行缓存，以便在再次编译的时候可以节省时间。这对于玩Kernel来说实在是再好不过了，因为经常需要修改一些Kernel的代码，然后再重新编译，而这两次编译大部分东西可能都没有发生变化。对于平时开发项目来说，也是一样。为什么不是直接用make所支持的增量编译呢？还是因为现实中，因为Makefile的不规范，很可能这种“聪明”的方案根本不能正常工作，只有每次make clean再make才行。</p>
+<p>安装完ccache后，可以在/usr/local/bin下建立gcc，g++，c++，cc的symbolic link，链到/usr/bin/ccache上。总之确认系统在调用gcc等命令时会调用到ccache就可以了（通常情况下/usr/local /bin会在PATH中排在/usr/bin前面）。</p>
+<blockquote>
+<p>继续测试：</p>
+</blockquote>
+<ul>
+<li><p>用ccache的第一次编译(make -j4)：23分38秒</p>
+</li>
+<li><p>用ccache的第二次编译(make -j4)：8分48秒</p>
+</li>
+<li><p>用ccache的第三次编译(修改若干配置，make -j4)：23分48秒</p>
+</li>
+</ul>
+<p>看来修改配置（我改了CPU类型…）对ccache的影响是很大的，因为基本头文件发生变化后，就导致所有缓存数据都无效了，必须重头来做。但如果只是修改一些.c文件的代码，ccache的效果还是相当明显的。而且使用ccache对项目没有特别的依赖，布署成本很低，这在日常工作中很实用。</p>
+<blockquote>
+<p>可以用ccache -s来查看cache的使用和命中情况：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cache directory                     /home/kingand67/.ccache</div><div class="line">primary config                      /home/kingand67/.ccache/ccache.conf</div><div class="line">secondary config      (readonly)    /etc/ccache.conf</div><div class="line">cache hit (direct)                     0</div><div class="line">cache hit (preprocessed)               0</div><div class="line">cache miss                             0</div><div class="line">files in cache                         0</div><div class="line">cache size                           0.0 kB</div><div class="line">max cache size                       5.0 GB</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/kevinx_xu/article/details/8167358" target="_blank" rel="external">提高编译速度
+</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/01/16/Linux编译技巧/" class="archive-article-date">
+  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-16</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ccache/">ccache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/make/">make</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/release/">release</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tmpfs/">tmpfs</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="airticle-Linux mount(二)" class="article article-type-airticle" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -463,131 +651,6 @@
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mount/">mount</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="airticle-Linux编译技巧" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/16/Linux编译技巧/">Linux编译技巧</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p></p>
-<h2 id="编译技巧"><a href="#编译技巧" class="headerlink" title="编译技巧"></a>编译技巧</h2><p>从mount引发的血案</p>
-<h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><blockquote>
-<p>项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。</p>
-</blockquote>
-<h3 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h3><p>tmpfs在类Unix操作系统上是一个常见的名称会用来做为暂时的档案储存方式，在更多的情况下，它会用虚拟的内存而不是一个永久保存的媒体来做为在档案系统上的使用。tmpfs可以使用您的内存或swap分区来存储文件。</p>
-<p>tmpfs是基于Linux的虚拟内存管理子系统，面向普通用户的，根据用户需要随时可以创建此类型目录，以方便快捷地获得飞一样的读写速度。</p>
-<p>当用户创建了此类型的目录后，剩下的工作就交给MMU来完成，不论是最终是在物理内存中还是在SWAP中，都尽可能地满足用户的需求。</p>
-<p>这就是我们之前提到过的 <strong>虚拟硬盘</strong></p>
-<blockquote>
-<p>把文件放到内存上做编译，尤其如果编译器需要生成很多临时文件的话，比在磁盘上快多了。</p>
-</blockquote>
-<p>在Linux中，直接mount一个tmpfs就可以了。而且对所编译的工程没有任何要求，也不用改动编译环境。</p>
-<p>刚好我们复习一下之前学习到的一些mount的命令：</p>
-<p>①. mount -t tmpfs tmpfs ~/build -o size=1G</p>
-<ul>
-<li><p>-t 对应的是类型</p>
-</li>
-<li><p>-o 对应的是选项</p>
-</li>
-</ul>
-<p>②. df -lh</p>
-<ul>
-<li><p>-l 只显示本地文件</p>
-</li>
-<li><p>-h 可读</p>
-</li>
-</ul>
-<p>用df就能看出有tmpfs的挂载点：</p>
-<p>用来检查linux服务器的文件系统的磁盘空间占用情况。</p>
-<hr>
-<p>用2.6.32.2的Linux Kernel来测试一下编译速度：</p>
-<ul>
-<li><p>用物理磁盘：40分16秒</p>
-</li>
-<li><p>用tmpfs：39分56秒</p>
-</li>
-</ul>
-<blockquote>
-<p>呃……没什么变化。看来编译慢很大程度上瓶颈并不在IO上面。但对于一个实际项目来说，编译过程中可能还会有打包等IO密集的操作，所以只要可能，用tmpfs是有益无害的。当然对于大项目来说，你需要有足够的内存才能负担得起这个tmpfs的开销。</p>
-</blockquote>
-<h3 id="make-j"><a href="#make-j" class="headerlink" title="make -j"></a>make -j</h3><p>既然IO不是瓶颈，那CPU就应该是一个影响编译速度的重要因素了。</p>
-<p>用make -j带一个参数，可以把项目在进行并行编译，比如在一台双核的机器上，完全可以用make -j4，让make最多允许4个编译命令同时执行，这样可以更有效的利用CPU资源。</p>
-<blockquote>
-<p>还是用Kernel来测试：</p>
-</blockquote>
-<ul>
-<li><p>用make： 40分16秒</p>
-</li>
-<li><p>用make -j4：23分16秒</p>
-</li>
-<li><p>用make -j8：22分59秒</p>
-</li>
-</ul>
-<p>由此看来，在多核 <strong>CPU</strong> 上，适当的进行并行编译还是可以明显提高编译速度的。但并行的任务不宜太多，一般是以 <strong>CPU</strong> 的核心数目的两倍为宜。</p>
-<p>不过这个方案不是完全没有 <strong>cost</strong> 的，如果项目的 <strong>Makefile</strong> 不规范，没有正确的设置好依赖关系，并行编译的结果就是编译不能正常进行。如果依赖关系设置过于保守，则可能本身编译的可并行度就下降了，也不能取得最佳的效果。</p>
-<h3 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a>ccache</h3><p>ccache用于把编译的中间结果进行缓存，以便在再次编译的时候可以节省时间。这对于玩Kernel来说实在是再好不过了，因为经常需要修改一些Kernel的代码，然后再重新编译，而这两次编译大部分东西可能都没有发生变化。对于平时开发项目来说，也是一样。为什么不是直接用make所支持的增量编译呢？还是因为现实中，因为Makefile的不规范，很可能这种“聪明”的方案根本不能正常工作，只有每次make clean再make才行。</p>
-<p>安装完ccache后，可以在/usr/local/bin下建立gcc，g++，c++，cc的symbolic link，链到/usr/bin/ccache上。总之确认系统在调用gcc等命令时会调用到ccache就可以了（通常情况下/usr/local /bin会在PATH中排在/usr/bin前面）。</p>
-<blockquote>
-<p>继续测试：</p>
-</blockquote>
-<ul>
-<li><p>用ccache的第一次编译(make -j4)：23分38秒</p>
-</li>
-<li><p>用ccache的第二次编译(make -j4)：8分48秒</p>
-</li>
-<li><p>用ccache的第三次编译(修改若干配置，make -j4)：23分48秒</p>
-</li>
-</ul>
-<p>看来修改配置（我改了CPU类型…）对ccache的影响是很大的，因为基本头文件发生变化后，就导致所有缓存数据都无效了，必须重头来做。但如果只是修改一些.c文件的代码，ccache的效果还是相当明显的。而且使用ccache对项目没有特别的依赖，布署成本很低，这在日常工作中很实用。</p>
-<blockquote>
-<p>可以用ccache -s来查看cache的使用和命中情况：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cache directory                     /home/kingand67/.ccache</div><div class="line">primary config                      /home/kingand67/.ccache/ccache.conf</div><div class="line">secondary config      (readonly)    /etc/ccache.conf</div><div class="line">cache hit (direct)                     0</div><div class="line">cache hit (preprocessed)               0</div><div class="line">cache miss                             0</div><div class="line">files in cache                         0</div><div class="line">cache size                           0.0 kB</div><div class="line">max cache size                       5.0 GB</div></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/kevinx_xu/article/details/8167358" target="_blank" rel="external">提高编译速度
-</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/01/16/Linux编译技巧/" class="archive-article-date">
-  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-16</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ccache/">ccache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/make/">make</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/release/">release</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tmpfs/">tmpfs</a></li></ul>
 	</div>
 
       
@@ -1191,57 +1254,6 @@
 
 
   
-    <article id="airticle-C语言标准库函数学习(三)一一缓冲区操作函数" class="article article-type-airticle" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/">C语言标准库函数学习(三)一一缓冲区操作函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>
-
-</p><h2 id="Buffer-Manipulation-缓冲区操作函数"><a href="#Buffer-Manipulation-缓冲区操作函数" class="headerlink" title="Buffer Manipulation 缓冲区操作函数"></a>Buffer Manipulation 缓冲区操作函数</h2>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/12/07/C语言标准库函数学习(三)一一缓冲区操作函数/" class="archive-article-date">
-  	<time datetime="2016-12-07T03:29:32.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-07</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/buffer-manipulation/">buffer manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1328,7 +1340,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hentai/" style="font-size: 10px;">hentai</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    				<a href="/tags/CRT/" style="font-size: 14px;">CRT</a> <a href="/tags/algorithm/" style="font-size: 16px;">algorithm</a> <a href="/tags/animation/" style="font-size: 14px;">animation</a> <a href="/tags/buffer-manipulation/" style="font-size: 10px;">buffer manipulation</a> <a href="/tags/c/" style="font-size: 20px;">c</a> <a href="/tags/c/" style="font-size: 18px;">c++</a> <a href="/tags/ccache/" style="font-size: 10px;">ccache</a> <a href="/tags/cgroup/" style="font-size: 10px;">cgroup</a> <a href="/tags/concurrency/" style="font-size: 16px;">concurrency</a> <a href="/tags/data-structures/" style="font-size: 10px;">data structures</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/gc/" style="font-size: 16px;">gc</a> <a href="/tags/hash/" style="font-size: 10px;">hash</a> <a href="/tags/hentai/" style="font-size: 12px;">hentai</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/http/" style="font-size: 12px;">http</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/lua/" style="font-size: 16px;">lua</a> <a href="/tags/make/" style="font-size: 10px;">make</a> <a href="/tags/mount/" style="font-size: 12px;">mount</a> <a href="/tags/namespace/" style="font-size: 10px;">namespace</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/release/" style="font-size: 10px;">release</a> <a href="/tags/search/" style="font-size: 10px;">search</a> <a href="/tags/siri/" style="font-size: 10px;">siri</a> <a href="/tags/solution/" style="font-size: 10px;">solution</a> <a href="/tags/sort/" style="font-size: 12px;">sort</a> <a href="/tags/string-manipulation/" style="font-size: 10px;">string manipulation</a> <a href="/tags/swift/" style="font-size: 14px;">swift</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/sysvinit/" style="font-size: 10px;">sysvinit</a> <a href="/tags/tcp/" style="font-size: 10px;">tcp</a> <a href="/tags/thread/" style="font-size: 12px;">thread</a> <a href="/tags/threadpool/" style="font-size: 12px;">threadpool</a> <a href="/tags/tmpfs/" style="font-size: 10px;">tmpfs</a> <a href="/tags/trees/" style="font-size: 10px;">trees</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/web-server/" style="font-size: 10px;">web server</a> <a href="/tags/zookeeper/" style="font-size: 12px;">zookeeper</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/面试/" style="font-size: 12px;">面试</a>
     			</div>
     	</section>
     
