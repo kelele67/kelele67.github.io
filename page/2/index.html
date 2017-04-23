@@ -148,6 +148,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="airticle-C++11 并发学习(四)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/C++11 并发学习(四)/">C++11 并发学习(四)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/15/C++11 并发学习(四)/" class="archive-article-date">
+  	<time datetime="2017-02-15T06:52:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
+<h2 id="下面我们来看一下C-11多线程下生产者消费者模型"><a href="#下面我们来看一下C-11多线程下生产者消费者模型" class="headerlink" title="下面我们来看一下C++11多线程下生产者消费者模型"></a>下面我们来看一下C++11多线程下生产者消费者模型</h2><hr>
+        
+          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">threadpool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="airticle-C++11 并发学习(三)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -168,80 +238,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="C-11-ThreadPool-简单实现"><a href="#C-11-ThreadPool-简单实现" class="headerlink" title="C++11 ThreadPool 简单实现"></a>C++11 ThreadPool 简单实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> THREAD_POOL_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;condition_variable&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;type_traits&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// C++11 版的 线程池</span></div><div class="line"><span class="keyword">namespace</span> zl</div><div class="line">&#123;</div><div class="line">    <span class="keyword">class</span> ThreadsGuard</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        ThreadsGuard(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; v)</div><div class="line">            : threads_(v)</div><div class="line">        &#123;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ~ThreadsGuard()</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i != threads_.size(); ++i)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (threads_[i].joinable())</div><div class="line">                &#123;</div><div class="line">                    threads_[i].join();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadsGuard(ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (ThreadsGuard&amp;&amp; tg) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">        ThreadsGuard(<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadsGuard&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadsGuard&amp;) = <span class="keyword">delete</span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt;&amp; threads_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">class</span> ThreadPool</div><div class="line">    &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>()&gt; task_type;</div><div class="line"></div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">explicit</span> <span class="title">ThreadPool</span><span class="params">(<span class="keyword">int</span> n = <span class="number">0</span>)</span></span>;</div><div class="line"></div><div class="line">        ~ThreadPool()</div><div class="line">        &#123;</div><div class="line">            stop();</div><div class="line">            cond_.notify_all();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            stop_.store(<span class="literal">true</span>, <span class="built_in">std</span>::memory_order_release);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">        <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt; add(Function&amp;&amp;, Args&amp;&amp;...);</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        ThreadPool(ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (ThreadPool&amp;&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool(<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line">        ThreadPool&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> ThreadPool&amp;) = <span class="keyword">delete</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::atomic&lt;<span class="keyword">bool</span>&gt; stop_;</div><div class="line">        <span class="built_in">std</span>::mutex mtx_;</div><div class="line">        <span class="built_in">std</span>::condition_variable cond_;</div><div class="line"></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;task_type&gt; tasks_;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads_;</div><div class="line">        zl::ThreadsGuard tg_;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">inline</span> ThreadPool::ThreadPool(<span class="keyword">int</span> n)</div><div class="line">        : stop_(<span class="literal">false</span>)</div><div class="line">        , tg_(threads_)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> nthreads = n;</div><div class="line">        <span class="keyword">if</span> (nthreads &lt;= <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            nthreads = <span class="built_in">std</span>::thread::hardware_concurrency();</div><div class="line">            nthreads = (nthreads == <span class="number">0</span> ? <span class="number">2</span> : nthreads);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != nthreads; ++i)</div><div class="line">        &#123;</div><div class="line">            threads_.push_back(<span class="built_in">std</span>::thread([<span class="keyword">this</span>]&#123;</div><div class="line">                <span class="keyword">while</span> (!stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                &#123;</div><div class="line">                    task_type task;</div><div class="line">                    &#123;</div><div class="line">                        <span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; ulk(<span class="keyword">this</span>-&gt;mtx_);</div><div class="line">                        <span class="keyword">this</span>-&gt;cond_.wait(ulk, [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> stop_.load(<span class="built_in">std</span>::memory_order_acquire) || !<span class="keyword">this</span>-&gt;tasks_.empty(); &#125;);</div><div class="line">                        <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                            <span class="keyword">return</span>;</div><div class="line">                        task = <span class="built_in">std</span>::move(<span class="keyword">this</span>-&gt;tasks_.front());</div><div class="line">                        <span class="keyword">this</span>-&gt;tasks_.pop();</div><div class="line">                    &#125;</div><div class="line">                    task();</div><div class="line">                &#125;</div><div class="line">            &#125;));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">class</span> Function, <span class="keyword">class</span>... Args&gt;</div><div class="line">    <span class="built_in">std</span>::future&lt;<span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type&gt;</div><div class="line">        ThreadPool::add(Function&amp;&amp; fcn, Args&amp;&amp;... args)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="built_in">std</span>::result_of&lt;Function(Args...)&gt;::type return_type;</div><div class="line">        <span class="keyword">typedef</span> <span class="built_in">std</span>::packaged_task&lt;return_type()&gt; task;</div><div class="line"></div><div class="line">        <span class="keyword">auto</span> t = <span class="built_in">std</span>::make_shared&lt;task&gt;(<span class="built_in">std</span>::bind(<span class="built_in">std</span>::forward&lt;Function&gt;(fcn), <span class="built_in">std</span>::forward&lt;Args&gt;(args)...));</div><div class="line">        <span class="keyword">auto</span> ret = t-&gt;get_future();</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; lg(mtx_);</div><div class="line">            <span class="keyword">if</span> (stop_.load(<span class="built_in">std</span>::memory_order_acquire))</div><div class="line">                <span class="keyword">throw</span> <span class="built_in">std</span>::runtime_error(<span class="string">"thread pool has stopped"</span>);</div><div class="line">            tasks_.emplace([t]&#123;(*t)(); &#125;);</div><div class="line">        &#125;</div><div class="line">        cond_.notify_one();</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span>  <span class="comment">/* THREAD_POOL_H */</span></span></div></pre></td></tr></table></figure>
-<hr>
-<h2 id="线程池的具体思路就不多说了，我们主要说一下用到的-c-11-的部分"><a href="#线程池的具体思路就不多说了，我们主要说一下用到的-c-11-的部分" class="headerlink" title="线程池的具体思路就不多说了，我们主要说一下用到的 c++11 的部分"></a>线程池的具体思路就不多说了，我们主要说一下用到的 <strong>c++11</strong> 的部分</h2><h3 id="首先是建立了一个-std-vector-lt-std-thread-gt-amp-v-的容器"><a href="#首先是建立了一个-std-vector-lt-std-thread-gt-amp-v-的容器" class="headerlink" title="首先是建立了一个 std::vector&lt; std::thread&gt;&amp; v 的容器"></a>首先是建立了一个 std::vector&lt; std::thread&gt;&amp; v 的容器</h3><h3 id="定义了一个原子操作-std-atomic-lt-bool-gt-stop-对bool进行了原子性封装"><a href="#定义了一个原子操作-std-atomic-lt-bool-gt-stop-对bool进行了原子性封装" class="headerlink" title="定义了一个原子操作 std::atomic&lt; bool&gt; stop_  对bool进行了原子性封装"></a>定义了一个原子操作 std::atomic&lt; bool&gt; stop_  对bool进行了原子性封装</h3><h3 id="然后不仅用到了-std-lock-guard，还用了相比其提供了更好的上锁和解锁控制的-std-unique-lock。"><a href="#然后不仅用到了-std-lock-guard，还用了相比其提供了更好的上锁和解锁控制的-std-unique-lock。" class="headerlink" title="然后不仅用到了 std::lock_guard，还用了相比其提供了更好的上锁和解锁控制的 std::unique_lock。"></a>然后不仅用到了 std::lock_guard，还用了相比其提供了更好的上锁和解锁控制的 std::unique_lock。</h3><p>这里主要介绍一下操作更为丰富的 <strong>std::unique_lock</strong></p>
-<blockquote>
-<p>顾名思义，<strong>unique_lock</strong> 对象以独占所有权的方式（unique owership）管理 <strong>mutex</strong> 对象的上锁和解锁操作，所谓独占所有权，就是没有其他的 <strong>unique_lock</strong> 对象同时拥有某个 <strong>mutex</strong> 对象的所有权。</p>
-</blockquote>
-<p>  ①. 上锁/解锁操作：lock，try_lock，try_lock_for，try_lock_until 和 unlock</p>
-<p>  ②. 修改操作：移动赋值(move assignment)(前面已经介绍过了)，交换(swap)（与另一个 std::unique_lock 对象交换它们所管理的 Mutex 对象的所有权），释放(release)（返回指向它所管理的 Mutex 对象的指针，并释放所有权）</p>
-<p>  ③. 获取属性操作：owns_lock（返回当前 std::unique_lock 对象是否获得了锁）、operator bool()（与 owns_lock 功能相同，返回当前 std::unique_lock 对象是否获得了锁）、mutex（返回当前 std::unique_lock 对象所管理的 Mutex 对象的指针）。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><blockquote>
-<p>感觉这个例子还是用到挺多 <strong>C++11</strong> 的特性，在这里还是得一一解释一下（只是简单解释一下，关于C++还有很多要学的，我目前也只是个菜鸡啊。。。 <strong>C++</strong> 太棒了！特性多到你学不完→→手动滑稽）：</p>
-</blockquote>
-<h3 id="首先是std-function"><a href="#首先是std-function" class="headerlink" title="首先是std::function"></a>首先是std::function</h3><p>简单的来说就是：</p>
-<blockquote>
-<p>通过std::function对 <strong>C++</strong> 中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std::function对象；让我们不再纠结那么多的可调用实体。一切变的简单粗暴。</p>
-</blockquote>
-<p>其实就是以前我们用函数指针来统一处理不同的函数对象类型，现在我们可以使用更安全的std::function来完成这些任务。</p>
-<p>在上述例子中，使用它来定义了一个任务类型对象</p>
-<p>typedef std::function&lt; void()&gt; task_type;</p>
-<p><a href="http://www.jellythink.com/archives/771" target="_blank" rel="external">更为深入地学习，可以看这篇博客</a></p>
-<h3 id="std-memory-order"><a href="#std-memory-order" class="headerlink" title="std::memory_order"></a>std::memory_order</h3><p>C++11 中规定了6种访存次序(Memory Order)，<a href="https://www.zhihu.com/question/24301047" target="_blank" rel="external">知乎上给出了通俗的解释</a></p>
-<ul>
-<li>momory_order_relaxed,</li>
-<li>memory_order_consume,</li>
-<li>memory_order_acquire,</li>
-<li>memory_order_release,</li>
-<li>memory_order_acq_rel,</li>
-<li>memory_order_seq_cst.</li>
-</ul>
-<blockquote>
-<p>虽然有6个选项，其实表示的是三种内存模型</p>
-</blockquote>
-<ul>
-<li><p>sequential consistent(memory_order_seq_cst)</p>
-</li>
-<li><p>relaxed(memory_order_seq_cst)</p>
-</li>
-<li><p>acquire release(memory_order_consume, memory_order_acquire, memory_order_release, memory_order_acq_rel) </p>
-</li>
-</ul>
-<p>我们这里用到的是获取-释放次序 <em>acquire release</em></p>
-<blockquote>
-<p>目的就是限制两个来自不同线程的原子操作的顺序，具体的操作就是需要两个线程进行一下同步，同步对一个变量的读写操作…</p>
-</blockquote>
-<p>①. 原子 <strong>load</strong> 操作：</p>
-<p>while (!stop_.load(std::memory_order_acquire))</p>
-<p>②. 原子 <strong>store</strong> 操作：</p>
-<p>std::memory_order_release</p>
-<h3 id="std-result-of"><a href="#std-result-of" class="headerlink" title="std::result_of"></a>std::result_of</h3><p>其实这个就是和我们之前的auto decltype都是属于自动类型推导，主要是使我们的代码可读易维护</p>
-<p>我们这里用的<br>std::future&lt; typename std::result_of&lt; Function(Args…)&gt;::type&gt; add(Function&amp;&amp;, Args&amp;&amp;…);<br>就是为了获取function的返回值</p>
-<blockquote>
-<p>result_of 其实就是通过decltype来推导函数的返回类型</p>
-</blockquote>
-<h3 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a>std::move</h3><p>在C++11中，标准库在&lt; utility&gt;中提供了一个有用的函数std::move，这个函数的名字具有迷惑性，因为实际上std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而我们可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：<br>static_cast&lt; T&amp;&amp;&gt;(lvalue);</p>
-<blockquote>
-<p>值得一提的是，被转化的左值，其生命期并没有随着左右值的转化而改变。如果读者期望std::move转化的左值变量lvalue能立即被析构，那么肯定会失望了。</p>
-</blockquote>
-<h3 id="std-packaged-task"><a href="#std-packaged-task" class="headerlink" title="std::packaged_task"></a>std::packaged_task</h3><p>std::packaged_task它包装了一个可调用的目标（如function, lambda expression, bind expression, or another function object）,以便异步调用，它和promise在某种程度上有点像，promise保存了一个共享状态的值，而packaged_task保存的是一个函数</p>
-<p>typedef std::packaged_task&lt; return_type()&gt; task;</p>
-<h3 id="std-make-shared"><a href="#std-make-shared" class="headerlink" title="std::make_shared"></a>std::make_shared</h3><p>C++11 中引入了智能指针, 同时还有一个模板函数 std::make_shared 可以返回一个指定类型的 std::shared_ptr：</p>
-<p>struct A;<br>std::shared_ptr&lt; A&gt; p1 = std::make_shared&lt; A&gt;();<br>std::shared_ptr&lt; A&gt; p2(new A);</p>
-<p>①. 如果是使用 <strong>new</strong> ：</p>
-<p>auto p = new widget();<br>shared_ptr sp1{ p }, sp2{ sp1 };<br>需要两次内存分配</p>
-<p>②. 然而使用 <strong>make_shared</strong> 的话：</p>
-<p>auto sp1 = make_shared(), sp2{ sp1 };</p>
-<p>所以我们这里 <strong>std::make_shared</strong> 其实就是为了代替 <strong>new</strong><br>auto t = std::make_shared&lt; task&gt;(std::bind(std::forward&lt; Function&gt;(fcn), std::forward&lt; Args&gt;(args)…));</p>
-<p><a href="http://www.tuicool.com/articles/F3u6jy" target="_blank" rel="external">想要进一步了解它与std::shared_ptr的构造函数比较的戳</a></p>
-<p>总结一些我们需要了解的就是：</p>
-<p>①. 同直接使用new相比，make函数减小了代码重复，提高的异常安全，并且对于std::make_shared和std::allcoated_shared，生成的代码会更小更快。</p>
-<p>②. 不能使用make函数的情况包括我们需要定制删除器和期望直接传递大括号初始化器。</p>
-<p>③. 对于std::shared_ptr，额外的不建议使用make函数的情况包括：<br>（1）定制内存管理的类<br>（2）关注内存的系统，非常大的对象，以及生存期比 std::shared_ptr长的std::weak_ptr</p>
-<p>下一篇我们将会实现C++11多线程下各种生产者消费者模型</p>
-
+        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
+<h2 id="C-11-ThreadPool-简单实现"><a href="#C-11-ThreadPool-简单实现" class="headerlink" title="C++11 ThreadPool 简单实现"></a>C++11 ThreadPool 简单实现</h2><hr>
+        
+          <a class="article-more-a" href="/2017/02/14/C++11 并发学习(三)/#more">more >></a>
+        
       
 
       
@@ -307,41 +308,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="线程详解"><a href="#线程详解" class="headerlink" title="线程详解"></a>线程详解</h2><p>具体源码的大家有兴趣的可以去查看<a href="http://www.open-std.org/" target="_blank" rel="external">c++ 标准委员会的官方文档</a></p>
+        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
+<h2 id="线程详解"><a href="#线程详解" class="headerlink" title="线程详解"></a>线程详解</h2><p>具体源码的大家有兴趣的可以去查看<a href="http://www.open-std.org/">c++ 标准委员会的官方文档</a></p>
 <p>在这里我主要讲一下他们的主要结构以及主要用法</p>
-<h3 id="lt-thread-gt"><a href="#lt-thread-gt" class="headerlink" title="&lt; thread&gt;"></a>&lt; thread&gt;</h3><ol>
-<li>std::thread 简单例子</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span> <span class="comment">// std::cout</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span>   <span class="comment">// std::thread</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">thread_task</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello thread"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="function">thread <span class="title">t</span><span class="params">(thread_task)</span></span>;</div><div class="line">    t.join();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="lt-mutex-gt"><a href="#lt-mutex-gt" class="headerlink" title="&lt; mutex&gt;"></a>&lt; mutex&gt;</h3><blockquote>
-<p>std::mutex 是C++11 中最基本的互斥量，std::mutex 对象提供了独占所有权的特性——即不支持递归地对 std::mutex 对象上锁，而 std::recursive_lock 则可以递归地对互斥量对象上锁。</p>
-</blockquote>
-<p>①. <strong>Mutex</strong> 系列类(四种)</p>
-<ul>
-<li>std::mutex，最基本的 Mutex 类。</li>
-<li>std::recursive_mutex，递归 Mutex 类。</li>
-<li>std::time_mutex，定时 Mutex 类。</li>
-<li>std::recursive_timed_mutex，定时递归 Mutex 类</li>
-</ul>
-<p>②. <strong>Lock</strong> 类（两种）</p>
-<ul>
-<li>std::lock_guard，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁。</li>
-<li>std::unique_lock，与 Mutex RAII （资源获取即初始化）相关，方便线程对互斥量上锁，但提供了更好的上锁和解锁控制。</li>
-</ul>
-<h3 id="lt-condition-variable-gt"><a href="#lt-condition-variable-gt" class="headerlink" title="&lt; condition_variable&gt;"></a>&lt; condition_variable&gt;</h3><blockquote>
-<p>&lt; condition_variable &gt; 头文件主要包含了与条件变量相关的类和函数。与条件变量相关的类包括 std::condition_variable 和 std::condition_variable_any，还有枚举类型std::cv_status。另外还包括函数 std::notify_all_at_thread_exit()</p>
-<p>在 <strong>Linux</strong> 下是使用 <strong>Pthread</strong> 库中的 <strong>pthread<em>cond</em>*() </strong> 函数来实现条件变量相关的功能</p>
-</blockquote>
-<h3 id="lt-future-gt"><a href="#lt-future-gt" class="headerlink" title="&lt; future&gt;"></a>&lt; future&gt;</h3><blockquote>
-<p>C++11 标准中与异步任务系相关的类型主要是以下四种 std::promise，std::packaged_task（std::promise，std::packaged_task 也称为异步任务的提供者 Provider，此外 std::async 也可以作为异步任务的提供者，不过 std::async 并不是类，而是函数，本章后面会详细介绍异步任务的提供者 Provider），std::future，std::shared_future。另外 &lt; future&gt; 中还定义一些辅助的类，例如： std::future_error，std::future_errc，std::status，std::launch。</p>
-</blockquote>
-<p>之前也有提到，主要是用来实现异步</p>
-<h3 id="lt-atomic-gt"><a href="#lt-atomic-gt" class="headerlink" title="&lt; atomic&gt;"></a>&lt; atomic&gt;</h3><p>关于C++11的原子操作之前我有过笔记，下图</p>
-<p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG2.jpeg" alt=""></p>
-<p>好了，关于 <strong>C++11</strong> 的新特性大致的梳理了一遍，接下来我们先看看之前提到的那个 <strong>C++11</strong> 的线程池具体是怎么实现的吧</p>
-
+        
+          <a class="article-more-a" href="/2017/02/14/C++11 并发学习(二)/#more">more >></a>
+        
       
 
       
@@ -407,21 +380,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
+        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
 <h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><blockquote>
 <p>与并发相近的另一个概念是并行(Parallel)。和并发所描述的情况一样，并行也是指两个或多个任务被同时执行。但是严格来讲，并发和并行的概念并是不等同的，两者存在很大的差别。下面我们来看看计算机科学家们是怎么区分并发和并行的。</p>
 <p>并发是一个处理器同时处理多个任务，而并行是多个处理器或者是多核的处理器同时处理多个不同的任务。前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生。</p>
 </blockquote>
-<h2 id="C-并发"><a href="#C-并发" class="headerlink" title="C++并发"></a>C++并发</h2><h3 id="C-11多线程相关的头文件"><a href="#C-11多线程相关的头文件" class="headerlink" title="C++11多线程相关的头文件"></a>C++11多线程相关的头文件</h3><blockquote>
-<p>C++11 新标准中引入了五个头文件来支持多线程编程，它们分别是 &lt; atomic&gt;, &lt; thread&gt;, &lt; mutex&gt;, &lt; condition_variable&gt; 和 &lt; future&gt;。</p>
-</blockquote>
-<p>①. &lt; atomic&gt;：该头文主要声明了两个类, std::atomic 和 std::atomic_flag，另外还声明了一套 C 风格的原子类型和与 C 兼容的原子操作的函数。<br>&lt; atomic&gt; 一一 可以用来实现数据结构的无锁结构</p>
-<p>②. &lt; thread&gt;：该头文件主要声明了 std::thread 类，另外 std::this_thread 命名空间也在该头文件中。<br>之前在Linux下写多线程的时候用的Pthread，但是在实现线程池的时候，有用到过C++11的<thread>，具体是学习自<a href="https://github.com/lizhenghn123/zl_threadpool" target="_blank" rel="external">这个大神的C++的线程池demo</a></thread></p>
-<p>③. &lt; mutex&gt;：该头文件主要声明了与互斥量(Mutex)相关的类，包括 std::mutex_* 一系列类，std::lock_guard, std::unique_lock, 以及其他的类型和函数。</p>
-<p>④. &lt; condition_variable&gt;：该头文件主要声明了与条件变量相关的类，包括 std::condition_variable 和 std::condition_variable_any。</p>
-<p>⑤. &lt; future&gt;：该头文件主要声明了 std::promise, std::package_task 两个 Provider 类，以及 std::future 和 std::shared_future 两个 Future 类，另外还有一些与之相关的类型和函数，std::async() 函数就声明在此头文件中。<br>这里介绍一下std::async() 一一 用来优雅的实现C++异步，一般和std::future()一起使用，前者用于创建异步任务，后者从异步任务中获取结果。</p>
-<p>接下来我们就是要具体地学习每一个部分了，不过大部分就是之前学习过，用过的，应该学起来还是很快的。</p>
-
+<hr>
+        
+          <a class="article-more-a" href="/2017/02/13/C++11 并发学习(一)/#more">more >></a>
+        
       
 
       
@@ -489,17 +456,11 @@
       
         <p>
 
-</p><p>关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧</p>
+<p>关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧</p>
 <p>这里先给出几个主要的排序，挖个坑吧。。虽然好像挖的坑有点多了我。。</p>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> first, <span class="keyword">int</span> last)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> pivot = OnceSort(arr, first, last);</div><div class="line">    <span class="comment">//已经有轴值了，再对轴值左右进行递归</span></div><div class="line">    QuickSort(arr, first, pivot<span class="number">-1</span>);</div><div class="line">    QuickSort(arr, pivot+<span class="number">1</span>, last);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnceSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> first, <span class="keyword">int</span> last)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> i = first, j = last;</div><div class="line">    <span class="comment">//当 i &lt; j 时，即移动的点还没到中间时循环</span></div><div class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</div><div class="line">        <span class="comment">//从右边区开始，保证 i&lt;j 并且 arr[i] 小于等于 arr[j]的时候就向左遍历</span></div><div class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= arr[j]) --j;</div><div class="line">       <span class="comment">//这时候已经跳出循环，说明 i &gt; j或者 arr[i] 大于 arr[j]了，如果是如果i&lt;j那</span></div><div class="line">       <span class="comment">//就是arr[i]大于arr[j]，那就交换</span></div><div class="line">        <span class="keyword">if</span> (i &lt; j) &#123;</div><div class="line">            <span class="keyword">int</span> temp = arr[i];</div><div class="line">            arr[i] = arr[j];</div><div class="line">            arr[j] = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//对左边区执行一样的操作</span></div><div class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= arr[j]) ++i;</div><div class="line">        <span class="keyword">if</span> (i &lt; j) &#123;</div><div class="line">            <span class="keyword">int</span> temp = arr[i];</div><div class="line">            arr[i] = arr[j];</div><div class="line">            arr[j] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//返回已经移动的一边当做下次排序的轴值</span></div><div class="line">    <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">void HeapSort(int arr[], int len) &#123;</div><div class="line">    int i;</div><div class="line">    //初始化堆，从最后一个父节点开始</div><div class="line">    for (i = len / 2 - 1; i &gt;= 0; --i) &#123;</div><div class="line">        Heapify(arr, i, len);</div><div class="line">    &#125;</div><div class="line">    // 从堆中的取出最大元素再调整堆</div><div class="line">    for (int i = len - 1; i &gt; 0; --i) &#123;</div><div class="line">        int temp = arr[i];</div><div class="line">        arr[i] = arr[0];</div><div class="line">        arr[0] = temp;</div><div class="line">        //调整成堆</div><div class="line">        Heapify(arr, 0, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Heapify(int arr[], int first, int last) &#123;</div><div class="line">    int father = first;</div><div class="line">    int son = 2 * father + 1;</div><div class="line">    while (son &lt; last) &#123;</div><div class="line">        if (son + 1 &lt; last &amp;&amp; arr[son] &lt; arr[son + 1])</div><div class="line">            ++son;</div><div class="line">        // 如果父节点大于子结点则表示调整完毕</div><div class="line">        if (arr[father] &gt; arr[son])</div><div class="line">            break;</div><div class="line">        else &#123;</div><div class="line">            // 不然就交换父节点和子节点的元素</div><div class="line">            int temp = arr[father];</div><div class="line">            arr[father] = arr[son];</div><div class="line">            arr[son] = temp;</div><div class="line">            // 父和子节点变成下一个要比较的位置</div><div class="line">            father = son;</div><div class="line">            son = 2 * father + 1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//插入排序</span></div><div class="line"><span class="comment">//这里temp是哨兵位</span></div><div class="line"><span class="comment">//从小到大</span></div><div class="line"><span class="comment">//时间复杂度 n^2</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> temp;</div><div class="line">    <span class="keyword">int</span> j;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">        temp = b[i];</div><div class="line">        <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;=<span class="number">0</span>; j--) &#123;</div><div class="line">            <span class="keyword">if</span> (b[j] &gt;temp) &#123;</div><div class="line">                b[j+<span class="number">1</span>] = b[j];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        b[j+<span class="number">1</span>] = temp;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"the sort is:"</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; b[i] &lt;&lt; <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Bubble</span><span class="params">(<span class="keyword">int</span> b[<span class="number">10</span>])</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> temp;</div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">9</span>; i &gt; <span class="number">0</span>; i--) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (b[j] &gt; b[j+<span class="number">1</span>]) &#123;</div><div class="line">                temp = b[j];</div><div class="line">                b[j] = b[j+<span class="number">1</span>];</div><div class="line">                b[j+<span class="number">1</span>] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"the sort is:"</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;b[i]&lt;&lt;<span class="string">" "</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-
+        
+          <a class="article-more-a" href="/2017/02/07/C++数据结构复习(二)一一排序算法/#more">more >></a>
+        
       
 
       
@@ -563,23 +524,12 @@
       
         <p>
 
-</p><h2 id="一道经典的LeetCode题"><a href="#一道经典的LeetCode题" class="headerlink" title="一道经典的LeetCode题"></a><a href="https://leetcode.com/problems/two-sum/#/description" target="_blank" rel="external">一道经典的LeetCode题</a></h2><blockquote>
+<h2 id="一道经典的LeetCode题"><a href="#一道经典的LeetCode题" class="headerlink" title="一道经典的LeetCode题"></a><a href="https://leetcode.com/problems/two-sum/#/description">一道经典的LeetCode题</a></h2><blockquote>
 <p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
 </blockquote>
-<p>这里我们用的解法是用一个hash表，储存每一个数对应的下标<br>这大概是我第一次使用hash</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mapping;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            mapping[nums[i]] = i;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</div><div class="line">            <span class="keyword">const</span> <span class="keyword">int</span> gap = target - nums[i];</div><div class="line">            <span class="keyword">if</span> ( mapping[gap] &gt; i) &#123;</div><div class="line">                result.push_back(i);</div><div class="line">                result.push_back(mapping[gap]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="散列表的冲突处理"><a href="#散列表的冲突处理" class="headerlink" title="散列表的冲突处理"></a>散列表的冲突处理</h2><p>这里介绍一下我认为还是比较重要的冲突处理</p>
-<h3 id="闭散列法（开放定址法）"><a href="#闭散列法（开放定址法）" class="headerlink" title="闭散列法（开放定址法）"></a>闭散列法（开放定址法）</h3><blockquote>
-<p>当插入元素的时候，一旦发生了散列冲突，就去寻找下一个空的散列地址供插入，而查找的时候逐个查找，直到碰到开放的地址查找失败。闭散列法是通过将冲突的元素以一定的模式存储在原散列的空间中。<br>之所以叫做闭散列法，就是因为冲突的元素没有开辟额外的存储空间，还是在原先hash表的空间范围之内。<br>　　(1). 线性探测法：将散列表看作是一个循环向量，若初始地址是f(key)=d，则依照顺序d、d+1、d+2…的顺序取查找，即f(key)=(f(key)+1)mod N;<br>　　(2). 二次探测法：基本思路和线性探测法一致，只是搜索的步长和方向更加的多样，会交替以两个方向，步长为搜索次数的平方来查找；<br>　　(3). 双重散列法：通常双重散列法是开放地址中最好的方法，其通过提供hash()和rehash()两个函数，前者产生冲突的时候，定制化后者rehash()重新寻址，其机制比前面两种固定格式的要灵活的多；<br>　　开放定址法一般用于冲突极少的情况，同时因为没有用到指针，所以对于数据的传输是友好的。</p>
-</blockquote>
-<h3 id="开散列法"><a href="#开散列法" class="headerlink" title="开散列法"></a>开散列法</h3><p>　与前面闭散列法对应的开散列法，一般也叫作拉链法或者链地址法，通过将冲突的元素组织在链表中，采用链表遍历的方式查找。链地址法和上面的开放定址法最大的优势是解决方法直观，实现起来简单，尤其在删除元素的时候此处只是简单的链表操作，但是前面需要考虑后面可能有元素，处理会比较复杂。同事开散列法可以存储超过散列表容量个数的元素。<br>　　(1). 链地址法：相同散列值的记录放到同一个链表中，他们在同一个Bucket中；<br>SGI STL中hash table使用的是开链法进行的冲突处理。所以我们重点介绍一下：</p>
-<pre><code>他的结构图如下：
-![](http://oe9uinblw.bkt.clouddn.com/stl-hash-table.png)
-具体的实现我最近还会总结一下STL，有兴趣的也可以关注一下
-</code></pre><p>　　(2). 公共溢出法：将所有的冲突都放到一个公共的溢出表中去，适用于冲突情况很小的时候。<br>　　除了使用传统的链表，还可以使用dynamic array的方式存储，分配的时候也可以预分配多个，以保证对CPU的缓存优化友好。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://taozj.org/201611/data-structure-and-algorithm-%281%29-hash.html" target="_blank" rel="external">taozj的博客</a></p>
-
+        
+          <a class="article-more-a" href="/2017/02/07/C++数据结构复习(一)一一hash散列容器/#more">more >></a>
+        
       
 
       
@@ -647,34 +597,11 @@
       
         <p>
 
-</p><h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。</p>
-<p>容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范具体见<a href="https://www.opencontainers.org/" target="_blank" rel="external">Open Container Initiative(OCI)</a>。</p>
-<h2 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h2><p>对于一个接触虚拟机很久的人来说，因为用的 <strong>MAC</strong> ，所以从大一开始我就安装了 <strong>windows</strong> 的虚拟机，当然很大一部分原因是因为要用 <strong>VS</strong> 开始学习编程，但是更多的还是用来打撸了哈哈，后来大二我安装了 <strong>Ubuntu</strong> ，这是我第一次接触Linux系统，虽然感觉和 <strong>macOS</strong> 差不多的样子，但是还是让我深深地爱上了 <strong>Linux</strong> 。</p>
-<p>扯得有点远了，其实虚拟机和容器是完全不同的技术，虽然他们都是为了让我们有一个不同的系统来安装我们需要的环境或者是其他，但是从本质上来说容器例如 <strong>Docker</strong> 是一个使用了 <strong>Linux Namespace</strong> 和 <strong>Cgroups</strong> 的虚拟化工具，而虚拟机则是一套完整的系统环境。</p>
-<p>我们接下来的学习也是围绕这容器使用到的<br><strong>Namespace</strong> 和 <strong>Cgroups</strong> 这两个经典的 <strong>Linux</strong> 功能来进行的。</p>
-<h2 id="容器特点"><a href="#容器特点" class="headerlink" title="容器特点"></a>容器特点</h2><h3 id="不同的Linux发行版可以共享内核"><a href="#不同的Linux发行版可以共享内核" class="headerlink" title="不同的Linux发行版可以共享内核"></a>不同的Linux发行版可以共享内核</h3><blockquote>
-<p>当进程开始运行后，进程和内核的交互就是系统调用，当进程需要访问由内核管理的资源时，采用软件中断的方式和内核交互，每个系统调用都有一个中断号，并且这个号不会随着内核版本变化而变化。</p>
-</blockquote>
-<p>并且Linux内核和应用层进程之间的关系是松耦合的，只要保证两个条件：</p>
-<ul>
-<li>内核能识别应用层程序的格式</li>
-<li>应用层需要的系统调用内核能支持</li>
-</ul>
-<p>由于Linux下可执行文件和动态库的格式以及系统调用的接口都比较稳定，所以不同的Linux发行版在大部分情况下都可以共享同一个内核</p>
-<h3 id="启动迅速"><a href="#启动迅速" class="headerlink" title="启动迅速"></a>启动迅速</h3><blockquote>
-<p>容器的本质是一个或多个进程以及他们所能访问的资源的集合。启动一个容器的步骤大概就是：</p>
-</blockquote>
-<ul>
-<li><p>配置好相关资源，如内存、磁盘、网络等配置资源就是往系统中添加一些配置，非常快</p>
-</li>
-<li><p>初始化容器所用到的文件目录结构由于Linux下有COW（copy on write）的文件系统，如Btrfs、aufs，所以可以很快的根据镜像生成容器的文件系统目录结构。</p>
-</li>
-<li><p>启动进程和启动一个普通的进程没有区别，对Linux内核来说，所有的应用层进程都是一样的</p>
-</li>
-</ul>
-<p>从上面可以看出启动容器的过程中没有耗时的操作，这也是为什么容器能在毫秒级别启动起来的原因</p>
-<p>接下来我们就先来学习 <strong>Namespace</strong> 的相关知识</p>
-
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。</p>
+<p>容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范具体见<a href="https://www.opencontainers.org/">Open Container Initiative(OCI)</a>。</p>
+        
+          <a class="article-more-a" href="/2017/01/18/Linux容器/#more">more >></a>
+        
       
 
       
@@ -744,83 +671,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p></p>
+        <p><p></p>
 <h2 id="编译技巧"><a href="#编译技巧" class="headerlink" title="编译技巧"></a>编译技巧</h2><p>从mount引发的血案</p>
 <h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><blockquote>
 <p>项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。</p>
 </blockquote>
-<h3 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h3><p>tmpfs在类Unix操作系统上是一个常见的名称会用来做为暂时的档案储存方式，在更多的情况下，它会用虚拟的内存而不是一个永久保存的媒体来做为在档案系统上的使用。tmpfs可以使用您的内存或swap分区来存储文件。</p>
-<p>tmpfs是基于Linux的虚拟内存管理子系统，面向普通用户的，根据用户需要随时可以创建此类型目录，以方便快捷地获得飞一样的读写速度。</p>
-<p>当用户创建了此类型的目录后，剩下的工作就交给MMU来完成，不论是最终是在物理内存中还是在SWAP中，都尽可能地满足用户的需求。</p>
-<p>这就是我们之前提到过的 <strong>虚拟硬盘</strong></p>
-<blockquote>
-<p>把文件放到内存上做编译，尤其如果编译器需要生成很多临时文件的话，比在磁盘上快多了。</p>
-</blockquote>
-<p>在Linux中，直接mount一个tmpfs就可以了。而且对所编译的工程没有任何要求，也不用改动编译环境。</p>
-<p>刚好我们复习一下之前学习到的一些mount的命令：</p>
-<p>①. mount -t tmpfs tmpfs ~/build -o size=1G</p>
-<ul>
-<li><p>-t 对应的是类型</p>
-</li>
-<li><p>-o 对应的是选项</p>
-</li>
-</ul>
-<p>②. df -lh</p>
-<ul>
-<li><p>-l 只显示本地文件</p>
-</li>
-<li><p>-h 可读</p>
-</li>
-</ul>
-<p>用df就能看出有tmpfs的挂载点：</p>
-<p>用来检查linux服务器的文件系统的磁盘空间占用情况。</p>
-<hr>
-<p>用2.6.32.2的Linux Kernel来测试一下编译速度：</p>
-<ul>
-<li><p>用物理磁盘：40分16秒</p>
-</li>
-<li><p>用tmpfs：39分56秒</p>
-</li>
-</ul>
-<blockquote>
-<p>呃……没什么变化。看来编译慢很大程度上瓶颈并不在IO上面。但对于一个实际项目来说，编译过程中可能还会有打包等IO密集的操作，所以只要可能，用tmpfs是有益无害的。当然对于大项目来说，你需要有足够的内存才能负担得起这个tmpfs的开销。</p>
-</blockquote>
-<h3 id="make-j"><a href="#make-j" class="headerlink" title="make -j"></a>make -j</h3><p>既然IO不是瓶颈，那CPU就应该是一个影响编译速度的重要因素了。</p>
-<p>用make -j带一个参数，可以把项目在进行并行编译，比如在一台双核的机器上，完全可以用make -j4，让make最多允许4个编译命令同时执行，这样可以更有效的利用CPU资源。</p>
-<blockquote>
-<p>还是用Kernel来测试：</p>
-</blockquote>
-<ul>
-<li><p>用make： 40分16秒</p>
-</li>
-<li><p>用make -j4：23分16秒</p>
-</li>
-<li><p>用make -j8：22分59秒</p>
-</li>
-</ul>
-<p>由此看来，在多核 <strong>CPU</strong> 上，适当的进行并行编译还是可以明显提高编译速度的。但并行的任务不宜太多，一般是以 <strong>CPU</strong> 的核心数目的两倍为宜。</p>
-<p>不过这个方案不是完全没有 <strong>cost</strong> 的，如果项目的 <strong>Makefile</strong> 不规范，没有正确的设置好依赖关系，并行编译的结果就是编译不能正常进行。如果依赖关系设置过于保守，则可能本身编译的可并行度就下降了，也不能取得最佳的效果。</p>
-<h3 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a>ccache</h3><p>ccache用于把编译的中间结果进行缓存，以便在再次编译的时候可以节省时间。这对于玩Kernel来说实在是再好不过了，因为经常需要修改一些Kernel的代码，然后再重新编译，而这两次编译大部分东西可能都没有发生变化。对于平时开发项目来说，也是一样。为什么不是直接用make所支持的增量编译呢？还是因为现实中，因为Makefile的不规范，很可能这种“聪明”的方案根本不能正常工作，只有每次make clean再make才行。</p>
-<p>安装完ccache后，可以在/usr/local/bin下建立gcc，g++，c++，cc的symbolic link，链到/usr/bin/ccache上。总之确认系统在调用gcc等命令时会调用到ccache就可以了（通常情况下/usr/local /bin会在PATH中排在/usr/bin前面）。</p>
-<blockquote>
-<p>继续测试：</p>
-</blockquote>
-<ul>
-<li><p>用ccache的第一次编译(make -j4)：23分38秒</p>
-</li>
-<li><p>用ccache的第二次编译(make -j4)：8分48秒</p>
-</li>
-<li><p>用ccache的第三次编译(修改若干配置，make -j4)：23分48秒</p>
-</li>
-</ul>
-<p>看来修改配置（我改了CPU类型…）对ccache的影响是很大的，因为基本头文件发生变化后，就导致所有缓存数据都无效了，必须重头来做。但如果只是修改一些.c文件的代码，ccache的效果还是相当明显的。而且使用ccache对项目没有特别的依赖，布署成本很低，这在日常工作中很实用。</p>
-<blockquote>
-<p>可以用ccache -s来查看cache的使用和命中情况：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cache directory                     /home/kingand67/.ccache</div><div class="line">primary config                      /home/kingand67/.ccache/ccache.conf</div><div class="line">secondary config      (readonly)    /etc/ccache.conf</div><div class="line">cache hit (direct)                     0</div><div class="line">cache hit (preprocessed)               0</div><div class="line">cache miss                             0</div><div class="line">files in cache                         0</div><div class="line">cache size                           0.0 kB</div><div class="line">max cache size                       5.0 GB</div></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/kevinx_xu/article/details/8167358" target="_blank" rel="external">提高编译速度
-</a></p>
-
+        
+          <a class="article-more-a" href="/2017/01/16/Linux编译技巧/#more">more >></a>
+        
       
 
       
@@ -860,160 +718,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/01/16/Linux编译技巧/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-Linux mount(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/16/Linux mount(二)/">Linux mount 学习(二)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/16/Linux mount(二)/" class="archive-article-date">
-  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p></p><p></p>
-<h2 id="Shared-subtrees"><a href="#Shared-subtrees" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
-<p>简单点说， <strong>Shared subtrees</strong> 就是一种控制子挂载点能否在其他地方被看到的技术，它只会在 <strong>bind mount</strong> 和 <strong>mount namespace</strong> 中用到，属于不怎么常用的功能。本篇将以 <strong>bind mount</strong> 为例对 <strong>Shared subtrees</strong> 做一个简单介绍</p>
-</blockquote>
-<h2 id="Shared-subtrees-1"><a href="#Shared-subtrees-1" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
-<p>回想一下上一篇中介绍的bind mount部分，如果bind在一起的两个目录下的子目录再挂载了设备的话，他们之间还能相互看到子目录里挂载的内容吗？ 比如在第一个目录下的子目录里面再mount了一个设备，那么在另一个目录下面能看到这个mount的设备里面的东西吗？答案是要看bind mount的propagation type。那什么是propagation type呢？</p>
-</blockquote>
-<p>peer group和propagation type都是随着shared subtrees一起被引入的概念，下面分别对他们做一个介绍。</p>
-<h3 id="peer-group"><a href="#peer-group" class="headerlink" title="peer group"></a>peer group</h3><p>peer group 就是一挂载点的集合，他们之间可以共享挂载信息。</p>
-<ul>
-<li><p>mount-bind使得源和目的挂载点属于同一个peer group</p>
-</li>
-<li><p>创建新的mount namespace，新的和老的namespace里相同挂载点就会属于同一个peer group，因为新namespace会拷贝一份老namespace的挂载点信息</p>
-</li>
-</ul>
-<h3 id="propagation-type"><a href="#propagation-type" class="headerlink" title="propagation type"></a>propagation type</h3><blockquote>
-<p>这是一个标志，决定修改挂载点的时候会不会影响相同的peer group</p>
-</blockquote>
-<ul>
-<li><p>MS_SHARED: 挂载信息会在同一个peer group的不同挂载点之间共享传播</p>
-</li>
-<li><p>MS_PRIVATE: 挂载信息根本就不共享，也即private的挂载点不会属于任何peer group</p>
-</li>
-<li><p>MS_SLAVE: 信息的传播是单向的，在同一个peer group里面，master的挂载点下面发生变化的时候，slave的挂载点下面也跟着变化，但反之则不然，slave下发生变化的时候不会通知master，master不会发生变化。</p>
-</li>
-<li><p>MS_UNBINDABLE: 这个和MS_PRIVATE相同，只是这种类型的挂载点不能作为bind mount的源，主要用来防止递归嵌套情况的出现</p>
-</li>
-</ul>
-<h3 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h3><ul>
-<li><p>propagation type是挂载点的属性，每个挂载点都是独立的</p>
-</li>
-<li><p>挂载点是有父子关系的，比如挂载点/和/mnt/cdrom，/mnt/cdrom都是‘/’的子挂载点，‘/’是/mnt/cdrom的父挂载点</p>
-</li>
-<li><p>默认情况下，如果父挂载点是MS_SHARED，那么子挂载点也是MS_SHARED的，否则子挂载点将会是MS_PRIVATE，跟爷爷挂载点没有关系</p>
-</li>
-</ul>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#准备4个虚拟的disk</div><div class="line">kingand67@kelele67:~$ mkdir disks &amp;&amp; cd disks</div><div class="line"></div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk1.img</div><div class="line">32+0 records in</div><div class="line">32+0 records out</div><div class="line">33554432 bytes (34 MB, 32 MiB) copied, 0.0203764 s, 1.6 GB/s</div><div class="line"></div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk2.img</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk3.img</div><div class="line">kingand67@kelele67:~/disks$ dd if=/dev/zero bs=1M count=32 of=./disk4.img</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#并在上面创建ext2文件系统，用于后续的mount测试</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk1.img</div><div class="line">mke2fs 1.42.13 (17-May-2015)</div><div class="line">Discarding device blocks: done                            </div><div class="line">Creating filesystem with 32768 1k blocks and 8192 inodes</div><div class="line">Filesystem UUID: d34a16ed-3d87-4fa3-adeb-185ca6816a7c</div><div class="line">Superblock backups stored on blocks: </div><div class="line">	8193, 24577</div><div class="line">Allocating group tables: done                            </div><div class="line">Writing inode tables: done                            </div><div class="line">Writing superblocks and filesystem accounting information: done</div><div class="line"></div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk2.img</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk3.img</div><div class="line">kingand67@kelele67:~/disks$ mkfs.ext2 ./disk4.img</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#准备两个目录用于挂载上面创建的disk</div><div class="line">kingand67@kelele67:~/disks$ mkdir disk1 disk2</div><div class="line">kingand67@kelele67:~/disks$ ls</div><div class="line">disk1  disk1.img  disk2  disk2.img  disk3.img  disk4.im</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#确保根目录的propagation type是shared，</div><div class="line">#这一步是为了保证大家的操作结果和示例中的一样</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-shared /</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="查看-propagation-type-和-peer-group"><a href="#查看-propagation-type-和-peer-group" class="headerlink" title="查看 propagation type 和 peer group"></a>查看 propagation type 和 peer group</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#显式的以shared方式挂载disk1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-shared ./disk1.img ./disk1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#显式的以private方式挂载disk2</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --make-private ./disk2.img ./disk2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#mountinfo比mounts文件包含有更多的关于挂载点的信息</div><div class="line">#这里sed主要用来过滤掉跟当前主题无关的信息</div><div class="line">#shared:111表示挂载点/home/dev/disks/disk1是以shared方式挂载，且peer group id为111</div><div class="line">#而挂载点/home/dev/disks/disk2没有相关信息，表示是以private方式挂载</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#分别在disk1和disk2目录下创建目录disk3和disk4，然后挂载disk3，disk4到这两个目录</div><div class="line">kingand67@kelele67:~/disks$ sudo mkdir ./disk1/disk3 ./disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk4.img ./disk2/disk4</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#查看挂载信息，第一列的数字是挂载点ID，第二例是父挂载点ID，</div><div class="line">#从结果来看，150和162的类型都是shared，而179和173的类型都是private的，</div><div class="line">#说明在默认mount的情况下，子挂载点会继承父挂载点的propagation type</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime </div><div class="line">162 150 7:2 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:117 </div><div class="line">293 156 7:3 / /home/kingand67/disks/disk2/disk4 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="shared-和-private-mount"><a href="#shared-和-private-mount" class="headerlink" title="shared 和 private mount"></a>shared 和 private mount</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount掉disk3和disk4，创建两个新的目录bind1和bind2用于bind测试</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk1/disk3 </div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ mkdir bind1 bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#bind的方式挂载disk1到bind1，disk2到bind2</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind ./disk1 ./bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind ./disk2 ./bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#查看挂载信息，显然默认情况下bind1和bind2的propagation type继承自父挂载点22(/)，都是shared。</div><div class="line">#由于bind2的源挂载点disk2是private的，所以bind2没有和disk2在同一个peer group里面，</div><div class="line">#而是重新创建了一个新的peer group，这个group里面就只有它一个。</div><div class="line">#因为150和162都是shared类型且是通过bind方式mount在一起的，所以他们属于同一个peer group 111。</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk | sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:1 / /home/kingand67/disks/disk2 rw,relatime </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">168 22 7:1 / /home/kingand67/disks/bind2 rw,relatime shared:127</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#ID为24的挂载点为根目录的挂载点</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep ^22| sed &apos;s/-.*//&apos;</div><div class="line">22 0 8:1 / / rw,relatime shared:1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#这时disk3和disk4目录都是空的</div><div class="line">kingand67@kelele67:~/disks$ ls bind1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ ls bind2/disk4/</div><div class="line">kingand67@kelele67:~/disks$ ls disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ ls disk2/disk4/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#重新挂载disk3和disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk4.img ./disk2/disk4/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#由于disk1/和bind1/属于同一个peer group，</div><div class="line">#所以在挂载了disk3后，在两个目录下都能看到disk3下的内容</div><div class="line">kingand67@kelele67:~/disks$ ls disk1/disk3/</div><div class="line">lost+found</div><div class="line">kingand67@kelele67:~/disks$ ls bind1/disk3/</div><div class="line">lost+found</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#而disk2/是private类型的，所以在他下面挂载disk4不会通知bind2，</div><div class="line">#于是bind2下的disk4目录是空的</div><div class="line">kingand67@kelele67:~/disks$ ls disk2/disk4/</div><div class="line">lost+found</div><div class="line">kingand67@kelele67:~/disks$ ls bind2/disk4/</div><div class="line">kingand67@kelele67:~/disks$</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#再看看disk3，虽然174和175的父挂载点不一样，但由于他们父挂载点属于同一个peer group，</div><div class="line">#且disk3是以默认方式挂载的，所以他们属于同一个peer group</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |egrep &quot;disk3&quot;| sed &apos;s/-.*//&apos;</div><div class="line">174 150 7:2 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:133 </div><div class="line">175 162 7:2 / /home/kingand67/disks/bind1/disk3 rw,relatime shared:133</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount bind1/disk3后，disk1/disk3也相应的自动umount掉了</div><div class="line">kingand67@kelele67:~/disks$ sudo umount bind1/disk3</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo | grep disk3</div><div class="line">kingand67@kelele67:~/disks$</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="slave-mount"><a href="#slave-mount" class="headerlink" title="slave mount"></a>slave mount</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#umount除disk1的所有其他挂载点</div><div class="line">kingand67@kelele67:~/disks$ sudo umount ./disk2/disk4</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/bind2</div><div class="line">kingand67@kelele67:~/disks$ sudo umount /home/kingand67/disks/disk2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#确认只剩disk1</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#分别显式的用shared和slave的方式bind disk1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind --make-shared ./disk1 ./bind1</div><div class="line">kingand67@kelele67:~/disks$ sudo mount --bind --make-slave ./bind1 ./bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#150、156和162都属于同一个peer group，</div><div class="line">#master:105表示/home/dev/disks/bind2是peer group 105的slave</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#mount disk3到disk1的子目录disk3下</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./disk1/disk3/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#其他两个目录bin1和bind2里面也挂载成功，说明master发生变化的时候，slave会跟着变化</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111 </div><div class="line">168 150 7:1 / /home/kingand67/disks/disk1/disk3 rw,relatime shared:127 </div><div class="line">170 162 7:1 / /home/kingand67/disks/bind2/disk3 rw,relatime master:127 </div><div class="line">169 156 7:1 / /home/kingand67/disks/bind1/disk3 rw,relatime shared:127</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#umount disk3，然后mount disk3到bind2目录下</div><div class="line">kingand67@kelele67:~/disks$ sudo umount ./disk1/disk3/</div><div class="line">kingand67@kelele67:~/disks$ sudo mount ./disk3.img ./bind2/disk3/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#由于bind2的propagation type是slave，所以disk1和bind1两个挂载点下面不会挂载disk3</div><div class="line">#从168的类型可以看出，当父挂载点162是slave类型时，默认情况下其子挂载点168是private类型</div><div class="line">kingand67@kelele67:~/disks$ cat /proc/self/mountinfo |grep disk| sed &apos;s/-.*//&apos;</div><div class="line">150 22 7:0 / /home/kingand67/disks/disk1 rw,relatime shared:111 </div><div class="line">156 22 7:0 / /home/kingand67/disks/bind1 rw,relatime shared:111 </div><div class="line">162 22 7:0 / /home/kingand67/disks/bind2 rw,relatime master:111 </div><div class="line">168 162 7:1 / /home/kingand67/disks/bind2/disk3 rw,relatime</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果用到了 <strong>bind mount</strong> 和 <strong>mount namespace</strong> ，在挂载设备的时候就需要注意一下父挂载点是否和其他挂载点有 <strong>peer group</strong> 关系，如果有且父挂载点是 <strong>shared</strong> ，就说明你挂载的设备除了在当前挂载点可以看到，在父挂载点的 <strong>peer group</strong> 的下面也可以看到。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000006899213" target="_blank" rel="external">Linux mount （第二部分）</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mount</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/16/Linux mount(二)/">展开全文 >></a>
         </p>
       
 
@@ -1290,6 +994,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hentai</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cqu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">management</a>
               </li>
             
             <div class="clearfix"></div>

@@ -9,35 +9,20 @@
   <title>深入 Lua Garbage Collector(一) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="看到一个 Bob Nystrom 写的 C 语言实现的 Garbage Collector 
-借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
-Garbage Collector算法小结这是之前做的一点小笔记：
-
-C Garbage Collector首先还是先来看看这个 C 的基本的垃圾回收器
-采用的算法用的是经典的 Mark &amp;amp; Sweep 算法
-在上面的笔记里面已经介绍的很清楚了">
+借着这个小程序顺便深入地了解一下Lua的垃圾回收机制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Lua Garbage Collector(一)">
 <meta property="og:url" content="http://yoursite.com/2017/04/13/深入 Lua Garbage Collector(一)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="看到一个 Bob Nystrom 写的 C 语言实现的 Garbage Collector 
-借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
-Garbage Collector算法小结这是之前做的一点小笔记：
-
-C Garbage Collector首先还是先来看看这个 C 的基本的垃圾回收器
-采用的算法用的是经典的 Mark &amp;amp; Sweep 算法
-在上面的笔记里面已经介绍的很清楚了">
+借着这个小程序顺便深入地了解一下Lua的垃圾回收机制">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-14%2015.20.31.png">
-<meta property="og:updated_time" content="2017-04-17T09:03:12.000Z">
+<meta property="og:updated_time" content="2017-04-23T07:36:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(一)">
 <meta name="twitter:description" content="看到一个 Bob Nystrom 写的 C 语言实现的 Garbage Collector 
-借着这个小程序顺便深入地了解一下Lua的垃圾回收机制
-Garbage Collector算法小结这是之前做的一点小笔记：
-
-C Garbage Collector首先还是先来看看这个 C 的基本的垃圾回收器
-采用的算法用的是经典的 Mark &amp;amp; Sweep 算法
-在上面的笔记里面已经介绍的很清楚了">
+借着这个小程序顺便深入地了解一下Lua的垃圾回收机制">
 <meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg">
   
   
@@ -190,6 +175,8 @@ C Garbage Collector首先还是先来看看这个 C 的基本的垃圾回收器
       
         <p></p><p><br>看到一个 <strong>Bob Nystrom</strong> 写的<a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="external"> <strong>C</strong> 语言实现的 <strong>Garbage Collector</strong> </a></p>
 <p>借着这个小程序顺便深入地了解一下Lua的垃圾回收机制</p>
+<hr>
+<a id="more"></a>
 <h2 id="Garbage-Collector算法小结"><a href="#Garbage-Collector算法小结" class="headerlink" title="Garbage Collector算法小结"></a>Garbage Collector算法小结</h2><p>这是之前做的一点小笔记：</p>
 <p><img src="http://oe9uinblw.bkt.clouddn.com/WechatIMG1.jpeg" alt=""></p>
 <h2 id="C-Garbage-Collector"><a href="#C-Garbage-Collector" class="headerlink" title="C Garbage Collector"></a>C Garbage Collector</h2><p>首先还是先来看看这个 <strong>C</strong> 的基本的垃圾回收器</p>
@@ -626,6 +613,14 @@ C Garbage Collector首先还是先来看看这个 C 的基本的垃圾回收器
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hentai</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cqu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">management</a>
               </li>
             
             <div class="clearfix"></div>

@@ -148,6 +148,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="airticle-Linux mount(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/16/Linux mount(二)/">Linux mount 学习(二)</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/16/Linux mount(二)/" class="archive-article-date">
+  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><p></p>
+<h2 id="Shared-subtrees"><a href="#Shared-subtrees" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
+<p>简单点说， <strong>Shared subtrees</strong> 就是一种控制子挂载点能否在其他地方被看到的技术，它只会在 <strong>bind mount</strong> 和 <strong>mount namespace</strong> 中用到，属于不怎么常用的功能。本篇将以 <strong>bind mount</strong> 为例对 <strong>Shared subtrees</strong> 做一个简单介绍</p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2017/01/16/Linux mount(二)/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mount</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/16/Linux mount(二)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="airticle-Linux mount (一)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -168,167 +236,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p></p>
+        <p><p></p>
 <h2 id="Linux-mount"><a href="#Linux-mount" class="headerlink" title="Linux mount"></a>Linux mount</h2><p>介绍一些比较实用的 <strong>mount</strong> 用法，包括挂载内核中的虚拟文件系统、 <strong>loop device</strong> 和 <strong>bind mount</strong> 。</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mount -t type -o options device dir</div></pre></td></tr></table></figure>
-<hr>
-<ul>
-<li><p>device: 要挂载的设备</p>
-</li>
-<li><p>dir: 挂载到哪个目录</p>
-</li>
-</ul>
-<h3 id="挂载-loop-device"><a href="#挂载-loop-device" class="headerlink" title="挂载 loop device"></a>挂载 loop device</h3><h4 id="ISO文件"><a href="#ISO文件" class="headerlink" title="ISO文件"></a>ISO文件</h4><blockquote>
-<p>需要用到 <strong>loop device</strong> 的最常见的场景是 <strong>mount</strong> 一个 <strong>ISO</strong> 文件，示例如下</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#利用mkisofs构建一个用于测试的iso文件</div><div class="line">kingand67@kelele67:~$ mkdir -p iso/subdir01</div><div class="line">kingand67@kelele67:~$ mkisofs -o ./test.iso ./iso</div><div class="line">I: -input-charset not specified, using utf-8 (detected in locale settings)</div><div class="line">Total translation table size: 0</div><div class="line">Total rockridge attributes bytes: 0</div><div class="line">Total directory bytes: 2048</div><div class="line">Path table size(bytes): 26</div><div class="line">Max brk space used 0</div><div class="line">175 extents written (0 MB)</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#mount ISO 到目录 /mnt</div><div class="line">kingand67@kelele67:~$ sudo mount ./test.iso /mnt</div><div class="line">mount: /dev/loop0 is write-protected, mounting read-only</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#mount成功，能看到里面的文件夹</div><div class="line">kingand67@kelele67:~$ ls /mnt</div><div class="line">subdir01</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#通过losetup命令可以看到占用了loop0设备</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/test.iso)</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h4><blockquote>
-<p><strong>loop device</strong> 另一种常用的用法是虚拟一个硬盘，比如我想尝试下 <strong>btrfs</strong> 这个文件系统，但系统中目前的所有分区都已经用了，里面都是有用的数据，不想格式化他们，这时虚拟硬盘就有用武之地了</p>
-</blockquote>
-<p>首先我们介绍 <strong>dd</strong> 命令：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。</p>
-<p>包含的参数有参数：</p>
-<ol>
-<li><p>if=文件名：输入文件名，缺省为标准输入。即指定源文件。&lt; if=input file &gt;</p>
-</li>
-<li><p>of=文件名：输出文件名，缺省为标准输出。即指定目的文件。&lt; of=output file &gt;</p>
-</li>
-<li><p>ibs=bytes：一次读入bytes个字节，即指定一个块大小为bytes个字节。</p>
-</li>
-<li><p>obs=bytes：一次输出bytes个字节，即指定一个块大小为bytes个字节。</p>
-</li>
-<li><p>bs=bytes：同时设置读入/输出的块大小为bytes个字节。</p>
-</li>
-<li><p>cbs=bytes：一次转换bytes个字节，即指定转换缓冲区大小。</p>
-</li>
-<li><p>skip=blocks：从输入文件开头跳过blocks个块后再开始复制。</p>
-</li>
-<li><p>seek=blocks：从输出文件开头跳过blocks个块后再开始复制。</p>
-</li>
-</ol>
-<p>注意：通常只用当输出文件是磁盘或磁带时才有效，即备份到磁盘或磁带时才有效。</p>
-<ol>
-<li><p>count=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。</p>
-</li>
-<li><p>conv=conversion：用指定的参数转换文件：</p>
-<ul>
-<li><p>ascii：转换ebcdic为ascii</p>
-</li>
-<li><p>ebcdic：转换ascii为ebcdic</p>
-</li>
-<li><p>ibm：转换ascii为alternate ebcdic</p>
-</li>
-<li><p>block：把每一行转换为长度为cbs，不足部分用空格填充</p>
-</li>
-<li><p>unblock：使每一行的长度都为cbs，不足部分用空格填充</p>
-</li>
-<li><p>lcase：把大写字符转换为小写字符</p>
-</li>
-<li><p>ucase：把小写字符转换为大写字符</p>
-</li>
-<li><p>swab：交换输入的每对字节</p>
-</li>
-<li><p>noerror：出错时不停止</p>
-</li>
-<li><p>notrunc：不截短输出文件</p>
-</li>
-<li><p>sync：将每个输入块填充到ibs个字节，不足部分用空（NUL）字符补齐。</p>
-</li>
-</ul>
-</li>
-</ol>
-<p>具体示例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#因为btrfs对分区的大小有最小要求，所以利用dd命令创建一个128M的文件</div><div class="line">kingand67@kelele67:~$ dd if=/dev/zero bs=1M count=128 of=./vdisk.img</div><div class="line">128+0 records in</div><div class="line">128+0 records out</div><div class="line">134217728 bytes (134 MB, 128 MiB) copied, 0.116018 s, 1.2 GB/s</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#在这个文件里面创建btrfs文件系统</div><div class="line">#为了方便，我就把整个硬盘全部给btrfs文件系统</div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">The program &apos;mkfs.btrfs&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt install btrfs-tools</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#因为提示我们没有安装btrfs-tools，所以我们先安装</div><div class="line">kingand67@kelele67:~$ sudo apt install btrfs-tools</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#重新创建</div><div class="line">#输出了一些信息，提示创建成功</div><div class="line">kingand67@kelele67:~$ mkfs.btrfs ./vdisk.img</div><div class="line">btrfs-progs v4.4</div><div class="line">See http://btrfs.wiki.kernel.org for more information.</div><div class="line">Label:              (null)</div><div class="line">UUID:               67050364-6802-4ddd-adf0-257a0df7714c</div><div class="line">Node size:          16384</div><div class="line">Sector size:        4096</div><div class="line">Filesystem size:    128.00MiB</div><div class="line">Block group profiles:</div><div class="line">  Data:             single            8.00MiB</div><div class="line">  Metadata:         DUP              40.00MiB</div><div class="line">  System:           DUP              12.00MiB</div><div class="line">SSD detected:       no</div><div class="line">Incompat features:  extref, skinny-metadata</div><div class="line">Number of devices:  1</div><div class="line">Devices:</div><div class="line">   ID        SIZE  PATH</div><div class="line">    1   128.00MiB  ./vdisk.img</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#mount虚拟硬盘</div><div class="line">kingand67@kelele67:~$ sudo mount ./vdisk.img /mnt/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#在虚拟硬盘中创建文件成功</div><div class="line">kingand67@kelele67:~$ sudo touch /mnt/aaaaaa</div><div class="line">kingand67@kelele67:~$ ls /mnt/</div><div class="line">aaaaaa</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#查看我们的loop device</div><div class="line">kingand67@kelele67:~$ losetup -a</div><div class="line">/dev/loop0: []: (/home/kingand67/vdisk.img)</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="挂载多个设备到一个文件夹"><a href="#挂载多个设备到一个文件夹" class="headerlink" title="挂载多个设备到一个文件夹"></a>挂载多个设备到一个文件夹</h4><blockquote>
-<p>在上面的例子中，将 <strong>test.iso</strong> 和 <strong>vdisk.img</strong> 都 <strong>mount</strong> 到了 <strong>/mnt</strong> 目录下，这个在 <strong>Linux</strong> 下是支持的，默认会用后面的 <strong>mount</strong> 覆盖掉前面的 <strong>mount</strong> ，只有当 <strong>umount</strong> 后面的 <strong>device</strong> 后，原来的 <strong>device</strong> 才看的到。</p>
-</blockquote>
-<h4 id="挂载一个设备到多个目录"><a href="#挂载一个设备到多个目录" class="headerlink" title="挂载一个设备到多个目录"></a>挂载一个设备到多个目录</h4><blockquote>
-<p>当然我们也可以把一个设备 <strong>mount</strong> 到多个文件夹，这样在多个文件夹中都可以访问该设备中的内容。</p>
-</blockquote>
-<h4 id="bind-mount"><a href="#bind-mount" class="headerlink" title="bind mount"></a>bind mount</h4><blockquote>
-<p><strong>bind mount</strong> 功能非常强大，可以将任何一个挂载点、普通目录或者文件挂载到其他地方，是玩转 <strong>Linux</strong> 的必备技能</p>
-</blockquote>
-<p>①. 基本功能</p>
-<blockquote>
-<p><strong>bind mount</strong> 会将源目录绑定到目的目录，然后在目的目录下就可以看到源目录里的文件</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#准备要用到的目录</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind1/sub1</div><div class="line">kingand67@kelele67:~$ mkdir -p bind/bind2/sub2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">└── bind2</div><div class="line">    └── sub2</div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#bind mount后，bind2里面显示的就是bind1目录的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
-<hr>
-<p>②. readonly bind</p>
-<blockquote>
-<p>我们可以在 <strong>bind</strong> 的时候指定 <strong>readonly</strong> ，这样原来的目录还是能读写，但目的目录为只读</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#通过readonly的方式bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind2</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       </div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line"></div><div class="line">4 directories, 0 files</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#bind2目录为只读，没法touch里面的文件</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind2/sub1/aaa</div><div class="line">touch: cannot touch &apos;./bind/bind2/sub1/aaa&apos;: Read-only file system</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#bind1还是能读写</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#我们可以在bind1和bind2目录下看到刚创建的文件</div><div class="line">kingand67@kelele67:~$ tree bind</div><div class="line">bind</div><div class="line">├── bind1</div><div class="line">│   └── sub1</div><div class="line">│       └── aaa</div><div class="line">└── bind2</div><div class="line">    └── sub1</div><div class="line">        └── aaa</div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>如果我们想让当前目录 <strong>readonly</strong> ，那么可以 <strong>bind</strong> 自己，并且指定 <strong>readonly</strong> 参数：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#bind mount并且指定readonly</div><div class="line">kingand67@kelele67:~$ sudo mount -o bind,ro ./bind/bind1/ ./bind/bind1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#创建新文件失败</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div><div class="line">touch: cannot touch &apos;./bind/bind1/sub1/aaa&apos;: Read-only file system</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#umount之后，文件夹恢复到原来的读写权限</div><div class="line">kingand67@kelele67:~$ sudo umount ./bind/bind1/</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##touch文件成功</div><div class="line">kingand67@kelele67:~$ touch ./bind/bind1/sub1/aaa</div></pre></td></tr></table></figure>
-<hr>
-<p>③. bind mount单个文件</p>
-<blockquote>
-<p>我们也可以 <strong>bind mount</strong> 单个文件，这个功能尤其适合需要在不同版本配置文件之间切换的时候</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#创建两个用于测试的文件</div><div class="line">kingand67@kelele67:~$ echo aaaaaa &gt; bind/aa</div><div class="line">kingand67@kelele67:~$ echo bbbbbb &gt; bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/aa</div><div class="line">aaaaaa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#bind mount后，bb里面看到的是aa的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/aa bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">aaaaaa</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#即使我们删除aa文件，我们还是能够通过bb看到aa里面的内容</div><div class="line">kingand67@kelele67:~$ rm bind/aa</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">aaaaaa</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#umount bb文件后，bb的内容出现了，不过aa的内容再也找不到了</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bb</div><div class="line">kingand67@kelele67:~$ cat bind/bb</div><div class="line">bbbbbb</div></pre></td></tr></table></figure>
-<hr>
-<p>④. move一个挂载点到另一个地方</p>
-<blockquote>
-<p>move操作可以将一个挂载点移动到别的地方，这里以bind mount为例来演示，当然其他类型的挂载点也可以通过move操作来移动。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#umount上面操作所产生的挂载点</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bind1</div><div class="line">kingand67@kelele67:~$ sudo umount bind/bind2</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#bind mount</div><div class="line">kingand67@kelele67:~$ sudo mount --bind ./bind/bind1/ ./bind/bind2/</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind*</div><div class="line">./bind/bind1:</div><div class="line">sub1</div><div class="line"></div><div class="line">./bind/bind2:</div><div class="line">sub1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#move操作要求mount point的父mount point不能为shared。</div><div class="line">#在这里./bind/bind2/的父mount point为&apos;/&apos;，所以需要将&apos;/&apos;变成private后才能做move操作</div><div class="line">#关于shared、private的含义将会在下一篇介绍</div><div class="line">kingand67@kelele67:~$ findmnt -o TARGET,PROPAGATION /</div><div class="line">TARGET PROPAGATION</div><div class="line">/      shared</div><div class="line">kingand67@kelele67:~$ sudo mount --make-private /</div><div class="line">kingand67@kelele67:~$ findmnt -o TARGET,PROPAGATION /</div><div class="line">TARGET PROPAGATION</div><div class="line">/      private</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#move成功，在mnt下能看到bind1里面的内容</div><div class="line">kingand67@kelele67:~$ sudo mount --move ./bind/bind2/ /mnt</div><div class="line">kingand67@kelele67:~$ ls /mnt/</div><div class="line">sub1</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#由于bind2上的挂载点已经被移动到了/mnt上，于是能看到bind2目录下原来的文件了</div><div class="line">kingand67@kelele67:~$ ls ./bind/bind2/</div><div class="line">sub2</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这篇文章中演示了一些比较实用的 <strong>mount</strong> 操作，尤其是 <strong>bind mount</strong> ，至于在哪些情况下要用哪些功能，需要我们自己去挖掘。下一篇中将介绍 <strong>mount</strong> 相关的 <strong>Shared subtrees</strong></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000006878392" target="_blank" rel="external">Linux mount （第一部分）</a></p>
-
+        
+          <a class="article-more-a" href="/2017/01/15/Linux mount (一)/#more">more >></a>
+        
       
 
       
@@ -392,95 +304,13 @@
       
         <p>
 
-</p><h2 id="第一部分-sysvinit"><a href="#第一部分-sysvinit" class="headerlink" title="第一部分 sysvinit"></a>第一部分 sysvinit</h2><h3 id="什么是sysvinit"><a href="#什么是sysvinit" class="headerlink" title="什么是sysvinit"></a>什么是sysvinit</h3><blockquote>
+<h2 id="第一部分-sysvinit"><a href="#第一部分-sysvinit" class="headerlink" title="第一部分 sysvinit"></a>第一部分 sysvinit</h2><h3 id="什么是sysvinit"><a href="#什么是sysvinit" class="headerlink" title="什么是sysvinit"></a>什么是sysvinit</h3><blockquote>
 <p><strong>sysvinit</strong> 就是 <strong>system V</strong> 风格的 <strong>init</strong> 系统，顾名思义，它源于 <strong>System V</strong> 系列 <strong>UNIX</strong> 。它提供了比 <strong>BSD</strong> 风格 <strong>init</strong> 系统更高的灵活性。是已经风行了几十年的 <strong>UNIX init</strong> 系统，一直被各类 <strong>Linux</strong> 发行版所采用。</p>
 </blockquote>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优点：</p>
-<ul>
-<li><p>概念简单。</p>
-</li>
-<li><p>确定的执行顺序：脚本严格按照启动数字的大小顺序执行，一个执行完毕再执行下一个，这非常有益于错误排查。</p>
-</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li><p><strong>UpStart</strong> 和 <strong>systemd</strong> 支持并发启动，导致没有人可以确定地了解具体的启动顺序，排错不易。</p>
-</li>
-<li><p>但是串行地执行脚本导致 <strong>sysvinit</strong> 运行效率较慢，在新的 <strong>IT</strong> 环境下，启动快慢成为一个重要问题。此外动态设备加载等 <strong>Linux</strong> 新特性也暴露出 <strong>sysvinit</strong> 设计的一些问题。</p>
-</li>
-</ul>
-<p><strong>Upstart</strong> 是第一个被广泛应用的新一代 <strong>init</strong> 系统。我们在接下来的第二部分介绍 <strong>UpStart</strong></p>
-<h2 id="第二部分-UpStart"><a href="#第二部分-UpStart" class="headerlink" title="第二部分 UpStart"></a>第二部分 UpStart</h2><h3 id="什么是-UpStart"><a href="#什么是-UpStart" class="headerlink" title="什么是 UpStart"></a>什么是 UpStart</h3><p>假如您使用的 <strong>Linux</strong> 发行版是 <strong>Ubuntu</strong> ，很可能会发现在您的计算机上找不到 <strong>/etc/inittab</strong> 文件了，这是因为 <strong>Ubuntu</strong> 使用了一种被称为 <strong>upstart</strong> 的新型 <strong>init</strong> 系统。</p>
-<h3 id="为什么使用-UpStart"><a href="#为什么使用-UpStart" class="headerlink" title="为什么使用 UpStart"></a>为什么使用 UpStart</h3><p>随着不断的发展，人们发现经典的 <strong>sysvinit</strong> 已经不适合笔记本环境。</p>
-<p>原因在于：</p>
-<p>桌面系统或便携式设备的一个特点是经常重启，而且要频繁地使用硬件热插拔技术。</p>
-<p><strong>Sysvinit</strong> 没有办法处理这类需求，它必须一次性把所有可能用到的服务都启动起来，即便是需要被初始化的设备并没有连接到系统上，<strong>CUPS</strong> 服务也必须启动。</p>
-<h3 id="UpStart优势"><a href="#UpStart优势" class="headerlink" title="UpStart优势"></a>UpStart优势</h3><p><strong>UpStart</strong> 解决了之前提到的 <strong>sysvinit</strong> 的缺点。采用事件驱动模型，<strong>UpStart</strong> 可以：</p>
-<ul>
-<li><p>更快地启动系统</p>
-</li>
-<li><p>当新硬件被发现时动态启动服务</p>
-</li>
-<li><p>硬件被拔除时动态停止服务</p>
-</li>
-</ul>
-<h3 id="UpStart命令"><a href="#UpStart命令" class="headerlink" title="UpStart命令"></a>UpStart命令</h3><ul>
-<li>可以用 <strong>initctl list</strong> 来查看所有工作的概况：</li>
-</ul>
-<h3 id="UpStart小结"><a href="#UpStart小结" class="headerlink" title="UpStart小结"></a>UpStart小结</h3><p>可以看到，<strong>UpStart</strong> 的设计比 <strong>SysVInit</strong> 更加先进。多数 <strong>Linux</strong> 发行版上已经不再使用 <strong>SysVInit</strong> ，一部分发行版采用了 <strong>UpStart</strong> ，比如 <strong>Ubuntu</strong>（Ubuntu16.04改用systemd）；而另外一些比如 <strong>Fedora</strong> ，采用了一种被称为 <strong>systemd</strong> 的 <strong>init</strong> 系统。接下来我们再介绍 <strong>systemd</strong> 。</p>
-<h2 id="第三部分-Systemd"><a href="#第三部分-Systemd" class="headerlink" title="第三部分 Systemd"></a>第三部分 Systemd</h2><h3 id="什么是-Systemd"><a href="#什么是-Systemd" class="headerlink" title="什么是 Systemd"></a>什么是 Systemd</h3><p><strong>Systemd</strong> 是 <strong>Linux</strong> 系统中最新的初始化系统（init），它主要的设计目标是克服 <strong>sysvinit</strong> 固有的缺点，提高系统的启动速度。</p>
-<p><strong>Systemd</strong> 的很多概念来源于苹果 <strong>Mac OS</strong> 操作系统上的 <strong>launchd</strong></p>
-<p>由于是最新的，所以我们着重了解一下</p>
-<h3 id="systemd-特性"><a href="#systemd-特性" class="headerlink" title="systemd 特性"></a>systemd 特性</h3><ul>
-<li><p><strong>systemd</strong> 提供按需启动能力</p>
-</li>
-<li><p><strong>Systemd</strong> 采用 <strong>Linux</strong> 的 <strong>Cgroup</strong> 特性跟踪和管理进程的生命周期</p>
-</li>
-<li><p>启动挂载点和自动挂载的管理</p>
-</li>
-<li><p>实现事务性依赖关系管理</p>
-</li>
-<li><p>能够对系统进行快照和恢复</p>
-</li>
-<li><p>日志服务</p>
-</li>
-</ul>
-<h3 id="Systemd-的基本概念"><a href="#Systemd-的基本概念" class="headerlink" title="Systemd 的基本概念"></a>Systemd 的基本概念</h3><ul>
-<li><p>单元的概念<br>系统初始化需要做的事情非常多。需要启动后台服务，比如启动 <strong>SSHD</strong> 服务；需要做配置工作，比如挂载文件系统。这个过程中的每一步都被 <strong>systemd</strong> 抽象为一个配置单元，即 <strong>unit</strong> 。可以认为一个服务是一个配置单元；一个挂载点是一个配置单元；一个交换分区的配置是一个配置单元；等等。</p>
-</li>
-<li><p>service ：代表一个后台服务进程，比如 <strong>mysqld</strong> 。这是最常用的一类。</p>
-</li>
-<li><p>socket ：此类配置单元封装系统和互联网中的一个 套接字 。当下，systemd 支持流式、数据报和连续包的 AF_INET、AF_INET6、AF_UNIX socket 。每一个套接字配置单元都有一个相应的服务配置单元 。相应的服务在第一个”连接”进入套接字时就会启动(例如：nscd.socket 在有新连接后便启动 nscd.service)。</p>
-</li>
-<li><p>device ：此类配置单元封装一个存在于 <strong>Linux</strong> 设备树中的设备。每一个使用 <strong>udev</strong> 规则标记的设备都将会在 <strong>systemd</strong> 中作为一个设备配置单元出现。</p>
-</li>
-<li><p>mount ：此类配置单元封装文件系统结构层次中的一个挂载点。 <strong>Systemd</strong> 将对这个挂载点进行监控和管理。比如可以在启动时自动将其挂载；可以在某些条件下自动卸载。<strong>Systemd</strong> 会将 <strong>/etc/fstab</strong> 中的条目都转换为挂载点，并在开机时处理。</p>
-</li>
-<li><p>automount ：此类配置单元封装系统结构层次中的一个自挂载点。每一个自挂载配置单元对应一个挂载配置单元 ，当该自动挂载点被访问时，<strong>systemd</strong> 执行挂载点中定义的挂载行为。</p>
-</li>
-<li><p>swap: 和挂载配置单元类似，交换配置单元用来管理交换分区。用户可以用交换配置单元来定义系统中的交换分区，可以让这些交换分区在启动时被激活。</p>
-</li>
-<li><p>target ：此类配置单元为其他配置单元进行逻辑分组。它们本身实际上并不做什么，只是引用其他配置单元而已。这样便可以对配置单元做一个统一的控制。这样就可以实现大家都已经非常熟悉的运行级别概念。</p>
-</li>
-<li><p>timer：定时器配置单元用来定时触发用户定义的操作，这类配置单元取代了 <strong>atd</strong> 、 <strong>crond</strong> 等传统的定时服务。</p>
-</li>
-<li><p>snapshot ：与 <strong>target</strong> 配置单元相似，快照是一组配置单元。它保存了系统当前的运行状态。</p>
-</li>
-</ul>
-<h3 id="Systemd-的并发启动原理"><a href="#Systemd-的并发启动原理" class="headerlink" title="Systemd 的并发启动原理"></a>Systemd 的并发启动原理</h3><p>如前所述，在 <strong>Systemd</strong> 中，所有的服务都并发启动，比如 <strong>Avahi</strong> 、<strong>D-Bus</strong> 、<strong>livirtd</strong> 、<strong>X11</strong> 、<strong>HAL</strong> 可以同时启动。乍一看，这似乎有点儿问题，比如 <strong>Avahi</strong> 需要 <strong>syslog</strong> 的服务， <strong>Avahi</strong> 和 <strong>syslog</strong> 同时启动，假设 <strong>Avahi</strong> 的启动比较快，所以 <strong>syslog</strong> 还没有准备好，可是 <strong>Avahi</strong> 又需要记录日志，这岂不是会出现问题？<br><strong>Systemd</strong> 的开发人员仔细研究了服务之间相互依赖的本质问题，发现所谓依赖可以分为三个具体的类型，而每一个类型实际上都可以通过相应的技术解除依赖关系。</p>
-<h4 id="并发启动原理之一：解决-socket-依赖"><a href="#并发启动原理之一：解决-socket-依赖" class="headerlink" title="并发启动原理之一：解决 socket 依赖"></a>并发启动原理之一：解决 <strong>socket</strong> 依赖</h4><p>绝大多数的服务依赖是套接字依赖。比如服务 A 通过一个套接字端口 S1 提供自己的服务，其他的服务如果需要服务 A，则需要连接 S1。因此如果服务 A 尚未启动，S1 就不存在，其他的服务就会得到启动错误。所以传统地，人们需要先启动服务 A，等待它进入就绪状态，再启动其他需要它的服务。Systemd 认为，只要我们预先把 S1 建立好，那么其他所有的服务就可以同时启动而无需等待服务 A 来创建 S1 了。如果服务 A 尚未启动，那么其他进程向 S1 发送的服务请求实际上会被 Linux 操作系统缓存，其他进程会在这个请求的地方等待。一旦服务 A 启动就绪，就可以立即处理缓存的请求，一切都开始正常运行。<br>那么服务如何使用由 init 进程创建的套接字呢？<br>Linux 操作系统有一个特性，当进程调用 fork 或者 exec 创建子进程之后，所有在父进程中被打开的文件句柄 (file descriptor) 都被子进程所继承。套接字也是一种文件句柄，进程 A 可以创建一个套接字，此后当进程 A 调用 exec 启动一个新的子进程时，只要确保该套接字的 close_on_exec 标志位被清空，那么新的子进程就可以继承这个套接字。子进程看到的套接字和父进程创建的套接字是同一个系统套接字，就仿佛这个套接字是子进程自己创建的一样，没有任何区别。<br>这个特性以前被一个叫做 inetd 的系统服务所利用。Inetd 进程会负责监控一些常用套接字端口，比如 Telnet，当该端口有连接请求时，inetd 才启动 telnetd 进程，并把有连接的套接字传递给新的 telnetd 进程进行处理。这样，当系统没有 telnet 客户端连接时，就不需要启动 telnetd 进程。Inetd 可以代理很多的网络服务，这样就可以节约很多的系统负载和内存资源，只有当有真正的连接请求时才启动相应服务，并把套接字传递给相应的服务进程。<br>和 inetd 类似，systemd 是所有其他进程的父进程，它可以先建立所有需要的套接字，然后在调用 exec 的时候将该套接字传递给新的服务进程，而新进程直接使用该套接字进行服务即可。</p>
-<h4 id="并发启动原理之二：解决-D-Bus-依赖"><a href="#并发启动原理之二：解决-D-Bus-依赖" class="headerlink" title="并发启动原理之二：解决 D-Bus 依赖"></a>并发启动原理之二：解决 <strong>D-Bus</strong> 依赖</h4><p>D-Bus 是 desktop-bus 的简称，是一个低延迟、低开销、高可用性的进程间通信机制。它越来越多地用于应用程序之间通信，也用于应用程序和操作系统内核之间的通信。很多现代的服务进程都使用D-Bus 取代套接字作为进程间通信机制，对外提供服务。比如简化 Linux 网络配置的 NetworkManager 服务就使用 D-Bus 和其他的应用程序或者服务进行交互：邮件客户端软件 evolution 可以通过 D-Bus 从 NetworkManager 服务获取网络状态的改变，以便做出相应的处理。<br>D-Bus 支持所谓”bus activation”功能。如果服务 A 需要使用服务 B 的 D-Bus 服务，而服务 B 并没有运行，则 D-Bus 可以在服务 A 请求服务 B 的 D-Bus 时自动启动服务 B。而服务 A 发出的请求会被 D-Bus 缓存，服务 A 会等待服务 B 启动就绪。利用这个特性，依赖 D-Bus 的服务就可以实现并行启动。</p>
-<h4 id="并发启动原理之三：解决文件系统依赖"><a href="#并发启动原理之三：解决文件系统依赖" class="headerlink" title="并发启动原理之三：解决文件系统依赖"></a>并发启动原理之三：解决文件系统依赖</h4><p>系统启动过程中，文件系统相关的活动是最耗时的，比如挂载文件系统，对文件系统进行磁盘检查（fsck），磁盘配额检查等都是非常耗时的操作。在等待这些工作完成的同时，系统处于空闲状态。那些想使用文件系统的服务似乎必须等待文件系统初始化完成才可以启动。但是 systemd 发现这种依赖也是可以避免的。<br>Systemd 参考了 autofs 的设计思路，使得依赖文件系统的服务和文件系统本身初始化两者可以并发工作。autofs 可以监测到某个文件系统挂载点真正被访问到的时候才触发挂载操作，这是通过内核 automounter 模块的支持而实现的。比如一个 open()系统调用作用在”/misc/cd/file1”的时候，/misc/cd 尚未执行挂载操作，此时 open()调用被挂起等待，Linux 内核通知 autofs，autofs 执行挂载。这时候，控制权返回给 open()系统调用，并正常打开文件。<br>Systemd 集成了 autofs 的实现，对于系统中的挂载点，比如/home，当系统启动的时候，systemd 为其创建一个临时的自动挂载点。在这个时刻/home 真正的挂载设备尚未启动好，真正的挂载操作还没有执行，文件系统检测也还没有完成。可是那些依赖该目录的进程已经可以并发启动，他们的 open()操作被内建在 systemd 中的 autofs 捕获，将该 open()调用挂起（可中断睡眠状态）。然后等待真正的挂载操作完成，文件系统检测也完成后，systemd 将该自动挂载点替换为真正的挂载点，并让 open()调用返回。由此，实现了那些依赖于文件系统的服务和文件系统本身同时并发启动。<br>当然对于”/“根目录的依赖实际上一定还是要串行执行，因为 systemd 自己也存放在/之下，必须等待系统根目录挂载检查好。<br>不过对于类似/home 等挂载点，这种并发可以提高系统的启动速度，尤其是当/home 是远程的 NFS 节点，或者是加密盘等，需要耗费较长的时间才可以准备就绪的情况下，因为并发启动，这段时间内，系统并不是完全无事可做，而是可以利用这段空余时间做更多的启动进程的事情，总的来说就缩短了系统启动时间。</p>
-<h3 id="Systemd优点"><a href="#Systemd优点" class="headerlink" title="Systemd优点"></a>Systemd优点</h3><ul>
-<li><p>令人惊奇的激进的并发启动能力，极大地提高了系统启动速度</p>
-</li>
-<li><p>用 <strong>CGroup</strong> 统计跟踪子进程，干净可靠</p>
-</li>
-</ul>
-<p>此外，和其前任不同的地方在于，<strong>systemd</strong> 已经不仅仅是一个初始化系统了。<br><strong>Systemd</strong> 出色地替代了 <strong>sysvinit</strong> 的所有功能，但它并未就此自满。因为 <strong>init</strong> 进程是系统所有进程的父进程这样的特殊性，<strong>systemd</strong> 非常适合提供曾经由其他服务提供的功能，比如定时任务 (以前由 <strong>crond</strong> 完成) ；会话管理 (以前由 <strong>ConsoleKit/PolKit</strong> 等管理) 。仅仅从本文皮毛一样的介绍来看，<strong>Systemd</strong> 已经管得很多了，可它还在不断发展。它将逐渐成为一个多功能的系统环境，能够处理非常多的系统管理任务，有人甚至将它看作一个操作系统。</p>
-<h3 id="扩展话题"><a href="#扩展话题" class="headerlink" title="扩展话题"></a>扩展话题</h3><p><a href="https://askubuntu.com/questions/1792/how-can-i-suspend-hibernate-from-command-line?cm_mc_uid=05938828085514744326348&amp;cm_mc_sid_50200000=1492191801" target="_blank" rel="external">如何让 <strong>ubuntu</strong> 系统休眠</a>，可以使用底层的/sys/power/state 接口，也可以使用诸如 pm-utility 等高层接口。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.ibm.com/developerworks/cn/linux/1407_liuming_init1/" target="_blank" rel="external">浅析 Linux 初始化 init系统</a></p>
-
+<hr>
+        
+          <a class="article-more-a" href="/2017/01/14/浅析Linux初始化init系统/#more">more >></a>
+        
       
 
       
@@ -550,139 +380,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p><br><a href="http://www.cnblogs.com/haippy/archive/2013/02/21/2919365.html" target="_blank" rel="external">学习自大神博客</a></p>
+        <p><p><br><a href="http://www.cnblogs.com/haippy/archive/2013/02/21/2919365.html">学习自大神博客</a></p>
 <h2 id="zookeeper总结"><a href="#zookeeper总结" class="headerlink" title="zookeeper总结"></a>zookeeper总结</h2><p>我们先来总结一下zookeeper的相关知识，大致的了解下他</p>
-<h3 id="barrier：栅栏，对齐不同资源的准备状态"><a href="#barrier：栅栏，对齐不同资源的准备状态" class="headerlink" title="barrier：栅栏，对齐不同资源的准备状态"></a>barrier：栅栏，对齐不同资源的准备状态</h3><ul>
-<li><p>Barrier：等待所有资源enter后统一leave</p>
-</li>
-<li><p>DoubleBarrier：所有资源waitOnBarrier，等待代码removeBarrier后统一执行。</p>
-</li>
-</ul>
-<hr>
-<h3 id="cache：缓存"><a href="#cache：缓存" class="headerlink" title="cache：缓存"></a>cache：缓存</h3><ul>
-<li><p>nodecache：监控ZNode的一个子节点，设置一个数值</p>
-</li>
-<li><p>pathcache：监控ZNode，设置多个数值</p>
-</li>
-<li><p>treecache：nodecache+pathcache</p>
-</li>
-</ul>
-<hr>
-<h3 id="counter：计数器"><a href="#counter：计数器" class="headerlink" title="counter：计数器"></a>counter：计数器</h3><ul>
-<li><p>int计数器</p>
-</li>
-<li><p>long计数器</p>
-</li>
-</ul>
-<hr>
-<h3 id="discovery-框架扩展功能以rpc服务注册为例"><a href="#discovery-框架扩展功能以rpc服务注册为例" class="headerlink" title="discovery 框架扩展功能以rpc服务注册为例"></a>discovery 框架扩展功能以rpc服务注册为例</h3><hr>
-<h3 id="framework-框架代码build模式写法"><a href="#framework-框架代码build模式写法" class="headerlink" title="framework 框架代码build模式写法"></a>framework 框架代码build模式写法</h3><hr>
-<h3 id="leaderelection：节点选举"><a href="#leaderelection：节点选举" class="headerlink" title="leaderelection：节点选举"></a>leaderelection：节点选举</h3><ul>
-<li>LeaderSelector：当takeLeadership执行完后释放领导权。（这里可以是业务逻辑）</li>
-</ul>
-<hr>
-<h3 id="lock：锁"><a href="#lock：锁" class="headerlink" title="lock：锁"></a>lock：锁</h3><ul>
-<li><p>ReadWrite：读写锁，写锁中可以用到读锁反之不能</p>
-</li>
-<li><p>InterProcessMutex：共享锁，在一个线程中可重入</p>
-</li>
-<li><p>InterProcessSemaphoreMutex：互斥锁，同一线程不可冲入（第二个申请锁操作会阻塞）</p>
-</li>
-<li><p>MultiLock：组合锁，可以组合多种锁类型比如组合共享锁和互斥锁</p>
-</li>
-<li><p>InterProcessSemaphoreV2：信号量，超所信号量则阻塞</p>
-</li>
-</ul>
-<hr>
-<h3 id="node：节点"><a href="#node：节点" class="headerlink" title="node：节点"></a>node：节点</h3><ul>
-<li>临时节点：创建服务的时候以临时节点创建名字服务，当服务关闭的时候临时节点消失</li>
-</ul>
-<hr>
-<h3 id="queue：队列（数据量不大，不要求高性能的时候可以用）"><a href="#queue：队列（数据量不大，不要求高性能的时候可以用）" class="headerlink" title="queue：队列（数据量不大，不要求高性能的时候可以用）"></a>queue：队列（数据量不大，不要求高性能的时候可以用）</h3><ul>
-<li><p>buildDelayQueue：延时队列</p>
-</li>
-<li><p>buildIdQueue：唯一ID队列</p>
-</li>
-<li><p>buildPriorityQueue：优先级队列</p>
-</li>
-</ul>
-<hr>
-<h2 id="ZooKeeper典型应用场景一览"><a href="#ZooKeeper典型应用场景一览" class="headerlink" title="ZooKeeper典型应用场景一览"></a>ZooKeeper典型应用场景一览</h2><p>来自淘宝的总结</p>
-<h3 id="数据发布与订阅（配置中心）"><a href="#数据发布与订阅（配置中心）" class="headerlink" title="数据发布与订阅（配置中心）"></a>数据发布与订阅（配置中心）</h3><p>发布与订阅模型，即所谓的配置中心，顾名思义就是发布者将数据发布到ZK节点上，供订阅者动态获取数据，实现配置信息的集中式管理和动态更新。例如全局的配置信息，服务式服务框架的服务地址列表等就非常适合使用。</p>
-<ul>
-<li>应用中用到的一些配置信息放到ZK上进行集中管理。这类场景通常是这样：应用在启动的时候会主动来获取一次配置，同时，在节点上注册一个Watcher，这样一来，以后每次配置有更新的时候，都会实时通知到订阅的客户端，从来达到获取最新配置信息的目的。</li>
-<li>分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在ZK的一些指定节点，供各个客户端订阅使用。</li>
-<li>分布式日志收集系统。这个系统的核心工作是收集分布在不同机器的日志。收集器通常是按照应用来分配收集任务单元，因此需要在ZK上创建一个以应用名作为path的节点P，并将这个应用的所有机器ip，以子节点的形式注册到节点P上，这样一来就能够实现机器变动的时候，能够实时通知到收集器调整任务分配。</li>
-<li>系统中有些信息需要动态获取，并且还会存在人工手动去修改这个信息的发问。通常是暴露出接口，例如JMX接口，来获取一些运行时的信息。引入ZK之后，就不用自己实现一套方案了，只要将这些信息存放到指定的ZK节点上即可。</li>
-</ul>
-<p>注意：在上面提到的应用场景中，有个默认前提是：数据量很小，但是数据更新可能会比较快的场景。</p>
-<hr>
-<h3 id="负载匀衡"><a href="#负载匀衡" class="headerlink" title="负载匀衡"></a>负载匀衡</h3><p>这里说的负载均衡是指软负载均衡。在分布式环境中，为了保证高可用性，通常同一个应用或同一个服务的提供方都会部署多份，达到对等服务。而消费者就须要在这些对等的服务器中选择一个来执行相关的业务逻辑，其中比较典型的是消息中间件中的生产者，消费者负载均衡。<br>消息中间件中发布者和订阅者的负载均衡，linkedin开源的<a href="https://github.com/oscarpfernandez/KafkaMQ" target="_blank" rel="external">KafkaMQ</a>和阿里开源的<a href="https://github.com/zhangxw0325/metaq" target="_blank" rel="external">metaq</a>都是通过zookeeper来做到生产者、消费者的负载均衡。这里以metaq为例如讲下：</p>
-<blockquote>
-<p>生产者负载均衡：</p>
-</blockquote>
-<p>metaq发送消息的时候，生产者在发送消息的时候必须选择一台broker上的一个分区来发送消息，因此metaq在运行过程中，会把所有broker和对应的分区信息全部注册到ZK指定节点上，默认的策略是一个依次轮询的过程，生产者在通过ZK获取分区列表之后，会按照brokerId和partition的顺序排列组织成一个有序的分区列表，发送的时候按照从头到尾循环往复的方式选择一个分区来发送消息。</p>
-<blockquote>
-<p>消费负载均衡：</p>
-</blockquote>
-<p>在消费过程中，一个消费者会消费一个或多个分区中的消息，但是一个分区只会由一个消费者来消费。MetaQ的消费策略是：</p>
-<ul>
-<li>每个分区针对同一个group只挂载一个消费者。</li>
-<li>如果同一个group的消费者数目大于分区数目，则多出来的消费者将不参与消费。</li>
-<li>如果同一个group的消费者数目小于分区数目，则有部分消费者需要额外承担消费任务。<br>在某个消费者故障或者重启等情况下，其他消费者会感知到这一变化（通过 zookeeper watch消费者列表），然后重新进行负载均衡，保证所有的分区都有消费者进行消费。</li>
-</ul>
-<hr>
-<h3 id="命名服务-Naming-Service"><a href="#命名服务-Naming-Service" class="headerlink" title="命名服务(Naming Service)"></a>命名服务(Naming Service)</h3><p>命名服务也是分布式系统中比较常见的一类场景。在分布式系统中，通过使用命名服务，客户端应用能够根据指定名字来获取资源或服务的地址，提供者等信息。被命名的实体通常可以是集群中的机器，提供的服务地址，远程对象等等——这些我们都可以统称他们为名字（Name）。其中较为常见的就是一些分布式服务框架中的服务地址列表。通过调用ZK提供的创建节点的API，能够很容易创建一个全局唯一的path，这个path就可以作为一个名称。<br>阿里巴巴集团开源的分布式服务框架Dubbo中使用ZooKeeper来作为其命名服务，维护全局的服务地址列表，<a href="https://github.com/alibaba/dubbo" target="_blank" rel="external">点击这里查看Dubbo开源项目</a>。在Dubbo实现中：</p>
-<p><strong>服务提供者</strong> 在启动的时候，向ZK上的指定节点/dubbo/${serviceName}/providers目录下写入自己的URL地址，这个操作就完成了服务的发布。</p>
-<p><strong>服务消费者</strong> 启动的时候，订阅/dubbo/${serviceName}/providers目录下的提供者URL地址， 并向/dubbo/${serviceName} /consumers目录下写入自己的URL地址。</p>
-<p>注意，所有向ZK上注册的地址都是临时节点，这样就能够保证服务提供者和消费者能够自动感应资源的变化。</p>
-<p>另外，Dubbo还有针对服务粒度的监控，方法是订阅/dubbo/${serviceName}目录下所有提供者和消费者的信息。</p>
-<hr>
-<h3 id="分布式通知-协调"><a href="#分布式通知-协调" class="headerlink" title="分布式通知/协调"></a>分布式通知/协调</h3><p>ZooKeeper中特有watcher注册与异步通知机制，能够很好的实现分布式环境下不同系统之间的通知与协调，实现对数据变更的实时处理。使用方法通常是不同系统都对ZK上同一个znode进行注册，监听znode的变化（包括znode本身内容及子节点的），其中一个系统update了znode，那么另一个系统能够收到通知，并作出相应处理</p>
-<ul>
-<li>另一种心跳检测机制：检测系统和被检测系统之间并不直接关联起来，而是通过zk上某个节点关联，大大减少系统耦合。</li>
-<li>另一种系统调度模式：某系统有控制台和推送系统两部分组成，控制台的职责是控制推送系统进行相应的推送工作。管理人员在控制台作的一些操作，实际上是修改了ZK上某些节点的状态，而ZK就把这些变化通知给他们注册Watcher的客户端，即推送系统，于是，作出相应的推送任务。</li>
-<li>另一种工作汇报模式：一些类似于任务分发系统，子任务启动后，到zk来注册一个临时节点，并且定时将自己的进度进行汇报（将进度写回这个临时节点），这样任务管理者就能够实时知道任务进度。</li>
-</ul>
-<p>总之，使用zookeeper来进行分布式通知和协调能够大大降低系统之间的耦合</p>
-<hr>
-<h3 id="集群管理与Master选举"><a href="#集群管理与Master选举" class="headerlink" title="集群管理与Master选举"></a>集群管理与Master选举</h3><ul>
-<li>集群机器监控：这通常用于那种对集群中机器状态，机器在线率有较高要求的场景，能够快速对集群中机器变化作出响应。这样的场景中，往往有一个监控系统，实时检测集群机器是否存活。过去的做法通常是：监控系统通过某种手段（比如ping）定时检测每个机器，或者每个机器自己定时向监控系统汇报“我还活着”。 这种做法可行，但是存在两个比较明显的问题：</li>
-</ul>
-<p>①. 集群中机器有变动的时候，牵连修改的东西比较多。<br>②. 有一定的延时。</p>
-<p>利用ZooKeeper有两个特性，就可以实时另一种集群机器存活性监控系统：</p>
-<p>①. 客户端在节点 x 上注册一个Watcher，那么如果 x?的子节点变化了，会通知该客户端。<br>②. 创建EPHEMERAL类型的节点，一旦客户端和服务器的会话结束或过期，那么该节点就会消失。</p>
-<p>例如，监控系统在 /clusterServers 节点上注册一个Watcher，以后每动态加机器，那么就往 /clusterServers 下创建一个 EPHEMERAL类型的节点：/clusterServers/{hostname}. 这样，监控系统就能够实时知道机器的增减情况，至于后续处理就是监控系统的业务了。</p>
-<ul>
-<li>Master选举则是zookeeper中最为经典的应用场景了。</li>
-</ul>
-<p>在分布式环境中，相同的业务应用分布在不同的机器上，有些业务逻辑（例如一些耗时的计算，网络I/O处理），往往只需要让整个集群中的某一台机器进行执行，其余机器可以共享这个结果，这样可以大大减少重复劳动，提高性能，于是这个master选举便是这种场景下的碰到的主要问题。</p>
-<p>利用ZooKeeper的强一致性，能够保证在分布式高并发情况下节点创建的全局唯一性，即：同时有多个客户端请求创建 /currentMaster 节点，最终一定只有一个客户端请求能够创建成功。利用这个特性，就能很轻易的在分布式环境中进行集群选取了。</p>
-<p>另外，这种场景演化一下，就是动态Master选举。这就要用到?EPHEMERAL_SEQUENTIAL类型节点的特性了。</p>
-<p>上文中提到，所有客户端创建请求，最终只有一个能够创建成功。在这里稍微变化下，就是允许所有请求都能够创建成功，但是得有个创建顺序，于是所有的请求最终在ZK上创建结果的一种可能情况是这样： /currentMaster/{sessionId}-1 ,?/currentMaster/{sessionId}-2 ,?/currentMaster/{sessionId}-3 ….. 每次选取序列号最小的那个机器作为Master，如果这个机器挂了，由于他创建的节点会马上小时，那么之后最小的那个机器就是Master了。</p>
-<ul>
-<li><p>在搜索系统中，如果集群中每个机器都生成一份全量索引，不仅耗时，而且不能保证彼此之间索引数据一致。因此让集群中的Master来进行全量索引的生成，然后同步到集群中其它机器。另外，Master选举的容灾措施是，可以随时进行手动指定master，就是说应用在zk在无法获取master信息时，可以通过比如http方式，向一个地方获取master。</p>
-</li>
-<li><p>在Hbase中，也是使用ZooKeeper来实现动态HMaster的选举。在Hbase实现中，会在ZK上存储一些ROOT表的地址和HMaster的地址，HRegionServer也会把自己以临时节点（Ephemeral）的方式注册到Zookeeper中，使得HMaster可以随时感知到各个HRegionServer的存活状态，同时，一旦HMaster出现问题，会重新选举出一个HMaster来运行，从而避免了HMaster的单点问题</p>
-</li>
-</ul>
-<hr>
-<h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><p>分布式锁，这个主要得益于ZooKeeper为我们保证了数据的强一致性。锁服务可以分为两类，一个是保持独占，另一个是控制时序。</p>
-<ul>
-<li><p>所谓保持独占，就是所有试图来获取这个锁的客户端，最终只有一个可以成功获得这把锁。通常的做法是把zk上的一个znode看作是一把锁，通过create znode的方式来实现。所有客户端都去创建 /distribute_lock 节点，最终成功创建的那个客户端也即拥有了这把锁。</p>
-</li>
-<li><p>控制时序，就是所有视图来获取这个锁的客户端，最终都是会被安排执行，只是有个全局时序了。做法和上面基本类似，只是这里 /distribute_lock 已经预先存在，客户端在它下面创建临时有序节点（这个可以通过节点的属性控制：CreateMode.EPHEMERAL_SEQUENTIAL来指定）。Zk的父节点（/distribute_lock）维持一份sequence,保证子节点创建的时序性，从而也形成了每个客户端的全局时序。</p>
-</li>
-</ul>
-<hr>
-<h3 id="分布式队列"><a href="#分布式队列" class="headerlink" title="分布式队列"></a>分布式队列</h3><p>队列方面，简单地讲有两种:</p>
-<ul>
-<li><p>一种是常规的先进先出队列，另一种是要等到队列成员聚齐之后的才统一按序执行。对于第一种先进先出队列，和分布式锁服务中的控制时序场景基本原理一致，这里不再赘述。</p>
-</li>
-<li><p>第二种队列其实是在FIFO队列的基础上作了一个增强。通常可以在 /queue 这个znode下预先建立一个/queue/num 节点，并且赋值为n（或者直接给/queue赋值n），表示队列大小，之后每次有队列成员加入后，就判断下是否已经到达队列大小，决定是否可以开始执行了。这种用法的典型场景是，分布式环境中，一个大任务Task A，需要在很多子任务完成（或条件就绪）情况下才能进行。这个时候，凡是其中一个子任务完成（就绪），那么就去 /taskList 下建立自己的临时时序节点（CreateMode.EPHEMERAL_SEQUENTIAL），当 /taskList 发现自己下面的子节点满足指定个数，就可以进行下一步按序进行处理了。</p>
-</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2017/01/13/Zookeeper C API学习(二)/#more">more >></a>
+        
       
 
       
@@ -882,60 +584,10 @@
       
         <p>
 
-</p><h2 id="String-Manipulation-字符串操作函数"><a href="#String-Manipulation-字符串操作函数" class="headerlink" title="String Manipulation 字符串操作函数"></a>String Manipulation 字符串操作函数</h2><h3 id="strcat"><a href="#strcat" class="headerlink" title="strcat()"></a>strcat()</h3><blockquote>
-<p>连接两个字符串</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.strcat()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcat</span><span class="params">(<span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">char</span> *src)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *addr = dest;</div><div class="line">    <span class="comment">//find '\0'</span></div><div class="line">    <span class="keyword">while</span> (*dest) &#123;</div><div class="line">        dest++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (*dest++ = *src++) &#123;&#125;;</div><div class="line">    <span class="keyword">return</span> addr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p><em>相关</em>：strncat:连接前n个字符串</p>
-<h3 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp()"></a>strcmp()</h3><blockquote>
-<p>比较两个字符串</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//2.strcmp()</span></div><div class="line"><span class="comment">// &gt; p</span></div><div class="line"><span class="comment">// = 0</span></div><div class="line"><span class="comment">// &lt; n</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">strcmp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str1, <span class="keyword">const</span> <span class="keyword">char</span> *str2)</span> </span>&#123;</div><div class="line">    <span class="keyword">while</span> (*str1 == *str2) &#123;</div><div class="line">        <span class="keyword">if</span> (*str1 == <span class="string">'\0'</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        str1++;</div><div class="line">        str2++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> *str1 - *str2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p><em>相关</em>：strncmp:比较前n个字符串</p>
-<h3 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy()"></a>strcpy()</h3><blockquote>
-<p>拷贝字符串内容到目的串</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//3.strcpy()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strcpy</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">char</span> *src)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *addr = dest;</div><div class="line">    <span class="keyword">while</span> (*dest++ = *src++) &#123;&#125;;</div><div class="line">    <span class="keyword">return</span> addr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p><em>相关</em>：strncpy:拷贝前n个字符串</p>
-<h3 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h3><blockquote>
-<p>返回字符串str的长度（不包括’\0’)</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//4.strlen()</span></div><div class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">strlen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>&#123;</div><div class="line">    <span class="keyword">unsigned</span> len = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (*str != <span class="string">'\0'</span>) &#123;</div><div class="line">        len++;</div><div class="line">        str++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="strchr"><a href="#strchr" class="headerlink" title="strchr()"></a>strchr()</h3><p>&gt;</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//5.strchr()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strchr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">const</span> <span class="keyword">char</span> c)</span> </span>&#123;</div><div class="line">    <span class="keyword">while</span> (*str != <span class="string">'\0'</span> &amp;&amp; *str != c) &#123;</div><div class="line">        str++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> (*src == c ? str : <span class="literal">NULL</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="strrchr"><a href="#strrchr" class="headerlink" title="strrchr()"></a>strrchr()</h3><p>&gt;</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//6.strrchr() last find c</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strrchr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">const</span> <span class="keyword">char</span> c)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *p = str + <span class="built_in">strlen</span>(str);</div><div class="line">    <span class="keyword">while</span> (p != str &amp;&amp; *p != c) &#123;</div><div class="line">        p--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (p == str &amp;&amp; *p != c) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="strcspn"><a href="#strcspn" class="headerlink" title="strcspn()"></a>strcspn()</h3><blockquote>
-<p>在字符串pstr中搜寻strCharsret中所出现的字符，返回strCharset中出现的第一个字符在pstr中的出现位置。简单的说，若strcspn返回的数值为n，则代表字符串strCharsrt开头连续有n个字符不包含在pstr内的字符。</p>
-</blockquote>
-<p>这个函数实现的非常巧妙，所以我们重点介绍一下</p>
-<p>例如：对于字符’1’,其ASCII码味0x31，右移3位得到6，和7与运算得到1，也就是在map[6]中的第一位.</p>
-<p>具体思想：<br>一个unsigend char有8位，拆为高5位与低3位。前5位的范围有0~32，所以申请32大小的数组map。直接将前5位映射成成数组下标，后3位范围0~7，正好是每一项char（8bit）。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//7. tstrCSpn</span></div><div class="line"><span class="comment">//sublime</span></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">tstrCSpn</span><span class="params">(<span class="keyword">const</span> tChar *pStr, <span class="keyword">const</span> tChar *pStrSet)</span> </span>&#123;</div><div class="line">    <span class="comment">// map有32个字节的大小，也就是256个bit，可把map堪称一个2维数组[32][8]</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="built_in">map</span>[<span class="number">32</span>] = &#123;<span class="number">0</span>&#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 每个ASCII码(设为c)有8bit，把它分成2部分，低3位构成下标j(通过c&amp;7(2进制为111)),</span></div><div class="line">    <span class="comment">// 高5位构成下标i(通过c&gt;&gt;3得到)。这样在map[i][j]中置1表示字符存在</span></div><div class="line">    <span class="keyword">while</span> (*pStrSet) &#123;</div><div class="line">        <span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] = <span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] | (<span class="number">1</span> &lt;&lt; (*pStrSet &amp; <span class="number">7</span>));</div><div class="line">        pStrSet++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">map</span>[<span class="number">0</span>] = <span class="built_in">map</span>[<span class="number">0</span>] | <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">    <span class="keyword">while</span> (!(<span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] &amp; (<span class="number">1</span> &lt;&lt; (*pStrSet &amp; <span class="number">7</span>)))) &#123;</div><div class="line">        count++;</div><div class="line">        pStr++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p><em>相关</em>：strspn:返回后面字符串中第一个不在前者出现的下标</p>
-<h3 id="strdup"><a href="#strdup" class="headerlink" title="strdup()"></a>strdup()</h3><blockquote>
-<p>拷贝字符串到新建的内存</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//8. strdup()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strdup</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *p = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">if</span> (str &amp;&amp; (p = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="built_in">strlen</span>(str) + <span class="number">1</span>))) &#123;</div><div class="line">        <span class="built_in">strcpy</span>(p, str);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="strrev"><a href="#strrev" class="headerlink" title="strrev()"></a>strrev()</h3><blockquote>
-<p>反转字符串</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//9. strrev()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strrev</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (str == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">char</span> *start = str;</div><div class="line">    <span class="keyword">char</span> *end = str + <span class="built_in">strlen</span>(str) - <span class="number">1</span>;</div><div class="line">    <span class="keyword">char</span> temp;</div><div class="line">    <span class="keyword">while</span> (start &lt; end) &#123;</div><div class="line">        temp = *start;</div><div class="line">        *start = *end;</div><div class="line">        *end = temp;</div><div class="line"></div><div class="line">        start++;</div><div class="line">        end--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> str;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h3><blockquote>
-<p>查找字符串str2在str1中出现的位置</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//10. strstr()</span></div><div class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strstr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> str1, <span class="keyword">const</span> <span class="keyword">char</span> str2)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> length1 = <span class="built_in">strlen</span>(st1);</div><div class="line">    <span class="keyword">int</span> length2 = <span class="built_in">strlen</span>(st2);</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (length1 &gt; length2) &#123;</div><div class="line">        length1--;</div><div class="line">        <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(str1, str2, length2)) &#123;</div><div class="line">            <span class="keyword">return</span> str1;</div><div class="line">        &#125;</div><div class="line">        str1++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">inline</span> tChar *<span class="title">tStrStr</span><span class="params">(tChar *pStr, tChar *pSubStr)</span> </span>&#123;</div><div class="line">    tChar *b = pSubStr;</div><div class="line">    <span class="keyword">if</span> (*b == <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="keyword">return</span> pStr;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    tChar *a = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">for</span> ( ; *pStr != <span class="literal">NULL</span>; pStr++) &#123;</div><div class="line">        <span class="keyword">if</span> (*pStr != *b) &#123;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        a = pStr;</div><div class="line">        <span class="keyword">while</span> (<span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (*b == <span class="literal">NULL</span>) &#123;</div><div class="line">                <span class="keyword">return</span> pStr;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (*a++ != *b++) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        b = pSubStr;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-
+<h2 id="String-Manipulation-字符串操作函数"><a href="#String-Manipulation-字符串操作函数" class="headerlink" title="String Manipulation 字符串操作函数"></a>String Manipulation 字符串操作函数</h2><hr>
+        
+          <a class="article-more-a" href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/#more">more >></a>
+        
       
 
       
@@ -1003,7 +655,7 @@
       
         <p>
 
-</p><h2 id="CRT"><a href="#CRT" class="headerlink" title="CRT"></a>CRT</h2><p>开始学习 <strong>CRT</strong> 的一些实现源码<br>主要学习三个部分：</p>
+<h2 id="CRT"><a href="#CRT" class="headerlink" title="CRT"></a>CRT</h2><p>开始学习 <strong>CRT</strong> 的一些实现源码<br>主要学习三个部分：</p>
 <ul>
 <li><p>字符串操作 String Manipulation</p>
 </li>
@@ -1012,91 +664,10 @@
 <li><p>数据转换 Data Conversion</p>
 </li>
 </ul>
-<h2 id="学到的函数表"><a href="#学到的函数表" class="headerlink" title="学到的函数表"></a>学到的函数表</h2><h3 id="String-Manipulation"><a href="#String-Manipulation" class="headerlink" title="String Manipulation"></a>String Manipulation</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>原型</th>
-<th style="text-align:right">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>strcat()</td>
-<td>char <em>strcat(char </em>dest, const char *src)</td>
-<td style="text-align:right">连接两个字符串</td>
-</tr>
-<tr>
-<td>strcmp()</td>
-<td>int strcmp(const char <em>str1, const char </em>str2)</td>
-<td style="text-align:right">比较两个字符串</td>
-</tr>
-<tr>
-<td>strcpy()</td>
-<td>char <em>strcpy(char</em> dest, const char *src)</td>
-<td style="text-align:right">拷贝字符串到目的串</td>
-</tr>
-<tr>
-<td>strlen()</td>
-<td>unsigned in strlen(const char *str)</td>
-<td style="text-align:right">返回字符串str的长度（不包括’\0’)</td>
-</tr>
-<tr>
-<td>strchr()</td>
-<td>char <em>strchr(char </em>str, const char c)</td>
-<td style="text-align:right">查找str中首次出现c的位置</td>
-</tr>
-<tr>
-<td>strrchr()</td>
-<td>char <em>strrchr(char </em>str, const char c)</td>
-<td style="text-align:right">查找str中最后一次出现c的位置</td>
-</tr>
-<tr>
-<td>strcspn()</td>
-<td>size_t strcspn(const char <em>pstr, const char </em>strCharset)</td>
-<td style="text-align:right">返回strCharset中出现的第一个字符在pstr中的出现位置</td>
-</tr>
-<tr>
-<td>strspn()</td>
-<td>size_t strspn(const char <em>pstr, const char </em>strCharset)</td>
-<td style="text-align:right">返回后面字符串中第一个不在前者出现的下标</td>
-</tr>
-<tr>
-<td>strdup()</td>
-<td>char <em>strdup(const char </em>str)</td>
-<td style="text-align:right">功能为拷贝字符串到新建的内存</td>
-</tr>
-<tr>
-<td>strrev()</td>
-<td>char <em>strrev(char </em>str)</td>
-<td style="text-align:right">反转字符串</td>
-</tr>
-<tr>
-<td>strstr()</td>
-<td>char <em>strstr(const char str1, const char </em>str2)</td>
-<td style="text-align:right">查找字符串str2在str1中出现的位置</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Buffer-Manipulation"><a href="#Buffer-Manipulation" class="headerlink" title="Buffer Manipulation"></a>Buffer Manipulation</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>原型</th>
-<th style="text-align:right">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="Data-Conversion"><a href="#Data-Conversion" class="headerlink" title="Data Conversion"></a>Data Conversion</h3><blockquote>
-<p>大概学到的就是这些了<br>接下来我们一一的介绍</p>
-</blockquote>
-
+<hr>
+        
+          <a class="article-more-a" href="/2016/12/05/C语言标准库函数学习(一)/#more">more >></a>
+        
       
 
       
@@ -1124,134 +695,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/12/05/C语言标准库函数学习(一)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-kelele67的学习笔记-html小游戏" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/11/kelele67的学习笔记-html小游戏/">kelele67的学习笔记-html5小游戏</a>
-    </h1>
-  
-
-        
-        <a href="/2016/11/11/kelele67的学习笔记-html小游戏/" class="archive-article-date">
-  	<time datetime="2016-11-11T08:24:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="tinyHeart"><a href="#tinyHeart" class="headerlink" title="tinyHeart"></a>tinyHeart</h1><p>之前一直在做 <strong>swift</strong> 在IOS上的一些界面设计啊，动画效果啥的，主要是来自简书上看到的<a href="http://www.jianshu.com/p/52032bc4cbe4" target="_blank" rel="external">自学 iOS - 三十天三十个 Swift 项目</a>。这个项目我才做了几个。打算做完了再整合成一篇文章发表出来。结果学到一半就。。不过有一点可以辩解的是，之前的确是一直在不断的学啊学。感觉自己身心疲惫，也是有点学不动了，但是现在又充满了动力蛤蛤。</p>
-<p>最近为了学（fu）习 <strong>web</strong> 开发，决定做一个慕课网的教程<a href="http://www.imooc.com/learn/515" target="_blank" rel="external">HTML5小游戏—爱心鱼</a></p>
-<p>想起来还有一件让我充满动力的事就是除了自习室有空调能够暖和过冬以外就是我的sublime换了一个主题，代码颜色变得超好看，我超喜欢的，哈哈哈我是不会告诉你是 <strong>Boxy Nova.sublime-theme</strong>这个主题的。</p>
-<p>这个爱心鱼html5小游戏的制作通过以下几个步骤进行：</p>
-<ol>
-<li>页面搭建</li>
-<li>绘制</li>
-</ol>
-<hr>
-<h2 id="页面搭建"><a href="#页面搭建" class="headerlink" title="页面搭建"></a>页面搭建</h2><p>主要就是建立src资源文件夹和js文件夹再加上一个html文件就行了</p>
-<p>首先是html文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;tinyHeart&lt;/title&gt;</div><div class="line">    &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">            body&#123;</div><div class="line">                padding-top: 10px;</div><div class="line">            &#125;</div><div class="line">            .all_bg&#123;</div><div class="line">                width: 800px;</div><div class="line">                height: 600px;</div><div class="line">                margin: 0px auto;</div><div class="line">            &#125;</div><div class="line">            #allcanvas&#123;</div><div class="line">                position: relative;</div><div class="line">                width: 800px;</div><div class="line">                height: 600px</div><div class="line">                margin: 0px;</div><div class="line">            &#125;</div><div class="line">            #canvas1&#123;</div><div class="line">                position: absolute;</div><div class="line">                bottom: 0;</div><div class="line">                left: 0;</div><div class="line">                z-index: 1;</div><div class="line">            &#125;</div><div class="line">            #canvas2&#123;</div><div class="line">                position: absolute;</div><div class="line">                bottom: 0;</div><div class="line">                left: 0;</div><div class="line">                z-index: 0;</div><div class="line">            &#125;</div><div class="line">            &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=&quot;all_bg&quot;&gt;</div><div class="line">    &lt;div class=&quot;allcanvas&quot;&gt;</div><div class="line">    &lt;canvas id=&quot;canvas1&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;</div><div class="line">    &lt;canvas id=&quot;canvas2&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot; src =&quot;js/main.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>还有main.js文件，把准备工作做好</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> can1;</div><div class="line"><span class="keyword">var</span> can2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ctx1;</div><div class="line"><span class="keyword">var</span> ctx2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> canWidth;</div><div class="line"><span class="keyword">var</span> canHeight;</div><div class="line"></div><div class="line"><span class="keyword">var</span> lastTime;</div><div class="line"><span class="keyword">var</span> deltaTime;<span class="comment">//两帧之间的时间差</span></div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.onload = game;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">game</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    init();</div><div class="line">    lastTime = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = <span class="number">0</span>;</div><div class="line">    gameloop();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//获得canvas context</span></div><div class="line">    can1 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas1"</span>);<span class="comment">//前面的 fishes, dust, UI, circle</span></div><div class="line">    ctx1 = can1.getContext(<span class="string">'2d'</span>);</div><div class="line">    can2 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas2"</span>);<span class="comment">//后面的 bg, ane, fruits</span></div><div class="line">    ctx2 = can2.getContext(<span class="string">'2d'</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameloop</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">window</span>.requestAnimFrame(gameloop);</div><div class="line">    <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = now - lastTime;</div><div class="line">    lastTime = now;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在html文件中添加js文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot; src =&quot;js/background.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h2><ol>
-<li>绘制背景</li>
-<li>海葵绘制</li>
-<li>果实绘制（静态果实）</li>
-<li>果实绘制（果实上浮）</li>
-<li>果实绘制（果实数量绘制）</li>
-<li>大鱼绘制</li>
-<li>大鱼随鼠标移动</li>
-<li>大鱼和果实的碰撞检测</li>
-<li>优化</li>
-<li>小鱼绘制</li>
-</ol>
-<h3 id="1-绘制背景"><a href="#1-绘制背景" class="headerlink" title="1.绘制背景"></a>1.绘制背景</h3><p>编写background.js文件</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawBackground</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    ctx2.drawImage(bgPic, <span class="number">0</span>, <span class="number">0</span>, canWidth, canHeight);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>把背景图片路径导入到main.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> can1;</div><div class="line"><span class="keyword">var</span> can2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ctx1;</div><div class="line"><span class="keyword">var</span> ctx2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> canWidth;</div><div class="line"><span class="keyword">var</span> canHeight;</div><div class="line"></div><div class="line"><span class="keyword">var</span> lastTime;</div><div class="line"><span class="keyword">var</span> deltaTime;<span class="comment">//两帧之间的时间差</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bgPic = <span class="keyword">new</span> Image();</div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.onload = game;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">game</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    init();</div><div class="line">    lastTime = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = <span class="number">0</span>;</div><div class="line">    gameloop();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//获得canvas context</span></div><div class="line">    can1 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas1"</span>);<span class="comment">//前面的 fishes, dust, UI, circle</span></div><div class="line">    ctx1 = can1.getContext(<span class="string">'2d'</span>);</div><div class="line">    can2 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas2"</span>);<span class="comment">//后面的 bg, ane, fruits</span></div><div class="line">    ctx2 = can2.getContext(<span class="string">'2d'</span>);</div><div class="line"></div><div class="line">    bgPic.src = <span class="string">"./src/background.jpg"</span>;</div><div class="line"></div><div class="line">    canWidth = can1.width;</div><div class="line">    canHeight = can1.height;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameloop</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">window</span>.requestAnimFrame(gameloop);</div><div class="line">    <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = now - lastTime;</div><div class="line">    lastTime = now;</div><div class="line"></div><div class="line">    drawBackground();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="2-海葵绘制"><a href="#2-海葵绘制" class="headerlink" title="2.海葵绘制"></a>2.海葵绘制</h3><p>建立ane.js文件定义海葵</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> aneObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x = [];</div><div class="line">    <span class="keyword">this</span>.len = [];</div><div class="line">&#125;</div><div class="line">aneObj.prototype.num = <span class="number">50</span>;</div><div class="line"><span class="comment">//初始化海葵</span></div><div class="line">aneObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.x[i] = i * <span class="number">16</span> + <span class="built_in">Math</span>.random() * <span class="number">20</span>;</div><div class="line">        <span class="keyword">this</span>.len[i] = <span class="number">200</span> + <span class="built_in">Math</span>.random() * <span class="number">50</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">aneObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    ctx2.save();</div><div class="line">    ctx2.globalAlpha = <span class="number">0.6</span>;</div><div class="line">    ctx2.lineWidth = <span class="number">20</span>;</div><div class="line">    ctx2.lineCap = <span class="string">"round"</span>;</div><div class="line">    ctx2.strokeStyle = <span class="string">"#3b154e"</span><span class="comment">//先设置style</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//beginPath, moveTo, lineTo, stroke, strokeStyle, lineWidth, lineCap</span></div><div class="line">        ctx2.beginPath();</div><div class="line">        ctx2.moveTo(<span class="keyword">this</span>.x[i], canHeight);</div><div class="line">        ctx2.lineTo(<span class="keyword">this</span>.x[i], canHeight - <span class="keyword">this</span>.len[i]);</div><div class="line">        ctx2.stroke();</div><div class="line">    &#125;</div><div class="line">    ctx2.restore();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p>同样的在main.js中绘制海葵</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> can1;</div><div class="line"><span class="keyword">var</span> can2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ctx1;</div><div class="line"><span class="keyword">var</span> ctx2;</div><div class="line"></div><div class="line"><span class="keyword">var</span> canWidth;</div><div class="line"><span class="keyword">var</span> canHeight;</div><div class="line"></div><div class="line"><span class="keyword">var</span> lastTime;</div><div class="line"><span class="keyword">var</span> deltaTime;<span class="comment">//两帧之间的时间差</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bgPic = <span class="keyword">new</span> Image();</div><div class="line"></div><div class="line"><span class="keyword">var</span> ane;</div><div class="line"></div><div class="line"><span class="built_in">document</span>.body.onload = game;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">game</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    init();</div><div class="line">    lastTime = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = <span class="number">0</span>;</div><div class="line">    gameloop();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//获得canvas context</span></div><div class="line">    can1 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas1"</span>);<span class="comment">//前面的 fishes, dust, UI, circle</span></div><div class="line">    ctx1 = can1.getContext(<span class="string">'2d'</span>);</div><div class="line">    can2 = <span class="built_in">document</span>.getElementById(<span class="string">"canvas2"</span>);<span class="comment">//后面的 bg, ane, fruits</span></div><div class="line">    ctx2 = can2.getContext(<span class="string">'2d'</span>);</div><div class="line"></div><div class="line">    bgPic.src = <span class="string">"./src/background.jpg"</span>;</div><div class="line"></div><div class="line">    canWidth = can1.width;</div><div class="line">    canHeight = can1.height;</div><div class="line"></div><div class="line">    ane = <span class="keyword">new</span> aneObj();</div><div class="line">    ane.init();</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameloop</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">window</span>.requestAnimFrame(gameloop);</div><div class="line">    <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</div><div class="line">    deltaTime = now - lastTime;</div><div class="line">    lastTime = now;</div><div class="line"></div><div class="line">    drawBackground();</div><div class="line">    ane.draw();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<p>继续在html文件中添加js文件（接下来的步骤就省略这一步了，老是写这一步好麻烦，我好懒啊啊啊~)</p>
-<p>最后画出来是酱紫的</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://oe9uinblw.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-11-11%2016.57.22.png" alt=""></h2><h3 id="3-果实绘制"><a href="#3-果实绘制" class="headerlink" title="3.果实绘制"></a>3.果实绘制</h3><ol>
-<li>果实绘制（静态果实）</li>
-<li>果实绘制（果实上浮）</li>
-<li>果实绘制（果实数量绘制）</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fruitObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.alive = [];<span class="comment">//bool</span></div><div class="line">    <span class="keyword">this</span>.x = [];</div><div class="line">    <span class="keyword">this</span>.y = [];</div><div class="line">    <span class="keyword">this</span>.aneID = [];</div><div class="line">    <span class="keyword">this</span>.l = [];<span class="comment">//果实的大小</span></div><div class="line">    <span class="keyword">this</span>.spd =[];<span class="comment">//果实自己的速度</span></div><div class="line">    <span class="keyword">this</span>.fruitType = [];<span class="comment">//果实类型</span></div><div class="line">    <span class="keyword">this</span>.orange = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.blue = <span class="keyword">new</span> Image();</div><div class="line">&#125;</div><div class="line">fruitObj.prototype.num = <span class="number">30</span>;</div><div class="line">fruitObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.alive[i] = <span class="literal">false</span>;</div><div class="line">        <span class="keyword">this</span>.x[i] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">this</span>.y[i] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">this</span>.aneID[i] = <span class="number">0</span>;<span class="comment">//哪一个海葵</span></div><div class="line">        <span class="keyword">this</span>.spd[i] = <span class="built_in">Math</span>.random() * <span class="number">0.02</span> + <span class="number">0.005</span>;</div><div class="line">        <span class="comment">//this.born(i);</span></div><div class="line">        <span class="keyword">this</span>.fruitType[i] = <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.orange.src = <span class="string">"./src/fruit.png"</span>;</div><div class="line">    <span class="keyword">this</span>.blue.src = <span class="string">"./src/blue.png"</span>;</div><div class="line">&#125;</div><div class="line">fruitObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">var</span> pic;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.alive[i])</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.fruitType[i] == <span class="string">"blue"</span>) &#123;   <span class="comment">//判断蓝色还是黄色果实</span></div><div class="line">                pic = <span class="keyword">this</span>.blue;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                pic = <span class="keyword">this</span>.orange;</div><div class="line">            &#125;</div><div class="line">        <span class="comment">//draw</span></div><div class="line">        <span class="comment">//find an ane, grow, fly up</span></div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.l[i] &lt;= <span class="number">14</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">this</span>.l[i] += <span class="keyword">this</span>.spd[i] * deltaTime;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="comment">//果实上升的速度变化</span></div><div class="line">                <span class="keyword">this</span>.y[i] -= <span class="keyword">this</span>.spd[i] * <span class="number">8</span> * deltaTime;</div><div class="line">                ctx2.drawImage(pic, <span class="keyword">this</span>.x[i]-<span class="keyword">this</span>.l[i] / <span class="number">2</span>, <span class="keyword">this</span>.y[i]-<span class="keyword">this</span>.l[i] / <span class="number">2</span>, <span class="keyword">this</span>.l[i], <span class="keyword">this</span>.l[i]);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.y[i] &lt; <span class="number">10</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">this</span>.alive[i] = <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fruitObj.prototype.born = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> aneID = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * ane.num);</div><div class="line">    <span class="comment">//this.aneID[i] = Math.floor(Math.random() * ane.num);</span></div><div class="line">    <span class="comment">//果实出生点</span></div><div class="line">    <span class="keyword">this</span>.x[i] = ane.x[aneID];</div><div class="line">    <span class="keyword">this</span>.y[i] = canHeight - ane.len[aneID];</div><div class="line">    <span class="keyword">this</span>.l[i] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">this</span>.alive[i] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">var</span> fruRand = <span class="built_in">Math</span>.random();</div><div class="line">    <span class="keyword">if</span>(fruRand &lt; <span class="number">0.2</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.fruitType[i] = <span class="string">"blue"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">this</span>.fruitType[i] = <span class="string">"orange"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fruitObj.prototype.dead = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.alive[i] = <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fruitMonitor</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">var</span> num = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fruit.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(fruit.alive[i]) &#123;</div><div class="line">            num++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(num &lt; <span class="number">15</span>)</div><div class="line">    &#123;</div><div class="line">        sendFruit();</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendFruit</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fruit.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(!fruit.alive[i])</div><div class="line">        &#123;</div><div class="line">            fruit.born(i);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// fruitObj.prototype.update = function()</span></div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//  var num = 0;</span></div><div class="line"><span class="comment">//  for(var i = 0; i &lt; this.alive[i]; i++)</span></div><div class="line"><span class="comment">//  &#123;</span></div><div class="line"><span class="comment">//      if(this.alive[i]) num++;</span></div><div class="line"><span class="comment">//  &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
-<hr>
-<h3 id="6-大鱼绘制"><a href="#6-大鱼绘制" class="headerlink" title="6. 大鱼绘制"></a>6. 大鱼绘制</h3><ol>
-<li>大鱼绘制</li>
-<li>大鱼随鼠标移动</li>
-<li>大鱼和果实的碰撞检测</li>
-</ol>
-<h4 id="大鱼的绘制及随鼠标移动"><a href="#大鱼的绘制及随鼠标移动" class="headerlink" title="大鱼的绘制及随鼠标移动"></a>大鱼的绘制及随鼠标移动</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> dadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x;</div><div class="line">    <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">this</span>.angle;</div><div class="line">    <span class="keyword">this</span>.bigEye = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.bigBody = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.bigTail = <span class="keyword">new</span> Image();</div><div class="line">&#125;</div><div class="line"></div><div class="line">dadObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x = canWidth * <span class="number">0.5</span>;</div><div class="line">    <span class="keyword">this</span>.y = canHeight * <span class="number">0.5</span>;</div><div class="line">    <span class="keyword">this</span>.angle = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.bigEye.src = <span class="string">"./src/bigEye0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.bigBody.src = <span class="string">"./src/bigSwim0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.bigTail.src = <span class="string">"./src/bigTail0.png"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dadObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//lerp x, y 趋向于一个目标值</span></div><div class="line">    <span class="keyword">this</span>.x = lerpDistance(mx, <span class="keyword">this</span>.x, <span class="number">0.9</span>);</div><div class="line">    <span class="keyword">this</span>.y = lerpDistance(my, <span class="keyword">this</span>.y, <span class="number">0.9</span>);</div><div class="line"></div><div class="line">    <span class="comment">//delta angle</span></div><div class="line">    <span class="comment">//Math.atan2(y, x)</span></div><div class="line">    <span class="keyword">var</span> deltaY = my - <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">var</span> deltaX = mx - <span class="keyword">this</span>.x;</div><div class="line">    <span class="comment">//大鱼运动时旋转角度</span></div><div class="line">    <span class="keyword">var</span> beta = <span class="built_in">Math</span>.atan2(deltaY, deltaX) + <span class="built_in">Math</span>.PI;</div><div class="line"></div><div class="line">    <span class="comment">//lerp angle </span></div><div class="line">    <span class="keyword">this</span>.angle = lerpAngle(beta, <span class="keyword">this</span>.angle, <span class="number">0.7</span>);</div><div class="line"></div><div class="line">    ctx1.save();<span class="comment">//仅适用于大鱼</span></div><div class="line">    ctx1.translate(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</div><div class="line">    ctx1.rotate(<span class="keyword">this</span>.angle);</div><div class="line"></div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.bigTail, -<span class="keyword">this</span>.bigTail.width * <span class="number">0.5</span> + <span class="number">30</span>, -<span class="keyword">this</span>.bigTail.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.bigBody, -<span class="keyword">this</span>.bigBody.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.bigBody.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.bigEye, -<span class="keyword">this</span>.bigEye.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.bigEye.height * <span class="number">0.5</span>);</div><div class="line"></div><div class="line">    ctx1.restore();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h4 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h4><p>添加collision.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断大鱼和果实的距离</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">dadFruitsCollision</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; fruit.num; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(fruit.alive[i])</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//calculate length</span></div><div class="line">            <span class="keyword">var</span> l = calLength2(fruit.x[i], fruit.y[i], dad.x, dad.y);</div><div class="line">            <span class="keyword">if</span>(l &lt; <span class="number">400</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">//fruit eaten</span></div><div class="line">                fruit.dead(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="10-小鱼绘制"><a href="#10-小鱼绘制" class="headerlink" title="10. 小鱼绘制"></a>10. 小鱼绘制</h3><ol>
-<li>优化</li>
-<li>小鱼绘制</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> babyObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x;</div><div class="line">    <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">this</span>.angle;</div><div class="line">    <span class="keyword">this</span>.babyEye = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.babyBody = <span class="keyword">new</span> Image();</div><div class="line">    <span class="keyword">this</span>.babyTail = <span class="keyword">new</span> Image();</div><div class="line">&#125;</div><div class="line"></div><div class="line">babyObj.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">this</span>.x = canWidth * <span class="number">0.5</span> - <span class="number">50</span>;</div><div class="line">    <span class="keyword">this</span>.y = canHeight * <span class="number">0.5</span> + <span class="number">50</span>;</div><div class="line">    <span class="keyword">this</span>.angle = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.babyEye.src = <span class="string">"./src/babyEye0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.babyBody.src = <span class="string">"./src/babyFade0.png"</span>;</div><div class="line">    <span class="keyword">this</span>.babyTail.src = <span class="string">"./src/babyTail0.png"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">babyObj.prototype.draw = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//lerp x, y</span></div><div class="line">    <span class="keyword">this</span>.x = lerpDistance(dad.x, <span class="keyword">this</span>.x, <span class="number">0.98</span>)</div><div class="line">    <span class="keyword">this</span>.y = lerpDistance(dad.y, <span class="keyword">this</span>.y, <span class="number">0.98</span>)</div><div class="line"></div><div class="line">    <span class="comment">//lerp angle    </span></div><div class="line">    <span class="keyword">var</span> deltaY = dad.y - <span class="keyword">this</span>.y;</div><div class="line">    <span class="keyword">var</span> deltaX = dad.x - <span class="keyword">this</span>.x;</div><div class="line">    <span class="comment">//大鱼运动时旋转角度</span></div><div class="line">    <span class="keyword">var</span> beta = <span class="built_in">Math</span>.atan2(deltaY, deltaX) + <span class="built_in">Math</span>.PI;<span class="comment">// [-PI, PI]</span></div><div class="line"></div><div class="line">    <span class="comment">//lerp angle </span></div><div class="line">    <span class="keyword">this</span>.angle = lerpAngle(beta, <span class="keyword">this</span>.angle, <span class="number">0.7</span>);</div><div class="line">    <span class="comment">//ctx1</span></div><div class="line">    ctx1.save();</div><div class="line">    <span class="comment">//translate() 转移原点API</span></div><div class="line">    ctx1.translate(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</div><div class="line">    ctx1.rotate(<span class="keyword">this</span>.angle);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.babyTail, -<span class="keyword">this</span>.babyTail.width * <span class="number">0.5</span> + <span class="number">23</span>, -<span class="keyword">this</span>.babyTail.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.babyBody, -<span class="keyword">this</span>.babyBody.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.babyBody.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.drawImage(<span class="keyword">this</span>.babyEye, -<span class="keyword">this</span>.babyEye.width * <span class="number">0.5</span>, -<span class="keyword">this</span>.babyEye.height * <span class="number">0.5</span>);</div><div class="line">    ctx1.restore();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>到这里，我们的游戏的上半部分都完成了，接下来我们要做的就是添加一些动态效果。</p>
-</blockquote>
-<p>以上用到的很多函数都封装在了commonFunction.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.requestAnimFrame = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.requestAnimationFrame || <span class="built_in">window</span>.webkitRequestAnimationFrame || <span class="built_in">window</span>.mozRequestAnimationFrame || <span class="built_in">window</span>.oRequestAnimationFrame || <span class="built_in">window</span>.msRequestAnimationFrame ||</div><div class="line">        <span class="function"><span class="keyword">function</span>(<span class="params"> <span class="regexp">/* function FrameRequestCallback */</span> callback, <span class="regexp">/* DOMElement Element */</span> element</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="built_in">window</span>.setTimeout(callback, <span class="number">1000</span> / <span class="number">60</span>);</div><div class="line">        &#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">calLength2</span>(<span class="params">x1, y1, x2, y2</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.pow(x1 - x2, <span class="number">2</span>) + <span class="built_in">Math</span>.pow(y1 - y2, <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomColor</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> col = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line">    col[<span class="number">0</span>] = <span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">155</span>;</div><div class="line">    col[<span class="number">0</span>] = col[<span class="number">0</span>].toFixed();</div><div class="line">    col[<span class="number">1</span>] = <span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">155</span>;</div><div class="line">    col[<span class="number">1</span>] = col[<span class="number">1</span>].toFixed();</div><div class="line">    col[<span class="number">2</span>] = <span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">155</span>;</div><div class="line">    col[<span class="number">2</span>] = col[<span class="number">2</span>].toFixed();</div><div class="line">    <span class="keyword">var</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">3</span>);</div><div class="line">    col[num] = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> <span class="string">"rgba("</span> + col[<span class="number">0</span>] + <span class="string">","</span> + col[<span class="number">1</span>] + <span class="string">","</span> + col[<span class="number">2</span>] + <span class="string">","</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lerpAngle</span>(<span class="params">a, b, t</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> d = b - a;</div><div class="line">    <span class="keyword">if</span> (d &gt; <span class="built_in">Math</span>.PI) d = d - <span class="number">2</span> * <span class="built_in">Math</span>.PI;</div><div class="line">    <span class="keyword">if</span> (d &lt; -<span class="built_in">Math</span>.PI) d = d + <span class="number">2</span> * <span class="built_in">Math</span>.PI;</div><div class="line">    <span class="keyword">return</span> a + d * t;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lerpDistance</span>(<span class="params">aim, cur, ratio</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> delta = cur - aim;</div><div class="line">    <span class="keyword">return</span> aim + delta * ratio;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">inOboundary</span>(<span class="params">arrX, arrY, l, r, t, b</span>) </span>&#123; <span class="comment">//在l r t b范围内的检测</span></div><div class="line">    <span class="keyword">return</span> arrX &gt; l &amp;&amp; arrX &lt; r &amp;&amp; arrY &gt; t &amp;&amp; arrY &lt; b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rgbColor</span>(<span class="params">r, g, b</span>) </span>&#123;</div><div class="line">    r = <span class="built_in">Math</span>.round(r * <span class="number">256</span>);</div><div class="line">    g = <span class="built_in">Math</span>.round(g * <span class="number">256</span>);</div><div class="line">    b = <span class="built_in">Math</span>.round(b * <span class="number">256</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">"rgba("</span> + r + <span class="string">","</span> + g + <span class="string">","</span> + b + <span class="string">",1)"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rgbNum</span>(<span class="params">r, g, b</span>) </span>&#123;</div><div class="line">    r = <span class="built_in">Math</span>.round(r * <span class="number">256</span>);</div><div class="line">    g = <span class="built_in">Math</span>.round(g * <span class="number">256</span>);</div><div class="line">    b = <span class="built_in">Math</span>.round(b * <span class="number">256</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">"rgba("</span> + r + <span class="string">","</span> + g + <span class="string">","</span> + b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rnd</span>(<span class="params">m</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> n = m || <span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.random() * n;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rateRandom</span>(<span class="params">m, n</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> sum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; (n - m); i++) &#123;</div><div class="line">        sum += i;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> ran = <span class="built_in">Math</span>.random() * sum;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; (n - m); i++) &#123;</div><div class="line">        ran -= i;</div><div class="line">        <span class="keyword">if</span> (ran &lt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">return</span> i - <span class="number">1</span> + m;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">distance</span>(<span class="params">x1, y1, x2, y2, l</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="built_in">Math</span>.abs(x1 - x2);</div><div class="line">    <span class="keyword">var</span> y = <span class="built_in">Math</span>.abs(y1 - y2);</div><div class="line">    <span class="keyword">if</span> (x &lt; l &amp;&amp; y &lt; l) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">AABBbox</span>(<span class="params">object1, w1, h1, object2, w2, h2, overlap</span>) </span>&#123;</div><div class="line">    A1 = object1.x + overlap;</div><div class="line">    B1 = object1.x + w1 - overlap;</div><div class="line">    C1 = object1.y + overlap;</div><div class="line">    D1 = object1.y + h1 - overlap;</div><div class="line"></div><div class="line">    A2 = object2.x + overlap;</div><div class="line">    B2 = object2.x + w2 - overlap;</div><div class="line">    C2 = object2.y + overlap;</div><div class="line">    D2 = object2.y + h2 - overlap;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (A1 &gt; B2 || B1 &lt; A2 || C1 &gt; D2 || D1 &lt; C2) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">dis2</span>(<span class="params">x, y, x0, y0</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> dx = x - x0;</div><div class="line">    <span class="keyword">var</span> dy = y - y0;</div><div class="line">    <span class="keyword">return</span> dx * dx + dy * dy;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rndi2</span>(<span class="params">m, n</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="built_in">Math</span>.random() * (n - m) + m;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(a);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">html5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/11/11/kelele67的学习笔记-html小游戏/">展开全文 >></a>
         </p>
       
 
@@ -1528,6 +971,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hentai</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cqu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">management</a>
               </li>
             
             <div class="clearfix"></div>

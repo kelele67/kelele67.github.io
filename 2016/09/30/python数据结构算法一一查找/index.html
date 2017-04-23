@@ -12,10 +12,7 @@
 查找
 顺序查找：O(n)
 二分查找：O(lgn)
-Hash查找：O(1)
-
-
-顺序查找12345678910111213def sequential_search(a_list, item):    pos = 0    found = False    while pos &amp;lt; len(a_list) and not found:        i">
+Hash查找：O(1)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kelele67的学习笔记-python数据结构算法（一）">
 <meta property="og:url" content="http://yoursite.com/2016/09/30/python数据结构算法一一查找/index.html">
@@ -24,21 +21,15 @@ Hash查找：O(1)
 查找
 顺序查找：O(n)
 二分查找：O(lgn)
-Hash查找：O(1)
-
-
-顺序查找12345678910111213def sequential_search(a_list, item):    pos = 0    found = False    while pos &amp;lt; len(a_list) and not found:        i">
-<meta property="og:updated_time" content="2016-10-04T16:59:27.000Z">
+Hash查找：O(1)">
+<meta property="og:updated_time" content="2017-04-23T07:30:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kelele67的学习笔记-python数据结构算法（一）">
 <meta name="twitter:description" content="Python数据结构篇(1)学习自大神博客
 查找
 顺序查找：O(n)
 二分查找：O(lgn)
-Hash查找：O(1)
-
-
-顺序查找12345678910111213def sequential_search(a_list, item):    pos = 0    found = False    while pos &amp;lt; len(a_list) and not found:        i">
+Hash查找：O(1)">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -195,6 +186,7 @@ Hash查找：O(1)
 <li>Hash查找：O(1)</li>
 </ol>
 <hr>
+<a id="more"></a>
 <h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sequential_search</span><span class="params">(a_list, item)</span>:</span></div><div class="line">    pos = <span class="number">0</span></div><div class="line">    found = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> pos &lt; len(a_list) <span class="keyword">and</span> <span class="keyword">not</span> found:</div><div class="line">        <span class="keyword">if</span> a_list[pos] == item:</div><div class="line">            found = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            pos += <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> found</div><div class="line"></div><div class="line">test_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">32</span>, <span class="number">8</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">42</span>, <span class="number">13</span>, <span class="number">0</span>]</div><div class="line"><span class="keyword">print</span> (sequential_search(test_list, <span class="number">3</span>))</div><div class="line"><span class="keyword">print</span> (sequential_search(test_list, <span class="number">13</span>))</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(a_list, item)</span>:</span></div><div class="line">    first = <span class="number">0</span></div><div class="line">    last = len(a_list) - <span class="number">1</span></div><div class="line">    found = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> first &lt;= last <span class="keyword">and</span> <span class="keyword">not</span> found:</div><div class="line">        midpoint = first + (last + first)//<span class="number">2</span></div><div class="line">        <span class="keyword">if</span> a_list[midpoint] == item:</div><div class="line">            found = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> item &lt; a_list[midpoint]:</div><div class="line">                last = midpoint - <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                first = midpoint + <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> found</div><div class="line">test_list = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">32</span>, <span class="number">42</span>]</div><div class="line">print(binary_search(test_list, <span class="number">3</span>))</div><div class="line">print(binary_search(test_list, <span class="number">13</span>))</div></pre></td></tr></table></figure>
@@ -598,6 +590,14 @@ Hash查找：O(1)
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hentai</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cqu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">management</a>
               </li>
             
             <div class="clearfix"></div>
