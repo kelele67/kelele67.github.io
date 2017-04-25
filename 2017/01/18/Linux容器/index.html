@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="容器简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。
 容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范具体见Open Container Initiative(OCI)。">
-<meta property="og:updated_time" content="2017-04-23T07:30:13.000Z">
+<meta property="og:updated_time" content="2017-04-24T10:31:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux容器">
 <meta name="twitter:description" content="容器简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。
@@ -199,6 +199,16 @@
 </li>
 </ul>
 <p>从上面可以看出启动容器的过程中没有耗时的操作，这也是为什么容器能在毫秒级别启动起来的原因</p>
+<h2 id="Docker在各平台上的运行机制"><a href="#Docker在各平台上的运行机制" class="headerlink" title="Docker在各平台上的运行机制"></a>Docker在各平台上的运行机制</h2><h3 id="内核是否共享"><a href="#内核是否共享" class="headerlink" title="内核是否共享"></a>内核是否共享</h3><p><a href="https://docs.docker.com/engine/installation/linux/" target="_blank" rel="external">Docker在Linux上共享内核，无需虚拟化，完全支持native功能</a>。<br><a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker在Windows上，启用Hyper-V</a><a href="https://docs.docker.com/toolbox/toolbox_install_windows/" target="_blank" rel="external">或者虚拟化技术</a>，通过虚拟机来实现，不共享windows内核。</p>
+<p><a href="https://docs.docker.com/engine/installation/mac/" target="_blank" rel="external">Docker在macOS上，同样用虚拟化技术xhyve或者virtualbox来实现</a>，不共享macOS内核。</p>
+<h3 id="Docker类型"><a href="#Docker类型" class="headerlink" title="Docker类型"></a>Docker类型</h3><ul>
+<li><p>Docker在Linux上共享内核，只能创建Linux类Docker。</p>
+</li>
+<li><p>Docker在Windows上，可以创建Linux类Docker和Windows类Docker。</p>
+</li>
+<li><p>Docker在macOS上，只能创建Linux类Docker，不能创建Mac OSX的Docker。</p>
+</li>
+</ul>
 <p>接下来我们就先来学习 <strong>Namespace</strong> 的相关知识</p>
 
       
@@ -614,6 +624,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">management</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">endian</a>
               </li>
             
             <div class="clearfix"></div>

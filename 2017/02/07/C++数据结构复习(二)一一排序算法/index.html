@@ -8,19 +8,27 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>C++数据结构复习(二)一一排序算法 | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧
+  <meta name="description" content="先给出排序算法的总结：
+
+关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧
 这里先给出几个主要的排序，挖个坑吧。。虽然好像挖的坑有点多了我。。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++数据结构复习(二)一一排序算法">
 <meta property="og:url" content="http://yoursite.com/2017/02/07/C++数据结构复习(二)一一排序算法/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧
+<meta property="og:description" content="先给出排序算法的总结：
+
+关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧
 这里先给出几个主要的排序，挖个坑吧。。虽然好像挖的坑有点多了我。。">
-<meta property="og:updated_time" content="2017-04-23T07:28:13.000Z">
+<meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/2016-07-15_%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png">
+<meta property="og:updated_time" content="2017-04-25T12:57:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++数据结构复习(二)一一排序算法">
-<meta name="twitter:description" content="关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧
+<meta name="twitter:description" content="先给出排序算法的总结：
+
+关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧
 这里先给出几个主要的排序，挖个坑吧。。虽然好像挖的坑有点多了我。。">
+<meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/2016-07-15_%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -170,9 +178,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>
-
-</p><p>关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧</p>
+        <p></p><p><br>先给出排序算法的总结：</p>
+<p><img src="http://oe9uinblw.bkt.clouddn.com/2016-07-15_%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png" alt=""></p>
+<p>关于排序算法可以说我已经是总结了很多次了，但是过不久就会生疏，究其原因还是因为用的少了。而且我希望自己掌握的程度能够到那种随时随地信手拈来。。。可惜。。自己不给力。。希望这次能够彻底掌握吧</p>
 <p>这里先给出几个主要的排序，挖个坑吧。。虽然好像挖的坑有点多了我。。</p>
 <a id="more"></a>
 <h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> first, <span class="keyword">int</span> last)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> pivot = OnceSort(arr, first, last);</div><div class="line">    <span class="comment">//已经有轴值了，再对轴值左右进行递归</span></div><div class="line">    QuickSort(arr, first, pivot<span class="number">-1</span>);</div><div class="line">    QuickSort(arr, pivot+<span class="number">1</span>, last);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">OnceSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> first, <span class="keyword">int</span> last)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> i = first, j = last;</div><div class="line">    <span class="comment">//当 i &lt; j 时，即移动的点还没到中间时循环</span></div><div class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</div><div class="line">        <span class="comment">//从右边区开始，保证 i&lt;j 并且 arr[i] 小于等于 arr[j]的时候就向左遍历</span></div><div class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= arr[j]) --j;</div><div class="line">       <span class="comment">//这时候已经跳出循环，说明 i &gt; j或者 arr[i] 大于 arr[j]了，如果是如果i&lt;j那</span></div><div class="line">       <span class="comment">//就是arr[i]大于arr[j]，那就交换</span></div><div class="line">        <span class="keyword">if</span> (i &lt; j) &#123;</div><div class="line">            <span class="keyword">int</span> temp = arr[i];</div><div class="line">            arr[i] = arr[j];</div><div class="line">            arr[j] = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//对左边区执行一样的操作</span></div><div class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= arr[j]) ++i;</div><div class="line">        <span class="keyword">if</span> (i &lt; j) &#123;</div><div class="line">            <span class="keyword">int</span> temp = arr[i];</div><div class="line">            arr[i] = arr[j];</div><div class="line">            arr[j] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//返回已经移动的一边当做下次排序的轴值</span></div><div class="line">    <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -589,6 +597,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">management</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">endian</a>
               </li>
             
             <div class="clearfix"></div>
