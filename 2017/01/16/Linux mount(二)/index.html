@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="Shared subtrees
 简单点说， Shared subtrees 就是一种控制子挂载点能否在其他地方被看到的技术，它只会在 bind mount 和 mount namespace 中用到，属于不怎么常用的功能。本篇将以 bind mount 为例对 Shared subtrees 做一个简单介绍">
-<meta property="og:updated_time" content="2017-04-23T07:29:56.000Z">
+<meta property="og:updated_time" content="2017-04-28T07:03:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux mount 学习(二)">
 <meta name="twitter:description" content="Shared subtrees
@@ -174,6 +174,7 @@
 <h2 id="Shared-subtrees"><a href="#Shared-subtrees" class="headerlink" title="Shared subtrees"></a>Shared subtrees</h2><blockquote>
 <p>简单点说， <strong>Shared subtrees</strong> 就是一种控制子挂载点能否在其他地方被看到的技术，它只会在 <strong>bind mount</strong> 和 <strong>mount namespace</strong> 中用到，属于不怎么常用的功能。本篇将以 <strong>bind mount</strong> 为例对 <strong>Shared subtrees</strong> 做一个简单介绍</p>
 </blockquote>
+<hr>
 <a id="more"></a>
 <blockquote>
 <p>回想一下上一篇中介绍的bind mount部分，如果bind在一起的两个目录下的子目录再挂载了设备的话，他们之间还能相互看到子目录里挂载的内容吗？ 比如在第一个目录下的子目录里面再mount了一个设备，那么在另一个目录下面能看到这个mount的设备里面的东西吗？答案是要看bind mount的propagation type。那什么是propagation type呢？</p>
