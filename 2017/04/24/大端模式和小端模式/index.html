@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF1.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF2.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF3.png">
-<meta property="og:updated_time" content="2017-04-25T12:57:53.000Z">
+<meta property="og:updated_time" content="2017-04-25T13:19:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大端模式和小端模式">
 <meta name="twitter:description" content="来源我觉得这个故事还是挺有意思的
@@ -297,7 +297,21 @@ buf[0] (0x78) -- 低位
 <h3 id="依次处理每个字节"><a href="#依次处理每个字节" class="headerlink" title="依次处理每个字节"></a>依次处理每个字节</h3><p>首先将输入的uint32_t的变量强制转换成字符类型数组，以便一个字节一个字节的处理。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对32位的数依次处理</span></div><div class="line"><span class="keyword">uint32_t</span> changeEndian_uint32t(<span class="keyword">uint32_t</span> value) &#123;</div><div class="line">    <span class="keyword">char</span>* ptr = (<span class="keyword">char</span>*)(&amp;value);</div><div class="line"></div><div class="line">    <span class="keyword">uint64_t</span> base[<span class="number">4</span>]; <span class="comment">//设置基</span></div><div class="line">    base[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</div><div class="line">        base[i] = base[i - <span class="number">1</span>] * <span class="number">256</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">uint32_t</span> res = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(value); ++i) &#123;</div><div class="line">        res += <span class="keyword">uint8_t</span>(ptr[i]) * base[<span class="number">4</span> - i - <span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
-<h2 id="理解大端小端"><a href="#理解大端小端" class="headerlink" title="理解大端小端"></a>理解大端小端</h2><p>### </p>
+<h2 id="理解大端小端"><a href="#理解大端小端" class="headerlink" title="理解大端小端"></a>理解大端小端</h2><h3 id="从软件的角度理解端模式"><a href="#从软件的角度理解端模式" class="headerlink" title="从软件的角度理解端模式"></a>从软件的角度理解端模式</h3><blockquote>
+<p>从软件的角度上，不同端模式的处理器进行数据传递时必须要考虑端模式的不同。如进行网络数据传递时，必须要考虑端模式的转换。在Socket接口编程中，以下几个函数用于大小端字节序的转换：<br>其中<br>n = network<br>s = short<br>l = long</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ntohs(n)     <span class="comment">//16位数据类型网络字节顺序到主机字节顺序的转换  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> htons(n)     <span class="comment">//16位数据类型主机字节顺序到网络字节顺序的转换  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ntohl(n)      <span class="comment">//32位数据类型网络字节顺序到主机字节顺序的转换  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> htonl(n)      <span class="comment">//32位数据类型主机字节顺序到网络字节顺序的转换</span></span></div></pre></td></tr></table></figure>
+<hr>
+<p>其中互联网使用的网络字节顺序采用大端模式进行编址，而主机字节顺序根据处理器的不同而不同。</p>
+<h3 id="从系统的角度理解端模式"><a href="#从系统的角度理解端模式" class="headerlink" title="从系统的角度理解端模式"></a>从系统的角度理解端模式</h3><h4 id="MSB和LSB"><a href="#MSB和LSB" class="headerlink" title="MSB和LSB"></a>MSB和LSB</h4><p>MSB: Most Significant Bit ——- 最高有效位<br>LSB: Least Significant Bit —— 最低有效位</p>
+<blockquote>
+<p>处理器在硬件上由于端模式问题在设计中有所不同。从系统的角度上看，端模式问题对软件和硬件的设计带来了不同的影响，当一个处理器系统中大小端模式同时存在时，必须要对这些不同端模式的访问进行特殊的处理。</p>
+</blockquote>
+<h2 id="运用实例"><a href="#运用实例" class="headerlink" title="运用实例"></a>运用实例</h2><p>在MODBUS中，数据需要组织成数据报文，该报文中的数据都是大端模式，即低地址存高位，高地址存低位。假设有一16位缓冲区m_RegMW[256]，因为是在x86平台上，所以内存中的数据为小端模式：m_RegMW[0].low、m_RegMW[0].high、m_RegMW[1].low、m_RegMW[1].high……<br>为了方便讨论，假设m_RegMW[0] = 0x3456; 在内存中为0x56、0x34。</p>
+<blockquote>
+<p>现要将该数据发出，如果不进行数据转换直接发送，此时发送的数据为0x56,0x34。而Modbus是大端的，会将该数据解释为0x5634而非原数据0x3456，此时就会发生灾难性的错误。所以，在此之前，需要将小端数据转换成大端的，即进行高字节和低字节的交换，此时可以调用函数BigtoLittle16(m_RegMW[0])，之后再进行发送才可以得到正确的数据。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/zhangpinghao/article/details/14031857" target="_blank" rel="external">详解Big-Endian和Little-Endian，大端模式和小端模式</a></p>
 
       
 
@@ -610,19 +624,19 @@ buf[0] (0x78) -- 低位
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">swift</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">animation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,6 +649,14 @@ buf[0] (0x78) -- 低位
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">trees</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">siri</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -654,14 +676,6 @@ buf[0] (0x78) -- 低位
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">siri</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sysvinit</a>
               </li>
              
@@ -671,6 +685,14 @@ buf[0] (0x78) -- 低位
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">systemd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cqu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">management</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,14 +709,6 @@ buf[0] (0x78) -- 低位
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hentai</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cqu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">management</a>
               </li>
              
               <li class="article-tag-list-item">
