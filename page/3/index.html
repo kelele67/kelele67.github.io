@@ -148,33 +148,32 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="airticle-Linux编译技巧" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+    <article id="airticle-Linux容器" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/16/Linux编译技巧/">Linux编译技巧</a>
+      <a class="article-title" href="/2017/01/18/Linux容器/">Linux容器</a>
     </h1>
   
 
         
-        <a href="/2017/01/16/Linux编译技巧/" class="archive-article-date">
-  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-16</time>
+        <a href="/2017/01/18/Linux容器/" class="archive-article-date">
+  	<time datetime="2017-01-18T10:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><p></p>
-<h2 id="编译技巧"><a href="#编译技巧" class="headerlink" title="编译技巧"></a>编译技巧</h2><p>从mount引发的血案</p>
-<h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><blockquote>
-<p>项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。</p>
-</blockquote>
+        <p>
+
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>简单点说，容器就是一个或多个进程以及他们所能访问的资源的集合。</p>
+<p>容器技术的本质是对计算机系统资源的隔离和控制，让原来全局的资源变得只能部分进程之间共享，这跟我们常说的虚拟机这种虚拟化技术没有关系，最新的标准在制定过程中，包括镜像的格式，容器运行时的一些规范具体见<a href="https://www.opencontainers.org/">Open Container Initiative(OCI)</a>。</p>
         
-          <a class="article-more-a" href="/2017/01/16/Linux编译技巧/#more">more >></a>
+          <a class="article-more-a" href="/2017/01/18/Linux容器/#more">more >></a>
         
       
 
@@ -192,19 +191,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">release</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tmpfs</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">namespace</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">make</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ccache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">cgroup</a>
         		</li>
       		
 		</ul>
@@ -214,7 +209,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/16/Linux编译技巧/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/01/18/Linux容器/">展开全文 >></a>
         </p>
       
 
@@ -284,6 +279,87 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/01/16/Linux mount(二)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="airticle-Linux编译技巧" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/16/Linux编译技巧/">Linux编译技巧</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/16/Linux编译技巧/" class="archive-article-date">
+  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><p></p>
+<h2 id="编译技巧"><a href="#编译技巧" class="headerlink" title="编译技巧"></a>编译技巧</h2><p>从mount引发的血案</p>
+<h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><blockquote>
+<p>项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。</p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2017/01/16/Linux编译技巧/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">release</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tmpfs</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">make</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ccache</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/16/Linux编译技巧/">展开全文 >></a>
         </p>
       
 
@@ -644,77 +720,6 @@
 
 
   
-    <article id="airticle-C语言标准库函数学习(二)一一字符串操作函数" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/">C语言标准库函数学习(二)一一字符串操作函数</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/" class="archive-article-date">
-  	<time datetime="2016-12-06T01:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>
-
-<h2 id="String-Manipulation-字符串操作函数"><a href="#String-Manipulation-字符串操作函数" class="headerlink" title="String Manipulation 字符串操作函数"></a>String Manipulation 字符串操作函数</h2><hr>
-        
-          <a class="article-more-a" href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CRT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">string manipulation</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -989,6 +994,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">endian</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">database</a>
               </li>
             
             <div class="clearfix"></div>

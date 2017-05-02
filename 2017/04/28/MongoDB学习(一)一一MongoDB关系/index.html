@@ -6,17 +6,48 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: cqu | 树犹如此|人何以堪</title>
+  <title>MongoDB学习(一)一一MongoDB关系 | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="做一个富有的废物">
-<meta property="og:type" content="website">
-<meta property="og:title" content="树犹如此|人何以堪">
-<meta property="og:url" content="http://yoursite.com/tags/cqu/index.html">
+  <meta name="description" content="MongoDB关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。
+MongoDB 关系作为一个NoSQL数据库，MongoDB 的关系表示多个文档之间在逻辑上的相互联系。
+
+文档间可以通过嵌入和引用来建立联系。
+
+MongoDB 中的关系有：
+
+1:1 (1对1)
+1: N (1对多)
+N: 1 (多对1)
+N: N (多对多)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB学习(一)一一MongoDB关系">
+<meta property="og:url" content="http://yoursite.com/2017/04/28/MongoDB学习(一)一一MongoDB关系/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="做一个富有的废物">
+<meta property="og:description" content="MongoDB关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。
+MongoDB 关系作为一个NoSQL数据库，MongoDB 的关系表示多个文档之间在逻辑上的相互联系。
+
+文档间可以通过嵌入和引用来建立联系。
+
+MongoDB 中的关系有：
+
+1:1 (1对1)
+1: N (1对多)
+N: 1 (多对1)
+N: N (多对多)">
+<meta property="og:updated_time" content="2017-05-02T10:13:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树犹如此|人何以堪">
-<meta name="twitter:description" content="做一个富有的废物">
+<meta name="twitter:title" content="MongoDB学习(一)一一MongoDB关系">
+<meta name="twitter:description" content="MongoDB关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。
+MongoDB 关系作为一个NoSQL数据库，MongoDB 的关系表示多个文档之间在逻辑上的相互联系。
+
+文档间可以通过嵌入和引用来建立联系。
+
+MongoDB 中的关系有：
+
+1:1 (1对1)
+1: N (1对多)
+N: 1 (多对1)
+N: N (多对多)">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -146,64 +177,222 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="airticle-MongoDB学习(一)一一MongoDB关系" class="article article-type-airticle " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-airticle">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/23/重庆大学项目管理复习/" class="archive-article-date">
-  	<time datetime="2017-04-23T06:26:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/23/重庆大学项目管理复习/">重庆大学项目管理复习</a>
+    <h1 class="article-title" itemprop="name">
+      MongoDB学习(一)一一MongoDB关系
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/04/28/MongoDB学习(一)一一MongoDB关系/" class="archive-article-date">
+  	<time datetime="2017-04-28T09:05:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p>关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。</p>
+<h3 id="MongoDB-关系"><a href="#MongoDB-关系" class="headerlink" title="MongoDB 关系"></a>MongoDB 关系</h3><p>作为一个NoSQL数据库，MongoDB 的关系表示多个文档之间在逻辑上的相互联系。</p>
+<blockquote>
+<p>文档间可以通过嵌入和引用来建立联系。</p>
+</blockquote>
+<p>MongoDB 中的关系有：</p>
+<ul>
+<li>1:1 (1对1)</li>
+<li>1: N (1对多)</li>
+<li>N: 1 (多对1)</li>
+<li>N: N (多对多)</li>
+</ul>
+<hr>
+<a id="more"></a>
+<p>这里我们用 User 文档和 Address 文档来作为例子</p>
+<p>首先我们使用自己的数据库kelel67，并插入两个文档在users和address集合中：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt; use kelele67</div><div class="line">switched to db kelele67</div><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">... <span class="string">"name"</span>: <span class="string">"kelele67"</span>,</div><div class="line">... <span class="string">"sex"</span>: <span class="string">"male"</span>,</div><div class="line">... <span class="string">"tel"</span>: <span class="string">"666666"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.address</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">... <span class="string">"city"</span>: <span class="string">"ChongQing"</span>,</div><div class="line">... <span class="string">"university"</span>: <span class="string">"CQU"</span>,</div><div class="line">... <span class="string">"dorm_no"</span>: <span class="string">"636"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div></pre></td></tr></table></figure>
+<hr>
+<p>插入了两个文档：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.find</span>().pretty()</div><div class="line">&#123;</div><div class="line">    <span class="string">"_id"</span> : ObjectId(<span class="string">"590858b164d6ed405ce2ad7d"</span>),</div><div class="line">    <span class="string">"name"</span> : <span class="string">"kelele67"</span>,</div><div class="line">    <span class="string">"sex"</span> : <span class="string">"male"</span>,</div><div class="line">    <span class="string">"tel"</span> : <span class="string">"666666"</span></div><div class="line">&#125;</div><div class="line">&gt; db<span class="selector-class">.address</span><span class="selector-class">.find</span>().pretty()</div><div class="line">&#123;</div><div class="line">    <span class="string">"_id"</span> : ObjectId(<span class="string">"590858d464d6ed405ce2ad7e"</span>),</div><div class="line">    <span class="string">"city"</span> : <span class="string">"ChongQing"</span>,</div><div class="line">    <span class="string">"university"</span> : <span class="string">"CQU"</span>,</div><div class="line">    <span class="string">"dorm_no"</span> : <span class="string">"636"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="嵌入式关系"><a href="#嵌入式关系" class="headerlink" title="嵌入式关系"></a>嵌入式关系</h4><p>第一个我们要实现的是嵌入式关系</p>
+<blockquote>
+<p>使用嵌入式方法，我们可以把用户地址嵌入到用户的文档中：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&gt; db.users.save(&#123;</div><div class="line"><span class="meta">... </span><span class="string">"_id"</span> : ObjectId(<span class="string">"590858b164d6ed405ce2ad7d"</span>),</div><div class="line"><span class="meta">... </span><span class="string">"name"</span> : <span class="string">"kelele67"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"sex"</span> : <span class="string">"male"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"tel"</span> : <span class="string">"666666"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"address"</span>: [</div><div class="line"><span class="meta">... </span>&#123;</div><div class="line"><span class="meta">... </span><span class="string">"city"</span> : <span class="string">"ChongQing"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"university"</span> : <span class="string">"CQU"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"dorm_no"</span> : <span class="string">"636"</span></div><div class="line"><span class="meta">... </span>&#125;,</div><div class="line"><span class="meta">... </span>&#123;</div><div class="line"><span class="meta">... </span><span class="string">"city"</span> : <span class="string">"BeiJing"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"university"</span> : <span class="string">"PKU"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"dorm_no"</span> : <span class="string">"123"</span></div><div class="line"><span class="meta">... </span>&#125;]</div><div class="line"><span class="meta">... </span>&#125;)</div><div class="line">WriteResult(&#123; <span class="string">"nMatched"</span> : <span class="number">1</span>, <span class="string">"nUpserted"</span> : <span class="number">0</span>, <span class="string">"nModified"</span> : <span class="number">1</span> &#125;)</div></pre></td></tr></table></figure>
+<hr>
+<p>可以看到我们更新了文档为嵌入式关系：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.find</span>().pretty()</div><div class="line">&#123;</div><div class="line">    <span class="string">"_id"</span> : ObjectId(<span class="string">"590858b164d6ed405ce2ad7d"</span>),</div><div class="line">    <span class="string">"name"</span> : <span class="string">"kelele67"</span>,</div><div class="line">    <span class="string">"sex"</span> : <span class="string">"male"</span>,</div><div class="line">    <span class="string">"tel"</span> : <span class="string">"666666"</span>,</div><div class="line">    <span class="string">"address"</span> : [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"city"</span> : <span class="string">"ChongQing"</span>,</div><div class="line">            <span class="string">"university"</span> : <span class="string">"CQU"</span>,</div><div class="line">            <span class="string">"dorm_no"</span> : <span class="string">"636"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"city"</span> : <span class="string">"BeiJing"</span>,</div><div class="line">            <span class="string">"university"</span> : <span class="string">"PKU"</span>,</div><div class="line">            <span class="string">"dorm_no"</span> : <span class="string">"123"</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>这样做的好处是比较容易的获取和维护数据，因为你的数据都保存在了一个文档中</p>
+</blockquote>
+<p>例如，你可以这样查询用户的地址：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&gt; db.learn.findOne(&#123;<span class="string">"name"</span>:<span class="string">"kelele67"</span>&#125;,&#123;<span class="string">"address"</span>:<span class="number">1</span>&#125;)</div><div class="line">&#123;</div><div class="line">    <span class="string">"_id"</span> : ObjectId(<span class="string">"59084f1a64d6ed405ce2ad78"</span>),</div><div class="line">    <span class="string">"address"</span> : [</div><div class="line">        &#123;</div><div class="line">            <span class="string">"city"</span> : <span class="string">"ChongQing"</span>,</div><div class="line">            <span class="string">"university"</span> : <span class="string">"CQU"</span>,</div><div class="line">            <span class="string">"dorm_no"</span> : <span class="string">"636"</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="string">"city"</span> : <span class="string">"BeiJing"</span>,</div><div class="line">            <span class="string">"university"</span> : <span class="string">"PKU"</span>,</div><div class="line">            <span class="string">"dorm_no"</span> : <span class="string">"123"</span></div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>这种结构的缺点是，如果用户和用户地址在不断增加，数据量不断变大，会影响读写性能</p>
+</blockquote>
+<h4 id="引用式关系"><a href="#引用式关系" class="headerlink" title="引用式关系"></a>引用式关系</h4><blockquote>
+<p>这种是常用的方法，通过引用文档的 id 字段来建立关系：</p>
+</blockquote>
+<p>由于我们刚才用的save操作，所以覆盖了原来的文档，<br>我们先drop掉users，再像上面一样重新insert一遍，</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.drop</span>()</div><div class="line">true</div><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">... <span class="string">"name"</span>: <span class="string">"kelele67"</span>,</div><div class="line">... <span class="string">"sex"</span>: <span class="string">"male"</span>,</div><div class="line">... <span class="string">"tel"</span>: <span class="string">"666666"</span></div><div class="line">... &#125;)</div><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.find</span>()</div><div class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>), <span class="string">"name"</span> : <span class="string">"kelele67"</span>, <span class="string">"sex"</span> : <span class="string">"male"</span>, <span class="string">"tel"</span> : <span class="string">"666666"</span> &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>接下来我们建立引用式关系：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt; db.users.save(&#123;</div><div class="line"><span class="meta">... </span><span class="string">"_id"</span> : ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>),</div><div class="line"><span class="meta">... </span><span class="string">"name"</span> : <span class="string">"kelele67"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"sex"</span> : <span class="string">"male"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"tel"</span> : <span class="string">"666666"</span>,</div><div class="line"><span class="meta">... </span><span class="string">"address_ids"</span>: [</div><div class="line"><span class="meta">... </span>ObjectId(<span class="string">"590858d464d6ed405ce2ad7e"</span>),</div><div class="line"><span class="meta">... </span>ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>),</div><div class="line"><span class="meta">... </span>]</div><div class="line"><span class="meta">... </span>&#125;)</div><div class="line">WriteResult(&#123; <span class="string">"nMatched"</span> : <span class="number">1</span>, <span class="string">"nUpserted"</span> : <span class="number">0</span>, <span class="string">"nModified"</span> : <span class="number">1</span> &#125;)</div></pre></td></tr></table></figure></p>
+<hr>
+<p>可以看到我们更新了文档为引用式关系：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.find</span>().pretty()</div><div class="line">&#123;</div><div class="line">    <span class="string">"_id"</span> : ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>),</div><div class="line">    <span class="string">"name"</span> : <span class="string">"kelele67"</span>,</div><div class="line">    <span class="string">"sex"</span> : <span class="string">"male"</span>,</div><div class="line">    <span class="string">"tel"</span> : <span class="string">"666666"</span>,</div><div class="line">    <span class="string">"address_ids"</span> : [</div><div class="line">        ObjectId(<span class="string">"590858d464d6ed405ce2ad7e"</span>),</div><div class="line">        ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>)</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<blockquote>
+<p>以上例子中，用户文档的 address_ids 字段包含用户地址的对象id（ObjectId）数组。<br>我们可以读取这些用户地址的对象id（ObjectId）来获取用户的详细地址信息。</p>
+</blockquote>
+<p>这种方法需要两次查询，第一次查询用户地址的对象id（ObjectId），第二次通过查询的id获取用户的详细地址信息：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="selector-tag">var</span> result = db<span class="selector-class">.users</span><span class="selector-class">.findOne</span>(&#123;<span class="string">"name"</span>:<span class="string">"kelele67"</span>&#125;,&#123;<span class="string">"address_ids"</span>:<span class="number">1</span>&#125;)</div><div class="line">&gt;<span class="selector-tag">var</span> addresses = db<span class="selector-class">.address</span><span class="selector-class">.find</span>(&#123;<span class="string">"_id"</span>:&#123;<span class="string">"$in"</span>:result[<span class="string">"address_ids"</span>]&#125;&#125;)</div><div class="line">&gt; result</div><div class="line">&#123;</div><div class="line">    <span class="string">"_id"</span> : ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>),</div><div class="line">    <span class="string">"address_ids"</span> : [</div><div class="line">        ObjectId(<span class="string">"590858d464d6ed405ce2ad7e"</span>),</div><div class="line">        ObjectId(<span class="string">"59085a2364d6ed405ce2ad7f"</span>)</div><div class="line">    ]</div><div class="line">&#125;</div><div class="line">&gt; addresses</div><div class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"590858d464d6ed405ce2ad7e"</span>), <span class="string">"city"</span> : <span class="string">"ChongQing"</span>, <span class="string">"university"</span> : <span class="string">"CQU"</span>, <span class="string">"dorm_no"</span> : <span class="string">"636"</span> &#125;</div></pre></td></tr></table></figure>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oe9uedqb2.bkt.clouddn.com/apx07138xvvuj2wuau2h4c4.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cqu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">management</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/28/MongoDB学习(一)一一MongoDB关系/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/04/29/MongoDB学习(二)一一MongoDB索引/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MongoDB学习(二)一一MongoDB索引
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/04/24/大端模式和小端模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">大端模式和小端模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -226,9 +415,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
@@ -473,6 +662,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">endian</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">database</a>
               </li>
             
             <div class="clearfix"></div>
