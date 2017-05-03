@@ -6,24 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Linux编译技巧 | 树犹如此|人何以堪</title>
+  <title>MongoDB学习(三)一一MongoDB MapReduce | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编译技巧从mount引发的血案
-背景故事
-项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。">
+  <meta name="description" content="MongoDB MapReduceMongoDB 固定集合MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！
+创建固定集合1&amp;gt;db.createCollection(&quot;cappedLog">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux编译技巧">
-<meta property="og:url" content="http://yoursite.com/2017/01/16/Linux编译技巧/index.html">
+<meta property="og:title" content="MongoDB学习(三)一一MongoDB MapReduce">
+<meta property="og:url" content="http://yoursite.com/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="编译技巧从mount引发的血案
-背景故事
-项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。">
-<meta property="og:updated_time" content="2017-04-23T07:30:04.000Z">
+<meta property="og:description" content="MongoDB MapReduceMongoDB 固定集合MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！
+创建固定集合1&amp;gt;db.createCollection(&quot;cappedLog">
+<meta property="og:updated_time" content="2017-05-03T08:59:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux编译技巧">
-<meta name="twitter:description" content="编译技巧从mount引发的血案
-背景故事
-项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。">
+<meta name="twitter:title" content="MongoDB学习(三)一一MongoDB MapReduce">
+<meta name="twitter:description" content="MongoDB MapReduceMongoDB 固定集合MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！
+创建固定集合1&amp;gt;db.createCollection(&quot;cappedLog">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -153,103 +150,162 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="airticle-Linux编译技巧" class="article article-type-airticle " itemscope itemprop="blogPost">
+            <article id="airticle-MongoDB学习(三)一一MongoDB MapReduce" class="article article-type-airticle " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux编译技巧
+      MongoDB学习(三)一一MongoDB MapReduce
     </h1>
   
 
         
-        <a href="/2017/01/16/Linux编译技巧/" class="archive-article-date">
-  	<time datetime="2017-01-15T18:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-16</time>
+        <a href="/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/" class="archive-article-date">
+  	<time datetime="2017-04-30T11:14:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p></p>
-<h2 id="编译技巧"><a href="#编译技巧" class="headerlink" title="编译技巧"></a>编译技巧</h2><p>从mount引发的血案</p>
-<h2 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h2><blockquote>
-<p>项目越来越大，每次需要重新编译整个项目都是一件很浪费时间的事情。</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h3><p>tmpfs在类Unix操作系统上是一个常见的名称会用来做为暂时的档案储存方式，在更多的情况下，它会用虚拟的内存而不是一个永久保存的媒体来做为在档案系统上的使用。tmpfs可以使用您的内存或swap分区来存储文件。</p>
-<p>tmpfs是基于Linux的虚拟内存管理子系统，面向普通用户的，根据用户需要随时可以创建此类型目录，以方便快捷地获得飞一样的读写速度。</p>
-<p>当用户创建了此类型的目录后，剩下的工作就交给MMU来完成，不论是最终是在物理内存中还是在SWAP中，都尽可能地满足用户的需求。</p>
-<p>这就是我们之前提到过的 <strong>虚拟硬盘</strong></p>
-<blockquote>
-<p>把文件放到内存上做编译，尤其如果编译器需要生成很多临时文件的话，比在磁盘上快多了。</p>
-</blockquote>
-<p>在Linux中，直接mount一个tmpfs就可以了。而且对所编译的工程没有任何要求，也不用改动编译环境。</p>
-<p>刚好我们复习一下之前学习到的一些mount的命令：</p>
-<p>①. mount -t tmpfs tmpfs ~/build -o size=1G</p>
-<ul>
-<li><p>-t 对应的是类型</p>
-</li>
-<li><p>-o 对应的是选项</p>
-</li>
-</ul>
-<p>②. df -lh</p>
-<ul>
-<li><p>-l 只显示本地文件</p>
-</li>
-<li><p>-h 可读</p>
-</li>
-</ul>
-<p>用df就能看出有tmpfs的挂载点：</p>
-<p>用来检查linux服务器的文件系统的磁盘空间占用情况。</p>
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-MapReduce"><a href="#MongoDB-MapReduce" class="headerlink" title="MongoDB MapReduce"></a>MongoDB MapReduce</h2><h3 id="MongoDB-固定集合"><a href="#MongoDB-固定集合" class="headerlink" title="MongoDB 固定集合"></a>MongoDB 固定集合</h3><p>MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！</p>
+<h4 id="创建固定集合"><a href="#创建固定集合" class="headerlink" title="创建固定集合"></a>创建固定集合</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.createCollection</span>("<span class="selector-tag">cappedLogCollection</span>",&#123;<span class="attribute">capped</span>:true,size:<span class="number">10000</span>&#125;)</div></pre></td></tr></table></figure>
 <hr>
-<p>用2.6.32.2的Linux Kernel来测试一下编译速度：</p>
-<ul>
-<li><p>用物理磁盘：40分16秒</p>
+<a id="more"></a>
+<p>还可以指定文档个数,加上max:1000属性：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.createCollection</span>("<span class="selector-tag">cappedLogCollection</span>",&#123;<span class="attribute">capped</span>:true,size:<span class="number">10000</span>,max:<span class="number">1000</span>&#125;)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="判断是否为固定集合"><a href="#判断是否为固定集合" class="headerlink" title="判断是否为固定集合"></a>判断是否为固定集合</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db<span class="selector-class">.cappedLogCollection</span><span class="selector-class">.isCapped</span>()</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="转换为固定集合"><a href="#转换为固定集合" class="headerlink" title="转换为固定集合"></a>转换为固定集合</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; db.runCommand(&#123;<span class="string">"convertToCapped"</span>:<span class="string">"posts"</span>, size:<span class="number">10000</span>&#125;)</div><div class="line">&#123; <span class="string">"ok"</span> : <span class="number">1</span> &#125;</div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.isCapped</span>()</div><div class="line">true</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="固定集合查询"><a href="#固定集合查询" class="headerlink" title="固定集合查询"></a>固定集合查询</h4><blockquote>
+<p>固定集合文档按照插入顺序储存的,默认情况下查询就是按照插入顺序返回的,也可以使用$natural调整返回顺序。</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.find</span>().sort(&#123;<span class="variable">$natural</span>:-<span class="number">1</span>&#125;)</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="固定集合的功能特点"><a href="#固定集合的功能特点" class="headerlink" title="固定集合的功能特点"></a>固定集合的功能特点</h4><blockquote>
+<p>可以插入及更新,但更新不能超出collection的大小,否则更新失败,不允许删除,但是可以调用drop()删除集合中的所有行,但是drop后需要显式地重建集合。<br>在32位机子上一个cappped collection的最大值约为482.5M,64位上只受系统文件大小的限制。</p>
+</blockquote>
+<h4 id="固定集合属性及用法"><a href="#固定集合属性及用法" class="headerlink" title="固定集合属性及用法"></a>固定集合属性及用法</h4><h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><ul>
+<li><p>对固定集合进行插入速度极快</p>
 </li>
-<li><p>用tmpfs：39分56秒</p>
+<li><p>按照插入顺序的查询输出速度极快</p>
+</li>
+<li><p>能够在插入最新数据时,淘汰最早的数据</p>
+</li>
+</ul>
+<h5 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h5><ul>
+<li><p>储存日志信息</p>
+</li>
+<li><p>缓存一些少量的文档</p>
+</li>
+</ul>
+<h3 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h3><p>说道MapReduce，就不得不提大名鼎鼎的Google的论文<a href="http://oe9uinblw.bkt.clouddn.com/mapreduce-osdi04.pdf" target="_blank" rel="external">MapReduce: Simplified Data Processing on Large Clusters</a>，我直接把他上传到七牛云了，因为谷歌的网站需要科学上网比较麻烦。</p>
+<p>如果你看了这篇论文，相信你一定能知道map/reduce的概念了。</p>
+<p>有时间一定写一篇博客仔细研读一下(这是个坑)</p>
+<p>挖了这个坑，还不满足，Google还有 <strong> GFS </strong>  <strong> BigTable </strong> <strong> Chubby </strong> 这些大名鼎鼎的论文呢。</p>
+<p>简单的介绍一下：</p>
+<h4 id="Map函数"><a href="#Map函数" class="headerlink" title="Map函数"></a>Map函数</h4><blockquote>
+<p>Map就是映射，接受一个键值对（key-value pair），产生一组中间键值对。MapReduce框架会将map函数产生的中间键值对里键相同的值传递给一个reduce函数。</p>
+</blockquote>
+<p>伪代码：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ClassMapper</div><div class="line">methodmap(<span class="keyword">String</span> input_key, <span class="keyword">String</span> input_value):</div><div class="line"><span class="comment">// input_key: text document name</span></div><div class="line"><span class="comment">// input_value: document contents</span></div><div class="line"><span class="built_in">for</span> eachword w ininput_value:</div><div class="line">EmitIntermediate(w, <span class="string">"1"</span>);</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="Reduce函数"><a href="#Reduce函数" class="headerlink" title="Reduce函数"></a>Reduce函数</h4><blockquote>
+<p>接受一个键，以及相关的一组值，将这组值进行合并产生一组规模更小的值（通常只有一个或零个值）。</p>
+</blockquote>
+<p>伪代码：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ClassReducer</div><div class="line"><span class="function"><span class="keyword">method</span> <span class="title">reduce</span><span class="params">(String output_key,<span class="keyword">Iterator</span> intermediate_values)</span>:</span></div><div class="line"><span class="comment">// output_key: a word</span></div><div class="line"><span class="comment">// output_values: a list of counts</span></div><div class="line">intresult = <span class="number">0</span>;</div><div class="line"><span class="keyword">for</span> <span class="keyword">each</span> v <span class="keyword">in</span> intermediate_values:</div><div class="line"><span class="keyword">result</span> += ParseInt(v);</div><div class="line">Emit(AsString(<span class="keyword">result</span>));</div></pre></td></tr></table></figure>
+<hr>
+<p>在统计词频的例子里，map函数接受的键是文件名，值是文件的内容，map逐个遍历单词，每遇到一个单词w，就产生一个中间键值对&lt; w, “1”&gt;，这表示单词w又找到了一个；MapReduce将键相同（都是单词w）的键值对传给reduce函数，这样reduce函数接受的键就是单词w，值是一串”1”（最基本的实现是这样，但可以优化），个数等于键为w的键值对的个数，然后将这些“1”累加就得到单词w的出现次数。最后这些单词的出现次数会被写到用户定义的位置，存储在底层的分布式存储系统（GFS或HDFS）</p>
+<hr>
+<h4 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h4><p>在python的函数式编程中，内建了map()和reduce()函数。也可以说MapReduce的主要思想，都是从函数式编程语言里借来的。之前我也又看到一个比较好玩的代码分享一下，我还发给过我的程序员高中同学当生日祝福→_→</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> map(<span class="keyword">lambda</span> x:<span class="string">"Happy Birthday to "</span> + (<span class="string">"you"</span> <span class="keyword">if</span> x != <span class="number">2</span> <span class="keyword">else</span> <span class="string">"name"</span>), range(<span class="number">4</span>))</div></pre></td></tr></table></figure>
+<hr>
+<p>运行的结果就是这样啦：</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="symbol">'Happy</span> <span class="type">Birthday</span> <span class="keyword">to</span> you', <span class="symbol">'Happy</span> <span class="type">Birthday</span> <span class="keyword">to</span> you', <span class="symbol">'Happy</span> <span class="type">Birthday</span> <span class="keyword">to</span> name', <span class="symbol">'Happy</span> <span class="type">Birthday</span> <span class="keyword">to</span> you']</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="MapReduce-C-实现"><a href="#MapReduce-C-实现" class="headerlink" title="MapReduce C++实现"></a>MapReduce C++实现</h4><p>啊说道MapReduce，我又想起了之前写的C++实现，show you my code：</p>
+<p>wordcount_map.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//map是读取信息，然后输出键值对</span></div><div class="line"><span class="comment">//对于Wordcount来说，map只需要把每个单词分别输出，后面再输出个1就行，表示每个单词出现了1次</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</div><div class="line">    <span class="built_in">string</span> word;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; word) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; word &lt;&lt; <span class="string">"/t"</span> &lt;&lt; <span class="string">"1"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>wordcount_reduce.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//读取map输出的键值对，并把key值相同的键值做整合，并输出整合结果</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</div><div class="line">    <span class="built_in">string</span> key, num;</div><div class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; count;</div><div class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator it;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; key &gt;&gt; num) &#123;</div><div class="line">        it = count.find(key);</div><div class="line">        <span class="keyword">if</span>(it !+ count.end()) &#123;</div><div class="line">            it-&gt;second++;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            count.insert(make_pair(key, <span class="number">1</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(it = count.begin(); it != count.end(); it++) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">"/t"</span> &lt;&lt; it-&gt;second &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="MongoDB-MapReduce-1"><a href="#MongoDB-MapReduce-1" class="headerlink" title="MongoDB MapReduce"></a>MongoDB MapReduce</h3><p>饶了一大圈终于要说到我们的主题了，哈哈这也是我的风格，喜欢一下子联想超级多的东西，不然也是，学技术的就应该这样把所有东西都串起来，串成烧烤多好吃啊…</p>
+<h4 id="MapReduce-命令"><a href="#MapReduce-命令" class="headerlink" title="MapReduce 命令"></a>MapReduce 命令</h4><p>以下是MapReduce的基本语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt;db.collection.mapReduce(</div><div class="line">   <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;emit(key,value);&#125;,  <span class="comment">//map 函数</span></div><div class="line">   <span class="function"><span class="keyword">function</span>(<span class="params">key,values</span>) </span>&#123;<span class="keyword">return</span> reduceFunction&#125;,   <span class="comment">//reduce 函数</span></div><div class="line">   &#123;</div><div class="line">      <span class="attr">out</span>: collection,</div><div class="line">      <span class="attr">query</span>: <span class="built_in">document</span>,</div><div class="line">      <span class="attr">sort</span>: <span class="built_in">document</span>,</div><div class="line">      <span class="attr">limit</span>: number</div><div class="line">   &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>使用 MapReduce 要实现两个函数 Map 函数和 Reduce 函数,Map 函数调用 emit(key, value), 遍历 collection 中所有的记录, 将 key 与 value 传递给 Reduce 函数进行处理。<br>Map 函数必须调用 emit(key, value) 返回键值对。</p>
+</blockquote>
+<p>参数说明:</p>
+<ul>
+<li><p>map：映射函数 (生成键值对序列,作为 reduce 函数参数)</p>
+</li>
+<li><p>reduce：统计函数，reduce函数的任务就是将key-values变成key-value，也就是把values数组变成一个单一的值value</p>
+</li>
+<li><p>out： 统计结果存放集合 (不指定则使用临时集合,在客户端断开后自动删除)</p>
+</li>
+<li><p>query： 一个筛选条件，只有满足条件的文档才会调用map函数。（query。limit，sort可以随意组合）</p>
+</li>
+<li><p>sort： 和limit结合的sort排序参数（也是在发往map函数前给文档排序），可以优化分组机制</p>
+</li>
+<li><p>limit： 发往map函数的文档数量的上限（要是没有limit，单独使用sort的用处不大）</p>
+</li>
+</ul>
+<h4 id="MapReduce-使用"><a href="#MapReduce-使用" class="headerlink" title="MapReduce 使用"></a>MapReduce 使用</h4><p>先插入我们的数据，伪装成大数据：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"67"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"active"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"67"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"active"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"67"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"active"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"67"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"active"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"67"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"disabled"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"liu"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"disabled"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"liu"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"disabled"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.posts</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"kelele67 is shuaibi"</span>,</div><div class="line">...    <span class="string">"user_name"</span>: <span class="string">"liu"</span>,</div><div class="line">...    <span class="string">"status"</span>:<span class="string">"active"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div></pre></td></tr></table></figure>
+<hr>
+<p>然后再posts集合中使用MapReduce函数来选取已发布的文章(status:”active”)，并通过user_name分组，计算每个用户的文章数：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt; db.posts.mapReduce(</div><div class="line"><span class="params">...</span> function() &#123;emit(this.user_name, <span class="number">1</span>);&#125;,</div><div class="line"><span class="params">...</span> function(key, values) &#123;<span class="keyword">return</span> <span class="built_in">Array</span>.<span class="keyword">sum</span>(values)&#125;,</div><div class="line"><span class="params">...</span>     &#123;</div><div class="line"><span class="params">...</span>         query:&#123;status:<span class="string">"active"</span>&#125;,</div><div class="line"><span class="params">...</span>         out:<span class="string">"post_total"</span></div><div class="line"><span class="params">...</span>     &#125;</div><div class="line"><span class="params">...</span> )</div><div class="line">&#123;</div><div class="line">    <span class="string">"result"</span> : <span class="string">"post_total"</span>,</div><div class="line">    <span class="string">"timeMillis"</span> : <span class="number">288</span>,</div><div class="line">    <span class="string">"counts"</span> : &#123;</div><div class="line">        <span class="string">"input"</span> : <span class="number">5</span>,</div><div class="line">        <span class="string">"emit"</span> : <span class="number">5</span>,</div><div class="line">        <span class="string">"reduce"</span> : <span class="number">1</span>,</div><div class="line">        <span class="string">"output"</span> : <span class="number">2</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"ok"</span> : <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>结果表明，共有 5 个符合查询条件（status:”active”）的文档， 在map函数中生成了 5 个键值对文档，最后使用reduce函数将相同的键值分为 2 组。</p>
+<p>具体参数说明：</p>
+<ul>
+<li><p>result：储存结果的collection的名字,这是个临时集合，MapReduce的连接关闭后自动就被删除了</p>
+</li>
+<li><p>timeMillis：执行花费的时间，毫秒为单位</p>
+</li>
+<li><p>input：满足条件被发送到map函数的文档个数</p>
+</li>
+<li><p>emit：在map函数中emit被调用的次数，也就是所有集合中的数据总量</p>
+</li>
+<li><p>ouput：结果集合中的文档个数（count对调试非常有帮助）</p>
+</li>
+<li><p>ok：是否成功，成功为1</p>
+</li>
+<li><p>err：如果失败，这里可以有失败原因，不过从经验上来看，原因比较模糊，作用不大</p>
 </li>
 </ul>
 <blockquote>
-<p>呃……没什么变化。看来编译慢很大程度上瓶颈并不在IO上面。但对于一个实际项目来说，编译过程中可能还会有打包等IO密集的操作，所以只要可能，用tmpfs是有益无害的。当然对于大项目来说，你需要有足够的内存才能负担得起这个tmpfs的开销。</p>
+<p>使用find</p>
 </blockquote>
-<h3 id="make-j"><a href="#make-j" class="headerlink" title="make -j"></a>make -j</h3><p>既然IO不是瓶颈，那CPU就应该是一个影响编译速度的重要因素了。</p>
-<p>用make -j带一个参数，可以把项目在进行并行编译，比如在一台双核的机器上，完全可以用make -j4，让make最多允许4个编译命令同时执行，这样可以更有效的利用CPU资源。</p>
-<blockquote>
-<p>还是用Kernel来测试：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt; db.posts.mapReduce(</div><div class="line"><span class="params">...</span> function() &#123;emit(this.user_name, <span class="number">1</span>);&#125;,</div><div class="line"><span class="params">...</span> function(key, values) &#123;<span class="keyword">return</span> <span class="built_in">Array</span>.<span class="keyword">sum</span>(values)&#125;,</div><div class="line"><span class="params">...</span>     &#123;</div><div class="line"><span class="params">...</span>         query:&#123;status:<span class="string">"active"</span>&#125;,</div><div class="line"><span class="params">...</span>         out:<span class="string">"post_total"</span></div><div class="line"><span class="params">...</span>     &#125;</div><div class="line"><span class="params">...</span> ).find()</div><div class="line">&#123; <span class="string">"_id"</span> : <span class="string">"67"</span>, <span class="string">"value"</span> : <span class="number">4</span> &#125;</div><div class="line">&#123; <span class="string">"_id"</span> : <span class="string">"liu"</span>, <span class="string">"value"</span> : <span class="number">1</span> &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>查询结果显示，两个用户 67 和 liu 分别有4篇和1篇active的文章</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>用类似的方式，MapReduce可以被用来构建大型复杂的聚合查询。<br>Map函数和Reduce函数可以使用 JavaScript 来实现，使得MapReduce的使用非常灵活和强大。</p>
 </blockquote>
-<ul>
-<li><p>用make： 40分16秒</p>
-</li>
-<li><p>用make -j4：23分16秒</p>
-</li>
-<li><p>用make -j8：22分59秒</p>
-</li>
+<h2 id="MapReduce-技巧"><a href="#MapReduce-技巧" class="headerlink" title="MapReduce 技巧"></a>MapReduce 技巧</h2><ul>
+<li>对结果进行数据类型转化</li>
 </ul>
-<p>由此看来，在多核 <strong>CPU</strong> 上，适当的进行并行编译还是可以明显提高编译速度的。但并行的任务不宜太多，一般是以 <strong>CPU</strong> 的核心数目的两倍为宜。</p>
-<p>不过这个方案不是完全没有 <strong>cost</strong> 的，如果项目的 <strong>Makefile</strong> 不规范，没有正确的设置好依赖关系，并行编译的结果就是编译不能正常进行。如果依赖关系设置过于保守，则可能本身编译的可并行度就下降了，也不能取得最佳的效果。</p>
-<h3 id="ccache"><a href="#ccache" class="headerlink" title="ccache"></a>ccache</h3><p>ccache用于把编译的中间结果进行缓存，以便在再次编译的时候可以节省时间。这对于玩Kernel来说实在是再好不过了，因为经常需要修改一些Kernel的代码，然后再重新编译，而这两次编译大部分东西可能都没有发生变化。对于平时开发项目来说，也是一样。为什么不是直接用make所支持的增量编译呢？还是因为现实中，因为Makefile的不规范，很可能这种“聪明”的方案根本不能正常工作，只有每次make clean再make才行。</p>
-<p>安装完ccache后，可以在/usr/local/bin下建立gcc，g++，c++，cc的symbolic link，链到/usr/bin/ccache上。总之确认系统在调用gcc等命令时会调用到ccache就可以了（通常情况下/usr/local /bin会在PATH中排在/usr/bin前面）。</p>
 <blockquote>
-<p>继续测试：</p>
+<p>利用Finalize函数（该函数是在Reduce函数后调用，它将对所有key的Reduce结果进行最后的操作），例如我在后台调用了api后想得到的是int型数据，而不是double的，那么就可以添加Finalize函数：</p>
 </blockquote>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">...,</div><div class="line">finalize : <span class="function"><span class="keyword">function</span></span> Finalize(key, reduced) &#123;</div><div class="line">    reduced.<span class="built_in">count</span> = NumberInt(reduced.<span class="built_in">count</span>);</div><div class="line">    <span class="keyword">return</span> reduced;</div><div class="line">&#125;,</div><div class="line">...</div></pre></td></tr></table></figure>
+<hr>
+<p>这样，输出的reduced将会是int32，在后台你就直接用一个强制转化就行了，而不需要先从object转为double，再转为int（用ToString后再用Prase也不如强制转化）。</p>
 <ul>
-<li><p>用ccache的第一次编译(make -j4)：23分38秒</p>
-</li>
-<li><p>用ccache的第二次编译(make -j4)：8分48秒</p>
-</li>
-<li><p>用ccache的第三次编译(修改若干配置，make -j4)：23分48秒</p>
-</li>
+<li>时间类型</li>
 </ul>
-<p>看来修改配置（我改了CPU类型…）对ccache的影响是很大的，因为基本头文件发生变化后，就导致所有缓存数据都无效了，必须重头来做。但如果只是修改一些.c文件的代码，ccache的效果还是相当明显的。而且使用ccache对项目没有特别的依赖，布署成本很低，这在日常工作中很实用。</p>
 <blockquote>
-<p>可以用ccache -s来查看cache的使用和命中情况：</p>
+<p>因为mongodb是有Date类型的，但是由于存入的时间格式和查询时间的格式可能不一致（特别是在你的mongodb部署在远程，而开发又是多人协作），会导致根据时间条件，却查不出数据的问题。我的建议，直接存时间的long形态（过去秒数），那么这种差异性问题就不复存在。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cache directory                     /home/kingand67/.ccache</div><div class="line">primary config                      /home/kingand67/.ccache/ccache.conf</div><div class="line">secondary config      (readonly)    /etc/ccache.conf</div><div class="line">cache hit (direct)                     0</div><div class="line">cache hit (preprocessed)               0</div><div class="line">cache miss                             0</div><div class="line">files in cache                         0</div><div class="line">cache size                           0.0 kB</div><div class="line">max cache size                       5.0 GB</div></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/kevinx_xu/article/details/8167358" target="_blank" rel="external">提高编译速度
-</a></p>
+<h2 id="MapReduce-注意的地方"><a href="#MapReduce-注意的地方" class="headerlink" title="MapReduce 注意的地方"></a>MapReduce 注意的地方</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.cnblogs.com/lekko/p/3963418.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">在MongoDB的MapReduce上踩过的坑</a></p>
 
       
 
@@ -289,23 +345,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">release</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tmpfs</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">make</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ccache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
@@ -361,7 +405,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/16/Linux编译技巧/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -375,18 +419,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/01/18/Linux容器/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Linux容器
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/01/16/Linux mount(二)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux mount 学习(二)</div>
+    <a href="/2017/04/29/MongoDB学习(二)一一MongoDB索引/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MongoDB学习(二)一一MongoDB索引</div>
       <i class="icon-circle-right"></i>
     </a>
   

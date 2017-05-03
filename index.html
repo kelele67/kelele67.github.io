@@ -148,6 +148,73 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="airticle-MongoDB学习(三)一一MongoDB MapReduce" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/">MongoDB学习(三)一一MongoDB MapReduce</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/" class="archive-article-date">
+  	<time datetime="2017-04-30T11:14:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></h2><h2 id="MongoDB-MapReduce"><a href="#MongoDB-MapReduce" class="headerlink" title="MongoDB MapReduce"></a>MongoDB MapReduce</h2><h3 id="MongoDB-固定集合"><a href="#MongoDB-固定集合" class="headerlink" title="MongoDB 固定集合"></a>MongoDB 固定集合</h3><p>MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！</p>
+<h4 id="创建固定集合"><a href="#创建固定集合" class="headerlink" title="创建固定集合"></a>创建固定集合</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.createCollection</span>("<span class="selector-tag">cappedLogCollection</span>",&#123;<span class="attribute">capped</span>:true,size:<span class="number">10000</span>&#125;)</div></pre></td></tr></table></figure>
+<hr>
+        
+          <a class="article-more-a" href="/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="airticle-MongoDB学习(二)一一MongoDB索引" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -161,7 +228,7 @@
 
         
         <a href="/2017/04/29/MongoDB学习(二)一一MongoDB索引/" class="archive-article-date">
-  	<time datetime="2017-04-28T23:15:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-29</time>
+  	<time datetime="2017-04-28T23:14:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-29</time>
 </a>
         
       </header>
@@ -169,6 +236,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id=""><a href="#" class="headerlink" title=""></a><p></h2><h2 id="MongoDB-索引"><a href="#MongoDB-索引" class="headerlink" title="MongoDB 索引"></a>MongoDB 索引</h2><p>MongoDB的index和SQL的是一样的意思，那我们来看看MongoDB的索引是怎么使用的吧。</p>
+<h3 id="ensureIndex-方法"><a href="#ensureIndex-方法" class="headerlink" title="ensureIndex() 方法"></a>ensureIndex() 方法</h3><blockquote>
+<p>MongoDB使用 ensureIndex() 方法来创建索引。</p>
+</blockquote>
 <hr>
         
           <a class="article-more-a" href="/2017/04/29/MongoDB学习(二)一一MongoDB索引/#more">more >></a>
@@ -234,8 +304,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id=""><a href="#" class="headerlink" title=""></a><p></h2><h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p>关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。</p>
-<h3 id="MongoDB-关系"><a href="#MongoDB-关系" class="headerlink" title="MongoDB 关系"></a>MongoDB 关系</h3><p>作为一个NoSQL数据库，MongoDB 的关系表示多个文档之间在逻辑上的相互联系。</p>
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></h2><h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><p>关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。<br>这是我的版本：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">kelele67<span class="meta">@liuqideMacBook</span>-Pro  <span class="regexp">/usr/</span>local<span class="regexp">/mongodb/</span>bin  ./mongo --version</div><div class="line">MongoDB shell version v3<span class="number">.4</span><span class="number">.2</span></div><div class="line">git <span class="string">version:</span> <span class="number">3</span>f76e40c105fc223b3e5aac3e20dcd026b83b38b</div><div class="line"><span class="string">allocator:</span> system</div><div class="line"><span class="string">modules:</span> none</div><div class="line">build <span class="string">environment:</span></div><div class="line"><span class="symbol">    distarch:</span> x86_64</div><div class="line"><span class="symbol">    target_arch:</span> x86_64</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="MongoDB-关系"><a href="#MongoDB-关系" class="headerlink" title="MongoDB 关系"></a>MongoDB 关系</h2><p>作为一个NoSQL数据库，MongoDB 的关系表示多个文档之间在逻辑上的相互联系。</p>
 <blockquote>
 <p>文档间可以通过嵌入和引用来建立联系。</p>
 </blockquote>
@@ -464,7 +536,7 @@
       
         <p>
 
-<p>面试复习<br>&lt;!此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报&gt;</p>
+<p>面试复习<br><!-- 此系列文章纯属虚构、单纯的（把面试官都归为是好伙计值得聊而不是脸上写着：呵呵你个菜鸡，心里想着：老子天下无敌 的那种，不过事实上个人感觉后者会比较多，毕竟如果自己不够强的话也只能吃个哑巴亏）想象面试官会问你什么问题，也是自己大三以来专注面试所收集到的一些小小的情报 --></p>
 <hr>
         
           <a class="article-more-a" href="/2017/04/21/面试准备(一)一一计算机网络之TCP/#more">more >></a>
@@ -648,95 +720,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(三)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-深入 Lua Garbage Collector(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/深入 Lua Garbage Collector(二)/">深入 Lua Garbage Collector(二)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/14/深入 Lua Garbage Collector(二)/" class="archive-article-date">
-  	<time datetime="2017-04-14T02:50:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>
-
-<p>这一篇我们主要介绍一下 <strong>Lua</strong> 的 <strong>GC</strong> 机制</p>
-<h2 id="Lua垃圾回收器函数"><a href="#Lua垃圾回收器函数" class="headerlink" title="Lua垃圾回收器函数"></a>Lua垃圾回收器函数</h2><p><strong>Lua</strong> 提供了以下函数 <strong>collectgarbage ([opt [, arg]])</strong> 用来控制自动内存管理:</p>
-<ul>
-<li><p>collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：</p>
-</li>
-<li><p>collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 1024 就能得到 Lua 使用的准确字节数（除非溢出）。</p>
-</li>
-<li><p>collectgarbage(“restart”): 重启垃圾收集器的自动运行。</p>
-</li>
-<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 。 返回 间歇率 的前一个值。</p>
-</li>
-<li><p>collectgarbage(“setstepmul”): 返回 步进倍率 的前一个值。</p>
-</li>
-<li><p>collectgarbage(“step”): 单步运行垃圾收集器。 步长”大小”由 arg 控制。 传入 0 时，收集器步进（不可分割的）一步。 传入非 0 值， 收集器收集相当于 Lua 分配这些多（K 字节）内存的工作。 如果收集器结束一个循环将返回 true 。</p>
-</li>
-<li><p>collectgarbage(“stop”): 停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。</p>
-</li>
-</ul>
-<hr>
-        
-          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(二)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(二)/">展开全文 >></a>
         </p>
       
 
