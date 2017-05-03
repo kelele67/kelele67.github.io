@@ -6,17 +6,39 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>树犹如此|人何以堪</title>
+  <title>MongoDB学习(四)一一MongoDB 聚合 | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="做一个富有的废物">
-<meta property="og:type" content="website">
-<meta property="og:title" content="树犹如此|人何以堪">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="MongoDB 聚合
+MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。
+
+aggregate() 方法MongoDB中聚合的方法使用aggregate()语法如下：
+1&amp;gt;db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
+
+举个栗子：
+首先我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB学习(四)一一MongoDB 聚合">
+<meta property="og:url" content="http://yoursite.com/2017/04/30/MongoDB学习(三)一一MongoDB 聚合/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="做一个富有的废物">
+<meta property="og:description" content="MongoDB 聚合
+MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。
+
+aggregate() 方法MongoDB中聚合的方法使用aggregate()语法如下：
+1&amp;gt;db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
+
+举个栗子：
+首先我">
+<meta property="og:updated_time" content="2017-05-03T12:28:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树犹如此|人何以堪">
-<meta name="twitter:description" content="做一个富有的废物">
+<meta name="twitter:title" content="MongoDB学习(四)一一MongoDB 聚合">
+<meta name="twitter:description" content="MongoDB 聚合
+MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。
+
+aggregate() 方法MongoDB中聚合的方法使用aggregate()语法如下：
+1&amp;gt;db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
+
+举个栗子：
+首先我">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -146,113 +168,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="airticle-深入 Lua Garbage Collector(四)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+            <article id="airticle-MongoDB学习(三)一一MongoDB 聚合" class="article article-type-airticle " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/15/深入 Lua Garbage Collector(四)/">深入 Lua Garbage Collector(四)</a>
+    <h1 class="article-title" itemprop="name">
+      MongoDB学习(四)一一MongoDB 聚合
     </h1>
   
 
         
-        <a href="/2017/04/15/深入 Lua Garbage Collector(四)/" class="archive-article-date">
-  	<time datetime="2017-04-15T05:14:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
+        <a href="/2017/04/30/MongoDB学习(三)一一MongoDB 聚合/" class="archive-article-date">
+  	<time datetime="2017-04-30T14:04:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>
-
-<blockquote>
-<p>早期的 Lua GC 采用的是 stop the world 的实现。一旦发生 gc 就需要等待整个 gc 流程走完。如果你用 lua 处理较少量数据，或是数据增删不频繁，这样做不是问题。但当处理的数据量变大时，对于实时性要求较高的应用，比如网络游戏服务器，这个代价则是不可忽略的。lua 本身是个很精简的系统，但不代表处理的数据量也一定很小。</p>
-<p>从 Lua 5.1 开始，GC 的实现改为分步的。虽然依旧是 stop the world ，但是，每个步骤都可以分阶段执行。这样，每次停顿的时间较小。随之，这部分的代码也相对复杂了。分步执行最关键的问题是需要解决在 GC 的步骤之间，如果数据关联的状态发生了变化，如果保证 GC 的正确性。GC 的分步执行相对于一次执行完，总的时间开销的差别并不是零代价的。只是在实现上，要尽量让额外增加的代价较小。</p>
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-聚合"><a href="#MongoDB-聚合" class="headerlink" title="MongoDB 聚合"></a>MongoDB 聚合</h2><blockquote>
+<p>MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。</p>
 </blockquote>
-<p>先来看 GC 流程的划分。</p>
+<h3 id="aggregate-方法"><a href="#aggregate-方法" class="headerlink" title="aggregate() 方法"></a>aggregate() 方法</h3><p>MongoDB中聚合的方法使用aggregate()<br>语法如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db<span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.aggregate</span>(AGGREGATE_OPERATION)</div></pre></td></tr></table></figure>
 <hr>
-        
-          <a class="article-more-a" href="/2017/04/15/深入 Lua Garbage Collector(四)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<p>举个栗子：</p>
+<p>首先我们插入数据</p>
+<pre><code>
+</code></pre><hr>
+<p>   title: ‘MongoDB Overview’,<br>   description: ‘MongoDB is no sql database’,<br>   by_user: ‘w3cschool.cc’,<br>   url: ‘<a href="http://www.w3cschool.cc" target="_blank" rel="external">http://www.w3cschool.cc</a>‘,<br>   tags: [‘mongodb’, ‘database’, ‘NoSQL’],<br>   likes: 100</p>
 
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/15/深入 Lua Garbage Collector(四)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-深入 Lua Garbage Collector(三)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/深入 Lua Garbage Collector(三)/">深入 Lua Garbage Collector(三)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/14/深入 Lua Garbage Collector(三)/" class="archive-article-date">
-  	<time datetime="2017-04-14T14:20:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>
-
-<h2 id="Lua-源码"><a href="#Lua-源码" class="headerlink" title="Lua 源码"></a>Lua 源码</h2><p>阅读的源码来自 <strong>lua-5.3.0</strong></p>
-<hr>
-        
-          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(三)/#more">more >></a>
-        
-      
-
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oe9uedqb2.bkt.clouddn.com/apx07138xvvuj2wuau2h4c4.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -263,15 +238,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
         		</li>
       		
 		</ul>
@@ -280,466 +251,83 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(三)/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/30/MongoDB学习(三)一一MongoDB 聚合/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="airticle-深入 Lua Garbage Collector(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/深入 Lua Garbage Collector(二)/">深入 Lua Garbage Collector(二)</a>
-    </h1>
+    <a href="/2017/04/30/MongoDB学习(四)一一MongoDB 聚合/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MongoDB学习(四)一一MongoDB 聚合
+        
+      </div>
+    </a>
   
-
-        
-        <a href="/2017/04/14/深入 Lua Garbage Collector(二)/" class="archive-article-date">
-  	<time datetime="2017-04-14T02:50:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>
-
-<p>这一篇我们主要介绍一下 <strong>Lua</strong> 的 <strong>GC</strong> 机制</p>
-<h2 id="Lua垃圾回收器函数"><a href="#Lua垃圾回收器函数" class="headerlink" title="Lua垃圾回收器函数"></a>Lua垃圾回收器函数</h2><p><strong>Lua</strong> 提供了以下函数 <strong>collectgarbage ([opt [, arg]])</strong> 用来控制自动内存管理:</p>
-<ul>
-<li><p>collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：</p>
-</li>
-<li><p>collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 1024 就能得到 Lua 使用的准确字节数（除非溢出）。</p>
-</li>
-<li><p>collectgarbage(“restart”): 重启垃圾收集器的自动运行。</p>
-</li>
-<li><p>collectgarbage(“setpause”): 将 arg 设为收集器的 间歇率 。 返回 间歇率 的前一个值。</p>
-</li>
-<li><p>collectgarbage(“setstepmul”): 返回 步进倍率 的前一个值。</p>
-</li>
-<li><p>collectgarbage(“step”): 单步运行垃圾收集器。 步长”大小”由 arg 控制。 传入 0 时，收集器步进（不可分割的）一步。 传入非 0 值， 收集器收集相当于 Lua 分配这些多（K 字节）内存的工作。 如果收集器结束一个循环将返回 true 。</p>
-</li>
-<li><p>collectgarbage(“stop”): 停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。</p>
-</li>
-</ul>
-<hr>
-        
-          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(二)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/14/深入 Lua Garbage Collector(二)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
   
-    <article id="airticle-深入 Lua Garbage Collector(一)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    <a href="/2017/04/30/MongoDB学习(三)一一MongoDB MapReduce/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MongoDB学习(三)一一MongoDB MapReduce</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/深入 Lua Garbage Collector(一)/">深入 Lua Garbage Collector(一)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/13/深入 Lua Garbage Collector(一)/" class="archive-article-date">
-  	<time datetime="2017-04-13T01:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p><br>看到一个 <strong>Bob Nystrom</strong> 写的<a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/"> <strong>C</strong> 语言实现的 <strong>Garbage Collector</strong> </a></p>
-<p>借着这个小程序顺便深入地了解一下Lua的垃圾回收机制</p>
-<hr>
-        
-          <a class="article-more-a" href="/2017/04/13/深入 Lua Garbage Collector(一)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">c</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">lua</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/13/深入 Lua Garbage Collector(一)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-Linux下的轻量服务器实现" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/31/Linux下的轻量服务器实现/">Linux下的的轻量级HTTP服务器实现</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/31/Linux下的轻量服务器实现/" class="archive-article-date">
-  	<time datetime="2017-03-31T03:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p></p>
-<h2 id="小型HTTP服务器"><a href="#小型HTTP服务器" class="headerlink" title="小型HTTP服务器"></a>小型HTTP服务器</h2><p>读了很多 <strong>Linux</strong> 下小型的 <strong>http</strong> 服务器，还是觉得来自<a href="http://www.jianshu.com/p/912fa6d0b5e0">朱家顺的Zaver</a>比较适合新手学习</p>
-<blockquote>
-<p>Zaver，一个结构简单，支持高并发的http服务器。基本架构是事件循环 + non-blocking I/O + 线程池。Zaver的代码风格参考了Nginx的风格，所以在可读性上非常高。另外，Zaver提供了配置文件和命令行参数解析，以及完善的Makefile和源代码结构，也可以帮助任何一个C初学者入门一个项目是怎么构建的。</p>
-</blockquote>
-<hr>
-        
-          <a class="article-more-a" href="/2017/03/31/Linux下的轻量服务器实现/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web server</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/31/Linux下的轻量服务器实现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-C++11 并发学习(四)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/15/C++11 并发学习(四)/">C++11 并发学习(四)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/15/C++11 并发学习(四)/" class="archive-article-date">
-  	<time datetime="2017-02-15T06:52:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
-<h2 id="下面我们来看一下C-11多线程下生产者消费者模型"><a href="#下面我们来看一下C-11多线程下生产者消费者模型" class="headerlink" title="下面我们来看一下C++11多线程下生产者消费者模型"></a>下面我们来看一下C++11多线程下生产者消费者模型</h2><hr>
-        
-          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">threadpool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-C++11 并发学习(三)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/14/C++11 并发学习(三)/">C++11 并发学习(三)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/14/C++11 并发学习(三)/" class="archive-article-date">
-  	<time datetime="2017-02-14T04:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
-<h2 id="C-11-ThreadPool-简单实现"><a href="#C-11-ThreadPool-简单实现" class="headerlink" title="C++11 ThreadPool 简单实现"></a>C++11 ThreadPool 简单实现</h2><hr>
-        
-          <a class="article-more-a" href="/2017/02/14/C++11 并发学习(三)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">threadpool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/14/C++11 并发学习(三)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-C++11 并发学习(二)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/14/C++11 并发学习(二)/">C++11 并发学习(二)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/14/C++11 并发学习(二)/" class="archive-article-date">
-  	<time datetime="2017-02-13T17:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
-<h2 id="线程详解"><a href="#线程详解" class="headerlink" title="线程详解"></a>线程详解</h2><p>具体源码的大家有兴趣的可以去查看<a href="http://www.open-std.org/">c++ 标准委员会的官方文档</a></p>
-<p>在这里我主要讲一下他们的主要结构以及主要用法</p>
-<hr>
-        
-          <a class="article-more-a" href="/2017/02/14/C++11 并发学习(二)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">thread</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/14/C++11 并发学习(二)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+</nav>
 
 
 
@@ -747,9 +335,10 @@
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -772,8 +361,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
