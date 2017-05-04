@@ -8,25 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>大端模式和小端模式 | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="来源我觉得这个故事还是挺有意思的
-
-关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
+  <meta name="description" content="来源我觉得这个故事还是挺有意思的  关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
+<meta name="keywords" content="c,endian">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大端模式和小端模式">
 <meta property="og:url" content="http://yoursite.com/2017/04/24/大端模式和小端模式/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="来源我觉得这个故事还是挺有意思的
-
-关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
+<meta property="og:description" content="来源我觉得这个故事还是挺有意思的  关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF1.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF2.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF3.png">
-<meta property="og:updated_time" content="2017-04-25T13:19:38.000Z">
+<meta property="og:updated_time" content="2017-05-03T13:49:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大端模式和小端模式">
-<meta name="twitter:description" content="来源我觉得这个故事还是挺有意思的
-
-关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
+<meta name="twitter:description" content="来源我觉得这个故事还是挺有意思的  关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
 <meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF1.png">
   
   
@@ -198,19 +193,19 @@
 <tr>
 <th>内存地址</th>
 <th>小端模式存放内容</th>
-<th style="text-align:right">大端模式存放内容</th>
+<th style="text-align:center">大端模式存放内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>0x4000</td>
 <td>0x34</td>
-<td style="text-align:right">0x12</td>
+<td style="text-align:center">0x12</td>
 </tr>
 <tr>
 <td>0x4001</td>
 <td>0x12</td>
-<td style="text-align:right">0x34</td>
+<td style="text-align:center">0x34</td>
 </tr>
 </tbody>
 </table>
@@ -220,29 +215,29 @@
 <tr>
 <th>内存地址</th>
 <th>小端模式存放内容</th>
-<th style="text-align:right">大端模式存放内容</th>
+<th style="text-align:center">大端模式存放内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>0x4000</td>
 <td>0x78</td>
-<td style="text-align:right">0x12</td>
+<td style="text-align:center">0x12</td>
 </tr>
 <tr>
 <td>0x4001</td>
 <td>0x56</td>
-<td style="text-align:right">0x34</td>
+<td style="text-align:center">0x34</td>
 </tr>
 <tr>
 <td>0x4002</td>
 <td>0x34</td>
-<td style="text-align:right">0x56</td>
+<td style="text-align:center">0x56</td>
 </tr>
 <tr>
 <td>0x4003</td>
 <td>0x12</td>
-<td style="text-align:right">0x78</td>
+<td style="text-align:center">0x78</td>
 </tr>
 </tbody>
 </table>
@@ -290,7 +285,7 @@ buf[0] (0x78) -- 低位
 <hr>
 <p>结果：</p>
 <p><img src="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF3.png" alt=""></p>
-<h2 id="大端模式和小端模式转换"><a href="#大端模式和小端模式转换" class="headerlink" title="大端模式和小端模式转换"></a>大端模式和小端模式转换</h2><h3 id="移位运算"><a href="#移位运算" class="headerlink" title="移位运算"></a>移位运算</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//宏定义</span></div><div class="line"><span class="comment">//对于32位的数，大端转换为小端</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BigtoLittle32(A)   ((( (uint32_t)(A) &amp; 0xff000000) &gt;&gt; 24) | \  </span></div><div class="line">                                       (( (<span class="keyword">uint32_t</span>)(A) &amp; <span class="number">0x00ff0000</span>) &gt;&gt; <span class="number">8</span>)   | \  </div><div class="line">                                       (( (<span class="keyword">uint32_t</span>)(A) &amp; <span class="number">0x0000ff00</span>) &lt;&lt; <span class="number">8</span>)   | \  </div><div class="line">                                       (( (<span class="keyword">uint32_t</span>)(A) &amp; <span class="number">0x000000ff</span>) &lt;&lt; <span class="number">24</span>))  </div><div class="line"></div><div class="line"><span class="comment">//对于32位的数，大端转换为小端</span></div><div class="line"><span class="keyword">uint32_t</span> reversebytes_uint32t(<span class="keyword">uint32_t</span> value) &#123;</div><div class="line">    <span class="keyword">return</span> (value &amp; <span class="number">0x000000ff</span>u) &lt;&lt; <span class="number">24</span> | (value &amp; <span class="number">0x0000ff00</span>u) &lt;&lt; <span class="number">8</span> | (value &amp; <span class="number">0x00ff0000</span>u) &gt;&gt; <span class="number">8</span> | (value &amp; <span class="number">0xff000000</span>u) &gt;&gt; <span class="number">24</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="大端模式和小端模式转换"><a href="#大端模式和小端模式转换" class="headerlink" title="大端模式和小端模式转换"></a>大端模式和小端模式转换</h2><h3 id="移位运算"><a href="#移位运算" class="headerlink" title="移位运算"></a>移位运算</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//宏定义</span></div><div class="line"><span class="comment">//对于32位的数，大端转换为小端</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BigtoLittle32(A)  ( (((uint32_t)(A) &amp; 0xff000000) &gt;&gt; 24) | \  </span></div><div class="line">                                       (( (<span class="keyword">uint32_t</span>)(A) &amp; <span class="number">0x00ff0000</span>) &gt;&gt; <span class="number">8</span>)   | \  </div><div class="line">                                       (( (<span class="keyword">uint32_t</span>)(A) &amp; <span class="number">0x0000ff00</span>) &lt;&lt; <span class="number">8</span>)   | \  </div><div class="line">                                       (( (<span class="keyword">uint32_t</span>)(A) &amp; <span class="number">0x000000ff</span>) &lt;&lt; <span class="number">24</span>))  </div><div class="line"></div><div class="line"><span class="comment">//函数形式</span></div><div class="line"><span class="comment">//对于32位的数，大端转换为小端</span></div><div class="line"><span class="keyword">uint32_t</span> reversebytes_uint32t(<span class="keyword">uint32_t</span> value) &#123;</div><div class="line">    <span class="keyword">return</span> (value &amp; <span class="number">0x000000ff</span>u) &lt;&lt; <span class="number">24</span> | (value &amp; <span class="number">0x0000ff00</span>u) &lt;&lt; <span class="number">8</span> | (value &amp; <span class="number">0x00ff0000</span>u) &gt;&gt; <span class="number">8</span> | (value &amp; <span class="number">0xff000000</span>u) &gt;&gt; <span class="number">24</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对于64位的数，大端转换为小端</span></div><div class="line"><span class="comment">// 先将64位的低32位转成小端模式，再将64位的高32位转成小端模式  </span></div><div class="line"><span class="comment">// 再交换高32位和低32位的位置</span></div><div class="line"><span class="keyword">uint64_t</span> reversebytes_uint64t(<span class="keyword">uint64_t</span> value) &#123;</div><div class="line">    <span class="keyword">uint32_t</span> high_uint64 = <span class="keyword">uint64_t</span>(reversebytes_uint32t(<span class="keyword">uint32_t</span> (value))); <span class="comment">//低32位转换为小端</span></div><div class="line">    <span class="keyword">uint32_t</span> low_uint64 = <span class="keyword">uint64_t</span>(reversebytes_uint32t(<span class="keyword">uint32_t</span> (value &gt;&gt; <span class="number">32</span>))); <span class="comment">//高32位转换为小端</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> (high_uint64 &lt;&lt; <span class="number">32</span>) + low_uint64;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>

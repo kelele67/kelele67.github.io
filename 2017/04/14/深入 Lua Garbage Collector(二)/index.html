@@ -8,31 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>深入 Lua Garbage Collector(二) | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这一篇我们主要介绍一下 Lua 的 GC 机制
-Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:
-
-collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
-
-collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
+  <meta name="description" content="这一篇我们主要介绍一下 Lua 的 GC 机制 Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:  collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：  collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
+<meta name="keywords" content="c,lua,gc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 Lua Garbage Collector(二)">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/深入 Lua Garbage Collector(二)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制
-Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:
-
-collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
-
-collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
+<meta property="og:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制 Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:  collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：  collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
 <meta property="og:updated_time" content="2017-04-23T17:39:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(二)">
-<meta name="twitter:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制
-Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:
-
-collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：
-
-collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
+<meta name="twitter:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制 Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:  collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：  collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
   
   
     <link rel="icon" href="/icon/bird.ico">
