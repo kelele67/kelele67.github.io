@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MongoDB学习(五)一一MongoDB 原子操作与自动增长 | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。接下来，我们将了解的ObjectId的结构。 ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。  MongoDB中存储的文">
+  <meta name="description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。接下来，我们将了解的ObjectId的结构。 ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中存储的">
 <meta name="keywords" content="mongodb,database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB学习(五)一一MongoDB 原子操作与自动增长">
 <meta property="og:url" content="http://yoursite.com/2017/05/01/MongoDB学习(五)一一MongoDB 原子操作与自动增长/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。接下来，我们将了解的ObjectId的结构。 ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。  MongoDB中存储的文">
-<meta property="og:updated_time" content="2017-05-04T15:59:16.000Z">
+<meta property="og:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。接下来，我们将了解的ObjectId的结构。 ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中存储的">
+<meta property="og:updated_time" content="2017-05-05T02:01:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(五)一一MongoDB 原子操作与自动增长">
-<meta name="twitter:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。接下来，我们将了解的ObjectId的结构。 ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。  MongoDB中存储的文">
+<meta name="twitter:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。接下来，我们将了解的ObjectId的结构。 ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中存储的">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -181,31 +181,33 @@
 </li>
 <li><p>最后三个字节是随机数。</p>
 </li>
-<li>MongoDB中存储的文档必须有一个”_id”键。这个键的值可以是任何类型的，默认是个ObjectId对象。<br>在一个集合里面，每个文档都有唯一的”_id”值，来确保集合里面每个文档都能被唯一标识。<br>MongoDB采用ObjectId，而不是其他比较常规的做法（比如自动增加的主键）的主要原因，因为在多个 服务器上同步自动增加主键值既费力还费时。</li>
 </ul>
-<h3 id="创建新的ObjectId"><a href="#创建新的ObjectId" class="headerlink" title="创建新的ObjectId"></a>创建新的ObjectId</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;newObjectId = ObjectId()</div><div class="line">ObjectId(&quot;590b3cf564d6ed405ce2ad9d&quot;)</div></pre></td></tr></table></figure>
+<p>MongoDB中存储的文档必须有一个”_id”键。这个键的值可以是任何类型的，默认是个ObjectId对象。<br>在一个集合里面，每个文档都有唯一的”_id”值，来确保集合里面每个文档都能被唯一标识。<br>MongoDB采用ObjectId，而不是其他比较常规的做法（比如自动增加的主键）的主要原因，因为在多个 服务器上同步自动增加主键值既费力还费时。</p>
+<hr>
+<a id="more"></a>
+<h3 id="创建新的ObjectId"><a href="#创建新的ObjectId" class="headerlink" title="创建新的ObjectId"></a>创建新的ObjectId</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;newObjectId = ObjectId()</div><div class="line"><span class="function"><span class="title">ObjectId</span><span class="params">(<span class="string">"590b3cf564d6ed405ce2ad9d"</span>)</span></span></div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
 <p>你也可以使用生成的id来取代MongoDB自动生成的ObjectId：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; myObjectId = ObjectId(&quot;590b3cf564d6ed405ce2ad9e&quot;)</div><div class="line">ObjectId(&quot;590b3cf564d6ed405ce2ad9e&quot;)</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; myObjectId = ObjectId(<span class="string">"590b3cf564d6ed405ce2ad9e"</span>)</div><div class="line"><span class="function"><span class="title">ObjectId</span><span class="params">(<span class="string">"590b3cf564d6ed405ce2ad9e"</span>)</span></span></div></pre></td></tr></table></figure>
 <hr>
 <h3 id="创建文档的时间戳"><a href="#创建文档的时间戳" class="headerlink" title="创建文档的时间戳"></a>创建文档的时间戳</h3><blockquote>
 <p>由于 ObjectId 中存储了 4 个字节的时间戳，所以你不需要为你的文档保存时间戳字段，你可以通过 getTimestamp 函数来获取文档的创建时间：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; ObjectId(&quot;590b3cf564d6ed405ce2ad9e&quot;).getTimestamp()</div><div class="line">ISODate(&quot;2017-05-04T14:38:45Z&quot;)</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="selector-tag">ObjectId</span>(<span class="string">"590b3cf564d6ed405ce2ad9e"</span>)<span class="selector-class">.getTimestamp</span>()</div><div class="line"><span class="selector-tag">ISODate</span>(<span class="string">"2017-05-04T14:38:45Z"</span>)</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="ObjectId-转换为字符串"><a href="#ObjectId-转换为字符串" class="headerlink" title="ObjectId 转换为字符串"></a>ObjectId 转换为字符串</h3><p>在某些情况下，您可能需要将ObjectId转换为字符串格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; new ObjectId().str</div><div class="line">590b3d5a64d6ed405ce2ad9e</div></pre></td></tr></table></figure></p>
+<h3 id="ObjectId-转换为字符串"><a href="#ObjectId-转换为字符串" class="headerlink" title="ObjectId 转换为字符串"></a>ObjectId 转换为字符串</h3><p>在某些情况下，您可能需要将ObjectId转换为字符串格式：<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">new</span> ObjectId().<span class="keyword">str</span></div><div class="line"><span class="number">590</span>b3d5a64d6ed405ce2ad9e</div></pre></td></tr></table></figure></p>
 <hr>
 <h2 id="MongoDB-自动增长"><a href="#MongoDB-自动增长" class="headerlink" title="MongoDB 自动增长"></a>MongoDB 自动增长</h2><blockquote>
 <p>MongoDB 没有像 SQL 一样有自动增长的功能， MongoDB 的 _id 是系统自动生成的12字节唯一标识。<br>但在某些情况下，我们可能需要实现 ObjectId 自动增长功能。<br>由于 MongoDB 没有实现这个功能，我们可以通过编程的方式来实现，以下我们将在 counters 集合中实现_id字段自动增长。</p>
 </blockquote>
 <p>举个栗子：</p>
 <h3 id="使用-counters-集合"><a href="#使用-counters-集合" class="headerlink" title="使用 counters 集合"></a>使用 counters 集合</h3><p>首先创建 counters 集合：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.createCollection(&quot;counters&quot;)</div><div class="line">&#123; &quot;ok&quot; : 1 &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.createCollection(<span class="string">"counters"</span>)</div><div class="line">&#123; <span class="string">"ok"</span> : 1 &#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>然后我们向 counters 集合中插入以下文档，使用 productid 作为 key，sequence_value 字段是序列通过自动增长后的一个值:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.counters.insert(&#123;_id:&quot;productid&quot;,sequence_value:0&#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.counters</span><span class="selector-class">.insert</span>(&#123;_id:<span class="string">"productid"</span>,sequence_value:<span class="number">0</span>&#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div></pre></td></tr></table></figure>
 <hr>
 <h3 id="MongoDB-原子操作"><a href="#MongoDB-原子操作" class="headerlink" title="MongoDB 原子操作"></a>MongoDB 原子操作</h3><p>写函数之前我们首先来看一下MongoDB的原子操作</p>
 <blockquote>
@@ -213,16 +215,18 @@
 </blockquote>
 <h4 id="对单个文档进行原子性修改"><a href="#对单个文档进行原子性修改" class="headerlink" title="对单个文档进行原子性修改"></a>对单个文档进行原子性修改</h4><p>mongoDB保证了对单个document的多个filed的原子性修改。如果需要对单个文档进行原子性的CAS操作(check and set)，可以使用findAndModify操作。</p>
 <p>比如下面就是一条原子性的CAS操作，首先选择_id为123的文档（注意这里只选择了一个文档），然后对计数器count加1，将status字段变为true，并返回修改后的结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">db.colleciton.findAndModify(&#123;</div><div class="line">...    query:&#123;_id:&apos;123&apos;&#125;,</div><div class="line">...    $inc:&#123;count:1&#125;,</div><div class="line">...    $update:&#123;status:true&#125;</div><div class="line">...    &#125;,</div><div class="line">...    new:true)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">db.colleciton.findAndModify(&#123;</div><div class="line">...    query:&#123;_id:&quot;123&quot;&#125;,</div><div class="line">...    $inc:&#123;count:1&#125;,</div><div class="line">...    $update:&#123;status:true&#125;</div><div class="line">...    &#125;,</div><div class="line">...    new:true)</div></pre></td></tr></table></figure>
 <hr>
 <h4 id="对多个文档使用-isolate操作符"><a href="#对多个文档使用-isolate操作符" class="headerlink" title="对多个文档使用$isolate操作符"></a>对多个文档使用$isolate操作符</h4><p>$isolate操作符可以对多个文档的修改提供隔离性。针对其他线程的并发写操作，$isolate保证了提交前其他线程无法修改对应的文档。针对其他线程的读操作，$isolate保证了其他线程读取不到未提交的数据。</p>
 <p>但是$isolate有验证的性能问题，因为这种情况下线程持有锁的时间较长，严重的影响mongo的并发性。另外，$isolate也无法保证多个文档修改的一致性(all-or-nothing)，$isolate失败是可能只修改了部分文档。</p>
 <h4 id="从语义层面实现事务性操作"><a href="#从语义层面实现事务性操作" class="headerlink" title="从语义层面实现事务性操作"></a>从语义层面实现事务性操作</h4><p>mongoDB官方提供了一种做法，即两阶段提交(two-phase commit)，基本的原理就是利用了写操作的幂等性。具体实现可以看官网的详细讲解。但是利用幂等性来实现事务性有一个重要的前置条件：业务不在乎中间态的不一致。幂等性可以保证最终的一致性，但是会出现中间的不一致状态。</p>
-<h4 id="原子操作栗子"><a href="#原子操作栗子" class="headerlink" title="原子操作栗子"></a>原子操作栗子</h4><p>先插入我们数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&gt; db.books.insert(</div><div class="line">... &#123;</div><div class="line">...     &quot;_id&quot; : 123456789,</div><div class="line">...     &quot;title&quot; : &quot;Journey Under the Midnight Sun&quot;,</div><div class="line">...     &quot;author&quot; :&quot;Keigo Higashino&quot;,</div><div class="line">...     &quot;published_date&quot; : ISODate(&quot;2015-10-24T00:00:00Z&quot;),</div><div class="line">...     &quot;pages&quot; : 539,</div><div class="line">...     &quot;language&quot; : &quot;English&quot;,</div><div class="line">...     &quot;publisher_id&quot; : &quot;Little, Brown&quot;,</div><div class="line">...     &quot;available&quot; : 20,</div><div class="line">...     &quot;checkout&quot; : [</div><div class="line">...         &#123;</div><div class="line">...             &quot;by&quot; : &quot;Little, Brown&quot;,</div><div class="line">...             &quot;date&quot; : ISODate(&quot;2015-08-15T00:00:00Z&quot;)</div><div class="line">...         &#125;</div><div class="line">...     ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure></p>
+<h4 id="原子操作栗子"><a href="#原子操作栗子" class="headerlink" title="原子操作栗子"></a>原子操作栗子</h4><p>先插入我们数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&gt; db.books.insert(</div><div class="line">... &#123;</div><div class="line">...     &quot;_id&quot; : 123456789,</div><div class="line">...     &quot;title&quot; : &quot;Journey Under the Midnight Sun&quot;,</div><div class="line">...     &quot;author&quot; :&quot;Keigo Higashino&quot;,</div><div class="line">...     &quot;published_date&quot; : ISODate(&quot;2015-10-24T00:00:00Z&quot;),</div><div class="line">...     &quot;pages&quot; : 539,</div><div class="line">...     &quot;language&quot; : &quot;English&quot;,</div><div class="line">...     &quot;publisher_id&quot; : &quot;Little, Brown&quot;,</div><div class="line">...     &quot;available&quot; : 20,</div><div class="line">...     &quot;checkout&quot; : [</div><div class="line">...         &#123;</div><div class="line">...             &quot;by&quot; : &quot;Little, Brown&quot;,</div><div class="line">...             &quot;date&quot; : ISODate(&quot;2015-08-15T00:00:00Z&quot;)</div><div class="line">...         &#125;</div><div class="line">...     ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
-<p>你可以使用 db.collection.findAndModify() 方法来判断书籍是否可结算并更新新的结算信息。<br>在同一个文档中嵌入的 available 和 checkout 字段来确保这些字段是同步更新的：</p>
+<p>你可以使用 db.collection.findAndModify() 方法来判断书籍是否可结算并更新新的结算信息</p>
 </blockquote>
+<p>在同一个文档中嵌入的 available 和 checkout 字段来确保这些字段是同步更新的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&gt; db.books.findAndModify ( &#123;</div><div class="line">...    query: &#123;</div><div class="line">...             _id: 123456789,</div><div class="line">...             available: &#123; $gt: 0 &#125;</div><div class="line">...           &#125;,</div><div class="line">...    update: &#123;</div><div class="line">...              $inc: &#123; available: -1 &#125;,</div><div class="line">...              $push: &#123; checkout: &#123; by: &quot;abc&quot;, date: new Date() &#125; &#125;</div><div class="line">...            &#125;</div><div class="line">... &#125; )</div><div class="line">&#123;</div><div class="line">    &quot;_id&quot; : 123456789,</div><div class="line">    &quot;title&quot; : &quot;Journey Under the Midnight Sun&quot;,</div><div class="line">    &quot;author&quot; : &quot;Keigo Higashino&quot;,</div><div class="line">    &quot;published_date&quot; : ISODate(&quot;2015-10-24T00:00:00Z&quot;),</div><div class="line">    &quot;pages&quot; : 539,</div><div class="line">    &quot;language&quot; : &quot;English&quot;,</div><div class="line">    &quot;publisher_id&quot; : &quot;Little, Brown&quot;,</div><div class="line">    &quot;available&quot; : 20,</div><div class="line">    &quot;checkout&quot; : [</div><div class="line">        &#123;</div><div class="line">            &quot;by&quot; : &quot;Little, Brown&quot;,</div><div class="line">            &quot;date&quot; : ISODate(&quot;2015-08-15T00:00:00Z&quot;)</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="原子操作常用命令"><a href="#原子操作常用命令" class="headerlink" title="原子操作常用命令"></a>原子操作常用命令</h4><ul>
 <li>$set</li>
@@ -230,7 +234,7 @@
 <blockquote>
 <p>用来指定一个键并更新键值，若键不存在并创建</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $set : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="symbol">$</span><span class="keyword">set</span> : &#123; field <span class="comment">: value &#125; &#125;</span></div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$unset</li>
@@ -238,7 +242,7 @@
 <blockquote>
 <p>用来删除一个键</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $unset : &#123; field : 1&#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $unset : &#123; field : <span class="number">1</span>&#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$inc</li>
@@ -246,7 +250,7 @@
 <blockquote>
 <p>$inc可以对文档的某个值为数字型（只能为满足要求的数字）的键进行增减的操作</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $inc : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $inc : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$push</li>
@@ -254,7 +258,7 @@
 <blockquote>
 <p>把value追加到field里面去，field一定要是数组类型才行，如果field不存在，会新增一个数组类型加进去</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $push : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $push : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$pushAll</li>
@@ -262,7 +266,7 @@
 <blockquote>
 <p>同$push,只是一次可以追加多个值到一个数组字段内</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pushAll : &#123; field : value_array &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pushAll : &#123; field : value_array &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$pull</li>
@@ -270,7 +274,7 @@
 <blockquote>
 <p>从数组field内删除一个等于value值。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pull : &#123; field : _value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pull : &#123; field : _value &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$addToSet</li>
@@ -284,7 +288,7 @@
 <blockquote>
 <p>删除数组的第一个或最后一个元素</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pop : &#123; field : 1 &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pop : &#123; field : <span class="number">1</span> &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$rename</li>
@@ -292,7 +296,7 @@
 <blockquote>
 <p>修改字段名称</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $rename : &#123; old_field_name : new_field_name &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $rename : &#123; old_field_name : new_field_name &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$bit</li>
@@ -300,13 +304,13 @@
 <blockquote>
 <p>位操作，integer类型</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;$bit : &#123; field : &#123;and : 5&#125;&#125;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;$bit : &#123; field : &#123;and : <span class="number">5</span>&#125;&#125;&#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>可以看到，大部分我们上一篇介绍到的操作都是原子操作</p>
 <h3 id="创建JavaScript函数"><a href="#创建JavaScript函数" class="headerlink" title="创建JavaScript函数"></a>创建JavaScript函数</h3><blockquote>
 <p>我们创建函数 getNextSequenceValue 来作为序列名的输入，指定的序列会自动增长 1 并返回最新序列值。在这里序列名为 productid ，并且findAndModify就是一个原子操作</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;function getNextSequenceValue(sequenceName) &#123;</div><div class="line">    var sequenceDocument = db.counters.findAndModify(</div><div class="line">    &#123;</div><div class="line">        query:&#123;_id: sequenceName&#125;,</div><div class="line">        update:&#123;$inc:&#123;sequence_value:1&#125;&#125;,</div><div class="line">        new:true</div><div class="line">    &#125;);</div><div class="line">    return sequenceDocument.sequence_value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="function"><span class="keyword">function</span> <span class="title">getNextSequenceValue</span>(<span class="params">sequenceName</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> sequenceDocument = db.counters.findAndModify(</div><div class="line">    &#123;</div><div class="line">        <span class="attr">query</span>:&#123;<span class="attr">_id</span>: sequenceName&#125;,</div><div class="line">        <span class="attr">update</span>:&#123;<span class="attr">$inc</span>:&#123;<span class="attr">sequence_value</span>:<span class="number">1</span>&#125;&#125;,</div><div class="line">        <span class="attr">new</span>:<span class="literal">true</span></div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> sequenceDocument.sequence_value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="使用JavaScript函数"><a href="#使用JavaScript函数" class="headerlink" title="使用JavaScript函数"></a>使用JavaScript函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt; db.products.insert(&#123;</div><div class="line">...    &quot;_id&quot;:getNextSequenceValue(&quot;productid&quot;),</div><div class="line">...    &quot;product_name&quot;:&quot;MacBook&quot;,</div><div class="line">...    &quot;category&quot;:&quot;notebook&quot;&#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div><div class="line">&gt; db.products.insert(&#123;</div><div class="line">...    &quot;_id&quot;:getNextSequenceValue(&quot;productid&quot;),</div><div class="line">...    &quot;product_name&quot;:&quot;iPhone8&quot;,</div><div class="line">...    &quot;category&quot;:&quot;mobiles&quot;&#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
 <hr>
@@ -426,6 +430,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/05/02/MongoDB学习(六)一一MongoDB 正则表达式与GridFS/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MongoDB学习(六)一一MongoDB 正则表达式与GridFS
+        
+      </div>
+    </a>
   
   
     <a href="/2017/04/30/MongoDB学习(四)一一MongoDB 聚合/" id="article-nav-older" class="article-nav-link-wrap">
