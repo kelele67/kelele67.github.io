@@ -168,7 +168,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2>
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-正则表达式"><a href="#MongoDB-正则表达式" class="headerlink" title="MongoDB 正则表达式"></a>MongoDB 正则表达式</h2><blockquote>
+<p>MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。<br>MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。<br>不同于全文检索，我们使用正则表达式不需要做任何配置。<br>考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.insert(</div><div class="line">... &#123;</div><div class="line">...    &quot;post_text&quot;: &quot;enjoy the mongodb articles&quot;,</div><div class="line">...    &quot;tags&quot;: [</div><div class="line">...       &quot;mongodb&quot;,</div><div class="line">...       &quot;kelele67&quot;</div><div class="line">...    ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
+<hr>
+        
+          <a class="article-more-a" href="/2017/05/02/MongoDB学习(六)一一MongoDB 正则表达式与GridFS/#more">more >></a>
+        
       
 
       
@@ -231,7 +238,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-ObjectId"><a href="#MongoDB-ObjectId" class="headerlink" title="MongoDB ObjectId"></a>MongoDB ObjectId</h2><h3 id="ObjectId介绍"><a href="#ObjectId介绍" class="headerlink" title="ObjectId介绍"></a>ObjectId介绍</h3><blockquote>
-<p>在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。<br>接下来，我们将了解的ObjectId的结构。</p>
+<p>在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。</p>
+</blockquote>
+<p>接下来，我们将了解的ObjectId的结构。</p>
+<blockquote>
 <p>ObjectId 是一个12字节 BSON 类型数据，有以下格式：</p>
 </blockquote>
 <ul>

@@ -8,14 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MongoDB学习(六)一一MongoDB 正则表达式与GridFS | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="mongodb,database">
+  <meta name="description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
+<meta name="keywords" content="mongodb,database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB学习(六)一一MongoDB 正则表达式与GridFS">
 <meta property="og:url" content="http://yoursite.com/2017/05/02/MongoDB学习(六)一一MongoDB 正则表达式与GridFS/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:updated_time" content="2017-05-04T17:15:31.000Z">
+<meta property="og:description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
+<meta property="og:updated_time" content="2017-05-05T02:39:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(六)一一MongoDB 正则表达式与GridFS">
+<meta name="twitter:description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
   
   
     <link rel="icon" href="/icon/bird.ico">
@@ -165,7 +168,123 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2>
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-正则表达式"><a href="#MongoDB-正则表达式" class="headerlink" title="MongoDB 正则表达式"></a>MongoDB 正则表达式</h2><blockquote>
+<p>MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。<br>MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。<br>不同于全文检索，我们使用正则表达式不需要做任何配置。<br>考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.insert(</div><div class="line">... &#123;</div><div class="line">...    &quot;post_text&quot;: &quot;enjoy the mongodb articles&quot;,</div><div class="line">...    &quot;tags&quot;: [</div><div class="line">...       &quot;mongodb&quot;,</div><div class="line">...       &quot;kelele67&quot;</div><div class="line">...    ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
+<hr>
+<a id="more"></a>
+<h3 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h3><blockquote>
+<p>使用正则表达式查找包含 mongodb 字符串的文章：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;post_text:&#123;$regex:&quot;mongodb&quot;&#125;&#125;)</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;590bde7964d6ed405ce2ada1&quot;), &quot;post_text&quot; : &quot;enjoy the mongodb articles&quot;, &quot;tags&quot; : [ &quot;mongodb&quot;, &quot;kelele67&quot; ] &#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>如果要使用不区分大小写的表达式，则需要用到options i：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;post_text:&#123;$regex:&quot;MongoDB&quot;,$options:&quot;$i&quot;&#125;&#125;)</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;590bde7964d6ed405ce2ada1&quot;), &quot;post_text&quot; : &quot;enjoy the mongodb articles&quot;, &quot;tags&quot; : [ &quot;mongodb&quot;, &quot;kelele67&quot; ] &#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>在数组元素使用正则表达式：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;tags:&#123;$regex:&quot;kelele67&quot;&#125;&#125;)</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;590bde7964d6ed405ce2ada1&quot;), &quot;post_text&quot; : &quot;enjoy the mongodb articles&quot;, &quot;tags&quot; : [ &quot;mongodb&quot;, &quot;kelele67&quot; ] &#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="优化正则表达式操作"><a href="#优化正则表达式操作" class="headerlink" title="优化正则表达式操作"></a>优化正则表达式操作</h3><ul>
+<li><p>如果你的文档中字段设置了索引，那么使用索引相比于正则表达式匹配查找所有的数据查询速度更快</p>
+</li>
+<li><p>如果正则表达式是前缀表达式，所有匹配的数据将以指定的前缀字符串为开始。例如： 如果正则表达式为 ^tut ，查询语句将查找以 tut 为开头的字符串</p>
+</li>
+</ul>
+<h4 id="使用正则表达式要注意的地方"><a href="#使用正则表达式要注意的地方" class="headerlink" title="使用正则表达式要注意的地方"></a>使用正则表达式要注意的地方</h4><blockquote>
+<p>正则表达式中使用变量。一定要使用eval将组合的字符串进行转换，不能直接将字符串拼接后传入给表达式。否则没有报错信息，只是结果为空！实例如下：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">var</span> name = <span class="built_in">eval</span>(<span class="string">"/"</span> + 变量值key + <span class="string">"/i"</span>);</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>模糊查询包含title关键词, 且不区分大小写:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">title:eval(&quot;/&quot;+title+&quot;/i&quot;)  //相当于 title:&#123;$regex:title,$option:&quot;$i&quot;&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="MongDB-GridFS"><a href="#MongDB-GridFS" class="headerlink" title="MongDB GridFS"></a>MongDB GridFS</h2><ul>
+<li><p>GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)</p>
+</li>
+<li><p>GridFS 也是文件存储的一种方式，但是它是存储在MonoDB的集合中</p>
+</li>
+<li><p>GridFS 可以更好的存储大于16M的文件</p>
+</li>
+<li><p>GridFS 会将大文件对象分割成多个小的chunk(文件片段),一般为256k/个,每个chunk将作为MongoDB的一个文档(document)被存储在chunks集合中</p>
+</li>
+<li><p>GridFS 用两个集合来存储一个文件：fs.files与fs.chunks</p>
+</li>
+<li><p>每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中</p>
+</li>
+</ul>
+<h3 id="GridFS-shell-命令"><a href="#GridFS-shell-命令" class="headerlink" title="GridFS shell 命令"></a>GridFS shell 命令</h3><blockquote>
+<p>添加文件<br>        <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">put</span> xxx.txt</div></pre></td></tr></table></figure></p>
+</blockquote>
+<pre><code>---
+
+常用参数如下：
+
+* -d 指定数据库 
+
+* -u –p 指定用户名，密码
+
+* -h 指定主机
+
+* -port 指定主机端口
+
+* -r 如果存在同名文件则在put成功后删除其他同名文件
+</code></pre><blockquote>
+<p>下载文件<br>        <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">get</span> xxx.txt</div></pre></td></tr></table></figure></p>
+</blockquote>
+<pre><code>* 常用参数如下：
+
+* -d 指定数据库 
+
+* -u –p 指定用户名，密码
+
+* -h 指定主机
+
+* -port 指定主机端口
+
+* -l 下载到本地的文件名，默认和数据库中的名字一致
+</code></pre><blockquote>
+<p>删除文件<br>        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">delete</span> xxx.txt</div></pre></td></tr></table></figure></p>
+</blockquote>
+<pre><code>---
+
+删除指定名称的文件，如果存在同名文件则都删除
+
+常用参数如下：
+
+* -d 指定数据库 
+
+* -u –p 指定用户名，密码
+
+* -h 指定主机
+
+* -port 指定主机端口
+</code></pre><blockquote>
+<p>查看文件<br>        1、list </p>
+</blockquote>
+<pre><code>        显示所有文件
+
+        <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="built_in">list</span> xx.txt</div></pre></td></tr></table></figure>
+
+        ---
+
+        显示所有的指定文件名的文件
+
+2、search
+
+        搜索指定名称的文件，可以模糊搜索
+
+        <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="built_in">list</span> xx.txt</div><div class="line"></div><div class="line">mongofiles <span class="built_in">list</span> .txt</div></pre></td></tr></table></figure>
+
+        ---
+</code></pre><h3 id="GridFS注意"><a href="#GridFS注意" class="headerlink" title="GridFS注意"></a>GridFS注意</h3><p><a href="https://www.zhihu.com/question/19607966/answer/12785380" target="_blank" rel="external">压力以及数据量比较大的业务不推荐使用Mongo GridFS。Mongo GridFS在高并发（每秒写入10M，持续半小时到一个小时）的情况下secondary会无法catch up with primary。Mongo GridFS不是为分布式存储而设计的，它解决的问题领域是小型业务已经使MONOGODB，但是又需要存储一些文件，而且需要给这些文件加一些元信息。用它来存储图片以小文件是比较合适的。但是把它当大规模的分布式存储系统就不太合适的，那你应该用S3或者其它云存储解决方案了</a></p>
+
       
 
       
