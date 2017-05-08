@@ -9,13 +9,13 @@
   <title>面试准备(二)一一计算机网络之HTTP | 树犹如此|人何以堪</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="HTTP协议 HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议 HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协">
-<meta name="keywords" content="http,面试,hentai">
+<meta name="keywords" content="http,面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试准备(二)一一计算机网络之HTTP">
 <meta property="og:url" content="http://yoursite.com/2017/04/22/面试准备(二)一一计算机网络之HTTP/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="HTTP协议 HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议 HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协">
-<meta property="og:updated_time" content="2017-05-05T04:54:55.000Z">
+<meta property="og:updated_time" content="2017-05-08T13:35:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试准备(二)一一计算机网络之HTTP">
 <meta name="twitter:description" content="HTTP协议 HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议 HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协">
@@ -172,9 +172,164 @@
 <p>HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议</p>
 <p>HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协议。默认使用80端口，HTTP客户端发起一个请求，建立一个到服务器指定端口（默认是80端口）的TCP连接。HTTP协议和TCP协议是不冲突的，HTTP定义在七层协议中的应用层，TCP解决的是传输层的逻辑。HTTP使用TCP而不是UDP的原因在于（打开）一个网页必须传送很多数据，而TCP协议提供传输控制，按顺序组织数据，和错误纠正。HTTP协议的瓶颈及其优化技巧都是基于TCP协议本身的特性。如TCP建立连接时三次握手有1.5个RTT（round-trip time）的延迟，为了避免每次请求的都经历握手带来的延迟，应用层会选择不同策略的http长链接方案。又如TCP在建立连接的初期有慢启动（slow start）的特性，所以连接的重用总是比新建连接性能要好。</p>
 </blockquote>
+<p>（上面这一段是废话）</p>
+<p>既然HTTP被称为超文本传输协议，那么我们来看看超文本的分类：</p>
+<h3 id="静态超文本"><a href="#静态超文本" class="headerlink" title="静态超文本"></a>静态超文本</h3><blockquote>
+<p>客户端直接通过URL请求到服务端相对应的资源，服务端直接将部署在数据库或者文件系统中的标签语言文件返还给客户端，其中可以包括其他的URL来使得客户端再次和网络中的其他主机发送HTTP请求来递归地完成超文本的解析，如HTML中的img标签</p>
+</blockquote>
+<h3 id="动态超文本"><a href="#动态超文本" class="headerlink" title="动态超文本"></a>动态超文本</h3><blockquote>
+<p>动态超文本需要通过软件技术来实现创建和处理动态文本，例如CGI，JavaServlet等技术，将URL中‘？’之后的动态部分做解析并生成动态文档，并且可以嵌入脚本语言交付给浏览器中的解析引擎来提高动态文档的效率，使文档中不必要的重复的部分独立解析完成，甚至可以实现活动文档，直接在文档上运行字节码形式的java程序或者javascript脚本。</p>
+</blockquote>
 <hr>
 <a id="more"></a>
-<h2 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP 1.0"></a>HTTP 1.0</h2><h2 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP 1.1"></a>HTTP 1.1</h2><h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP 2.0"></a>HTTP 2.0</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.jianshu.com/p/52d86558ca57" target="_blank" rel="external">面试时如何优雅的谈论HTTP／1.0／1.1／2.0</a></p>
+<h2 id="HTTP-特点"><a href="#HTTP-特点" class="headerlink" title="HTTP 特点"></a>HTTP 特点</h2><ul>
+<li><p>支持客户/服务器模式。</p>
+</li>
+<li><p>简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p>
+</li>
+<li><p>灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。</p>
+</li>
+<li><p>无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</p>
+</li>
+<li><p>无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</p>
+</li>
+</ul>
+<h2 id="HTTP协议-1"><a href="#HTTP协议-1" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><h4 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h4><p>请求行-&gt; 方法 \s URL \s 版本 \r\n</p>
+<p></p><p>首部(key : value)-&gt; 首部名称: \s 值 \r\n</p>
+<p></p><p>空行-&gt; \r\n</p>
+<p></p><p>实体-&gt; 报文内容具体而定</p>
+<h5 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h5><ul>
+<li><p>GET：请求服务器的文档</p>
+</li>
+<li><p>HEAD：请求关于文档的信息，但不是这个文档本身</p>
+</li>
+<li><p>POST：从客户向服务器发送一些信息</p>
+</li>
+<li><p>PUT：从服务器向客户发送文档</p>
+</li>
+<li><p>TRACE：把到达的请求回送</p>
+</li>
+<li><p>CONNECT：保留</p>
+</li>
+<li><p>DELETE：删除Web网页</p>
+</li>
+<li><p>OPTIONs：询问关于可用的选项</p>
+</li>
+</ul>
+<h4 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h4><p>状态行-&gt; 版本 \s 状态码 \s 短语 \r\n</p>
+<p></p><p>首部(key : value)-&gt; 首部名称: \s 值 \r\n</p>
+<p></p><p>空行-&gt; \r\n</p>
+<p></p><p>实体-&gt; 报文内容具体而定</p>
+<h5 id="状态码大致分类"><a href="#状态码大致分类" class="headerlink" title="状态码大致分类"></a>状态码大致分类</h5><ul>
+<li><p>100-199 用于指定客户端应相应的某些动作。 </p>
+</li>
+<li><p>200-299 用于表示请求成功。 </p>
+</li>
+<li><p>300-399 用于已经移动的文件并且常被包含在定位头信息中指定新的地址信息。 </p>
+</li>
+<li><p>400-499 用于指出客户端的错误。 </p>
+</li>
+<li><p>500-599 用于支持服务器错误。</p>
+</li>
+</ul>
+<p><a href="http://www.cnblogs.com/lxinxuan/archive/2009/10/22/1588053.html" target="_blank" rel="external">想要了解HTTP/1.1状态码的详细解释的话可以看这个博客</a></p>
+<h5 id="响应报文实体"><a href="#响应报文实体" class="headerlink" title="响应报文实体"></a>响应报文实体</h5><p>响应报文的实体与请求报文不同，主要存放的是服务端向客户端发送的文档，如果响应不是错误报文，则实体出现在响应报文中</p>
+<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><blockquote>
+<p>如果你将用户转向到你的站点的其他页面，用 response.sendRedirect(response.encodeURL(url)) 的方式事先计划好会话跟踪(session tracking)要比只是调用 response.sendRedirect(url) 好的多</p>
+</blockquote>
+<h3 id="HTTP-连接"><a href="#HTTP-连接" class="headerlink" title="HTTP 连接"></a>HTTP 连接</h3><h4 id="长连接和短连接"><a href="#长连接和短连接" class="headerlink" title="长连接和短连接"></a>长连接和短连接</h4><p>个人感觉长连接是不是翻译成常连接更为贴切一些，难道是为了和短连接相呼应吗，不对啊，常和短也是能对上的。</p>
+<blockquote>
+<p>从HTTP/1.1之后默认使用了长连接，在HTTP1.0中使用的是HTTP首部Connection：Keep-alive来进行长连接的实验性拓展</p>
+</blockquote>
+<p>长连接做的事情就是使数据传输完成后保持TCP连接不断开，等待在同域名下继续使用这个通道传输数据，与之相对应的就是短连接。</p>
+<h5 id="长连接判断数据是否传输完成"><a href="#长连接判断数据是否传输完成" class="headerlink" title="长连接判断数据是否传输完成"></a>长连接判断数据是否传输完成</h5><blockquote>
+<p>长连接模式下。当客户端向服务器发生请求之后，客户端如何判断服务器的数据已经传输完成？</p>
+</blockquote>
+<p>除了通过服务器关闭连接来被动的关闭HTTP的TCP连接之外，可以通过消息首部字段Content-Length来判断数据传输是否完毕，单位为字节，另外也可以通过使用消息首部字段Transfer-Encoding来协助完成判断，Transfer-Encoding：chunk或者Transfer-Encoding：chunked模式可以将数据分为一块一块的传输</p>
+<h5 id="关于-Transfer-Encoding"><a href="#关于-Transfer-Encoding" class="headerlink" title="关于 Transfer Encoding"></a>关于 Transfer Encoding</h5><ul>
+<li><p>HTTP分块传输编码允许服务器为动态生成的内容维持HTTP持久链接。通常，持久链接需要服务器在开始发送消息体前发送Content-Length消息头字段，但是对于动态生成的内容来说，在内容创建完之前是不可知的。 分块编码的好处，没有必要在获取完整的内容之前写头字段，它允许内容流分块(chunk)，并显式标记内容的末尾，使连接可用于下一个HTTP请求/响应。</p>
+</li>
+<li><p>分块传输编码允许服务器在最后发送消息头字段。对于那些头字段值在内容被生成之前无法知道的情形非常重要，例如消息的内容要使用散列进行签名，散列的结果通过HTTP消息头字段进行传输。没有分块传输编码时，服务器必须缓冲内容直到完成后计算头字段的值并在发送内容前发送这些头字段的值。</p>
+</li>
+<li><p>HTTP服务器有时使用压缩(gzip或deflate)以缩短传输花费的时间。分块传输编码可以用来分隔压缩对象的多个部分。在这种情况下，块不是分别压缩的，而是整个负载进行压缩，压缩的输出使用本文描述的方案进行分块传输。在压缩的情形中，分块编码有利于一边进行压缩一边发送数据，而不是先完成压缩过程以得知压缩后数据的大小。</p>
+</li>
+</ul>
+<p>C语言编写的HTTP服务器中使用的一个栗子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Transfer Encoding */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BF_HEADER_TE_TYPE_CHUNKED 0</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BF_HEADER_TE_CHUNKED <span class="meta-string">"Transfer-Encoding: Chunked"</span> BF_CRLF</span></div></pre></td></tr></table></figure>
+<hr>
+<p>用curl命令查看(删除了一些这里不提到的)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"> kelele67@liuqideMacBook-Pro  ~  curl -X GET &quot;https://itunes.apple.com/search?term=Michael%20Jackson&quot; -m 30 -v</div><div class="line">Note: Unnecessary use of -X or --request, GET is already inferred.</div><div class="line">*   Trying 119.84.95.19...</div><div class="line">* Connected to itunes.apple.com (119.84.95.19) port 443 (#0)</div><div class="line">* TLS 1.2 connection using </div><div class="line">&gt; GET /search?term=Michael%20Jackson HTTP/1.1</div><div class="line">&gt; Host: itunes.apple.com</div><div class="line">&gt; User-Agent: curl/7.49.1</div><div class="line">&gt; Accept: */*</div><div class="line">&gt;</div><div class="line">&lt; HTTP/1.1 200 OK</div><div class="line">&lt; Date: Mon, 08 May 2017 13:11:23 GMT</div><div class="line">&lt; Transfer-Encoding: chunked</div><div class="line">&lt; Connection: keep-alive</div></pre></td></tr></table></figure>
+<hr>
+<p>可以看到我们在GET iTunes网页的时候采用的就是长连接且是chunked编码传输</p>
+<h3 id="HTTP中的Cookie"><a href="#HTTP中的Cookie" class="headerlink" title="HTTP中的Cookie"></a>HTTP中的Cookie</h3><blockquote>
+<p>Cookie的实质就是一个键值对，当一个客户端向服务端发送请求的时候，浏览器就查找在Cookie目录中是否有那个服务器发送的Cookie，如果有的话就会把相应的Cookie包含对请求之中，当这个Cookie包含在请求之中的时候服务端就可以知道这个客户是一个老客户，cookie的使用者和消费者都是服务端，这对于浏览器和消费者都是透明的。在HTTP报文分组中，与其功能相关的首部是Cookie首部和Set-Cookie首部。具体格式如下所示:</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Set-Cookie:value [<span class="string"> ;expires=date</span>][<span class="symbol"> ;domain=domain</span>][<span class="string"> ;path=path</span>][<span class="symbol"> ;secure</span>]</div><div class="line"></div><div class="line">Cookie : value</div><div class="line"></div><div class="line">Cookie:value1 ; value2 ; name1=value1</div></pre></td></tr></table></figure>
+<hr>
+<p>在Set-Cookie中，可以通过定义选项的值来进一步确定Cookie的功能:</p>
+<ul>
+<li>有效期选项（The expires  option） </li>
+</ul>
+<blockquote>
+<p>紧跟cookie值后面的每个选项都以分号和空格分割，并且每个选项都指定cookie何时应该被发送到服务器。第一个选项是expires，其指定了cookie何时不会再被发送到服务器端的，因此该cookie可能会被浏览器删掉。例如:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Set</span>-Cookie:<span class="keyword">name</span>=Nicholas;</div><div class="line">expires=Sat, 02 May 2009 23:38:25 GMT</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>在没有expires选项时，cookie的寿命仅限于单一的会话中。浏览器的关闭意味这一次会话的结束，所以会话cookie只存在于浏览器保持打开的状态之下。这就是为什么当你登录到一个web应用时经常看到一个checkbox，询问你是否选择存储你的登录信息：如果你选择是的话，那么一个expires选项会被附加到登录的cookie中。如果expires选项设置了一个过去的时间点，那么这个cookie会被立即删除。</p>
+</blockquote>
+<ul>
+<li>域选项（The domain option）</li>
+</ul>
+<blockquote>
+<p>下一个选项是domain，指示cookie将要发送到哪个域或那些域中。默认情况下，domain会被设置为创建该cookie的页面所在的域名。例如本站中的cookie的domain属性的默认值为www.nczonline.com。domain选项被用来扩展cookie值所要发送域的数量。例如:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Set</span>-Cookie:<span class="keyword">name</span>=Nicholas;</div><div class="line">domain=nczonline.net</div></pre></td></tr></table></figure>
+<hr>
+<p>domain设置的值必须是发送Set-Cookie消息头的域名。例如，我无法向google.com发送一个cookie，因为这个产生安全问题。不合法的domain选项只要简单的忽略即可。</p>
+<ul>
+<li>Path选项（The path option）</li>
+</ul>
+<blockquote>
+<p>另一个控制何时发送Cookie消息头的方式是指定path选项。与domain选项相同的是，path指明了在发Cookie消息头之前必须在请求资源中存在一个URL路径。这个比较是通过将path属性值与请求的URL从头开始逐字符串比较完成的。如果字符匹配，则发送Cookie消息头，例如:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Set</span>-Cookie:<span class="keyword">name</span>=Nicholas;path=/blog</div></pre></td></tr></table></figure>
+<hr>
+<p>在这个例子中，path选项值会与/blog,/blogrool等等相匹配；任何以/blog开头的选项都是合法的。要注意的是只有在domain选项核实完毕之后才会对path属性进行比较。path属性的默认值是发送Set-Cookie消息头所对应的URL中的path部分。</p>
+<p>4.secure选项（The  secure  option）</p>
+<blockquote>
+<p>最后一个选项是secure。不像其它选项，该选项只是一个标记并且没有其它的值。一个secure cookie只有当请求是通过SSL和HTTPS创建时，才会发送到服务器端。这种cookie的内容意指具有很高的价值并且可能潜在的被破解以纯文本形式传输。例如:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Set</span>-Cookie:<span class="keyword">name</span>=Nicholas;secure</div></pre></td></tr></table></figure>
+<hr>
+<p>现实中，机密且敏感的信息绝不应该在cookies中存储或传输，因为cookies的整个机制都是原本不安全的。默认情况下，在HTTPS链接上传输的cookies都会被自动添加上secure选项。</p>
+<h3 id="HTTP的安全"><a href="#HTTP的安全" class="headerlink" title="HTTP的安全"></a>HTTP的安全</h3><blockquote>
+<p>HTTP本身并不提供安全，然而通过在传输层和应用层中使用安全套接层（SSL）可以使HTTP运行在安全的环境下，即HTTPS，HTTPS可以提供保密性，客户和服务器鉴别以及数据的完整性。</p>
+</blockquote>
+<p>SSL的设计时为了给应用层生成的数据提供安全以及压缩服务，一般来说SSL能接收来自任何应用层协议的数据，但最多情况下这个应用层的协议就是HTTP，SSL对应用层传来的数据提供多种服务：</p>
+<ul>
+<li><p>分片：SSL把数据划分为长度小于或者等于2的14次字节的数据分片</p>
+</li>
+<li><p>压缩：数据分片通过使用一种由客户端和服务器协商好的无损压缩方式进行压缩，这个服务是可选的。</p>
+</li>
+<li><p>报文完整性：为了保护数据的完整性，SSL使用密钥散列函数来创建MAC。</p>
+</li>
+<li><p>保密：为了提供保密性，原始的数据和MAC一起用对称密钥加密技术来加密。</p>
+</li>
+<li><p>组帧：先在被加密的有效载荷上添加一个首部，然后再把这个恶有效载荷传递给可靠的运输层协议。</p>
+</li>
+</ul>
+<h3 id="ATTENTION！！！"><a href="#ATTENTION！！！" class="headerlink" title="ATTENTION！！！"></a>ATTENTION！！！</h3><blockquote>
+<p>因为SSL 3.0有安全漏洞，所以互联网大佬们都提倡禁用SSL 3.0，而TLS是把SSL标准化之后的产物，因此推荐在你的Apache/Nginx等ssl_protocols的配置中，取消对于SSLv3及其更低版本SSLv2的支持。</p>
+</blockquote>
+<p>所以我们来介绍一下TSL:</p>
+<blockquote>
+<p>它和SSL的主要区别就是加密算法不同。</p>
+<p>而TLS 的最大优势就在于：TLS 是独立于应用协议。高层协议可以透明地分布在 TLS 协议上面。然而，TLS 标准并没有规定应用程序如何在 TLS 上增加安全性，它把如何启动 TLS 握手协议以及如何解释交换的认证证书的决定权留给协议的设计者和实施者来判断。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.jianshu.com/p/52d86558ca57" target="_blank" rel="external">面试时如何优雅的谈论HTTP／1.0／1.1／2.0</a></p>
+<p><a href="http://www.cnblogs.com/guguli/p/4758937.html" target="_blank" rel="external"><http协议详解>由浅入深看HTTP</http协议详解></a></p>
+<p><a href="http://www.kancloud.cn/kancloud/tealeaf-http/43837" target="_blank" rel="external">HTTP下午茶</a></p>
 
       
 
@@ -219,10 +374,6 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hentai</a>
         		</li>
       		
 		</ul>
