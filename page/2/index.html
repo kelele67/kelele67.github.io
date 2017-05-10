@@ -148,6 +148,148 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="airticle-面试准备(三)一一计算机网络之UDP" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/23/面试准备(三)一一计算机网络之UDP/">面试准备(三)一一计算机网络之UDP</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/23/面试准备(三)一一计算机网络之UDP/" class="archive-article-date">
+  	<time datetime="2017-04-23T04:16:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><hr>
+        
+          <a class="article-more-a" href="/2017/04/23/面试准备(三)一一计算机网络之UDP/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">udp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/23/面试准备(三)一一计算机网络之UDP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="airticle-面试准备(二)一一计算机网络之HTTP" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/">面试准备(二)一一计算机网络之HTTP</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/" class="archive-article-date">
+  	<time datetime="2017-04-22T08:06:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><blockquote>
+<p>HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议</p>
+<p>HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协议。默认使用80端口，HTTP客户端发起一个请求，建立一个到服务器指定端口（默认是80端口）的TCP连接。HTTP协议和TCP协议是不冲突的，HTTP定义在七层协议中的应用层，TCP解决的是传输层的逻辑。HTTP使用TCP而不是UDP的原因在于（打开）一个网页必须传送很多数据，而TCP协议提供传输控制，按顺序组织数据，和错误纠正。HTTP协议的瓶颈及其优化技巧都是基于TCP协议本身的特性。如TCP建立连接时三次握手有1.5个RTT（round-trip time）的延迟，为了避免每次请求的都经历握手带来的延迟，应用层会选择不同策略的http长链接方案。又如TCP在建立连接的初期有慢启动（slow start）的特性，所以连接的重用总是比新建连接性能要好。</p>
+</blockquote>
+<p>（上面这一段是废话）</p>
+<p>既然HTTP被称为超文本传输协议，那么我们来看看超文本的分类：</p>
+<h3 id="静态超文本"><a href="#静态超文本" class="headerlink" title="静态超文本"></a>静态超文本</h3><blockquote>
+<p>客户端直接通过URL请求到服务端相对应的资源，服务端直接将部署在数据库或者文件系统中的标签语言文件返还给客户端，其中可以包括其他的URL来使得客户端再次和网络中的其他主机发送HTTP请求来递归地完成超文本的解析，如HTML中的img标签</p>
+</blockquote>
+<h3 id="动态超文本"><a href="#动态超文本" class="headerlink" title="动态超文本"></a>动态超文本</h3><blockquote>
+<p>动态超文本需要通过软件技术来实现创建和处理动态文本，例如CGI，JavaServlet等技术，将URL中‘？’之后的动态部分做解析并生成动态文档，并且可以嵌入脚本语言交付给浏览器中的解析引擎来提高动态文档的效率，使文档中不必要的重复的部分独立解析完成，甚至可以实现活动文档，直接在文档上运行字节码形式的java程序或者javascript脚本。</p>
+</blockquote>
+<hr>
+        
+          <a class="article-more-a" href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/22/面试准备(二)一一计算机网络之HTTP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="airticle-面试准备(一)一一计算机网络之TCP" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -238,11 +380,11 @@
       
         <p>
 
-
-
-
-</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.codingnow.com/2011/03/lua_gc_1.html" target="_blank" rel="external">云风的 BLOG</a></p>
-
+</p><p>有了前几天的基础，我们可以从顶向下来读 lua gc 部分的代码了。<br>慢慢的，感觉我这个系列都可以叫跟着云风一起看Lua源码了，虽然自己看的是最新的5.3。挖个坑，之后应该会真的跟着云风大大的那本readinglua一起看完lua的最新源码。</p>
+<hr>
+        
+          <a class="article-more-a" href="/2017/04/16/深入 Lua Garbage Collector(五)/#more">more >></a>
+        
       
 
       
@@ -596,154 +738,6 @@
 
 
   
-    <article id="airticle-Linux下的轻量服务器实现" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/31/Linux下的轻量服务器实现/">Linux下的的轻量级HTTP服务器实现</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/31/Linux下的轻量服务器实现/" class="archive-article-date">
-  	<time datetime="2017-03-31T03:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p></p>
-<h2 id="小型HTTP服务器"><a href="#小型HTTP服务器" class="headerlink" title="小型HTTP服务器"></a>小型HTTP服务器</h2><p>读了很多 <strong>Linux</strong> 下小型的 <strong>http</strong> 服务器，还是觉得来自<a href="http://www.jianshu.com/p/912fa6d0b5e0">朱家顺的Zaver</a>比较适合新手学习</p>
-<blockquote>
-<p>Zaver，一个结构简单，支持高并发的http服务器。基本架构是事件循环 + non-blocking I/O + 线程池。Zaver的代码风格参考了Nginx的风格，所以在可读性上非常高。另外，Zaver提供了配置文件和命令行参数解析，以及完善的Makefile和源代码结构，也可以帮助任何一个C初学者入门一个项目是怎么构建的。</p>
-</blockquote>
-<hr>
-        
-          <a class="article-more-a" href="/2017/03/31/Linux下的轻量服务器实现/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web server</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/31/Linux下的轻量服务器实现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="airticle-C++11 并发学习(四)" class="article article-type-airticle  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/15/C++11 并发学习(四)/">C++11 并发学习(四)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/15/C++11 并发学习(四)/" class="archive-article-date">
-  	<time datetime="2017-02-15T06:52:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html">学习自大神博客</a></p>
-<h2 id="下面我们来看一下C-11多线程下生产者消费者模型"><a href="#下面我们来看一下C-11多线程下生产者消费者模型" class="headerlink" title="下面我们来看一下C++11多线程下生产者消费者模型"></a>下面我们来看一下C++11多线程下生产者消费者模型</h2><hr>
-        
-          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">concurrency</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">threadpool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/15/C++11 并发学习(四)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1026,6 +1020,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">udp</a>
               </li>
             
             <div class="clearfix"></div>

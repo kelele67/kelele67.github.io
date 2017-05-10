@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/22/面试准备(二)一一计算机网络之HTTP/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="HTTP协议 HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议 HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协">
-<meta property="og:updated_time" content="2017-05-08T13:35:42.000Z">
+<meta property="og:updated_time" content="2017-05-09T12:37:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试准备(二)一一计算机网络之HTTP">
 <meta name="twitter:description" content="HTTP协议 HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议 HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协">
@@ -286,7 +286,7 @@
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Set</span>-Cookie:<span class="keyword">name</span>=Nicholas;</div><div class="line">domain=nczonline.net</div></pre></td></tr></table></figure>
 <hr>
-<p>domain设置的值必须是发送Set-Cookie消息头的域名。例如，我无法向google.com发送一个cookie，因为这个产生安全问题。不合法的domain选项只要简单的忽略即可。</p>
+<p>domain设置的值必须是发送Set-Cookie消息头的域名。例如，我无法向google.com发送一个cookie，因为这个会产生安全问题(手动滑稽)。不合法的domain选项只要简单的忽略即可。</p>
 <ul>
 <li>Path选项（The path option）</li>
 </ul>
@@ -295,8 +295,10 @@
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Set</span>-Cookie:<span class="keyword">name</span>=Nicholas;path=/blog</div></pre></td></tr></table></figure>
 <hr>
-<p>在这个例子中，path选项值会与/blog,/blogrool等等相匹配；任何以/blog开头的选项都是合法的。要注意的是只有在domain选项核实完毕之后才会对path属性进行比较。path属性的默认值是发送Set-Cookie消息头所对应的URL中的path部分。</p>
-<p>4.secure选项（The  secure  option）</p>
+<p>在这个例子中，path选项值会与/blog，/blogrool等等相匹配；任何以/blog开头的选项都是合法的。要注意的是只有在domain选项核实完毕之后才会对path属性进行比较。path属性的默认值是发送Set-Cookie消息头所对应的URL中的path部分。</p>
+<ul>
+<li>secure选项（The  secure  option）</li>
+</ul>
 <blockquote>
 <p>最后一个选项是secure。不像其它选项，该选项只是一个标记并且没有其它的值。一个secure cookie只有当请求是通过SSL和HTTPS创建时，才会发送到服务器端。这种cookie的内容意指具有很高的价值并且可能潜在的被破解以纯文本形式传输。例如:</p>
 </blockquote>
@@ -443,11 +445,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/24/大端模式和小端模式/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/23/面试准备(三)一一计算机网络之UDP/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          大端模式和小端模式
+          面试准备(三)一一计算机网络之UDP
         
       </div>
     </a>
@@ -748,6 +750,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">udp</a>
               </li>
             
             <div class="clearfix"></div>

@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/28/MongoDB学习(一)一一MongoDB关系/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="MongoDB关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。这是我的版本： 12345678kelele67@liuqideMacBook-Pro  /usr/local/mongodb/bin  ./mongo --versionMongoDB shell version v3.4.2git version: 3f76e40c105f">
-<meta property="og:updated_time" content="2017-05-03T09:04:01.000Z">
+<meta property="og:updated_time" content="2017-05-10T11:47:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(一)一一MongoDB关系">
 <meta name="twitter:description" content="MongoDB关于MongoDB的安装以及基本操作我就不介绍了，网上也有很多的教程，今天我们来看MongoDB的高级操作。这是我的版本： 12345678kelele67@liuqideMacBook-Pro  /usr/local/mongodb/bin  ./mongo --versionMongoDB shell version v3.4.2git version: 3f76e40c105f">
@@ -185,7 +185,7 @@
 <hr>
 <a id="more"></a>
 <p>这里我们用 User 文档和 Address 文档来作为例子</p>
-<p>首先我们使用自己的数据库kelel67，并插入两个文档在users和address集合中：</p>
+<p>首先我们使用自己的数据库kelele67，并插入两个文档在users和address集合中：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt; use kelele67</div><div class="line">switched to db kelele67</div><div class="line">&gt; db<span class="selector-class">.users</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">... <span class="string">"name"</span>: <span class="string">"kelele67"</span>,</div><div class="line">... <span class="string">"sex"</span>: <span class="string">"male"</span>,</div><div class="line">... <span class="string">"tel"</span>: <span class="string">"666666"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div><div class="line">&gt; db<span class="selector-class">.address</span><span class="selector-class">.insert</span>(&#123;</div><div class="line">... <span class="string">"city"</span>: <span class="string">"ChongQing"</span>,</div><div class="line">... <span class="string">"university"</span>: <span class="string">"CQU"</span>,</div><div class="line">... <span class="string">"dorm_no"</span>: <span class="string">"636"</span></div><div class="line">... &#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div></pre></td></tr></table></figure>
 <hr>
 <p>插入了两个文档：</p>
@@ -666,6 +666,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">udp</a>
               </li>
             
             <div class="clearfix"></div>

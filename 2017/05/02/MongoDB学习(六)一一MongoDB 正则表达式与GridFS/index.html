@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/02/MongoDB学习(六)一一MongoDB 正则表达式与GridFS/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
-<meta property="og:updated_time" content="2017-05-05T02:39:39.000Z">
+<meta property="og:updated_time" content="2017-05-10T10:07:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(六)一一MongoDB 正则表达式与GridFS">
 <meta name="twitter:description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
@@ -220,70 +220,69 @@
 </li>
 </ul>
 <h3 id="GridFS-shell-命令"><a href="#GridFS-shell-命令" class="headerlink" title="GridFS shell 命令"></a>GridFS shell 命令</h3><blockquote>
-<p>添加文件<br>        <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">put</span> xxx.txt</div></pre></td></tr></table></figure></p>
+<p>添加文件<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">put</span> xxx.txt</div></pre></td></tr></table></figure></p>
 </blockquote>
-<pre><code>---
-
-常用参数如下：
-
-* -d 指定数据库 
-
-* -u –p 指定用户名，密码
-
-* -h 指定主机
-
-* -port 指定主机端口
-
-* -r 如果存在同名文件则在put成功后删除其他同名文件
-</code></pre><blockquote>
-<p>下载文件<br>        <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">get</span> xxx.txt</div></pre></td></tr></table></figure></p>
+<hr>
+<p>常用参数如下：</p>
+<ul>
+<li><p>-d 指定数据库 </p>
+</li>
+<li><p>-u –p 指定用户名，密码</p>
+</li>
+<li><p>-h 指定主机</p>
+</li>
+<li><p>-port 指定主机端口</p>
+</li>
+<li><p>-r 如果存在同名文件则在put成功后删除其他同名文件</p>
+</li>
+</ul>
+<blockquote>
+<p>下载文件<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">get</span> xxx.txt</div></pre></td></tr></table></figure></p>
 </blockquote>
-<pre><code>* 常用参数如下：
-
-* -d 指定数据库 
-
-* -u –p 指定用户名，密码
-
-* -h 指定主机
-
-* -port 指定主机端口
-
-* -l 下载到本地的文件名，默认和数据库中的名字一致
-</code></pre><blockquote>
-<p>删除文件<br>        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">delete</span> xxx.txt</div></pre></td></tr></table></figure></p>
+<hr>
+<ul>
+<li><p>常用参数如下：</p>
+</li>
+<li><p>-d 指定数据库 </p>
+</li>
+<li><p>-u –p 指定用户名，密码</p>
+</li>
+<li><p>-h 指定主机</p>
+</li>
+<li><p>-port 指定主机端口</p>
+</li>
+<li><p>-l 下载到本地的文件名，默认和数据库中的名字一致</p>
+</li>
+</ul>
+<blockquote>
+<p>删除文件<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="keyword">delete</span> xxx.txt</div></pre></td></tr></table></figure></p>
 </blockquote>
-<pre><code>---
-
-删除指定名称的文件，如果存在同名文件则都删除
-
-常用参数如下：
-
-* -d 指定数据库 
-
-* -u –p 指定用户名，密码
-
-* -h 指定主机
-
-* -port 指定主机端口
-</code></pre><blockquote>
-<p>查看文件<br>        1、list </p>
+<hr>
+<p>删除指定名称的文件，如果存在同名文件则都删除</p>
+<p>常用参数如下：</p>
+<ul>
+<li><p>-d 指定数据库 </p>
+</li>
+<li><p>-u –p 指定用户名，密码</p>
+</li>
+<li><p>-h 指定主机</p>
+</li>
+<li><p>-port 指定主机端口</p>
+</li>
+</ul>
+<blockquote>
+<p>查看文件</p>
 </blockquote>
-<pre><code>        显示所有文件
-
-        <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="built_in">list</span> xx.txt</div></pre></td></tr></table></figure>
-
-        ---
-
-        显示所有的指定文件名的文件
-
-2、search
-
-        搜索指定名称的文件，可以模糊搜索
-
-        <figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="built_in">list</span> xx.txt</div><div class="line"></div><div class="line">mongofiles <span class="built_in">list</span> .txt</div></pre></td></tr></table></figure>
-
-        ---
-</code></pre><h3 id="GridFS注意"><a href="#GridFS注意" class="headerlink" title="GridFS注意"></a>GridFS注意</h3><p><a href="https://www.zhihu.com/question/19607966/answer/12785380" target="_blank" rel="external">压力以及数据量比较大的业务不推荐使用Mongo GridFS。Mongo GridFS在高并发（每秒写入10M，持续半小时到一个小时）的情况下secondary会无法catch up with primary。Mongo GridFS不是为分布式存储而设计的，它解决的问题领域是小型业务已经使MONOGODB，但是又需要存储一些文件，而且需要给这些文件加一些元信息。用它来存储图片以小文件是比较合适的。但是把它当大规模的分布式存储系统就不太合适的，那你应该用S3或者其它云存储解决方案了</a></p>
+<p>1、list </p>
+<p>显示所有文件</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="built_in">list</span> xx.txt</div></pre></td></tr></table></figure>
+<hr>
+<p>显示所有的指定文件名的文件</p>
+<p>2、search</p>
+<p>搜索指定名称的文件，可以模糊搜索</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mongofiles <span class="built_in">list</span> xx.txt</div><div class="line">mongofiles <span class="built_in">list</span> .txt</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="GridFS注意"><a href="#GridFS注意" class="headerlink" title="GridFS注意"></a>GridFS注意</h3><p><a href="https://www.zhihu.com/question/19607966/answer/12785380" target="_blank" rel="external">压力以及数据量比较大的业务不推荐使用Mongo GridFS。Mongo GridFS在高并发（每秒写入10M，持续半小时到一个小时）的情况下secondary会无法catch up with primary。Mongo GridFS不是为分布式存储而设计的，它解决的问题领域是小型业务已经使MONOGODB，但是又需要存储一些文件，而且需要给这些文件加一些元信息。用它来存储图片以小文件是比较合适的。但是把它当大规模的分布式存储系统就不太合适的，那你应该用S3或者其它云存储解决方案了</a></p>
 
       
 
@@ -396,6 +395,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/05/09/记一件同学觉得没有意义的事情/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记一件同学觉得没有意义的事情
+        
+      </div>
+    </a>
   
   
     <a href="/2017/05/01/MongoDB学习(五)一一MongoDB 原子操作与自动增长/" id="article-nav-older" class="article-nav-link-wrap">
@@ -693,6 +701,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">udp</a>
               </li>
             
             <div class="clearfix"></div>
