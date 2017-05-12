@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/12/06/C语言标准库函数学习(二)一一字符串操作函数/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="String Manipulation 字符串操作函数">
-<meta property="og:updated_time" content="2017-04-23T07:37:16.000Z">
+<meta property="og:updated_time" content="2017-05-10T12:15:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言标准库函数学习(二)一一字符串操作函数">
 <meta name="twitter:description" content="String Manipulation 字符串操作函数">
@@ -203,6 +203,7 @@
 <hr>
 <h3 id="strcspn"><a href="#strcspn" class="headerlink" title="strcspn()"></a>strcspn()</h3><blockquote>
 <p>在字符串pstr中搜寻strCharsret中所出现的字符，返回strCharset中出现的第一个字符在pstr中的出现位置。简单的说，若strcspn返回的数值为n，则代表字符串strCharsrt开头连续有n个字符不包含在pstr内的字符。</p>
+<p>其实就是计算字符串str中连续有几个字符都不属于字符串accept</p>
 </blockquote>
 <p>这个函数实现的非常巧妙，所以我们重点介绍一下</p>
 <p>例如：对于字符’1’,其ASCII码味0x31，右移3位得到6，和7与运算得到1，也就是在map[6]中的第一位.</p>
@@ -210,6 +211,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//7. tstrCSpn</span></div><div class="line"><span class="comment">//sublime</span></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">tstrCSpn</span><span class="params">(<span class="keyword">const</span> tChar *pStr, <span class="keyword">const</span> tChar *pStrSet)</span> </span>&#123;</div><div class="line">    <span class="comment">// map有32个字节的大小，也就是256个bit，可把map堪称一个2维数组[32][8]</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="built_in">map</span>[<span class="number">32</span>] = &#123;<span class="number">0</span>&#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 每个ASCII码(设为c)有8bit，把它分成2部分，低3位构成下标j(通过c&amp;7(2进制为111)),</span></div><div class="line">    <span class="comment">// 高5位构成下标i(通过c&gt;&gt;3得到)。这样在map[i][j]中置1表示字符存在</span></div><div class="line">    <span class="keyword">while</span> (*pStrSet) &#123;</div><div class="line">        <span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] = <span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] | (<span class="number">1</span> &lt;&lt; (*pStrSet &amp; <span class="number">7</span>));</div><div class="line">        pStrSet++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">map</span>[<span class="number">0</span>] = <span class="built_in">map</span>[<span class="number">0</span>] | <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">    <span class="keyword">while</span> (!(<span class="built_in">map</span>[*pStrSet &gt;&gt; <span class="number">3</span>] &amp; (<span class="number">1</span> &lt;&lt; (*pStrSet &amp; <span class="number">7</span>)))) &#123;</div><div class="line">        count++;</div><div class="line">        pStr++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <p><em>相关</em>：strspn:返回后面字符串中第一个不在前者出现的下标</p>
+<blockquote>
+<p>其实就是计算字符串str中连续有几个字符都属于字符串accept</p>
+</blockquote>
 <h3 id="strdup"><a href="#strdup" class="headerlink" title="strdup()"></a>strdup()</h3><blockquote>
 <p>拷贝字符串到新建的内存</p>
 </blockquote>
