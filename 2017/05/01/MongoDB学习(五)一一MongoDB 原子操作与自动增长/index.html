@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/01/MongoDB学习(五)一一MongoDB 原子操作与自动增长/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。  接下来，我们将了解的ObjectId的结构。  ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中">
-<meta property="og:updated_time" content="2017-05-05T02:04:19.000Z">
+<meta property="og:updated_time" content="2017-05-13T17:00:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(五)一一MongoDB 原子操作与自动增长">
 <meta name="twitter:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。  接下来，我们将了解的ObjectId的结构。  ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中">
@@ -385,29 +385,29 @@
 <p>MongoDB中存储的文档必须有一个”_id”键。这个键的值可以是任何类型的，默认是个ObjectId对象。<br>在一个集合里面，每个文档都有唯一的”_id”值，来确保集合里面每个文档都能被唯一标识。<br>MongoDB采用ObjectId，而不是其他比较常规的做法（比如自动增加的主键）的主要原因，因为在多个 服务器上同步自动增加主键值既费力还费时。</p>
 <hr>
 <a id="more"></a>
-<h3 id="创建新的ObjectId"><a href="#创建新的ObjectId" class="headerlink" title="创建新的ObjectId"></a>创建新的ObjectId</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;newObjectId = ObjectId()</div><div class="line"><span class="function"><span class="title">ObjectId</span><span class="params">(<span class="string">"590b3cf564d6ed405ce2ad9d"</span>)</span></span></div></pre></td></tr></table></figure>
+<h3 id="创建新的ObjectId"><a href="#创建新的ObjectId" class="headerlink" title="创建新的ObjectId"></a>创建新的ObjectId</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;newObjectId = ObjectId()</div><div class="line">ObjectId(&quot;590b3cf564d6ed405ce2ad9d&quot;)</div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
 <p>你也可以使用生成的id来取代MongoDB自动生成的ObjectId：</p>
 </blockquote>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; myObjectId = ObjectId(<span class="string">"590b3cf564d6ed405ce2ad9e"</span>)</div><div class="line"><span class="function"><span class="title">ObjectId</span><span class="params">(<span class="string">"590b3cf564d6ed405ce2ad9e"</span>)</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; myObjectId = ObjectId(&quot;590b3cf564d6ed405ce2ad9e&quot;)</div><div class="line">ObjectId(&quot;590b3cf564d6ed405ce2ad9e&quot;)</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="创建文档的时间戳"><a href="#创建文档的时间戳" class="headerlink" title="创建文档的时间戳"></a>创建文档的时间戳</h3><blockquote>
 <p>由于 ObjectId 中存储了 4 个字节的时间戳，所以你不需要为你的文档保存时间戳字段，你可以通过 getTimestamp 函数来获取文档的创建时间：</p>
 </blockquote>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="selector-tag">ObjectId</span>(<span class="string">"590b3cf564d6ed405ce2ad9e"</span>)<span class="selector-class">.getTimestamp</span>()</div><div class="line"><span class="selector-tag">ISODate</span>(<span class="string">"2017-05-04T14:38:45Z"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; ObjectId(&quot;590b3cf564d6ed405ce2ad9e&quot;).getTimestamp()</div><div class="line">ISODate(&quot;2017-05-04T14:38:45Z&quot;)</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="ObjectId-转换为字符串"><a href="#ObjectId-转换为字符串" class="headerlink" title="ObjectId 转换为字符串"></a>ObjectId 转换为字符串</h3><p>在某些情况下，您可能需要将ObjectId转换为字符串格式：<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">new</span> ObjectId().<span class="keyword">str</span></div><div class="line"><span class="number">590</span>b3d5a64d6ed405ce2ad9e</div></pre></td></tr></table></figure></p>
+<h3 id="ObjectId-转换为字符串"><a href="#ObjectId-转换为字符串" class="headerlink" title="ObjectId 转换为字符串"></a>ObjectId 转换为字符串</h3><p>在某些情况下，您可能需要将ObjectId转换为字符串格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; new ObjectId().str</div><div class="line">590b3d5a64d6ed405ce2ad9e</div></pre></td></tr></table></figure></p>
 <hr>
 <h2 id="MongoDB-自动增长"><a href="#MongoDB-自动增长" class="headerlink" title="MongoDB 自动增长"></a>MongoDB 自动增长</h2><blockquote>
 <p>MongoDB 没有像 SQL 一样有自动增长的功能， MongoDB 的 _id 是系统自动生成的12字节唯一标识。<br>但在某些情况下，我们可能需要实现 ObjectId 自动增长功能。<br>由于 MongoDB 没有实现这个功能，我们可以通过编程的方式来实现，以下我们将在 counters 集合中实现_id字段自动增长。</p>
 </blockquote>
 <p>举个栗子：</p>
 <h3 id="使用-counters-集合"><a href="#使用-counters-集合" class="headerlink" title="使用 counters 集合"></a>使用 counters 集合</h3><p>首先创建 counters 集合：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.createCollection(<span class="string">"counters"</span>)</div><div class="line">&#123; <span class="string">"ok"</span> : 1 &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.createCollection(&quot;counters&quot;)</div><div class="line">&#123; &quot;ok&quot; : 1 &#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>然后我们向 counters 集合中插入以下文档，使用 productid 作为 key，sequence_value 字段是序列通过自动增长后的一个值:</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db<span class="selector-class">.counters</span><span class="selector-class">.insert</span>(&#123;_id:<span class="string">"productid"</span>,sequence_value:<span class="number">0</span>&#125;)</div><div class="line"><span class="function"><span class="title">WriteResult</span><span class="params">(&#123; <span class="string">"nInserted"</span> : <span class="number">1</span> &#125;)</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.counters.insert(&#123;_id:&quot;productid&quot;,sequence_value:0&#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="MongoDB-原子操作"><a href="#MongoDB-原子操作" class="headerlink" title="MongoDB 原子操作"></a>MongoDB 原子操作</h3><p>写函数之前我们首先来看一下MongoDB的原子操作</p>
 <blockquote>
@@ -450,7 +450,7 @@
 <blockquote>
 <p>$inc可以对文档的某个值为数字型（只能为满足要求的数字）的键进行增减的操作</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $inc : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $inc : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$push</li>
@@ -458,7 +458,7 @@
 <blockquote>
 <p>把value追加到field里面去，field一定要是数组类型才行，如果field不存在，会新增一个数组类型加进去</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $push : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $push : &#123; field : value &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$pushAll</li>
@@ -466,7 +466,7 @@
 <blockquote>
 <p>同$push,只是一次可以追加多个值到一个数组字段内</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pushAll : &#123; field : value_array &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pushAll : &#123; field : value_array &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$pull</li>
@@ -474,7 +474,7 @@
 <blockquote>
 <p>从数组field内删除一个等于value值。</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pull : &#123; field : _value &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pull : &#123; field : _value &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$addToSet</li>
@@ -488,7 +488,7 @@
 <blockquote>
 <p>删除数组的第一个或最后一个元素</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pop : &#123; field : <span class="number">1</span> &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $pop : &#123; field : 1 &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$rename</li>
@@ -496,7 +496,7 @@
 <blockquote>
 <p>修改字段名称</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $rename : &#123; old_field_name : new_field_name &#125; &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; $rename : &#123; old_field_name : new_field_name &#125; &#125;</div></pre></td></tr></table></figure>
 <hr>
 <ul>
 <li>$bit</li>
@@ -504,7 +504,7 @@
 <blockquote>
 <p>位操作，integer类型</p>
 </blockquote>
-<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;$bit : &#123; field : &#123;and : <span class="number">5</span>&#125;&#125;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;$bit : &#123; field : &#123;and : 5&#125;&#125;&#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>可以看到，大部分我们上一篇介绍到的操作都是原子操作</p>
 <h3 id="创建JavaScript函数"><a href="#创建JavaScript函数" class="headerlink" title="创建JavaScript函数"></a>创建JavaScript函数</h3><blockquote>

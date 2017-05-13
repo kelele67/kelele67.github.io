@@ -744,7 +744,7 @@
 <p>MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。</p>
 </blockquote>
 <h3 id="aggregate-方法"><a href="#aggregate-方法" class="headerlink" title="aggregate() 方法"></a>aggregate() 方法</h3><p>MongoDB中聚合的方法使用aggregate()<br>语法如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db<span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.aggregate</span>(AGGREGATE_OPERATION)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)</div></pre></td></tr></table></figure>
 <hr>
           <!--noindex-->
           <div class="post-button text-center">
@@ -862,7 +862,7 @@
       
         
           <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-MapReduce"><a href="#MongoDB-MapReduce" class="headerlink" title="MongoDB MapReduce"></a>MongoDB MapReduce</h2><h3 id="MongoDB-固定集合"><a href="#MongoDB-固定集合" class="headerlink" title="MongoDB 固定集合"></a>MongoDB 固定集合</h3><p>MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！</p>
-<h4 id="创建固定集合"><a href="#创建固定集合" class="headerlink" title="创建固定集合"></a>创建固定集合</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.createCollection</span>("<span class="selector-tag">cappedLogCollection</span>",&#123;<span class="attribute">capped</span>:true,size:<span class="number">10000</span>&#125;)</div></pre></td></tr></table></figure>
+<h4 id="创建固定集合"><a href="#创建固定集合" class="headerlink" title="创建固定集合"></a>创建固定集合</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.createCollection(&quot;cappedLogCollection&quot;,&#123;capped:true,size:10000&#125;)</div></pre></td></tr></table></figure>
 <hr>
           <!--noindex-->
           <div class="post-button text-center">
