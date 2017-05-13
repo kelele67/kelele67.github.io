@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/15/深入 Lua Garbage Collector(四)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="早期的 Lua GC 采用的是 stop the world 的实现。一旦发生 gc 就需要等待整个 gc 流程走完。如果你用 lua 处理较少量数据，或是数据增删不频繁，这样做不是问题。但当处理的数据量变大时，对于实时性要求较高的应用，比如网络游戏服务器，这个代价则是不可忽略的。lua 本身是个很精简的系统，但不代表处理的数据量也一定很小。 从 Lua 5.1 开始，GC 的实现改为分步的">
-<meta property="og:updated_time" content="2017-05-10T11:54:38.000Z">
+<meta property="og:updated_time" content="2017-05-13T16:07:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(四)">
 <meta name="twitter:description" content="早期的 Lua GC 采用的是 stop the world 的实现。一旦发生 gc 就需要等待整个 gc 流程走完。如果你用 lua 处理较少量数据，或是数据增删不频繁，这样做不是问题。但当处理的数据量变大时，对于实时性要求较高的应用，比如网络游戏服务器，这个代价则是不可忽略的。lua 本身是个很精简的系统，但不代表处理的数据量也一定很小。 从 Lua 5.1 开始，GC 的实现改为分步的">
@@ -372,7 +372,7 @@
 <p>lgc.c 的 756 行:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">** If possible, free concatenation buffer and shrink string table</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkSizes</span> <span class="params">(lua_State *L, global_State *g)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (g-&gt;gckind != KGC_EMERGENCY) &#123;</div><div class="line">    l_mem olddebt = g-&gt;GCdebt;</div><div class="line">    luaZ_freebuffer(L, &amp;g-&gt;buff);  <span class="comment">/* free concatenation buffer */</span></div><div class="line">    <span class="keyword">if</span> (g-&gt;strt.nuse &lt; g-&gt;strt.size / <span class="number">4</span>)  <span class="comment">/* string table too big? */</span></div><div class="line">      luaS_resize(L, g-&gt;strt.size / <span class="number">2</span>);  <span class="comment">/* shrink it a little */</span></div><div class="line">    g-&gt;GCestimate += g-&gt;GCdebt - olddebt;  <span class="comment">/* update estimate */</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
-<p>这里可以看到GCestimate 和 g-&gt;GCdebt 分别表示了lua vm 所占用的内存字节数以及实际分配的字节数</p>
+<p>这里可以看到GCestimate 和 g-&gt;GCdebt 分别表示了lua vm 所占用的内存字节数以及实际分配的字节数</p>
 <blockquote>
 <p>如果你自己实现过内存管理器，当知道内存管理本身是有额外的内存开销的。如果有必要精确控制内存数量，我个人倾向于结合内存管理器统计准确的内存使用情况。比如你向内存管理器索要 8 字节内存，实际的内存开销很可能是 12 字节，甚至更多。如果想做这方面的修改，让 lua 的 gc 能更真实的反应内存实际使用情况，推荐修改 lmem.c 的 77 行，luaM<em>realloc</em> 函数。所有的 lua 中的内存使用变化都会通过这个函数</p>
 </blockquote>
@@ -412,7 +412,7 @@
 <p>这是 lua 采用的一个小技巧。在 GC 的标记流程结束，但清理流程尚未作完前。一旦对象间的关系发生变化，比如新增加了一个对象。这些对象的生命期是不可预料的。最安全的方法是把它们标记为不可清除。但我们又不能直接把对象设置为黑色。因为清理过程结束，需要把所有对象设置回白色，方便下次清理。lua 实际上是单遍扫描，处理完一个节点就重置一个节点的颜色的。简单的把新创建出来的对象设置为黑，有可能导致它在 GC 流程结束后，再也没机会变回白色了。</p>
 <p>简单的方法就是设置从第三种状态。也就是第 2 种白色。</p>
 <p>在 Lua 中，两个白色状态是一个乒乓开关，当前需要删除 0 型白色节点时， 1 型白色节点就是被保护起来的；反之也一样。</p>
-<p>当前的白色是 0 型还是 1 型，见 global_State 的 currentwhite 域。otherwhite() 用于乒乓切换。获得当前白色状态，使用我们上面的代码中的:</p>
+<p>当前的白色是 0 型还是 1 型，见 global_State 的 currentwhite 域。otherwhite() 用于乒乓切换。获得当前白色状态，使用我们上面的代码中的:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> luaC_white(g)	cast(lu_byte, (g)-&gt;currentwhite &amp; WHITEBITS)</span></div></pre></td></tr></table></figure>
 <hr>
 <h3 id="FINALIZEDBIT"><a href="#FINALIZEDBIT" class="headerlink" title="FINALIZEDBIT"></a>FINALIZEDBIT</h3><p>FINALIZEDBIT 用于标记 userdata 。当 userdata 确认不被引用，则设置上这个标记。它不同于颜色标记。因为 userdata 由于 gc 元方法的存在，释放所占内存是需要延迟到 gc 元方法调用之后的。这个标记可以保证元方法不会被反复调用。</p>
@@ -420,7 +420,7 @@
 <p>而最新的5.3 版本中把weak属性的标记放入了三个list中。</p>
 <p>lstate.h 的 127 行:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GCObject *weak;  <span class="comment">/* list of tables with weak values */</span></div><div class="line">GCObject *ephemeron;  <span class="comment">/* list of ephemeron tables (weak keys) */</span></div><div class="line">GCObject *allweak;  <span class="comment">/* list of all-weak tables */</span></div></pre></td></tr></table></figure>
-<h3 id="被移除的FIXEDBIT"><a href="#被移除的FIXEDBIT" class="headerlink" title="被移除的FIXEDBIT"></a>被移除的FIXEDBIT</h3><p>在之前的lua版本中，还marked域定义了一个FIXEDBIT 可以保证一个 GCObject 不会在 GC 流程中被清除。为什么要有这种状态？关键在于 lua 本身会用到一个字符串，它们有可能不被任何地方引用，但在每次接触到这个字符串时，又不希望反复生成。那么，这些字符串就会被保护起来，设置上 FIXEDBIT 。<br>而在lua5.3中，则是把这个部分的操作放在了luaC中而不是luaS中，而那些不会被清除的的 GCObject 则被像之前提到的 weak 属性一样的处理方法放在了 <strong>fixedgc</strong> 链表中。</p>
+<h3 id="被移除的FIXEDBIT"><a href="#被移除的FIXEDBIT" class="headerlink" title="被移除的FIXEDBIT"></a>被移除的FIXEDBIT</h3><p>在之前的lua版本中，还marked域定义了一个FIXEDBIT 可以保证一个 GCObject 不会在 GC 流程中被清除。为什么要有这种状态？关键在于 lua 本身会用到一个字符串，它们有可能不被任何地方引用，但在每次接触到这个字符串时，又不希望反复生成。那么，这些字符串就会被保护起来，设置上 FIXEDBIT 。<br>而在lua5.3中，则是把这个部分的操作放在了luaC中而不是luaS中，而那些不会被清除的的 GCObject 则被像之前提到的 weak 属性一样的处理方法放在了 <strong>fixedgc</strong> 链表中。</p>
 <p>lgc.c 的 184 行:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">luaC_fix</span> <span class="params">(lua_State *L, GCObject *o)</span> </span>&#123;</div><div class="line">  global_State *g = G(L);</div><div class="line">  lua_assert(g-&gt;allgc == o);  <span class="comment">/* object must be 1st in 'allgc' list! */</span></div><div class="line">  white2gray(o);  <span class="comment">/* they will be gray forever */</span></div><div class="line">  g-&gt;allgc = o-&gt;next;  <span class="comment">/* remove object from 'allgc' list */</span></div><div class="line">  o-&gt;next = g-&gt;fixedgc;  <span class="comment">/* link it to 'fixedgc' list */</span></div><div class="line">  g-&gt;fixedgc = o;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
@@ -615,6 +615,44 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="true" target="_blank" title="enable">
+                  
+                    <i class="fa fa-fw fa-true"></i>
+                  
+                  enable
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kelele67" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kelele67" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-qi-21-51" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
           
         </div>
 

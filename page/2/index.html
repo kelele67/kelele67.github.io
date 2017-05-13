@@ -446,12 +446,12 @@
 
       
         
-          <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h2><blockquote>
+          <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="HTTP介绍"><a href="#HTTP介绍" class="headerlink" title="HTTP介绍"></a>HTTP介绍</h2><blockquote>
 <p>HTTP就是一个用文本格式描述报文头并用双换行分隔报文头和内容，在TCP基础上实现的请求-响应模式的双向通信协议</p>
 <p>HTTP（超文本传输协议，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。是用于从WWW服务器传输超文本到本地浏览器的传输协议。默认使用80端口，HTTP客户端发起一个请求，建立一个到服务器指定端口（默认是80端口）的TCP连接。HTTP协议和TCP协议是不冲突的，HTTP定义在七层协议中的应用层，TCP解决的是传输层的逻辑。HTTP使用TCP而不是UDP的原因在于（打开）一个网页必须传送很多数据，而TCP协议提供传输控制，按顺序组织数据，和错误纠正。HTTP协议的瓶颈及其优化技巧都是基于TCP协议本身的特性。如TCP建立连接时三次握手有1.5个RTT（round-trip time）的延迟，为了避免每次请求的都经历握手带来的延迟，应用层会选择不同策略的http长链接方案。又如TCP在建立连接的初期有慢启动（slow start）的特性，所以连接的重用总是比新建连接性能要好。</p>
 </blockquote>
 <p>（上面这一段是废话）</p>
-<p>既然HTTP被称为超文本传输协议，那么我们来看看超文本的分类：</p>
+<p>既然HTTP被称为超文本传输协议，那么我们来看看超文本的分类：</p>
 <h3 id="静态超文本"><a href="#静态超文本" class="headerlink" title="静态超文本"></a>静态超文本</h3><blockquote>
 <p>客户端直接通过URL请求到服务端相对应的资源，服务端直接将部署在数据库或者文件系统中的标签语言文件返还给客户端，其中可以包括其他的URL来使得客户端再次和网络中的其他主机发送HTTP请求来递归地完成超文本的解析，如HTML中的img标签</p>
 </blockquote>
@@ -1305,6 +1305,44 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="true" target="_blank" title="enable">
+                  
+                    <i class="fa fa-fw fa-true"></i>
+                  
+                  enable
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kelele67" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kelele67" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-qi-21-51" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
           
         </div>
 
