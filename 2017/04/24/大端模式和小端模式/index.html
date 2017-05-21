@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF1.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF2.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF3.png">
-<meta property="og:updated_time" content="2017-05-03T13:49:36.000Z">
+<meta property="og:updated_time" content="2017-05-16T03:24:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大端模式和小端模式">
 <meta name="twitter:description" content="来源我觉得这个故事还是挺有意思的  关于大端小端名词的由来，有一个有趣的故事，来自于Jonathan Swift的《格利佛游记》：Lilliput和Blefuscu这两个强国在过去的36个月中一直在苦战。战争的原因：大家都知道，吃鸡蛋的时候，原始的方法是打破鸡蛋较大的一端，可以那时的皇帝的祖父由于小时侯吃鸡蛋，按这种方法把手指弄破了，因此他的父亲，就下令，命令所有的子民吃鸡蛋的时候，必须先打破">
@@ -459,15 +459,23 @@
 </tbody>
 </table>
 <h3 id="数组的存储"><a href="#数组的存储" class="headerlink" title="数组的存储"></a>数组的存储</h3><p>以unsigned int value = 0x12345678为例，分别看看在两种字节序下其存储情况，我们可以用unsigned char buf[4]来表示value：</p>
-<p>　　Big-Endian: 低地址存放高位，如下：</p>
-<h2 id="高地址"><a href="#高地址" class="headerlink" title="高地址"></a>高地址</h2><pre><code>buf[3] (0x78) -- 低位
+<blockquote>
+<p>Big-Endian: 低地址存放高位，如下：</p>
+</blockquote>
+<p>高地址</p>
+<pre><code>---------------
+buf[3] (0x78) -- 低位
 buf[2] (0x56)
 buf[1] (0x34)
 buf[0] (0x12) -- 高位
 ---------------
 </code></pre><p>低地址</p>
+<blockquote>
 <p>Little-Endian: 低地址存放低位，如下：</p>
-<h2 id="高地址-1"><a href="#高地址-1" class="headerlink" title="高地址"></a>高地址</h2><pre><code>buf[3] (0x12) -- 高位
+</blockquote>
+<p>高地址</p>
+<pre><code>---------------
+buf[3] (0x12) -- 高位
 buf[2] (0x34)
 buf[1] (0x56)
 buf[0] (0x78) -- 低位
@@ -731,7 +739,7 @@ buf[0] (0x78) -- 低位
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#来源"><span class="nav-number">1.</span> <span class="nav-text">来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例"><span class="nav-number">3.</span> <span class="nav-text">举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数的储存"><span class="nav-number">3.1.</span> <span class="nav-text">数的储存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的存储"><span class="nav-number">3.2.</span> <span class="nav-text">数组的存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高地址"><span class="nav-number">4.</span> <span class="nav-text">高地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高地址-1"><span class="nav-number">5.</span> <span class="nav-text">高地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">6.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断程序"><span class="nav-number">7.</span> <span class="nav-text">判断程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大端模式和小端模式转换"><span class="nav-number">8.</span> <span class="nav-text">大端模式和小端模式转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移位运算"><span class="nav-number">8.1.</span> <span class="nav-text">移位运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依次处理每个字节"><span class="nav-number">8.2.</span> <span class="nav-text">依次处理每个字节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解大端小端"><span class="nav-number">9.</span> <span class="nav-text">理解大端小端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从软件的角度理解端模式"><span class="nav-number">9.1.</span> <span class="nav-text">从软件的角度理解端模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从系统的角度理解端模式"><span class="nav-number">9.2.</span> <span class="nav-text">从系统的角度理解端模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MSB和LSB"><span class="nav-number">9.2.1.</span> <span class="nav-text">MSB和LSB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运用实例"><span class="nav-number">10.</span> <span class="nav-text">运用实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">11.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#来源"><span class="nav-number">1.</span> <span class="nav-text">来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例"><span class="nav-number">3.</span> <span class="nav-text">举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数的储存"><span class="nav-number">3.1.</span> <span class="nav-text">数的储存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的存储"><span class="nav-number">3.2.</span> <span class="nav-text">数组的存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">4.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断程序"><span class="nav-number">5.</span> <span class="nav-text">判断程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大端模式和小端模式转换"><span class="nav-number">6.</span> <span class="nav-text">大端模式和小端模式转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移位运算"><span class="nav-number">6.1.</span> <span class="nav-text">移位运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依次处理每个字节"><span class="nav-number">6.2.</span> <span class="nav-text">依次处理每个字节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解大端小端"><span class="nav-number">7.</span> <span class="nav-text">理解大端小端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从软件的角度理解端模式"><span class="nav-number">7.1.</span> <span class="nav-text">从软件的角度理解端模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从系统的角度理解端模式"><span class="nav-number">7.2.</span> <span class="nav-text">从系统的角度理解端模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MSB和LSB"><span class="nav-number">7.2.1.</span> <span class="nav-text">MSB和LSB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运用实例"><span class="nav-number">8.</span> <span class="nav-text">运用实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

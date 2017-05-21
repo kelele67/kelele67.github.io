@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/09/30/python数据结构算法一一查找/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="Python数据结构篇(1)学习自大神博客 查找 顺序查找：O(n) 二分查找：O(lgn) Hash查找：O(1)">
-<meta property="og:updated_time" content="2017-04-23T07:30:46.000Z">
+<meta property="og:updated_time" content="2017-05-16T12:06:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kelele67的学习笔记-python数据结构算法（一）">
 <meta name="twitter:description" content="Python数据结构篇(1)学习自大神博客 查找 顺序查找：O(n) 二分查找：O(lgn) Hash查找：O(1)">
@@ -391,7 +391,6 @@
 <li>二分查找：O(lgn)</li>
 <li>Hash查找：O(1)</li>
 </ol>
-<hr>
 <a id="more"></a>
 <h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sequential_search</span><span class="params">(a_list, item)</span>:</span></div><div class="line">    pos = <span class="number">0</span></div><div class="line">    found = <span class="keyword">False</span></div><div class="line">    <span class="keyword">while</span> pos &lt; len(a_list) <span class="keyword">and</span> <span class="keyword">not</span> found:</div><div class="line">        <span class="keyword">if</span> a_list[pos] == item:</div><div class="line">            found = <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            pos += <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> found</div><div class="line"></div><div class="line">test_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">32</span>, <span class="number">8</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">42</span>, <span class="number">13</span>, <span class="number">0</span>]</div><div class="line"><span class="keyword">print</span> (sequential_search(test_list, <span class="number">3</span>))</div><div class="line"><span class="keyword">print</span> (sequential_search(test_list, <span class="number">13</span>))</div></pre></td></tr></table></figure>
 <hr>

@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/01/MongoDB学习(五)一一MongoDB 原子操作与自动增长/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。  接下来，我们将了解的ObjectId的结构。  ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中">
-<meta property="og:updated_time" content="2017-05-13T17:00:56.000Z">
+<meta property="og:updated_time" content="2017-05-16T12:06:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(五)一一MongoDB 原子操作与自动增长">
 <meta name="twitter:description" content="MongoDB ObjectIdObjectId介绍 在前面的学习中中我们已经使用了MongoDB 的对象 Id(ObjectId)。  接下来，我们将了解的ObjectId的结构。  ObjectId 是一个12字节 BSON 类型数据，有以下格式：   前4个字节表示时间戳  接下来的3个字节是机器标识码  紧接的两个字节由进程id组成（PID）  最后三个字节是随机数。   MongoDB中">
@@ -403,7 +403,6 @@
 </li>
 </ul>
 <p>MongoDB中存储的文档必须有一个”_id”键。这个键的值可以是任何类型的，默认是个ObjectId对象。<br>在一个集合里面，每个文档都有唯一的”_id”值，来确保集合里面每个文档都能被唯一标识。<br>MongoDB采用ObjectId，而不是其他比较常规的做法（比如自动增加的主键）的主要原因，因为在多个 服务器上同步自动增加主键值既费力还费时。</p>
-<hr>
 <a id="more"></a>
 <h3 id="创建新的ObjectId"><a href="#创建新的ObjectId" class="headerlink" title="创建新的ObjectId"></a>创建新的ObjectId</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;newObjectId = ObjectId()</div><div class="line">ObjectId(&quot;590b3cf564d6ed405ce2ad9d&quot;)</div></pre></td></tr></table></figure>
 <hr>

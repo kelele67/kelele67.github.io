@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/14/深入 Lua Garbage Collector(二)/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制 Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:  collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：  collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
-<meta property="og:updated_time" content="2017-04-23T17:39:39.000Z">
+<meta property="og:updated_time" content="2017-05-16T12:03:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 Lua Garbage Collector(二)">
 <meta name="twitter:description" content="这一篇我们主要介绍一下 Lua 的 GC 机制 Lua垃圾回收器函数Lua 提供了以下函数 collectgarbage ([opt [, arg]]) 用来控制自动内存管理:  collectgarbage(“collect”): 做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：  collectgarbage(“count”): 以 K 字节数为单位返回 Lua 使用的">
@@ -405,7 +405,6 @@
 <li><p>collectgarbage(“stop”): 停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。</p>
 </li>
 </ul>
-<hr>
 <a id="more"></a>
 <p>以下演示了一个简单的垃圾回收实例:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mytable = &#123;<span class="string">"apple"</span>, <span class="string">"orange"</span>, <span class="string">"banana"</span>&#125;</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div><div class="line"></div><div class="line">mytable = <span class="keyword">nil</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"collect"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="built_in">collectgarbage</span>(<span class="string">"count"</span>))</div></pre></td></tr></table></figure>
