@@ -780,7 +780,7 @@
           <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-正则表达式"><a href="#MongoDB-正则表达式" class="headerlink" title="MongoDB 正则表达式"></a>MongoDB 正则表达式</h2><blockquote>
 <p>MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。<br>MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。<br>不同于全文检索，我们使用正则表达式不需要做任何配置。<br>考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.insert(</div><div class="line">... &#123;</div><div class="line">...    &quot;post_text&quot;: &quot;enjoy the mongodb articles&quot;,</div><div class="line">...    &quot;tags&quot;: [</div><div class="line">...       &quot;mongodb&quot;,</div><div class="line">...       &quot;kelele67&quot;</div><div class="line">...    ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.insert(</div><div class="line">... &#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"enjoy the mongodb articles"</span>,</div><div class="line">...    <span class="string">"tags"</span>: [</div><div class="line">...       <span class="string">"mongodb"</span>,</div><div class="line">...       <span class="string">"kelele67"</span></div><div class="line">...    ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; <span class="string">"nInserted"</span> : 1 &#125;)</div></pre></td></tr></table></figure>
 <hr>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1056,7 +1056,7 @@
 <p>MongoDB中聚合(aggregate)主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。</p>
 </blockquote>
 <h3 id="aggregate-方法"><a href="#aggregate-方法" class="headerlink" title="aggregate() 方法"></a>aggregate() 方法</h3><p>MongoDB中聚合的方法使用aggregate()<br>语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)</div></pre></td></tr></table></figure>
 <hr>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1185,7 +1185,7 @@
       
         
           <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-MapReduce"><a href="#MongoDB-MapReduce" class="headerlink" title="MongoDB MapReduce"></a>MongoDB MapReduce</h2><h3 id="MongoDB-固定集合"><a href="#MongoDB-固定集合" class="headerlink" title="MongoDB 固定集合"></a>MongoDB 固定集合</h3><p>MapReduce一般都是在集合中操作，所以我们先来看MongoDB 固定集合（Capped Collections），它是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！</p>
-<h4 id="创建固定集合"><a href="#创建固定集合" class="headerlink" title="创建固定集合"></a>创建固定集合</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.createCollection(&quot;cappedLogCollection&quot;,&#123;capped:true,size:10000&#125;)</div></pre></td></tr></table></figure>
+<h4 id="创建固定集合"><a href="#创建固定集合" class="headerlink" title="创建固定集合"></a>创建固定集合</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.createCollection(<span class="string">"cappedLogCollection"</span>,&#123;capped:<span class="literal">true</span>,size:10000&#125;)</div></pre></td></tr></table></figure>
 <hr>
           <!--noindex-->
           <div class="post-button text-center">

@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/02/MongoDB学习(六)一一MongoDB 正则表达式与GridFS/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
-<meta property="og:updated_time" content="2017-05-13T17:04:10.000Z">
+<meta property="og:updated_time" content="2017-05-26T14:11:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB学习(六)一一MongoDB 正则表达式与GridFS">
 <meta name="twitter:description" content="MongoDB 正则表达式 MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。不同于全文检索，我们使用正则表达式不需要做任何配置。考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：  123456789&amp;gt; db.mongo.inser">
@@ -388,23 +388,23 @@
         <h2 id=""><a href="#" class="headerlink" title=""></a><p></p></h2><h2 id="MongoDB-正则表达式"><a href="#MongoDB-正则表达式" class="headerlink" title="MongoDB 正则表达式"></a>MongoDB 正则表达式</h2><blockquote>
 <p>MongoDB 使用 $regex 操作符来设置匹配字符串的正则表达式。<br>MongoDB使用PCRE (Perl Compatible Regular Expression) 作为正则表达式语言。<br>不同于全文检索，我们使用正则表达式不需要做任何配置。<br>考虑以下 mongo 集合的文档结构，该文档包含了文章内容和标签：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.insert(</div><div class="line">... &#123;</div><div class="line">...    &quot;post_text&quot;: &quot;enjoy the mongodb articles&quot;,</div><div class="line">...    &quot;tags&quot;: [</div><div class="line">...       &quot;mongodb&quot;,</div><div class="line">...       &quot;kelele67&quot;</div><div class="line">...    ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.insert(</div><div class="line">... &#123;</div><div class="line">...    <span class="string">"post_text"</span>: <span class="string">"enjoy the mongodb articles"</span>,</div><div class="line">...    <span class="string">"tags"</span>: [</div><div class="line">...       <span class="string">"mongodb"</span>,</div><div class="line">...       <span class="string">"kelele67"</span></div><div class="line">...    ]</div><div class="line">... &#125;)</div><div class="line">WriteResult(&#123; <span class="string">"nInserted"</span> : 1 &#125;)</div></pre></td></tr></table></figure>
 <hr>
 <a id="more"></a>
 <h3 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h3><blockquote>
 <p>使用正则表达式查找包含 mongodb 字符串的文章：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;post_text:&#123;$regex:&quot;mongodb&quot;&#125;&#125;)</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;590bde7964d6ed405ce2ada1&quot;), &quot;post_text&quot; : &quot;enjoy the mongodb articles&quot;, &quot;tags&quot; : [ &quot;mongodb&quot;, &quot;kelele67&quot; ] &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;post_text:&#123;<span class="variable">$regex</span>:<span class="string">"mongodb"</span>&#125;&#125;)</div><div class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"590bde7964d6ed405ce2ada1"</span>), <span class="string">"post_text"</span> : <span class="string">"enjoy the mongodb articles"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"kelele67"</span> ] &#125;</div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
 <p>如果要使用不区分大小写的表达式，则需要用到options i：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;post_text:&#123;$regex:&quot;MongoDB&quot;,$options:&quot;$i&quot;&#125;&#125;)</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;590bde7964d6ed405ce2ada1&quot;), &quot;post_text&quot; : &quot;enjoy the mongodb articles&quot;, &quot;tags&quot; : [ &quot;mongodb&quot;, &quot;kelele67&quot; ] &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;post_text:&#123;<span class="variable">$regex</span>:<span class="string">"MongoDB"</span>,<span class="variable">$options</span>:<span class="string">"<span class="variable">$i</span>"</span>&#125;&#125;)</div><div class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"590bde7964d6ed405ce2ada1"</span>), <span class="string">"post_text"</span> : <span class="string">"enjoy the mongodb articles"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"kelele67"</span> ] &#125;</div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
 <p>在数组元素使用正则表达式：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;tags:&#123;$regex:&quot;kelele67&quot;&#125;&#125;)</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;590bde7964d6ed405ce2ada1&quot;), &quot;post_text&quot; : &quot;enjoy the mongodb articles&quot;, &quot;tags&quot; : [ &quot;mongodb&quot;, &quot;kelele67&quot; ] &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mongo.find(&#123;tags:&#123;<span class="variable">$regex</span>:<span class="string">"kelele67"</span>&#125;&#125;)</div><div class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"590bde7964d6ed405ce2ada1"</span>), <span class="string">"post_text"</span> : <span class="string">"enjoy the mongodb articles"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"kelele67"</span> ] &#125;</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="优化正则表达式操作"><a href="#优化正则表达式操作" class="headerlink" title="优化正则表达式操作"></a>优化正则表达式操作</h3><ul>
 <li><p>如果你的文档中字段设置了索引，那么使用索引相比于正则表达式匹配查找所有的数据查询速度更快</p>
@@ -420,7 +420,7 @@
 <blockquote>
 <p>模糊查询包含title关键词, 且不区分大小写:</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">title:eval(&quot;/&quot;+title+&quot;/i&quot;)  //相当于 title:&#123;$regex:title,$option:&quot;$i&quot;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">title:<span class="built_in">eval</span>(<span class="string">"/"</span>+title+<span class="string">"/i"</span>)  //相当于 title:&#123;<span class="variable">$regex</span>:title,<span class="variable">$option</span>:<span class="string">"<span class="variable">$i</span>"</span>&#125;</div></pre></td></tr></table></figure>
 <hr>
 <h2 id="MongDB-GridFS"><a href="#MongDB-GridFS" class="headerlink" title="MongDB GridFS"></a>MongDB GridFS</h2><ul>
 <li><p>GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)</p>
@@ -436,8 +436,8 @@
 <li><p>每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中</p>
 </li>
 </ul>
-<h3 id="GridFS-shell-命令"><a href="#GridFS-shell-命令" class="headerlink" title="GridFS shell 命令"></a>GridFS shell 命令</h3><blockquote>
-<p>添加文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles put xxx.txt</div></pre></td></tr></table></figure></p>
+<h3 id="GridFS-bash-命令"><a href="#GridFS-bash-命令" class="headerlink" title="GridFS bash 命令"></a>GridFS bash 命令</h3><blockquote>
+<p>添加文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles put xxx.txt</div></pre></td></tr></table></figure></p>
 </blockquote>
 <hr>
 <p>常用参数如下：</p>
@@ -454,7 +454,7 @@
 </li>
 </ul>
 <blockquote>
-<p>下载文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles get xxx.txt</div></pre></td></tr></table></figure></p>
+<p>下载文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles get xxx.txt</div></pre></td></tr></table></figure></p>
 </blockquote>
 <hr>
 <ul>
@@ -472,7 +472,7 @@
 </li>
 </ul>
 <blockquote>
-<p>删除文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles delete xxx.txt</div></pre></td></tr></table></figure></p>
+<p>删除文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles delete xxx.txt</div></pre></td></tr></table></figure></p>
 </blockquote>
 <hr>
 <p>删除指定名称的文件，如果存在同名文件则都删除</p>
@@ -492,12 +492,12 @@
 </blockquote>
 <p>1、list </p>
 <p>显示所有文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles list xx.txt</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongofiles list xx.txt</div></pre></td></tr></table></figure>
 <hr>
 <p>显示所有的指定文件名的文件</p>
 <p>2、search</p>
 <p>搜索指定名称的文件，可以模糊搜索</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mongofiles list xx.txt</div><div class="line">mongofiles list .txt</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mongofiles list xx.txt</div><div class="line">mongofiles list .txt</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="GridFS注意"><a href="#GridFS注意" class="headerlink" title="GridFS注意"></a>GridFS注意</h3><p><a href="https://www.zhihu.com/question/19607966/answer/12785380" target="_blank" rel="external">压力以及数据量比较大的业务不推荐使用Mongo GridFS。Mongo GridFS在高并发（每秒写入10M，持续半小时到一个小时）的情况下secondary会无法catch up with primary。Mongo GridFS不是为分布式存储而设计的，它解决的问题领域是小型业务已经使MONOGODB，但是又需要存储一些文件，而且需要给这些文件加一些元信息。用它来存储图片以小文件是比较合适的。但是把它当大规模的分布式存储系统就不太合适的，那你应该用S3或者其它云存储解决方案了</a></p>
 
@@ -707,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB-正则表达式"><span class="nav-number">2.</span> <span class="nav-text">MongoDB 正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用正则表达式"><span class="nav-number">2.1.</span> <span class="nav-text">使用正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化正则表达式操作"><span class="nav-number">2.2.</span> <span class="nav-text">优化正则表达式操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用正则表达式要注意的地方"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用正则表达式要注意的地方</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongDB-GridFS"><span class="nav-number">3.</span> <span class="nav-text">MongDB GridFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GridFS-shell-命令"><span class="nav-number">3.1.</span> <span class="nav-text">GridFS shell 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GridFS注意"><span class="nav-number">3.2.</span> <span class="nav-text">GridFS注意</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB-正则表达式"><span class="nav-number">2.</span> <span class="nav-text">MongoDB 正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用正则表达式"><span class="nav-number">2.1.</span> <span class="nav-text">使用正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化正则表达式操作"><span class="nav-number">2.2.</span> <span class="nav-text">优化正则表达式操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用正则表达式要注意的地方"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用正则表达式要注意的地方</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongDB-GridFS"><span class="nav-number">3.</span> <span class="nav-text">MongDB GridFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GridFS-bash-命令"><span class="nav-number">3.1.</span> <span class="nav-text">GridFS bash 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GridFS注意"><span class="nav-number">3.2.</span> <span class="nav-text">GridFS注意</span></a></li></ol></li></ol></div>
             
 
           </div>
