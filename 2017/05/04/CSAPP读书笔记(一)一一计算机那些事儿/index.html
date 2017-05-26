@@ -1,0 +1,976 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="csapp,gcc," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/icon/bird.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="神书 CSAPP 深入理解计算机系统的读书笔记，果然经典就是经典，和别的什么鬼书是不一样的，不过个人看来，其他的一些书虽然不是特别好，但也不是不能读了，所有的都是为了最后凸显经典的嘛，说不定你一上来就看经典你也会觉得经典的书也是垃圾。（废话时间结束）">
+<meta name="keywords" content="csapp,gcc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSAPP读书笔记(一)一一计算机那些事儿">
+<meta property="og:url" content="http://yoursite.com/2017/05/04/CSAPP读书笔记(一)一一计算机那些事儿/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="神书 CSAPP 深入理解计算机系统的读书笔记，果然经典就是经典，和别的什么鬼书是不一样的，不过个人看来，其他的一些书虽然不是特别好，但也不是不能读了，所有的都是为了最后凸显经典的嘛，说不定你一上来就看经典你也会觉得经典的书也是垃圾。（废话时间结束）">
+<meta property="og:updated_time" content="2017-05-26T13:43:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSAPP读书笔记(一)一一计算机那些事儿">
+<meta name="twitter:description" content="神书 CSAPP 深入理解计算机系统的读书笔记，果然经典就是经典，和别的什么鬼书是不一样的，不过个人看来，其他的一些书虽然不是特别好，但也不是不能读了，所有的都是为了最后凸显经典的嘛，说不定你一上来就看经典你也会觉得经典的书也是垃圾。（废话时间结束）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'U0JYTSJKPY',
+      apiKey: 'f3499a45aff4dffb505b45c35dd42268',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索本站","hits_empty":"未找到 ${query} 相关内容","hits_stats":"${hits} 条相关条目，耗时${time} 毫秒"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/04/CSAPP读书笔记(一)一一计算机那些事儿/"/>
+
+
+
+
+
+  <title>CSAPP读书笔记(一)一一计算机那些事儿 | 树犹如此|人何以堪</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=62141337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">树犹如此|人何以堪</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做一个富有的废物</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/04/CSAPP读书笔记(一)一一计算机那些事儿/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kelele67">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="树犹如此|人何以堪">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSAPP读书笔记(一)一一计算机那些事儿</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T10:40:15+08:00">
+                2017-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/04/CSAPP读书笔记(一)一一计算机那些事儿/" class="leancloud_visitors" data-flag-title="CSAPP读书笔记(一)一一计算机那些事儿">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>
+
+</p><p>神书 CSAPP 深入理解计算机系统的读书笔记，果然经典就是经典，和别的什么鬼书是不一样的，不过个人看来，其他的一些书虽然不是特别好，但也不是不能读了，所有的都是为了最后凸显经典的嘛，说不定你一上来就看经典你也会觉得经典的书也是垃圾。（废话时间结束）</p>
+<a id="more"></a>
+<h2 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h2><blockquote>
+<p>GCC 编译器驱动程序 完成从源文件到可执行目标文件的过程</p>
+</blockquote>
+<h3 id="预处理阶段-c-gt-i"><a href="#预处理阶段-c-gt-i" class="headerlink" title="预处理阶段 .c-&gt;.i"></a>预处理阶段 .c-&gt;.i</h3><p>标准：预处理器 <strong>cpp</strong> 根据 # 开头的命令，修改原始的C程序</p>
+<p>人话：差不多是读取头文件的意思</p>
+<h3 id="编译阶段-i-gt-s"><a href="#编译阶段-i-gt-s" class="headerlink" title="编译阶段 .i-&gt;.s"></a>编译阶段 .i-&gt;.s</h3><p>标准：编译器 <strong>cll</strong> 将文本转换为汇编语言程序，高级语言-&gt;标准文本描述的低级语言指令</p>
+<p>人话：将不同的高级语言转换成同一种格式的汇编语言，因为电脑只认识这个(最后转换成的0 1)啦</p>
+<h3 id="汇编阶段-s-gt-o"><a href="#汇编阶段-s-gt-o" class="headerlink" title="汇编阶段 .s-&gt;.o"></a>汇编阶段 .s-&gt;.o</h3><p>标准：汇编器 <strong>as</strong> 将 .s翻译成机器语言指令，并打包成 <strong>可重定位目标程序</strong> 格式，并保存在.o中(如果我们打开它，看到的是乱码，因为他的字节编码是机器指令语言而不是字符)</p>
+<p>人话：汇编语言变成二进制，电脑终于认识辣hhh</p>
+<h3 id="链接阶段-o-gt-可执行文件-如-Unix-executable"><a href="#链接阶段-o-gt-可执行文件-如-Unix-executable" class="headerlink" title="链接阶段 .o-&gt;可执行文件(如 Unix executable )"></a>链接阶段 .o-&gt;可执行文件(如 Unix executable )</h3><p>标准：我们在程序中调用了很多函数，如 printf，所以我们需要使用连接器 <strong>ld</strong> 把事先单独编译好的printf.o文件合并进来(至于是怎么合并了，这就是动态链接库和静态连接库相关的知识了，有时间写个完整的博客整理出来，挖个坑😂)，然后就终于得到可执行目标文件了，加载到内存中，由系统执行了</p>
+<p>人话：二进制的文件统统打包，只要998，全部打包成exec</p>
+<h3 id="了解编译系统的好处"><a href="#了解编译系统的好处" class="headerlink" title="了解编译系统的好处"></a>了解编译系统的好处</h3><p>也是我们这本书要介绍的主要的相关内容：</p>
+<ul>
+<li><p>优化程序性能</p>
+</li>
+<li><p>理解链接时出现的错误</p>
+</li>
+<li><p>避免安全漏洞</p>
+</li>
+</ul>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><blockquote>
+<p>进程是操作系统对一个正在运行的程序的一种抽象。在一个系统上可以同时运行多个进程，而每个进程都好像在独占地使用硬件。</p>
+</blockquote>
+<h3 id="并发运行"><a href="#并发运行" class="headerlink" title="并发运行"></a>并发运行</h3><blockquote>
+<p>并发运行，说的是一个进程的指令和另一个进程的指令是交错执行的。</p>
+</blockquote>
+<h3 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h3><p>欺骗进程让它认为自己在独占地使用主存的存储器，每个进程看到的是一致的存储器，称为虚拟地址空间。</p>
+<p>进程：我也很绝望啊</p>
+<p>当然是选择原谅它啦(手动滑稽)</p>
+<h4 id="虚拟存储器分区"><a href="#虚拟存储器分区" class="headerlink" title="虚拟存储器分区"></a>虚拟存储器分区</h4><p>我们从最低地址开始看起</p>
+<h5 id="程序代码和数据"><a href="#程序代码和数据" class="headerlink" title="程序代码和数据"></a>程序代码和数据</h5><h5 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h5><h5 id="共享库"><a href="#共享库" class="headerlink" title="共享库"></a>共享库</h5><p>例如C标准库，数学库等</p>
+<h5 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h5><h5 id="内核虚拟存储器"><a href="#内核虚拟存储器" class="headerlink" title="内核虚拟存储器"></a>内核虚拟存储器</h5><p>内核总是驻留在内存中，是操作系统的一部分。地址空间的顶部区域就是为内核保留的。</p>
+<h2 id="上下文"><a href="#上下文" class="headerlink" title="上下文"></a>上下文</h2><blockquote>
+<p>操作系统为了保持跟踪进程运行所需的所有的状态信息，这种状态，就是上下文。</p>
+</blockquote>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><blockquote>
+<p>现代系统中，一个进程实际上可以由多个称为线程的执行单元组成，每个线程都运行在进程的上下文中，共享同样的代码和全局数据。</p>
+</blockquote>
+<h2 id="系统之间利用网络通信"><a href="#系统之间利用网络通信" class="headerlink" title="系统之间利用网络通信"></a>系统之间利用网络通信</h2><p>我们来看看一个数据是怎么被传输到网络上的：</p>
+<p><img src="" alt=""></p>
+<h2 id="重要主题"><a href="#重要主题" class="headerlink" title="重要主题"></a>重要主题</h2><h3 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h3><p>并发：concurrency 一个处理器，逻辑上的同时发生<br>并行：parallelism 多个(核)处理器，物理上的同时发生</p>
+<p>这个话题虽然说是老生常谈了，在我的学习C++并发的这篇博客<a href="https://kelele67.github.io/2017/02/13/C++11%20%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(%E4%B8%80" target="_blank" rel="external">C++11 并发学习(一)</a>/)里面也有介绍到，但是通过CSAPP这本书，我又有了新的认识与理解</p>
+<h4 id="线程级并发"><a href="#线程级并发" class="headerlink" title="线程级并发"></a>线程级并发</h4><ul>
+<li>都是假象~~ </li>
+</ul>
+<p>快速切换进程模拟</p>
+<ul>
+<li>超线程（同时多线程）</li>
+</ul>
+<p>CPU执行多个控制流</p>
+<blockquote>
+<p>使用并发来提供处理器资源的共享，使得程序的执行允许有更多的并行。</p>
+</blockquote>
+<h4 id="指令级并行"><a href="#指令级并行" class="headerlink" title="指令级并行"></a>指令级并行</h4><p>现代处理器同时执行多条指令的属性称为 指令级并行</p>
+<h4 id="单指令、多数据并行"><a href="#单指令、多数据并行" class="headerlink" title="单指令、多数据并行"></a>单指令、多数据并行</h4><p>特殊硬件，允许一条指令产生多个可以并行执行的操作</p>
+<h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>计算机系统提供的一些抽象：</p>
+<p>虚拟机《操作系统，进程《处理器（指令级结构），虚拟存储器《主存，I/O设备（文件）》》》</p>
+<p>上面的图画的有点抽象，也不知道你们看不看得懂，真滴抽象</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/csapp/" rel="tag"># csapp</a>
+          
+            <a href="/tags/gcc/" rel="tag"># gcc</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/02/MongoDB学习(六)一一MongoDB 正则表达式与GridFS/" rel="next" title="MongoDB学习(六)一一MongoDB 正则表达式与GridFS">
+                <i class="fa fa-chevron-left"></i> MongoDB学习(六)一一MongoDB 正则表达式与GridFS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/05/CSAPP读书笔记(二)一一信息的表示和处理/" rel="prev" title="CSAPP读书笔记(二)一一信息的表示和处理">
+                CSAPP读书笔记(二)一一信息的表示和处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODY1MC81MjIx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png"
+               alt="kelele67" />
+          <p class="site-author-name" itemprop="name">kelele67</p>
+           
+              <p class="site-description motion-element" itemprop="description">做一个富有的废物</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kelele67" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kelele67" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-qi-21-51" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCC"><span class="nav-number">1.</span> <span class="nav-text">GCC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理阶段-c-gt-i"><span class="nav-number">1.1.</span> <span class="nav-text">预处理阶段 .c->.i</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译阶段-i-gt-s"><span class="nav-number">1.2.</span> <span class="nav-text">编译阶段 .i->.s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇编阶段-s-gt-o"><span class="nav-number">1.3.</span> <span class="nav-text">汇编阶段 .s->.o</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接阶段-o-gt-可执行文件-如-Unix-executable"><span class="nav-number">1.4.</span> <span class="nav-text">链接阶段 .o->可执行文件(如 Unix executable )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解编译系统的好处"><span class="nav-number">1.5.</span> <span class="nav-text">了解编译系统的好处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发运行"><span class="nav-number">2.1.</span> <span class="nav-text">并发运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟存储器"><span class="nav-number">2.2.</span> <span class="nav-text">虚拟存储器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟存储器分区"><span class="nav-number">2.2.1.</span> <span class="nav-text">虚拟存储器分区</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#程序代码和数据"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">程序代码和数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#堆"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#共享库"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">共享库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#内核虚拟存储器"><span class="nav-number">2.2.1.5.</span> <span class="nav-text">内核虚拟存储器</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文"><span class="nav-number">3.</span> <span class="nav-text">上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">4.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统之间利用网络通信"><span class="nav-number">5.</span> <span class="nav-text">系统之间利用网络通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要主题"><span class="nav-number">6.</span> <span class="nav-text">重要主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发和并行"><span class="nav-number">6.1.</span> <span class="nav-text">并发和并行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程级并发"><span class="nav-number">6.1.1.</span> <span class="nav-text">线程级并发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令级并行"><span class="nav-number">6.1.2.</span> <span class="nav-text">指令级并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单指令、多数据并行"><span class="nav-number">6.1.3.</span> <span class="nav-text">单指令、多数据并行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象"><span class="nav-number">6.2.</span> <span class="nav-text">抽象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kelele67</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("uu22m818WHNRkNyNn5ifFEYU-gzGzoHsz", "wczk27BwQ0jGSE3uOFqH9974");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
