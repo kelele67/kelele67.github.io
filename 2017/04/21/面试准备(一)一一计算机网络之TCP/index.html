@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/21/面试准备(一)一一计算机网络之TCP/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="面试复习">
-<meta property="og:updated_time" content="2017-05-16T12:03:23.000Z">
+<meta property="og:updated_time" content="2017-05-23T06:27:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试准备(一)一一计算机网络之TCP">
 <meta name="twitter:description" content="面试复习">
@@ -514,46 +514,52 @@
 <p>（2）来自接收方的一个报文段确认数据并把窗口向右边滑动，这是因为窗口的大小是相对于确认序号的。</p>
 <p>（3）窗口的大小可以减小，但是窗口的右边沿却不能够向左移动。</p>
 <p>（4）接收方在发送一个ACK前不必等待窗口被填满。</p>
-<h4 id="流量控制一一数据不要太快"><a href="#流量控制一一数据不要太快" class="headerlink" title="流量控制一一数据不要太快"></a>流量控制一一数据不要太快</h4><ul>
-<li>TCP利用滑动窗口实现流量控制的机制</li>
-</ul>
-<p>所谓流量控制，主要是接收方传递信息给发送方，使其不要发送数据太快，是一种端到端的控制。主要的方式就是返回的ACK中会包含自己的接收窗口的大小，并且利用大小来控制发送方的数据发送。</p>
+<h4 id="流量控制一一数据不要太快"><a href="#流量控制一一数据不要太快" class="headerlink" title="流量控制一一数据不要太快"></a>流量控制一一数据不要太快</h4><h5 id="TCP利用滑动窗口实现流量控制的机制"><a href="#TCP利用滑动窗口实现流量控制的机制" class="headerlink" title="TCP利用滑动窗口实现流量控制的机制"></a>TCP利用滑动窗口实现流量控制的机制</h5><p>所谓流量控制，主要是接收方传递信息给发送方，使其不要发送数据太快，是一种端到端的控制。主要的方式就是返回的ACK中会包含自己的接收窗口的大小，并且利用大小来控制发送方的数据发送。</p>
 <blockquote>
 <p>就比如说，接收端会告诉发送端我的rwnd也就是缓冲区还能接收多少数据，并且引入了持续计时器(Persistence timer)，当发送端收到对方没有窗口的通知时启动计时器，时间到则发送一个一字节的探测报文。目的就是为了解决一方等待通知，一方等待数据的死锁状态。</p>
 </blockquote>
-<ul>
-<li>如何考虑流量控制中的传输效率</li>
-</ul>
-<p>主要从两个方面提高</p>
-<p>①一个是尽可能一次多发送几个字节</p>
+<h5 id="如何考虑流量控制中的传输效率"><a href="#如何考虑流量控制中的传输效率" class="headerlink" title="如何考虑流量控制中的传输效率"></a>如何考虑流量控制中的传输效率</h5><p>主要从两个方面提高</p>
 <blockquote>
-<p>Nagle算法</p>
+<p>①一个是尽可能一次多发送几个字节</p>
 </blockquote>
-<p>该算法为了减少广域网的小分组数目，从而减小网络拥塞的出现</p>
+<h6 id="Nagle算法"><a href="#Nagle算法" class="headerlink" title="Nagle算法"></a>Nagle算法</h6><p>该算法为了减少广域网的小分组数目，从而减小网络拥塞的出现</p>
 <p>简单点的说就是它只允许TCP上最多只有一个未被确认的小分组，然后趁机收集所有的小分组，在ACK到来之时一次性以一个分组发出去。其中小分组的定义是小于MSS(Maximum Segment Size最大报文段长度)的任何分组。</p>
 <p>这里给出它的伪代码，有兴趣的可以去看看Linux内核里面的实现</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> there <span class="keyword">is</span> new data to send <span class="comment">#有数据要发送</span></div><div class="line">    <span class="comment"># 发送窗口缓冲区和队列数据 &gt;=mss，队列数据（available #data）为原有的队列数据加上新到来的数据</span></div><div class="line">    <span class="comment"># 也就是说缓冲区数据超过mss大小，nagle算法尽可能发送足够大的数据包</span></div><div class="line">    <span class="keyword">if</span> the window size &gt;= MSS <span class="keyword">and</span> available data <span class="keyword">is</span> &gt;= MSS </div><div class="line">        send complete MSS segment now <span class="comment"># 立即发送</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">if</span> there <span class="keyword">is</span> unconfirmed data still <span class="keyword">in</span> the pipe <span class="comment">#前一次发送的包没有收到ack</span></div><div class="line">            <span class="comment"># 将该包数据放入队列中，直到收到一个ack再发送缓冲区数据</span></div><div class="line">            enqueue data <span class="keyword">in</span> the buffer until an acknowledge <span class="keyword">is</span> received </div><div class="line">        <span class="keyword">else</span></div><div class="line">            send data immediately <span class="comment"># 立即发送</span></div><div class="line">        end <span class="keyword">if</span></div><div class="line">    end <span class="keyword">if</span></div><div class="line">end <span class="keyword">if</span></div></pre></td></tr></table></figure>
 <hr>
-<p>②另一个是在窗口空余比较多的时候通知发送方一次多发送多个字节</p>
 <blockquote>
-<p>ACK延迟确认</p>
+<p>TCP_CORK 、TCP_NODELAY</p>
 </blockquote>
-<p>说到Nagle算法就不得不提和它配合使用的ACK延迟确认了</p>
+<p>这两个选项是互斥的，打开或者关闭TCP的nagle算法，实际上就是用来设置TCP连接的两个buffer（发送缓冲区和接收缓冲区）尺寸的</p>
+<ul>
+<li>TCP_CORK：</li>
+</ul>
+<p>尽量向发送缓冲区中攒数据，攒到多了再发送，这样网络的有效负载会升高。简单粗暴地解释一下这个有效负载的问题。假如每个包中只有一个字节的数据，为了发送这一个字节的数据，再给这一个字节外面包装一层厚厚的TCP包头，那网络上跑的几乎全是包头了，有效的数据只占其中很小的部分，很多访问量大的服务器，带宽可以很轻松的被这么耗尽。那么，为了让有效负载升高，我们可以通过这个选项指示TCP层，在发送的时候尽量多攒一些数据，把他们填充到一个TCP包中再发送出去。这个和提升发送效率是相互矛盾的，空间和时间总是一堆冤家！！</p>
+<p>适用于：</p>
+<p>webserver/下载服务器（ftp的发送文件服务器/需要带宽量比较大的服务器</p>
+<ul>
+<li>TCP_NODELAY：</li>
+</ul>
+<p>尽量不要等待，只要发送缓冲区中有数据，并且发送窗口是打开的，就尽量把数据发送到网络上去。</p>
+<p>适用于：</p>
+<p>涉及到交互的服务器，比如ftp的接收命令的服务器/HTTP服务器</p>
+<hr>
+<blockquote>
+<p>②另一个是在窗口空余比较多的时候通知发送方一次多发送多个字节</p>
+</blockquote>
+<h6 id="ACK延迟确认"><a href="#ACK延迟确认" class="headerlink" title="ACK延迟确认"></a>ACK延迟确认</h6><p>说到Nagle算法就不得不提和它配合使用的ACK延迟确认了</p>
 <p>简单的说就是在发送数据的时候顺便把上一个的ACK也一起打包了</p>
 <h4 id="拥塞控制一一这样传数据会慢一点"><a href="#拥塞控制一一这样传数据会慢一点" class="headerlink" title="拥塞控制一一这样传数据会慢一点"></a>拥塞控制一一这样传数据会慢一点</h4><blockquote>
 <p>这部分我们需要了解的就是四个点：</p>
 </blockquote>
-<ul>
-<li>慢开始<br>简单来说就是刚开始发送数据的时候从1开始依次递增2的指数级，最后到达最大限制的话就使用下面的算法。</li>
-<li>拥塞控制<br>主要就是拥塞避免算法：每经过一个往返时间RTT(Round-Trip Time 往返时延)就把发送方的拥塞窗口+1，即让拥塞窗口缓慢地增大，按照线性规律增长。</li>
-</ul>
+<h5 id="慢开始"><a href="#慢开始" class="headerlink" title="慢开始"></a>慢开始</h5><p>简单来说就是刚开始发送数据的时候从1开始依次递增2的指数级，最后到达最大限制的话就使用下面的算法。</p>
+<h5 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h5><p>主要就是拥塞避免算法：每经过一个往返时间RTT(Round-Trip Time 往返时延)就把发送方的拥塞窗口+1，即让拥塞窗口缓慢地增大，按照线性规律增长。</p>
 <p>以上两个好基友经常作为一个整体使用，目的就是为了减少拥塞发生时发送的数据，使得发生拥塞的路由器有足够的时间来处理那些积压的分组。</p>
-<ul>
-<li>快重传<br>字面意思，当包出现错误，立马重传。</li>
-<li>快恢复<br>其实就是回到原点，在快重传之后回到最开始的慢开始。</li>
-</ul>
+<h5 id="快重传"><a href="#快重传" class="headerlink" title="快重传"></a>快重传</h5><p>字面意思，当包出现错误，立马重传。</p>
+<h5 id="快恢复"><a href="#快恢复" class="headerlink" title="快恢复"></a>快恢复</h5><p>其实就是回到原点，在快重传之后回到最开始的慢开始。</p>
 <p>以上两个好基友解决的则是减少拥塞发生时重传时间。<br>一个减少数据，一个减少时间，这样就达到了拥塞控制的目的。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实在整理的过程中发现，大部分都是计算机网络课上讲过的知识，只是自己以前没有认真听<br>(ノへ￣、)捂脸</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><!--其实在整理的过程中发现，大部分都是计算机网络课上讲过的知识，只是自己以前没有认真听
+(ノへ￣、)捂脸-->
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/xifeijian/article/details/12777187" target="_blank" rel="external">TCP为什么需要3次握手与4次挥手</a><br><a href="http://blog.chinaunix.net/uid-26275986-id-4109679.html" target="_blank" rel="external">tcp窗口滑动以及拥塞控制</a></p>
 
       
@@ -685,7 +691,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -698,7 +704,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -762,7 +768,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP过程"><span class="nav-number">1.1.</span> <span class="nav-text">TCP过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIME-WAIT"><span class="nav-number">1.2.</span> <span class="nav-text">TIME_WAIT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP进阶"><span class="nav-number">2.</span> <span class="nav-text">TCP进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手状态："><span class="nav-number">2.1.</span> <span class="nav-text">三次握手状态：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手状态："><span class="nav-number">2.2.</span> <span class="nav-text">四次挥手状态：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RST"><span class="nav-number">2.3.</span> <span class="nav-text">RST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSL"><span class="nav-number">2.4.</span> <span class="nav-text">MSL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP高端"><span class="nav-number">3.</span> <span class="nav-text">TCP高端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp窗口滑动以及拥塞控制"><span class="nav-number">3.1.</span> <span class="nav-text">tcp窗口滑动以及拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#滑动窗口协议"><span class="nav-number">3.1.1.</span> <span class="nav-text">滑动窗口协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流量控制一一数据不要太快"><span class="nav-number">3.1.2.</span> <span class="nav-text">流量控制一一数据不要太快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拥塞控制一一这样传数据会慢一点"><span class="nav-number">3.1.3.</span> <span class="nav-text">拥塞控制一一这样传数据会慢一点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">1.</span> <span class="nav-text">TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP过程"><span class="nav-number">1.1.</span> <span class="nav-text">TCP过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIME-WAIT"><span class="nav-number">1.2.</span> <span class="nav-text">TIME_WAIT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP进阶"><span class="nav-number">2.</span> <span class="nav-text">TCP进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手状态："><span class="nav-number">2.1.</span> <span class="nav-text">三次握手状态：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手状态："><span class="nav-number">2.2.</span> <span class="nav-text">四次挥手状态：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RST"><span class="nav-number">2.3.</span> <span class="nav-text">RST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSL"><span class="nav-number">2.4.</span> <span class="nav-text">MSL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP高端"><span class="nav-number">3.</span> <span class="nav-text">TCP高端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp窗口滑动以及拥塞控制"><span class="nav-number">3.1.</span> <span class="nav-text">tcp窗口滑动以及拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#滑动窗口协议"><span class="nav-number">3.1.1.</span> <span class="nav-text">滑动窗口协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流量控制一一数据不要太快"><span class="nav-number">3.1.2.</span> <span class="nav-text">流量控制一一数据不要太快</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP利用滑动窗口实现流量控制的机制"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">TCP利用滑动窗口实现流量控制的机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何考虑流量控制中的传输效率"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">如何考虑流量控制中的传输效率</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Nagle算法"><span class="nav-number">3.1.2.2.1.</span> <span class="nav-text">Nagle算法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ACK延迟确认"><span class="nav-number">3.1.2.2.2.</span> <span class="nav-text">ACK延迟确认</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拥塞控制一一这样传数据会慢一点"><span class="nav-number">3.1.3.</span> <span class="nav-text">拥塞控制一一这样传数据会慢一点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#慢开始"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">慢开始</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拥塞控制"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#快重传"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">快重传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#快恢复"><span class="nav-number">3.1.3.4.</span> <span class="nav-text">快恢复</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
