@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/03/04/Linux内核设计与实现(二)一一进程管理/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="进程进程指在系统中能独立运行并作为资源（一段可执行程序代码、打开的文件、挂起的信号、内核内部数据、处理器状态、一个或多个具有内存映射的内存地址、一个或者多个执行线程、存放全局变量的数据段…）分配的基本单位。 它是由一组机器指令、数据和堆栈组成的，是一个能独立运行的活动实体。 进程变迁图（略） 创建-&amp;gt;就绪-&amp;gt;执行-&amp;gt;等待-&amp;gt;退出 线程是进程中的一个实体，作为系统调度和分">
-<meta property="og:updated_time" content="2017-05-30T15:43:14.000Z">
+<meta property="og:updated_time" content="2017-05-30T16:02:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核设计与实现(二)一一进程管理">
 <meta name="twitter:description" content="进程进程指在系统中能独立运行并作为资源（一段可执行程序代码、打开的文件、挂起的信号、内核内部数据、处理器状态、一个或多个具有内存映射的内存地址、一个或者多个执行线程、存放全局变量的数据段…）分配的基本单位。 它是由一组机器指令、数据和堆栈组成的，是一个能独立运行的活动实体。 进程变迁图（略） 创建-&amp;gt;就绪-&amp;gt;执行-&amp;gt;等待-&amp;gt;退出 线程是进程中的一个实体，作为系统调度和分">
@@ -393,6 +393,7 @@
 <p>创建-&gt;就绪-&gt;执行-&gt;等待-&gt;退出</p>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>是进程中的一个实体，作为系统调度和分派的基本单位。</p>
 <p>对Linux而言，线程只不过是一种特殊的进程罢了。</p>
+<a id="more"></a>
 <h3 id="进程的虚拟机制"><a href="#进程的虚拟机制" class="headerlink" title="进程的虚拟机制"></a>进程的虚拟机制</h3><ul>
 <li><p>虚拟处理器</p>
 </li>
@@ -427,7 +428,7 @@
 <hr>
 <!--值得注意的是，由于进程描述符是内核的核心组成部分，时刻都是要用到的，因此task_struct_cachep 高速缓存是不会被destroy的，我们用错误来阻止destroy:
 
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">-----&gt;</div><div class="line"></div><div class="line">slab层负责内存紧缺情况下所有底层的对齐、着色、分配、释放和回收等，可以说是一种很好地创建内存池的方式，挖个坑，不久后我也会写一篇博客来介绍jemalloc现在比较流行的表现出色的内存池实现。</div><div class="line"></div><div class="line">这也告诉我们，当我们要频繁地创建很多相同类型的对象的时候，应该考虑使用slab告诉缓存，也就是说，不需要我们自己去实现空闲链表。</div><div class="line"></div><div class="line">#####<span class="meta"># struct thrad_info结构</span></div><div class="line"></div><div class="line">好的，现在我们回过头来继续看内存描述符的分配</div><div class="line"></div><div class="line">首先看 x86体系上的<span class="keyword">struct</span> thread_info结构，定义在<span class="keyword">asm</span>/thread_info.h中:</div><div class="line"></div><div class="line">```c</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">-----&gt;</div><div class="line"></div><div class="line">slab层负责内存紧缺情况下所有底层的对齐、着色、分配、释放和回收等，可以说是一种很好地创建内存池的方式，挖个坑，不久后我也会写一篇博客来介绍jemalloc现在比较流行的表现出色的内存池实现。</div><div class="line"></div><div class="line">这也告诉我们，当我们要频繁地创建很多相同类型的对象的时候，应该考虑使用slab告诉缓存，也就是说，不需要我们自己去实现空闲链表。</div><div class="line"></div><div class="line">#####<span class="meta"># struct thrad_info结构</span></div><div class="line"></div><div class="line">好的，现在我们回过头来继续看内存描述符的分配</div><div class="line"></div><div class="line">首先看 x86体系上的<span class="keyword">struct</span> thread_info结构，定义在linux/arch/arm/include/<span class="keyword">asm</span>/thread_info.h中:</div><div class="line"></div><div class="line">```c</div><div class="line"><span class="comment">/*</div><div class="line"> * low level task data that entry.S needs immediate access to.</div><div class="line"> * __switch_to() assumes cpu_context follows immediately after cpu_domain.</div><div class="line"> */</span></div><div class="line"><span class="keyword">struct</span> thread_info &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span>           flags;          <span class="comment">/* low level flags */</span></div><div class="line">        <span class="keyword">int</span>                     preempt_count;  <span class="comment">/* 0 =&gt; preemptable, &lt;0 =&gt; bug */</span></div><div class="line">        <span class="keyword">mm_segment_t</span>            addr_limit;     <span class="comment">/* address limit */</span></div><div class="line">        <span class="keyword">struct</span> task_struct      *task;          <span class="comment">/* main task structure */</span></div><div class="line">        __u32                   cpu;            <span class="comment">/* cpu */</span></div><div class="line">        __u32                   cpu_domain;     <span class="comment">/* cpu domain */</span></div><div class="line">        <span class="keyword">struct</span> cpu_context_save cpu_context;    <span class="comment">/* cpu context */</span></div><div class="line">        __u32                   syscall;        <span class="comment">/* syscall number */</span></div><div class="line">        __u8                    used_cp[<span class="number">16</span>];    <span class="comment">/* thread used copro */</span></div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span>           tp_value[<span class="number">2</span>];    <span class="comment">/* TLS registers */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_CRUNCH</span></div><div class="line">        <span class="keyword">struct</span> crunch_state     crunchstate;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">        <span class="keyword">union</span> fp_state          fpstate __attribute__((aligned(<span class="number">8</span>)));</div><div class="line">        <span class="keyword">union</span> vfp_state         vfpstate;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_ARM_THUMBEE</span></div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span>           thumbee_state;  <span class="comment">/* ThumbEE Handler Base register */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <hr>
 <h5 id="进程描述符的存放"><a href="#进程描述符的存放" class="headerlink" title="进程描述符的存放"></a>进程描述符的存放</h5><p>内核通过一个唯一的进程标识符即PID(process identification value)来标识每个进程。</p>
 <p>PID最大值的默认设置为 short int的最大值也就是著名的32768，然而这个值在 /proc/sys/kernel_pid_max中进行修改的。</p>
@@ -461,7 +462,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clone(CLONE_VFORK | CLONE_VM | SIGCHLD, <span class="number">0</span>);</div></pre></td></tr></table></figure>
 <hr>
 <h3 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h3><p>如果多线程的程序的运行结果是可预期的，并且是与单线程的程序运行结果是一样的，那么我们就认为他是线程安全的。</p>
-<h3 id="用户级线程和内核级线程"><a href="#用户级线程和内核级线程" class="headerlink" title="用户级线程和内核级线程"></a>用户级线程和内核级线程</h3><h4 id="用户级线程和内核级线程的区别"><a href="#用户级线程和内核级线程的区别" class="headerlink" title="用户级线程和内核级线程的区别"></a>用户级线程和内核级线程的区别</h4><p>首先最主要的区别是：相比用户级线程，内核级线程没有独立的地址空间</p>
+<h3 id="用户级线程和内核级线程"><a href="#用户级线程和内核级线程" class="headerlink" title="用户级线程和内核级线程"></a>用户级线程和内核级线程</h3><h4 id="用户级线程和内核级线程的区别"><a href="#用户级线程和内核级线程的区别" class="headerlink" title="用户级线程和内核级线程的区别"></a>用户级线程和内核级线程的区别</h4><p>首先最主要的区别是：相比用户级线程，内核级线程没有独立的地址空间，同时也意味着内核并不能看到用户线程</p>
 <ul>
 <li><p>内核支持线程是OS内核可感知的，而用户级线程是OS内核不可感知的。</p>
 </li>
@@ -501,7 +502,12 @@
 <ul>
 <li>由内核进行调度。</li>
 </ul>
-<h3 id="进程终结"><a href="#进程终结" class="headerlink" title="进程终结"></a>进程终结</h3>-->
+<h3 id="进程终结"><a href="#进程终结" class="headerlink" title="进程终结"></a>进程终结</h3><p>do_exit()</p>
+<h4 id="删除进程描述符"><a href="#删除进程描述符" class="headerlink" title="删除进程描述符"></a>删除进程描述符</h4><p>父进程收集其后代的信息，通过wait()系统调用族</p>
+<p>release_task()</p>
+<h4 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h4><h4 id="孤儿进程的产生"><a href="#孤儿进程的产生" class="headerlink" title="孤儿进程的产生"></a>孤儿进程的产生</h4><p>如果父进程在子进程之前推出，那么这些成为孤儿的进程就会在退出时永远处于僵死状态，白白地耗费内存。</p>
+<h4 id="孤儿进程的解决"><a href="#孤儿进程的解决" class="headerlink" title="孤儿进程的解决"></a>孤儿进程的解决</h4><p>解决孤儿进程的一般方法是，给子进程在当前线程组重新找一个线程作为父亲，如果不行，就让init做他们的父进程。</p>
+-->
       
     </div>
 
@@ -561,8 +567,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/31/Linux下的轻量服务器实现/" rel="prev" title="Linux下的的轻量级HTTP服务器实现">
-                Linux下的的轻量级HTTP服务器实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/05/Linux内核设计与实现(三)一一进程调度/" rel="prev" title="Linux内核设计与实现(三)一一进程调度">
+                Linux内核设计与实现(三)一一进程调度 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -637,7 +643,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -650,7 +656,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -978,6 +978,128 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/Linux内核设计与实现(三)一一进程调度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kelele67">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="树犹如此|人何以堪">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/05/Linux内核设计与实现(三)一一进程调度/" itemprop="url">Linux内核设计与实现(三)一一进程调度</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T12:33:24+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/03/05/Linux内核设计与实现(三)一一进程调度/" class="leancloud_visitors" data-flag-title="Linux内核设计与实现(三)一一进程调度">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p></p>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/Linux内核设计与实现(二)一一进程管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1056,8 +1178,7 @@
 
       
         
-          
-            <p>
+          <p>
 
 </p><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="进程-1"><a href="#进程-1" class="headerlink" title="进程"></a>进程</h3><p>指在系统中能独立运行并作为资源（一段可执行程序代码、打开的文件、挂起的信号、内核内部数据、处理器状态、一个或多个具有内存映射的内存地址、一个或者多个执行线程、存放全局变量的数据段…）分配的基本单位。</p>
 <p>它是由一组机器指令、数据和堆栈组成的，是一个能独立运行的活动实体。</p>
@@ -1065,116 +1186,13 @@
 <p>创建-&gt;就绪-&gt;执行-&gt;等待-&gt;退出</p>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>是进程中的一个实体，作为系统调度和分派的基本单位。</p>
 <p>对Linux而言，线程只不过是一种特殊的进程罢了。</p>
-<h3 id="进程的虚拟机制"><a href="#进程的虚拟机制" class="headerlink" title="进程的虚拟机制"></a>进程的虚拟机制</h3><ul>
-<li><p>虚拟处理器</p>
-</li>
-<li><p>虚拟内存</p>
-</li>
-</ul>
-<p>让进程以为自己在独享处理器</p>
-<blockquote>
-<p>线程之间可以共享虚拟内存，但每个都拥有各自的虚拟处理器</p>
-</blockquote>
-<h3 id="进程描述符"><a href="#进程描述符" class="headerlink" title="进程描述符"></a>进程描述符</h3><h4 id="进程描述符-process-descriptor-的结构"><a href="#进程描述符-process-descriptor-的结构" class="headerlink" title="进程描述符(process descriptor)的结构"></a>进程描述符(process descriptor)的结构</h4><p>内核把进程的列表存放在叫做任务队列的双向循环链表中。</p>
-<p>链表中每一项都是类型都task_struct、称为进程描述符(process descriptor)的结构</p>
-<h5 id="分配进程描述符"><a href="#分配进程描述符" class="headerlink" title="分配进程描述符"></a>分配进程描述符</h5><p>Linux通过slab分配器分配task_struct结构，这样能达到对象复用和缓存着色(cache coloring)的目的。</p>
-<h6 id="slab分配器"><a href="#slab分配器" class="headerlink" title="slab分配器"></a>slab分配器</h6><blockquote>
-<p>什么是slab分配器？</p>
-</blockquote>
-<p>首先我们来看看task_struct结构中，slab分配器是怎么使用的</p>
-<p>我们看内核源代码kernel/fork.c:</p>
-<p>首先138行，用一个全局变量存放指向 <strong>task_struct</strong> 高速缓存的指针</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> kmem_cache *task_struct_cachep;</div></pre></td></tr></table></figure>
-<hr>
-<p>在内核初始化的时候，430行的 fork_init(void) 会创建高速缓存:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* create a slab on which task_structs can be allocated */</span></div><div class="line">task_struct_cachep = kmem_cache_create(<span class="string">"task_struct"</span>,</div><div class="line">                arch_task_struct_size, ARCH_MIN_TASKALIGN,</div><div class="line">                SLAB_PANIC|SLAB_NOTRACK|SLAB_ACCOUNT, <span class="literal">NULL</span>);</div></pre></td></tr></table></figure>
-<hr>
-<p> 这样就创建了一个task_struct的高速缓存，其中存放的就是struct task_struct 对象。</p>
-<p> 该对象被创建后存放在slab中偏移量为 ARCH_MIN_TASKALIGN(预定义的值与体系结构有关，通常定义为L1_CACHE_BYTES也就是L1高速缓存的字节大小) 的地方。</p>
-<p> 每当进程调用fork()时，一定会创建一个新的进程秒速符，这是在458行dup_task_struct()中完成的，而该函数被1913行do_fork()（the main fork-routine）调用：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> __<span class="function">weak <span class="title">arch_dup_task_struct</span><span class="params">(<span class="keyword">struct</span> task_struct *dst,</span></span></div><div class="line">                                               <span class="keyword">struct</span> task_struct *src)</div><div class="line">&#123;</div><div class="line">        *dst = *src;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_task_stack_end_magic</span><span class="params">(<span class="keyword">struct</span> task_struct *tsk)</span></span></div><div class="line">&#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> *stackend;</div><div class="line"></div><div class="line">        stackend = end_of_stack(tsk);</div><div class="line">        *stackend = STACK_END_MAGIC;    <span class="comment">/* for overflow detection */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">struct</span> task_struct *<span class="title">dup_task_struct</span><span class="params">(<span class="keyword">struct</span> task_struct *orig, <span class="keyword">int</span> node)</span></span></div><div class="line">&#123;</div><div class="line">        <span class="keyword">struct</span> task_struct *tsk;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> *<span class="built_in">stack</span>;</div><div class="line">        <span class="keyword">struct</span> vm_struct *stack_vm_area;</div><div class="line">        <span class="keyword">int</span> err;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (node == NUMA_NO_NODE)</div><div class="line">                node = tsk_fork_get_node(orig);</div><div class="line">        tsk = alloc_task_struct_node(node);</div><div class="line">        <span class="keyword">if</span> (!tsk)</div><div class="line">                <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">        <span class="built_in">stack</span> = alloc_thread_stack_node(tsk, node);</div><div class="line">        <span class="keyword">if</span> (!<span class="built_in">stack</span>)</div><div class="line">                <span class="keyword">goto</span> free_tsk;</div><div class="line"></div><div class="line">        stack_vm_area = task_stack_vm_area(tsk);</div><div class="line"></div><div class="line">        err = arch_dup_task_struct(tsk, orig);</div><div class="line"></div><div class="line">        <span class="comment">/*</span></div><div class="line">         * arch_dup_task_struct() clobbers the stack-related fields.  Make</div><div class="line">         * sure they're properly initialized before using any stack-related</div><div class="line">         * functions again.</div><div class="line">         */</div><div class="line">        tsk-&gt;<span class="built_in">stack</span> = <span class="built_in">stack</span>;</div></pre></td></tr></table></figure>
-<hr>
-<p>进程执行完成后，如果没有子进程等待的话，它的进程描述符就会被释放，并返回给task_struct_cachep slab高速缓存，这是在145行的free_task_struct()中实现的:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">free_task_struct</span><span class="params">(<span class="keyword">struct</span> task_struct *tsk)</span></span></div><div class="line">&#123;</div><div class="line">        kmem_cache_free(task_struct_cachep, tsk);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<!--值得注意的是，由于进程描述符是内核的核心组成部分，时刻都是要用到的，因此task_struct_cachep 高速缓存是不会被destroy的，我们用错误来阻止destroy:
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">-----&gt;</div><div class="line"></div><div class="line">slab层负责内存紧缺情况下所有底层的对齐、着色、分配、释放和回收等，可以说是一种很好地创建内存池的方式，挖个坑，不久后我也会写一篇博客来介绍jemalloc现在比较流行的表现出色的内存池实现。</div><div class="line"></div><div class="line">这也告诉我们，当我们要频繁地创建很多相同类型的对象的时候，应该考虑使用slab告诉缓存，也就是说，不需要我们自己去实现空闲链表。</div><div class="line"></div><div class="line">#####<span class="meta"># struct thrad_info结构</span></div><div class="line"></div><div class="line">好的，现在我们回过头来继续看内存描述符的分配</div><div class="line"></div><div class="line">首先看 x86体系上的<span class="keyword">struct</span> thread_info结构，定义在<span class="keyword">asm</span>/thread_info.h中:</div><div class="line"></div><div class="line">```c</div></pre></td></tr></table></figure>
-<hr>
-<h5 id="进程描述符的存放"><a href="#进程描述符的存放" class="headerlink" title="进程描述符的存放"></a>进程描述符的存放</h5><p>内核通过一个唯一的进程标识符即PID(process identification value)来标识每个进程。</p>
-<p>PID最大值的默认设置为 short int的最大值也就是著名的32768，然而这个值在 /proc/sys/kernel_pid_max中进行修改的。</p>
-<h5 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h5><p>也就是我们之前提到的进程状态图啦，上过OS的同学应该都知道，所以就略过了</p>
-<p>就是下面五个状态之间的转换了</p>
-<p>创建-&gt;就绪-&gt;执行-&gt;等待-&gt;退出</p>
-<p>内核经常调整某个进程的状态 用到set_task_state(task, state) 或者 set_current_state(state) 函数</p>
-<h5 id="进程上下文"><a href="#进程上下文" class="headerlink" title="进程上下文"></a>进程上下文</h5><p>要理解上下文这个东西，首先我们得明白两个概念。</p>
-<p>一个是内核态，另一个是用户态。</p>
-<p>现代的CPU都具有不同的操作模式，代表不同的级别，不同的级别具有不同的功能，在较低的级别中将禁止某些操作。</p>
-<p>Linux操作系统在设计的时候，使用了两个级别，一个是最高级别的内核态，这个级别可以进行所有操作。</p>
-<p>而另一个是用户态，处理器控制着对硬件的直接访问以及对内存的非授权访问。</p>
-<p>内核态和用户态有自己的内存映射，即自己的地址空间。</p>
-<blockquote>
-<p>正是有了不同运行状态的划分，才有了上下文的概念。用户空间的应用程序，如果想要请求系统服务，比如操作一个物理设备，或者映射一段设备空间的地址到用户空间，就必须通过系统调用来（操作系统提供给用户空间的接口函数）实现。</p>
-<p>通过系统调用，用户空间的应用程序就会进入内核空间，由内核代表该进程运行于内核空间，这就涉及到上下文的切换，用户空间和内核空间具有不同的地址映射，通用或专用的寄存器组，而用户空间的进程要传递很多变量、参数给内核，内核也要保存用户进程的一些寄存器、变量等，以便系统调用结束后回到用户空间继续执行。</p>
-<p>所谓的进程上下文，就是一个进程在执行的时候，CPU的所有寄存器中的值、进程的状态以及堆栈中的内容，当内核需要切换到另一个进程时，它需要保存当前进程的所有状态，即保存当前进程的进程上下文，以便再次执行该进程时，能够恢复切换时的状态，继续执行。</p>
-</blockquote>
-<p>提供系统调用服务的内核代码代表发起系统调用的应用程序运行在进程上下文。</p>
-<h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><h4 id="写时拷贝-copy-on-write"><a href="#写时拷贝-copy-on-write" class="headerlink" title="写时拷贝 copy-on-write"></a>写时拷贝 copy-on-write</h4><p>fork()只有我们需要写入的时候，数据才会被复制。</p>
-<h4 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h4><p><img src="http://oe9uinblw.bkt.clouddn.com/fork1" alt=""><br><img src="http://oe9uinblw.bkt.clouddn.com/fork2" alt=""></p>
-<h4 id="vfork"><a href="#vfork" class="headerlink" title="vfork()"></a>vfork()</h4><p>除了不拷贝父进程的页表项外，基本等同于fork。</p>
-<h3 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h3><p>线程的创建和普通的进程的创建类似，只不过在调用clone()的时候需要传递一些参数标志来指明需要共享的资源：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clone(CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND, <span class="number">0</span>);</div></pre></td></tr></table></figure>
-<hr>
-<p>上面的代码和调用fork()的结果差不多，只是父子俩共享地址空间，文件系统资源，文件描述符和信号处理程序。</p>
-<p>对比一个普通的fork()就是：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clone(SIGCHLD, <span class="number">0</span>);</div></pre></td></tr></table></figure>
-<hr>
-<p>而vfork()的实现是：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clone(CLONE_VFORK | CLONE_VM | SIGCHLD, <span class="number">0</span>);</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h3><p>如果多线程的程序的运行结果是可预期的，并且是与单线程的程序运行结果是一样的，那么我们就认为他是线程安全的。</p>
-<h3 id="用户级线程和内核级线程"><a href="#用户级线程和内核级线程" class="headerlink" title="用户级线程和内核级线程"></a>用户级线程和内核级线程</h3><h4 id="用户级线程和内核级线程的区别"><a href="#用户级线程和内核级线程的区别" class="headerlink" title="用户级线程和内核级线程的区别"></a>用户级线程和内核级线程的区别</h4><p>首先最主要的区别是：相比用户级线程，内核级线程没有独立的地址空间</p>
-<ul>
-<li><p>内核支持线程是OS内核可感知的，而用户级线程是OS内核不可感知的。</p>
-</li>
-<li><p>用户级线程的创建、撤消和调度不需要OS内核的支持，是在语言（如Java）这一级处理的；而内核支持线程的创建、撤消和调度都需OS内核提供支持，而且与进程的创建、撤消和调度大体是相同的。</p>
-</li>
-<li><p>用户级线程执行系统调用指令时将导致其所属进程被中断，而内核支持线程执行系统调用指令时，只导致该线程被中断。</p>
-</li>
-<li><p>在只有用户级线程的系统内，CPU调度还是以进程为单位，处于运行状态的进程中的多个线程，由用户程序控制线程的轮换运行；在有内核支持线程的系统内，CPU调度则以线程为单位，由OS的线程调度程序负责线程的调度。</p>
-</li>
-<li><p>用户级线程的程序实体是运行在用户态下的程序，而内核支持线程的程序实体则是可以运行在任何状态下的程序。</p>
-</li>
-</ul>
-<h4 id="用户级进程"><a href="#用户级进程" class="headerlink" title="用户级进程"></a>用户级进程</h4><p>优点：</p>
-<ul>
-<li><p>线程的调度不需要内核直接参与，控制简单。</p>
-</li>
-<li><p>可以在不支持线程的操作系统中实现。</p>
-</li>
-<li><p>创建和销毁线程、线程切换代价等线程管理的代价比内核线程少得多。</p>
-</li>
-<li><p>允许每个进程定制自己的调度算法，线程管理比较灵活。</p>
-</li>
-<li><p>线程能够利用的表空间和堆栈空间比内核级线程多。</p>
-</li>
-<li><p>同一进程中只能同时有一个线程在运行，如果有一个线程使用了系统调用而阻塞，那么整个进程都会被挂起。另外，页面失效也会产生同样的问题。</p>
-</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>资源调度按照进程进行，多个处理机下，同一个进程中的线程只能在同一个处理机下分时复用</li>
-</ul>
-<h4 id="内核级线程"><a href="#内核级线程" class="headerlink" title="内核级线程"></a>内核级线程</h4><p>优点：</p>
-<ul>
-<li>当有多个处理机时，一个进程的多个线程可以同时执行。</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>由内核进行调度。</li>
-</ul>
-<h3 id="进程终结"><a href="#进程终结" class="headerlink" title="进程终结"></a>进程终结</h3>-->
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/04/Linux内核设计与实现(二)一一进程管理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1339,134 +1357,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/15/C++11 并发学习(四)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kelele67">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="树犹如此|人何以堪">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/15/C++11 并发学习(四)/" itemprop="url">C++11 并发学习(四)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T14:52:04+08:00">
-                2017-02-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/02/15/C++11 并发学习(四)/" class="leancloud_visitors" data-flag-title="C++11 并发学习(四)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p></p><p><br><a href="http://www.cnblogs.com/haippy/p/3284540.html" target="_blank" rel="external">学习自大神博客</a></p>
-<h2 id="多线程下生产者消费者模型"><a href="#多线程下生产者消费者模型" class="headerlink" title="多线程下生产者消费者模型"></a>多线程下生产者消费者模型</h2><p>下面我们来看一下C++11多线程下生产者消费者模型</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/15/C++11 并发学习(四)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1516,7 +1406,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1529,7 +1419,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-count">55</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
