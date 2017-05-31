@@ -1057,7 +1057,59 @@
       
         
           
-            <p></p>
+            <p>
+
+</p><h2 id="多任务"><a href="#多任务" class="headerlink" title="多任务"></a>多任务</h2><ul>
+<li><p>抢占式多任务</p>
+</li>
+<li><p>非抢占式多任务</p>
+</li>
+</ul>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>我们可以用 ps 命令来看计算机运行的进程状态</p>
+<p>偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：</p>
+<p><img src="" alt=""></p>
+<p>…<br>算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同</p>
+<ul>
+<li><p>F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限</p>
+</li>
+<li><p>R：表示进程当前的状态</p>
+<p>  R：当前正在运行(RUNNING)<br>  S：睡眠(SLEEP)<br>  D：不可中断<br>  T：停止(STOP)<br>  Z：僵尸进程(ZOMBIE)</p>
+</li>
+<li><p>UID：拥有该进程用户的用户ID</p>
+</li>
+<li><p>PID：进程号</p>
+</li>
+<li><p>PPID：该进程父进程的进程好</p>
+</li>
+<li><p>C：CPU是用百分比</p>
+</li>
+<li><p>PRI：优先级</p>
+</li>
+<li><p>NI：nice值</p>
+</li>
+<li><p>ADDR/SZ/WCHAN：都与内存有关</p>
+</li>
+<li><p>TTY：登陆者的终端，和远程登陆脱不开干系</p>
+</li>
+<li><p>TIME：占用CPU时间</p>
+</li>
+<li><p>CMD：造成此进程的命令</p>
+</li>
+</ul>
+<h2 id="Linux的进程调度"><a href="#Linux的进程调度" class="headerlink" title="Linux的进程调度"></a>Linux的进程调度</h2><h3 id="I-O消耗型进程"><a href="#I-O消耗型进程" class="headerlink" title="I/O消耗型进程"></a>I/O消耗型进程</h3><p>进程的大部分时间用来提交I/O请求或者是等待I/O请求</p>
+<h3 id="处理器消耗型进程"><a href="#处理器消耗型进程" class="headerlink" title="处理器消耗型进程"></a>处理器消耗型进程</h3><p>把时间大多用在执行代码上</p>
+<h3 id="进程优先级"><a href="#进程优先级" class="headerlink" title="进程优先级"></a>进程优先级</h3><h4 id="NICE值"><a href="#NICE值" class="headerlink" title="NICE值"></a>NICE值</h4><p>-20 ~ +19，默认为0</p>
+<p>越大的NICE值意味着更低的优先级。</p>
+<h4 id="实时优先级"><a href="#实时优先级" class="headerlink" title="实时优先级"></a>实时优先级</h4><p>0 ~ 99</p>
+<p>越高的实时优先级意味着进程优先级越高</p>
+<h3 id="时间片"><a href="#时间片" class="headerlink" title="时间片"></a>时间片</h3><p>时间片是一个数值，它表明进程在被抢占前所能持续运行的时间。</p>
+<h2 id="CFS调度算法"><a href="#CFS调度算法" class="headerlink" title="CFS调度算法"></a>CFS调度算法</h2><p>前面我们提到Linux是一个抢占式的系统，并且CFS分配的不是时间片，而是由NICE值决定的CPU使用比。</p>
+<blockquote>
+<p>值得注意的是，反而CPU使用比低的新进程会立刻投入运行，CPU使用比高的新进程会延迟运行。这是为什么呢?</p>
+<p>正如它的名字一样，因为它是追求完全公平的，CFS的出发点基于一个非常简单的概念：进程调度的效果应如同系统具备一个理想中的完美多任务处理器。在这种系统中每个进程将能获得1/n的处理器时间</p>
+<p>就是说每个进程真正使用cpu的时间是一样的，包括I/O消耗型和处理器消耗型，以达到真正的公平，这就解释了刚才的问题，CPU使用比低的占用时间会不可避免的少于占用比高的进程，那我们只好让这个进程具有抢占能力，一就绪就可以抢占，这样子“看起来CPU使用比高了”（其实没变）“看起来CPU占用时间也和其他进程一样多了”（其实不多）</p>
+</blockquote>
+<h3 id="CFS调度算法总结"><a href="#CFS调度算法总结" class="headerlink" title="CFS调度算法总结"></a>CFS调度算法总结</h3><h3 id="CFS调度算法实现"><a href="#CFS调度算法实现" class="headerlink" title="CFS调度算法实现"></a>CFS调度算法实现</h3><h4 id="时间记账"><a href="#时间记账" class="headerlink" title="时间记账"></a>时间记账</h4><h4 id="进程选择"><a href="#进程选择" class="headerlink" title="进程选择"></a>进程选择</h4><h4 id="调度器入口"><a href="#调度器入口" class="headerlink" title="调度器入口"></a>调度器入口</h4><h4 id="睡眠和唤醒"><a href="#睡眠和唤醒" class="headerlink" title="睡眠和唤醒"></a>睡眠和唤醒</h4><h4 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h4>
           
         
       
