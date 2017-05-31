@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="多任务 抢占式多任务  非抢占式多任务   进程状态我们可以用 ps 命令来看计算机运行的进程状态 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：  …算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同  F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限  R：表示进程当前的状态   R：当前正在运">
+<meta name="description" content="多任务 抢占式多任务  非抢占式多任务   进程状态我们可以用 ps 命令来看计算机运行的进程状态 ~~ 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：~~  …~~ 算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同 ~~  F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限  R：表示进程当前的状">
 <meta name="keywords" content="linux,kernel,process scheduling">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核设计与实现(三)一一进程调度">
 <meta property="og:url" content="http://yoursite.com/2017/03/05/Linux内核设计与实现(三)一一进程调度/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="多任务 抢占式多任务  非抢占式多任务   进程状态我们可以用 ps 命令来看计算机运行的进程状态 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：  …算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同  F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限  R：表示进程当前的状态   R：当前正在运">
-<meta property="og:updated_time" content="2017-05-31T01:12:57.000Z">
+<meta property="og:description" content="多任务 抢占式多任务  非抢占式多任务   进程状态我们可以用 ps 命令来看计算机运行的进程状态 ~~ 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：~~  …~~ 算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同 ~~  F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限  R：表示进程当前的状">
+<meta property="og:updated_time" content="2017-05-31T09:14:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核设计与实现(三)一一进程调度">
-<meta name="twitter:description" content="多任务 抢占式多任务  非抢占式多任务   进程状态我们可以用 ps 命令来看计算机运行的进程状态 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：  …算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同  F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限  R：表示进程当前的状态   R：当前正在运">
+<meta name="twitter:description" content="多任务 抢占式多任务  非抢占式多任务   进程状态我们可以用 ps 命令来看计算机运行的进程状态 ~~ 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：~~  …~~ 算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同 ~~  F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限  R：表示进程当前的状">
 
 
 
@@ -394,9 +394,9 @@
 </li>
 </ul>
 <h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>我们可以用 ps 命令来看计算机运行的进程状态</p>
-<p>偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：</p>
+<p>~~ 偷懒用的macOS。。懒得开虚拟机了因为属性显示的差不多的：~~</p>
 <p><img src="" alt=""></p>
-<p>…<br>算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同</p>
+<p>…<br>~~ 算了到时候补图吧，发现还是有很多不同的地方的，光优先级的范围就不同 ~~</p>
 <ul>
 <li><p>F：表示进程旗标，标识进程所拥有的权限，当我切换到root的时候为4表示拥有root权限，为1仅有fork()权限</p>
 </li>
@@ -437,7 +437,113 @@
 <p>正如它的名字一样，因为它是追求完全公平的，CFS的出发点基于一个非常简单的概念：进程调度的效果应如同系统具备一个理想中的完美多任务处理器。在这种系统中每个进程将能获得1/n的处理器时间</p>
 <p>就是说每个进程真正使用cpu的时间是一样的，包括I/O消耗型和处理器消耗型，以达到真正的公平，这就解释了刚才的问题，CPU使用比低的占用时间会不可避免的少于占用比高的进程，那我们只好让这个进程具有抢占能力，一就绪就可以抢占，这样子“看起来CPU使用比高了”（其实没变）“看起来CPU占用时间也和其他进程一样多了”（其实不多）</p>
 </blockquote>
-<h3 id="CFS调度算法总结"><a href="#CFS调度算法总结" class="headerlink" title="CFS调度算法总结"></a>CFS调度算法总结</h3><h3 id="CFS调度算法实现"><a href="#CFS调度算法实现" class="headerlink" title="CFS调度算法实现"></a>CFS调度算法实现</h3><h4 id="时间记账"><a href="#时间记账" class="headerlink" title="时间记账"></a>时间记账</h4><h4 id="进程选择"><a href="#进程选择" class="headerlink" title="进程选择"></a>进程选择</h4><h4 id="调度器入口"><a href="#调度器入口" class="headerlink" title="调度器入口"></a>调度器入口</h4><h4 id="睡眠和唤醒"><a href="#睡眠和唤醒" class="headerlink" title="睡眠和唤醒"></a>睡眠和唤醒</h4><h4 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h4>
+<h3 id="进程调度的时机"><a href="#进程调度的时机" class="headerlink" title="进程调度的时机"></a>进程调度的时机</h3><ul>
+<li><p>进程状态转换时刻：进程终止、进程睡眠；</p>
+</li>
+<li><p>当前进程的”时间片”用完；</p>
+</li>
+<li><p>主动让出处理器，用户调用sleep()或者内核调用schedule()；</p>
+</li>
+<li><p>从中断，系统调用或异常返回时</p>
+</li>
+</ul>
+<h3 id="CFS调度算法实现"><a href="#CFS调度算法实现" class="headerlink" title="CFS调度算法实现"></a>CFS调度算法实现</h3><h4 id="时间记账"><a href="#时间记账" class="headerlink" title="时间记账"></a>时间记账</h4><p>所有的调度器都必须对进程运行时间做记账</p>
+<h5 id="调度器实体结构"><a href="#调度器实体结构" class="headerlink" title="调度器实体结构"></a>调度器实体结构</h5><blockquote>
+<p>每个进程task_struct中都有一个struct sched_entity se成员，这就是调度器的实体结构，进程调度算法实际上就是管理所有进程的这个se</p>
+</blockquote>
+<p>linux/sched.h 的 struct_sched_entity 中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">truct task_struct &#123;</div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> state;    <span class="comment">/* -1 unrunnable, 0 runnable, &gt;0 stopped */</span></div><div class="line">    <span class="keyword">void</span> *<span class="built_in">stack</span>;</div><div class="line">    <span class="keyword">atomic_t</span> usage;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> flags;    <span class="comment">/* per process flags, defined below */</span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> ptrace;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> lock_depth;        <span class="comment">/* BKL lock depth */</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> CONFIG_SMP</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __ARCH_WANT_UNLOCKED_CTXSW</span></div><div class="line">    <span class="keyword">int</span> oncpu;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line">    <span class="keyword">int</span> prio, static_prio, normal_prio;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> rt_priority;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> sched_class *sched_class;</div><div class="line">    <span class="keyword">struct</span> sched_entity se; <span class="comment">//进程调度实体</span></div><div class="line">    <span class="keyword">struct</span> sched_rt_entity rt;</div><div class="line">    …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="虚拟实时"><a href="#虚拟实时" class="headerlink" title="虚拟实时"></a>虚拟实时</h5><h6 id="vruntime"><a href="#vruntime" class="headerlink" title="vruntime"></a>vruntime</h6><blockquote>
+<p>vruntime 变量存放进程的虚拟运行时间，这个时间是通过优先级和系统负载等加权过的时间，而非物理时钟时间。所以这个时间与时间片无关。</p>
+</blockquote>
+<p>每个进程的调度实体se都保存着本进程的虚拟运行时间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> sched_entity &#123;</div><div class="line">    <span class="keyword">struct</span> load_weight    load;        <span class="comment">/* for load-balancing */</span></div><div class="line">    <span class="keyword">struct</span> rb_node        run_node;</div><div class="line">    <span class="keyword">struct</span> list_head    group_node;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span>        on_rq;</div><div class="line"></div><div class="line">    u64            exec_start;</div><div class="line">    u64            sum_exec_runtime;</div><div class="line">    u64            vruntime; <span class="comment">//虚拟运行时间</span></div><div class="line">    u64            prev_sum_exec_runtime;</div><div class="line">…</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>而进程相关的调度方法如下：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">struct</span> sched_class fair_sched_class = &#123;</div><div class="line">    .next            = &amp;idle_sched_class,</div><div class="line">    .enqueue_task        = enqueue_task_fair,</div><div class="line">    .dequeue_task        = dequeue_task_fair,</div><div class="line">    .yield_task        = yield_task_fair,</div><div class="line"></div><div class="line">    .check_preempt_curr    = check_preempt_wakeup,</div><div class="line"></div><div class="line">    .pick_next_task        = pick_next_task_fair,</div><div class="line">    .put_prev_task        = put_prev_task_fair,</div><div class="line"></div><div class="line">#ifdef CONFIG_SMP</div><div class="line">    .select_task_rq        = select_task_rq_fair,</div><div class="line"></div><div class="line">    .rq_online        = rq_online_fair,</div><div class="line">    .rq_offline        = rq_offline_fair,</div><div class="line"></div><div class="line">    .task_waking        = task_waking_fair,</div><div class="line">#endif</div><div class="line"></div><div class="line">    .set_curr_task = set_curr_task_fair,</div><div class="line">    .task_tick        = task_tick_fair,</div><div class="line">    .task_fork        = task_fork_fair,</div><div class="line"></div><div class="line">    .prio_changed        = prio_changed_fair,</div><div class="line">    .switched_to        = switched_to_fair,</div><div class="line"></div><div class="line">    .get_rr_interval    = get_rr_interval_fair,</div><div class="line"></div><div class="line">#ifdef CONFIG_FAIR_GROUP_SCHED</div><div class="line">    .task_move_group    = task_move_group_fair,</div><div class="line">#endif</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<h6 id="vruntime更新"><a href="#vruntime更新" class="headerlink" title="vruntime更新"></a>vruntime更新</h6><blockquote>
+<p>时钟中断产生时，会依次调用tick_periodic()-&gt; update_process_times()-&gt;scheduler_tick()来更新vruntime</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">scheduler_tick</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">…</div><div class="line">    raw_spin_lock(&amp;rq-&gt;lock);</div><div class="line">    update_rq_clock(rq);</div><div class="line">    update_cpu_load(rq);</div><div class="line">    curr-&gt;sched_class-&gt;task_tick(rq, curr, <span class="number">0</span>); <span class="comment">//执行调度器tick，更新进程vruntime</span></div><div class="line">    raw_spin_unlock(&amp;rq-&gt;lock);</div><div class="line">…</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>task_tick_fair ()调用entity_tick()如下：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">entity_tick</span><span class="params">(<span class="keyword">struct</span> cfs_rq *cfs_rq, <span class="keyword">struct</span> sched_entity *curr, <span class="keyword">int</span> queued)</span></span></div><div class="line">&#123;</div><div class="line">    update_curr(cfs_rq);</div><div class="line">…</div><div class="line">    <span class="keyword">if</span> (cfs_rq-&gt;nr_running &gt; <span class="number">1</span> || !sched_feat(WAKEUP_PREEMPT))</div><div class="line">        check_preempt_tick(cfs_rq, curr); <span class="comment">//检查当前进程是否需要调度</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>这里分析两个重要函数update_curr()和check_preempt_tick()</p>
+</blockquote>
+<p>update_curr():</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">update_curr</span><span class="params">(<span class="keyword">struct</span> cfs_rq *cfs_rq)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">struct</span> sched_entity *curr = cfs_rq-&gt;curr;</div><div class="line">    u64 now = rq_of(cfs_rq)-&gt;clock;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> delta_exec;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (unlikely(!curr))</div><div class="line">        <span class="keyword">return</span>;</div><div class="line"></div><div class="line"><span class="comment">// delta_exec获得最后一次修改后，当前进程所运行的实际时间</span></div><div class="line">    delta_exec = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)(now - curr-&gt;exec_start);</div><div class="line">    <span class="keyword">if</span> (!delta_exec)</div><div class="line">        <span class="keyword">return</span>;</div><div class="line"></div><div class="line">    __update_curr(cfs_rq, curr, delta_exec);</div><div class="line">    curr-&gt;exec_start = now; <span class="comment">//运行时间已保存，更新起始执行时间</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (entity_is_task(curr)) &#123;</div><div class="line">        <span class="keyword">struct</span> task_struct *curtask = task_of(curr);</div><div class="line"></div><div class="line">        trace_sched_stat_runtime(curtask, delta_exec, curr-&gt;vruntime);</div><div class="line">        cpuacct_charge(curtask, delta_exec);</div><div class="line">        account_group_exec_runtime(curtask, delta_exec);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>主要关心__update_curr()函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __update_curr(<span class="keyword">struct</span> cfs_rq *cfs_rq, <span class="keyword">struct</span> sched_entity *curr, <span class="keyword">unsigned</span> <span class="keyword">long</span> delta_exec)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> delta_exec_weighted;</div><div class="line"></div><div class="line">    schedstat_set(curr-&gt;exec_max, max((u64)delta_exec, curr-&gt;exec_max));</div><div class="line"></div><div class="line">    curr-&gt;sum_exec_runtime += delta_exec;<span class="comment">//累计实际运行时间</span></div><div class="line">    schedstat_add(cfs_rq, exec_clock, delta_exec);</div><div class="line">    delta_exec_weighted = calc_delta_fair(delta_exec, curr);<span class="comment">//对delta_exec加权</span></div><div class="line"></div><div class="line">    curr-&gt;vruntime += delta_exec_weighted;<span class="comment">//累计入vruntime</span></div><div class="line">    update_min_vruntime(cfs_rq); <span class="comment">//更新cfs_rq最小vruntime(保存所有进程中的最小vruntime)</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>然后看calc_delta_fair()加权函数如何实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * delta /= w</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">unsigned</span> <span class="keyword">long</span></span></div><div class="line"><span class="title">calc_delta_fair</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> delta, <span class="keyword">struct</span> sched_entity *se)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (unlikely(se-&gt;load.weight != NICE_0_LOAD))</div><div class="line">        delta = calc_delta_mine(delta, NICE_0_LOAD, &amp;se-&gt;load);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> delta;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>若当前进程nice为0，直接返回实际运行时间，其他所有nice值的加权都是以0nice值为参考增加或减少的。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * delta *= weight / lw</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">unsigned</span> <span class="keyword">long</span></span></div><div class="line"><span class="title">calc_delta_mine</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> delta_exec, <span class="keyword">unsigned</span> <span class="keyword">long</span> weight,</span></div><div class="line">        <span class="keyword">struct</span> load_weight *lw)</div><div class="line">&#123;</div><div class="line">    u64 tmp;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!lw-&gt;inv_weight) &#123;</div><div class="line">        <span class="keyword">if</span> (BITS_PER_LONG &gt; <span class="number">32</span> &amp;&amp; unlikely(lw-&gt;weight &gt;= WMULT_CONST))</div><div class="line">            lw-&gt;inv_weight = <span class="number">1</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            lw-&gt;inv_weight = <span class="number">1</span> + (WMULT_CONST-lw-&gt;weight/<span class="number">2</span>)</div><div class="line">                / (lw-&gt;weight+<span class="number">1</span>);<span class="comment">//这公式没弄明白</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    tmp = (u64)delta_exec * weight;</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * Check whether we'd overflow the 64-bit multiplication:</div><div class="line">     */</div><div class="line">    <span class="keyword">if</span> (unlikely(tmp &gt; WMULT_CONST))</div><div class="line">        tmp = SRR(SRR(tmp, WMULT_SHIFT/<span class="number">2</span>) * lw-&gt;inv_weight,</div><div class="line">            WMULT_SHIFT/<span class="number">2</span>);</div><div class="line">    <span class="keyword">else</span></div><div class="line">        tmp = SRR(tmp * lw-&gt;inv_weight, WMULT_SHIFT);<span class="comment">//做四舍五入</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> (<span class="keyword">unsigned</span> <span class="keyword">long</span>)min(tmp, (u64)(<span class="keyword">unsigned</span> <span class="keyword">long</span>)LONG_MAX);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>当nice!=0时，实际是按公式delta *= weight / lw来计算的weight=1024是nice0的权重，lw是当前进程的权重，该lw和nice值的换算后面介绍，上面函数的lw计算公式没弄明白，总之这个函数就是把实际运行时间加权为进程调度里的虚拟运行时间，从而更新vruntime。</p>
+</blockquote>
+<h6 id="vruntime更新-1"><a href="#vruntime更新-1" class="headerlink" title="vruntime更新"></a>vruntime更新</h6><p>更新完vruntime之后，会检查是否需要进程调度</p>
+<p>点击(此处)折叠或打开</p>
+<p>回到static void entity_tick(struct cfs_rq <em>cfs_rq, struct sched_entity </em>curr, int queued)<br>{<br>    update_curr(cfs_rq);<br>…<br>    if (cfs_rq-&gt;nr_running &gt; 1 || !sched_feat(WAKEUP_PREEMPT))<br>        check_preempt_tick(cfs_rq, curr); //检查当前进程是否需要调度<br>}<br>更新完cfs_rq之后，会检查当前进程是否已经用完自己的“时间片”</p>
+<p>点击(此处)折叠或打开</p>
+<p>/*</p>
+<ul>
+<li><p>Preempt the current task with a newly woken task if needed:<br><em>/<br>static void<br>check_preempt_tick(struct cfs_rq </em>cfs_rq, struct sched_entity *curr)<br>{<br> unsigned long ideal_runtime, delta_exec;</p>
+<p> ideal_runtime = sched_slice(cfs_rq, curr);//ideal_runtime是理论上的处理器运行时间片<br> delta_exec = curr-&gt;sum_exec_runtime - curr-&gt;prev_sum_exec_runtime;//该进程本轮调度累计运行时间<br> if (delta_exec &gt; ideal_runtime) {// 假如实际运行超过调度器分配的时间，就标记调度标志</p>
+<pre><code>resched_task(rq_of(cfs_rq)-&gt;curr);
+/*
+ * The current task ran long enough, ensure it doesn&apos;t get
+ * re-elected due to buddy favours.
+ */
+clear_buddies(cfs_rq, curr);
+return;
+</code></pre><p> }</p>
+<p> /*</p>
+<ul>
+<li>Ensure that a task that missed wakeup preemption by a</li>
+<li>narrow margin doesn’t have to wait for a full slice.</li>
+<li><p>This also mitigates buddy induced latencies under load.<br>*/<br>if (!sched_feat(WAKEUP_PREEMPT))<br> return;</p>
+<p>if (delta_exec &lt; sysctl_sched_min_granularity)<br> return;</p>
+<p>if (cfs_rq-&gt;nr_running &gt; 1) {<br> struct sched_entity *se = __pick_next_entity(cfs_rq);<br> s64 delta = curr-&gt;vruntime - se-&gt;vruntime;</p>
+<p> if (delta &gt; ideal_runtime)</p>
+<pre><code>resched_task(rq_of(cfs_rq)-&gt;curr);
+</code></pre><p>}<br>}<br>当该进程运行时间超过实际分配的“时间片”，就标记调度标志resched_task(rq_of(cfs_rq)-&gt;curr);，否则本进程继续执行。中断退出，调度函数schedule()会检查此标记，以选取新的进程来抢占当前进程。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="进程选择"><a href="#进程选择" class="headerlink" title="进程选择"></a>进程选择</h4><h5 id="挑选下一个任务"><a href="#挑选下一个任务" class="headerlink" title="挑选下一个任务"></a>挑选下一个任务</h5><h5 id="向树中加入进程"><a href="#向树中加入进程" class="headerlink" title="向树中加入进程"></a>向树中加入进程</h5><h5 id="从树中删除一个进程"><a href="#从树中删除一个进程" class="headerlink" title="从树中删除一个进程"></a>从树中删除一个进程</h5><h4 id="调度器入口"><a href="#调度器入口" class="headerlink" title="调度器入口"></a>调度器入口</h4><h4 id="睡眠和唤醒"><a href="#睡眠和唤醒" class="headerlink" title="睡眠和唤醒"></a>睡眠和唤醒</h4><h3 id="CFS调度算法总结"><a href="#CFS调度算法总结" class="headerlink" title="CFS调度算法总结"></a>CFS调度算法总结</h3><ul>
+<li><p>Linux采用的是完全公平调度算法（CFS）（还有实时调度算法SCHED_FIFO和SCHED_RR，按优先级执行，一般不会被抢占。直到实时进程执行完，才会执行普通进程，但是并不常用。）</p>
+</li>
+<li><p>Linux的进程调度并未使用直接均分时间片的方式，而是对优先级进行了改进，采用了两种不同的优先级范围，一种是nice值，范围是-20到+19，越大的nice值意味着更低的优先级，低nice值的进程会获得更多的处理器时间（按比例获得），第二种范围是实时优先级，其值是可配置的，默认情况下它的变化范围是从0到99，与nice值意义相反，越高的实时优先级数值意味着进程优先级越高，任何实时进程的优先级都高于普通进程</p>
+<p>  PS：nice值还会不断对old优先级进行更改，当然也可以设置nice的值，nice值给负值必须要用root</p>
+</li>
+<li><p>nice值不是优先级，但会影响优先级 PRI(new)=PRI(old)+nice</p>
+</li>
+<li><p>时间片过长会导致人机交互欠佳，而时间片过短会导致大量的处理器时间浪费在进程的切换上，而且I/O消耗型进程和处理器消耗型进程之间的处理器时间的不公平之处也显现出来了</p>
+</li>
+<li><p>CFS并没有直接分配时间片到进程，而是将处理器的使用比划分给了进程，这个比例还会受到nice值的影响</p>
+</li>
+<li><p>CFS的做法是允许每个进程运行一段时间，循环轮转，选择运行最少的进程作为写一个运行进程，所以根据nice值的含义-占用处理器的百分比，来根据系统中全部可运行进程总数来根据所占比例的“时间片”运行</p>
+</li>
+<li><p>Linux设计总是想分配给N个进程每个进程同样多的处理器运行时间，当N趋于无穷大的时候，按理说是可以分配给无限小的时间周期，但是这么做会很糟糕，我们也无法分配无限小的时间周期，虽然越小的时间周期可以带来更好的交互性，但还是带来不可接受的切换消耗，所以引入了一个目标延迟，来模拟无限小调度周期的近似值，现在假设目标延迟就是20ms，用它除以所有当前可以运行的进程数目就可以得到每个进程获得的时间片长度，当进程数无限大时候，每个进程分配的时间就趋于无限小，很好，进程切换又爆炸了，那么如果把最小值设为为1ms呢，进程数目再多我也保证每个进程在被强占之前获得1ms的运行时间，那么这个1ms就被称为最小粒度</p>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/luteresa/article/details/68061899" target="_blank" rel="external">Linux进程调度CFS算法实现分析</a></p>
+
       
     </div>
 
@@ -493,8 +599,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/31/Linux下的轻量服务器实现/" rel="prev" title="Linux下的的轻量级HTTP服务器实现">
-                Linux下的的轻量级HTTP服务器实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/06/Linux内核设计与实现(四)一一系统调用/" rel="prev" title="Linux内核设计与实现(四)一一系统调用">
+                Linux内核设计与实现(四)一一系统调用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -561,7 +667,7 @@
                alt="kelele67" />
           <p class="site-author-name" itemprop="name">kelele67</p>
            
-              <p class="site-description motion-element" itemprop="description">做一个富有的废物</p>
+              <p class="site-description motion-element" itemprop="description">古老却神奇的shell表白代码 :(){:|:&};:</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -569,7 +675,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -582,7 +688,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -646,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多任务"><span class="nav-number">1.</span> <span class="nav-text">多任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程状态"><span class="nav-number">2.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的进程调度"><span class="nav-number">3.</span> <span class="nav-text">Linux的进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O消耗型进程"><span class="nav-number">3.1.</span> <span class="nav-text">I/O消耗型进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器消耗型进程"><span class="nav-number">3.2.</span> <span class="nav-text">处理器消耗型进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程优先级"><span class="nav-number">3.3.</span> <span class="nav-text">进程优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NICE值"><span class="nav-number">3.3.1.</span> <span class="nav-text">NICE值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实时优先级"><span class="nav-number">3.3.2.</span> <span class="nav-text">实时优先级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间片"><span class="nav-number">3.4.</span> <span class="nav-text">时间片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CFS调度算法"><span class="nav-number">4.</span> <span class="nav-text">CFS调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CFS调度算法总结"><span class="nav-number">4.1.</span> <span class="nav-text">CFS调度算法总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CFS调度算法实现"><span class="nav-number">4.2.</span> <span class="nav-text">CFS调度算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#时间记账"><span class="nav-number">4.2.1.</span> <span class="nav-text">时间记账</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程选择"><span class="nav-number">4.2.2.</span> <span class="nav-text">进程选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调度器入口"><span class="nav-number">4.2.3.</span> <span class="nav-text">调度器入口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#睡眠和唤醒"><span class="nav-number">4.2.4.</span> <span class="nav-text">睡眠和唤醒</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现代码"><span class="nav-number">4.2.5.</span> <span class="nav-text">实现代码</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多任务"><span class="nav-number">1.</span> <span class="nav-text">多任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程状态"><span class="nav-number">2.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的进程调度"><span class="nav-number">3.</span> <span class="nav-text">Linux的进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O消耗型进程"><span class="nav-number">3.1.</span> <span class="nav-text">I/O消耗型进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器消耗型进程"><span class="nav-number">3.2.</span> <span class="nav-text">处理器消耗型进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程优先级"><span class="nav-number">3.3.</span> <span class="nav-text">进程优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NICE值"><span class="nav-number">3.3.1.</span> <span class="nav-text">NICE值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实时优先级"><span class="nav-number">3.3.2.</span> <span class="nav-text">实时优先级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间片"><span class="nav-number">3.4.</span> <span class="nav-text">时间片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CFS调度算法"><span class="nav-number">4.</span> <span class="nav-text">CFS调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度的时机"><span class="nav-number">4.1.</span> <span class="nav-text">进程调度的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CFS调度算法实现"><span class="nav-number">4.2.</span> <span class="nav-text">CFS调度算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#时间记账"><span class="nav-number">4.2.1.</span> <span class="nav-text">时间记账</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#调度器实体结构"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">调度器实体结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟实时"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">虚拟实时</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#vruntime"><span class="nav-number">4.2.1.2.1.</span> <span class="nav-text">vruntime</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#vruntime更新"><span class="nav-number">4.2.1.2.2.</span> <span class="nav-text">vruntime更新</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#vruntime更新-1"><span class="nav-number">4.2.1.2.3.</span> <span class="nav-text">vruntime更新</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程选择"><span class="nav-number">4.2.2.</span> <span class="nav-text">进程选择</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#挑选下一个任务"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">挑选下一个任务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#向树中加入进程"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">向树中加入进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从树中删除一个进程"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">从树中删除一个进程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调度器入口"><span class="nav-number">4.2.3.</span> <span class="nav-text">调度器入口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#睡眠和唤醒"><span class="nav-number">4.2.4.</span> <span class="nav-text">睡眠和唤醒</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CFS调度算法总结"><span class="nav-number">4.3.</span> <span class="nav-text">CFS调度算法总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
