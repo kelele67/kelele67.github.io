@@ -90,17 +90,19 @@
 
 
 
-<meta name="description" content="链表队列映射">
+<meta name="description" content="内核数据结构Linux内核实现了一些通用的数据结构，提倡大家在开发时重用，内核开发者应该尽可能地使用这些数据结构。最常用的有：链表、队列、映射、二叉树">
 <meta name="keywords" content="linux,kernel,data structure">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核设计与实现(五)一一内核数据结构">
 <meta property="og:url" content="http://yoursite.com/2017/03/08/Linux内核设计与实现(五)一一内核数据结构/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:description" content="链表队列映射">
-<meta property="og:updated_time" content="2017-06-01T06:35:41.000Z">
+<meta property="og:description" content="内核数据结构Linux内核实现了一些通用的数据结构，提倡大家在开发时重用，内核开发者应该尽可能地使用这些数据结构。最常用的有：链表、队列、映射、二叉树">
+<meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6.png">
+<meta property="og:updated_time" content="2017-06-01T14:52:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核设计与实现(五)一一内核数据结构">
-<meta name="twitter:description" content="链表队列映射">
+<meta name="twitter:description" content="内核数据结构Linux内核实现了一些通用的数据结构，提倡大家在开发时重用，内核开发者应该尽可能地使用这些数据结构。最常用的有：链表、队列、映射、二叉树">
+<meta name="twitter:image" content="http://oe9uinblw.bkt.clouddn.com/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6.png">
 
 
 
@@ -387,7 +389,183 @@
       
         <p>
 
-</p><h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2>
+</p><h2 id="内核数据结构"><a href="#内核数据结构" class="headerlink" title="内核数据结构"></a>内核数据结构</h2><p>Linux内核实现了一些通用的数据结构，提倡大家在开发时重用，内核开发者应该尽可能地使用这些数据结构。最常用的有：链表、队列、映射、二叉树</p>
+<a id="more"></a>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><blockquote>
+<p>链表是一种存放和操作可变数量元素(节点)的数据结构，动态创建，无需在内存中占用连续内存区。每个元素都必须包含指向下一个元素的指针，当有元素加入或从链表中删除时，只需要调整相应指针即可</p>
+</blockquote>
+<h4 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h4><p>每个节点指向一个后驱</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* an element in a linked list */</span></div><div class="line"><span class="keyword">struct</span> list_element &#123; </div><div class="line">    <span class="keyword">void</span> *data; <span class="comment">/* the payload */</span> </div><div class="line">    <span class="keyword">struct</span> list_element *next; <span class="comment">/* pointer to the next element */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* an element in a linked list */</span> </div><div class="line"><span class="keyword">struct</span> list_element &#123;</div><div class="line">    <span class="keyword">void</span> *data; <span class="comment">/* the payload */</span> </div><div class="line">    <span class="keyword">struct</span> list_element *next; <span class="comment">/* pointer to the next element */</span> </div><div class="line">    <span class="keyword">struct</span> list_element *prev; <span class="comment">/* pointer to the previous element */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h4><h4 id="内核链表实现"><a href="#内核链表实现" class="headerlink" title="内核链表实现"></a>内核链表实现</h4><blockquote>
+<p>使用链表的理想情况是：需要遍历所有数据或需要动态加入或删除数据时</p>
+</blockquote>
+<h5 id="将链表节点塞入数据结构"><a href="#将链表节点塞入数据结构" class="headerlink" title="将链表节点塞入数据结构"></a>将链表节点塞入数据结构</h5><p>Linux内核实现方式独树一帜，它不是将数据结构塞入链表，而是将链表节点塞入数据结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> list_head &#123;</div><div class="line">    <span class="keyword">struct</span> list_head *next, *prev;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<p>比如创建一个fox数据结构来描述犬科动物一员，存储链表节点到fox数据结构中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> fox &#123; </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> tail_length; <span class="comment">/* length in centimeters of tail */</span> </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> weight; <span class="comment">/* weight in kilograms */</span> </div><div class="line">    <span class="keyword">bool</span> is_fantastic; <span class="comment">/* is this fox fantastic? */</span> </div><div class="line">    <span class="keyword">struct</span> list_head <span class="built_in">list</span>; <span class="comment">/* list of all fox structures */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>Fox中的list.next指向下一个元素，list.prev指向前一个元素，这样链表就可以被内核使用了。可以用一系列list_add(),list_del()等来操作，但他们有个共同特点，就是只接受list_head结构参数。</p>
+<p>这样内核就用一个统一的链表实现，可以操作各种数据结构的应用；使用container_of宏可以很方便的从链表指针找到父结构中任何成员变量</p>
+</blockquote>
+<h5 id="container-of-宏"><a href="#container-of-宏" class="headerlink" title="container_of()宏"></a>container_of()宏</h5><p>在C语言中，一个给定结构中的变量偏移，在编译时地址就被ABI固定下来了。<br>使用container_of()宏，定义一个简单的函数可以方便的返回包含list_head的父类结构体</p>
+<p>#define container_of(ptr, type, member) ({            \<br>    const typeof(((type <em>)0)-&gt;member) </em> <strong>mptr = (ptr);    \<br>    (type <em>)((char </em>)</strong>mptr - offsetof(type, member)); })</p>
+<p>#endif</p>
+<blockquote>
+<p>依靠list_entry()方法，内核提供了创建，操作以及其他管理链表的各种例程—所有这些方法都不需要知道list_head所嵌入对象的数据结构:</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * list_entry - get the struct for this entry</div><div class="line"> * @ptr:    the &amp;struct list_head pointer.</div><div class="line"> * @type:    the type of the struct this is embedded in.</div><div class="line"> * @member:    the name of the list_struct within the struct.</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> list_entry(ptr, type, member) \</span></div><div class="line">    container_of(ptr, type, member)</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="定义一个链表"><a href="#定义一个链表" class="headerlink" title="定义一个链表"></a>定义一个链表</h5><p>list_head本身并没有意义，它需要被嵌入到你自己的数据结构中才能生效。</p>
+<p>例如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> fox &#123; </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> tail_length; <span class="comment">/* length in centimeters of tail */</span> </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> weight; <span class="comment">/* weight in kilograms */</span> </div><div class="line">    <span class="keyword">bool</span> is_fantastic; <span class="comment">/* is this fox fantastic? */</span> </div><div class="line">    <span class="keyword">struct</span> list_head <span class="built_in">list</span>; <span class="comment">/* list of all fox structures */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<p>链表使用前需要初始化:</p>
+<p>运行时动态初始化链表</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> fox *red_fox; </div><div class="line">red_fox = kmalloc(<span class="keyword">sizeof</span>(*red_fox), GFP_KERNEL); </div><div class="line">red_fox-&gt;tail_length = <span class="number">40</span>; </div><div class="line">red_fox-&gt;weight = <span class="number">6</span>; </div><div class="line">red_fox-&gt;is_fantastic = <span class="literal">false</span>; </div><div class="line">INIT_LIST_HEAD(&amp;red_fox-&gt;<span class="built_in">list</span>);</div></pre></td></tr></table></figure>
+<hr>
+<p>如果一个结构在编译期静态创建，而你需要在其中一个链表中直接引用，下面方式最简洁:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> fox red_fox = &#123; </div><div class="line">    .tail_length = <span class="number">40</span>, </div><div class="line">    .weight = <span class="number">6</span>, </div><div class="line">    .<span class="built_in">list</span> = LIST_HEAD_INIT(red_fox.<span class="built_in">list</span>),</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<p>如果需要明确的链表头，也可以这样声明:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="title">LIST_HEAD</span><span class="params">(fox_list)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="链表基本操作-算法复杂度全都是O-1"><a href="#链表基本操作-算法复杂度全都是O-1" class="headerlink" title="链表基本操作(算法复杂度全都是O(1))"></a>链表基本操作(算法复杂度全都是O(1))</h5><p>list_add向链表头后面添加新项，可以用来实现一个栈:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_add</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="keyword">new</span>, <span class="keyword">struct</span> list_head *head)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>假定创建一个新的struct fox，并把它加入fox_list，那么</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">list_add(&amp;f-&gt;<span class="built_in">list</span>,&amp;fox_list)</div></pre></td></tr></table></figure>
+<hr>
+<p>list_add_tail向链表头的前面添加节点，可以实现一个FIFO:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_add_tail</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="keyword">new</span>, <span class="keyword">struct</span> list_head *head)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>例如删除上面添加的f, list_del(&amp;f-&gt;list):</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_del</span><span class="params">(<span class="keyword">struct</span> list_head *entry)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>如果entry删除之后，还有可能添加到另一个链表，删除之后，还应做初始化:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_del_init</span><span class="params">(<span class="keyword">struct</span> list_head *entry)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>把节点list从链表中移除，然后加入另一个链表head节点的后面:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_move</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>, <span class="keyword">struct</span> list_head *head)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>把节点list从链表中移除，然后加入另一个链表head节点的前面:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_move_tail</span><span class="params">(<span class="keyword">struct</span> list_head *<span class="built_in">list</span>, <span class="keyword">struct</span> list_head *head)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>检查链表是否为空:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">list_empty</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *head)</span></span></div></pre></td></tr></table></figure></p>
+<hr>
+<p>把链表list添加到head的后面去:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">list_splice</span><span class="params">(<span class="keyword">const</span> <span class="keyword">struct</span> list_head *<span class="built_in">list</span>, <span class="keyword">struct</span> list_head *head)</span></span></div></pre></td></tr></table></figure>
+<hr>
+<h5 id="遍历链表-算法复杂度是O-n"><a href="#遍历链表-算法复杂度是O-n" class="headerlink" title="遍历链表:算法复杂度是O(n)"></a>遍历链表:算法复杂度是O(n)</h5><p>f返回每次获取的结构体，fox_list是链表头, list是链表头在fox结构体里的成员名字:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">list_for_each_entry(pos, head, member);</div><div class="line">    <span class="keyword">struct</span> fox *f;</div><div class="line">    list_for_each_entry(f, &amp;fox_list, <span class="built_in">list</span>) &#123; </div><div class="line">        <span class="comment">/* on each iteration, ‘f’ points to the next fox structure ... */</span></div><div class="line">        <span class="keyword">if</span> (f-&gt;is_fantastic) <span class="keyword">return</span> f;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">list_for_each_entry_reverse(pos, head, member)；<span class="comment">//反向遍历</span></div><div class="line"></div><div class="line">list_for_each_entry_safe(pos, n, head, member)；<span class="comment">//遍历可以删除pos，n与pos同类型</span></div></pre></td></tr></table></figure>
+<hr>
+<p>注意：当用list_for_each_entry()的安全版本遍历链表时，有可能会有其他地方并发操作删除节点，所以做删除操作时，必须锁定链表。</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><blockquote>
+<p>任何操作系统内核都少不了一种编程模型：生产者和消费者。生产者产生数据，消费者处理数据。实现该模型，最简单的就是队列。生产者将数据入队列，消费者摘取数据</p>
+</blockquote>
+<p>Linux内核通用队列实现为kfifo</p>
+<h4 id="创建队列"><a href="#创建队列" class="headerlink" title="创建队列"></a>创建队列</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">kfifo_alloc</span><span class="params">(<span class="keyword">struct</span> kfifo *fifo, <span class="keyword">unsigned</span> <span class="keyword">int</span> size, <span class="keyword">gfp_t</span> gfp_mask)</span></span>;<span class="comment">//成功返回0</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">kfifo_init</span><span class="params">(<span class="keyword">struct</span> kfifo *fifo, <span class="keyword">void</span> *buffer, <span class="keyword">unsigned</span> <span class="keyword">int</span> size)</span></span>;<span class="comment">//用buffer指向的内存来实现fifo</span></div></pre></td></tr></table></figure>
+<hr>
+<p>静态声明:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DECLARE_KFIFO(name,size);</div><div class="line"></div><div class="line">INIT_KFIFO(name);</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="操作队列"><a href="#操作队列" class="headerlink" title="操作队列"></a>操作队列</h4><p>入列 :</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unsigned int kfifo_in(struct kfifo *fifo, const void *from, unsigned int len)；</div></pre></td></tr></table></figure>
+<hr>
+<p>出列 :</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unsigned int kfifo_out(struct kfifo *fifo, void *to, unsigned int len)；</div></pre></td></tr></table></figure>
+<hr>
+<p>出列的数据，就不存在于fifo中了，要是只“偷窥”(偷偷一瞥)队列中数据，而不想删除它，可以用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">kfifo_out_peek</span><span class="params">(<span class="keyword">struct</span> kfifo *fifo, <span class="keyword">void</span> *to, <span class="keyword">unsigned</span> <span class="keyword">int</span> len, <span class="keyword">unsigned</span> offset)</span></span></div></pre></td></tr></table></figure>
+<hr>
+<h4 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h4><p>获取kfifo总体大小:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static inline __must_check unsigned int kfifo_size(struct kfifo *fifo)；</div></pre></td></tr></table></figure>
+<hr>
+<p>获取Kfifo中已推入数据长度:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static inline unsigned int kfifo_len(struct kfifo *fifo)；</div></pre></td></tr></table></figure>
+<hr>
+<p>获取Kfifo中还有多少空间可用:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static inline __must_check unsigned int kfifo_avail(struct kfifo *fifo)；</div></pre></td></tr></table></figure>
+<hr>
+<p>判断kfifo为空或满:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static inline __must_check int kfifo_is_empty(struct kfifo *fifo)；</div><div class="line"></div><div class="line">static inline __must_check int kfifo_is_full(struct kfifo *fifo)；</div></pre></td></tr></table></figure>
+<hr>
+<p>销毁队列:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">kfifo_free</span><span class="params">(<span class="keyword">struct</span> kfifo *fifo)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>重置队列:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static inline void kfifo_reset(struct kfifo *fifo)；//抛弃所有队列内</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><p>虽然散列表是一种映射，但并非所有映射都是散列表实现的。此外，还可以用自平衡二叉搜索树存储数据。散列表提供更好的平均的渐进复杂度，但二叉搜索树在最坏的情况下能有更好的表现(对数复杂性相比线性复杂性)，散列表同时满足顺序保证。</p>
+<p>一个映射至少实现三种操作</p>
+<ul>
+<li><p>add (key, value)</p>
+</li>
+<li><p>remove(key)</p>
+</li>
+<li><p>value = lookup(key)</p>
+</li>
+</ul>
+<p>Linux内核提供了一个简单有效的映射数据结构，但并非是通用的映射，它的目标是：映射一个唯一的标识数(UID)到一个指针。</p>
+<h4 id="初始化一个idr"><a href="#初始化一个idr" class="headerlink" title="初始化一个idr"></a>初始化一个idr</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">idr_init</span><span class="params">(<span class="keyword">struct</span> idr *idp)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>举个栗子:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> idr id_huh;  <span class="comment">/* statically define idr structure */</span></div><div class="line"></div><div class="line">idr_init(&amp;id_huh);  <span class="comment">/* initialize provided idr structure */</span></div></pre></td></tr></table></figure>
+<hr>
+<h4 id="分配一个新的UID，分两步"><a href="#分配一个新的UID，分两步" class="headerlink" title="分配一个新的UID，分两步"></a>分配一个新的UID，分两步</h4><h5 id="调整后备树大小方法"><a href="#调整后备树大小方法" class="headerlink" title="调整后备树大小方法"></a>调整后备树大小方法</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int idr_pre_get(struct idr *idp, gfp_t gfp_mask)；//成功返回1</div></pre></td></tr></table></figure>
+<hr>
+<h5 id="获取新的UID，并将其添加到idr的方法"><a href="#获取新的UID，并将其添加到idr的方法" class="headerlink" title="获取新的UID，并将其添加到idr的方法"></a>获取新的UID，并将其添加到idr的方法</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int idr_get_new(struct idr *idp, void *ptr, int *id)；//分配新UID关联到ptr上，UID存于id</div></pre></td></tr></table></figure>
+<hr>
+<p>我们来看一个完整的例子:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> id;</div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">if</span> (!idr_pre_get(&amp;idr_huh, GFP_KERNEL)) </div><div class="line">    <span class="keyword">return</span> -ENOSPC;</div><div class="line">    ret = idr_get_new(&amp;idr_huh, ptr, &amp;id); </div><div class="line">&#125; <span class="keyword">while</span> (ret == -EAGAIN);</div></pre></td></tr></table></figure>
+<hr>
+<p>如果成功，上述代码将获得一个新的UID，它被存储在变量id中，并且将UID映射到ptr。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int idr_get_new_above(struct idr *idp, void *ptr, int starting_id, int *id)；//可以指定一个最小UID，这样除了新的UID大雨或等于starting_id外，还确保UID系统运行期间唯一</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="查找UID"><a href="#查找UID" class="headerlink" title="查找UID"></a>查找UID</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void *idr_find(struct idr *idp, int id)；//调用成功返回ptr指针，失败返回NULL，所以最好不要将UID映射到空指针，这样无法区分调用成功还是失败</div></pre></td></tr></table></figure>
+<hr>
+<p>使用栗子:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> my_struct *ptr = idr_find(&amp;idr_huh, id); </div><div class="line"><span class="keyword">if</span> (!ptr)</div><div class="line">    <span class="keyword">return</span> -EINVAL; <span class="comment">/* error */</span></div></pre></td></tr></table></figure>
+<hr>
+<h4 id="删除UID"><a href="#删除UID" class="headerlink" title="删除UID"></a>删除UID</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void idr_remove(struct idr *idp, int id)；//id关联指针从映射中删除</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="撤销idr"><a href="#撤销idr" class="headerlink" title="撤销idr"></a>撤销idr</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void idr_destroy(struct idr *idp)；//释放idr中未使用内存，通常内核不会撤销idr，除非关闭或卸载。若需要强制删除所有UID</div><div class="line"></div><div class="line">void idr_remove_all(struct idr *idp)；</div></pre></td></tr></table></figure>
+<hr>
+<p>应该先调用idr_remove_all(),然后调用idr_destroy()，这样就能是idr占用的内存都被释放。</p>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p><del>挖个坑，到时候总结一下红黑树</del></p>
+<p>主要常用到的就是经典的红黑树了，这次终于把总结的博客写完了<a href="https://kelele67.github.io/2017/05/17/C++%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0(%E4%B8%89" target="_blank" rel="external">C++数据结构复习(三)一一红黑树</a>%E4%B8%80%E4%B8%80%E7%BA%A2%E9%BB%91%E6%A0%91/)</p>
+<h3 id="数据结构的选择"><a href="#数据结构的选择" class="headerlink" title="数据结构的选择"></a>数据结构的选择</h3><ul>
+<li><p>链表：对数据集合的主要操作是遍历数据，就用链表；当需要存储相对较少的数据项，或当你需要和内核中其他使用链表的代码交互时，首选链表。如果存储的大小不明的数据集合，链表更合适，可以动态添加任何数据类型。</p>
+</li>
+<li><p>队列：如果代码符合生产者/消费者模式，就用队列；如果你想用一个定长缓冲，队列的添加和删除操作简单有效；</p>
+</li>
+<li><p>映射：如果需要映射一个UID到一个对象，就用映射。Linux的映射接口是针对UID到指针的映射，并不适合其他场景。</p>
+</li>
+<li><p>红黑树：如果需要存储大量数据，并且迅速检索，用红黑树最好；但如果没有执行太多次时间紧迫的查找操作，则红黑树不是最好选择，可以用链表；</p>
+</li>
+</ul>
+<p>当上述数据结构都不能满足你需要，内核还是下了一些较少使用的数据结构，比如基树和位图，只有当寻遍所有内核提供的数据结构都不能满足时，才需要自己设计数据结构。</p>
+<p>经常在独立的源文件中实现的一种常见数据结构是散列表，因为散列表无非是一些“桶”和一个散列函数，而且这个散列函数是针对每个用例的，因此非泛型编程语言实现内核范围内的统一散列表，其实并没有什么价值。</p>
+<h3 id="算法复杂度"><a href="#算法复杂度" class="headerlink" title="算法复杂度"></a>算法复杂度</h3><p>算法复杂度最常用的技术还是研究算法的渐进行为，渐进行为是指当算法的输入变大非常大或接近于无限大时算法的行为。研究算法的伸缩度(当输入增大时算法执行的变化)可以帮助我们以特定基准抽象出算法模型，从而更好理解算法行为。</p>
+<h4 id="大O符号"><a href="#大O符号" class="headerlink" title="大O符号"></a>大O符号</h4><p>大O符号（Big O notation）是用于描述函数渐近行为的数学符号。更确切地说，它是用另一个（通常更简单的）函数来描述一个函数数量级的渐近上界。在数学中，它一般用来刻画被截断的无穷级数尤其是渐近级数的剩余项；在计算机科学中，它在分析算法复杂性的方面非常有用。</p>
+<h4 id="大θ符号"><a href="#大θ符号" class="headerlink" title="大θ符号"></a>大θ符号</h4><p>人们讨论的大O符号，实际上更接近于Knuth教授提出的大θ符号，大θ符号更多的是指最小上限，或一个抽象出具有上限和下限的函数。</p>
+<h4 id="时间复杂度，常用的函数阶"><a href="#时间复杂度，常用的函数阶" class="headerlink" title="时间复杂度，常用的函数阶"></a>时间复杂度，常用的函数阶</h4><p>下面是在分析算法的时候常见的函数分类列表:</p>
+<p><img src="http://oe9uinblw.bkt.clouddn.com/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6.png" alt=""></p>
+<p>所有这些函数都处于n趋近于无穷大的情况下，增长得慢的函数列在上面。c是一个任意常数。</p>
+<p>显然要避免使用O(n!) or O(2n)的算法，比较算法时，还需要考虑输入规模。</p>
+<p>我们不赞成使用复杂的算法，但是可要注意算法的负载和典型输入集合大小的关系，不要为了你根本不需要支持的伸缩度要求，盲目地去优化算法。</p>
+<blockquote>
+<p>但 O(n3)O(n3) 真的很糟糕，O(1)O(1) 真的就很好吗？虽然在单纯的算法分析中是如此，但是在计算机系统中，算法只是一小部分。假设一个 O(1)O(1) 的算法会导致死锁，虽然看起来比 O(n3)O(n3) 的算法好得多，然而真正执行起来，可能就是无尽的等待了。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/6097773/" target="_blank" rel="external">《Linux内核设计与实现》</a></p>
+<p><a href="http://blog.csdn.net/luteresa/article/details/68061793" target="_blank" rel="external">Linux内核设计与实现(7)—内核数据结构</a></p>
+
       
     </div>
 
@@ -596,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列"><span class="nav-number">2.</span> <span class="nav-text">队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#映射"><span class="nav-number">3.</span> <span class="nav-text">映射</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内核数据结构"><span class="nav-number">1.</span> <span class="nav-text">内核数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表"><span class="nav-number">1.1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单向链表"><span class="nav-number">1.1.1.</span> <span class="nav-text">单向链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表"><span class="nav-number">1.1.2.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环形链表"><span class="nav-number">1.1.3.</span> <span class="nav-text">环形链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内核链表实现"><span class="nav-number">1.1.4.</span> <span class="nav-text">内核链表实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#将链表节点塞入数据结构"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">将链表节点塞入数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#container-of-宏"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">container_of()宏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定义一个链表"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">定义一个链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链表基本操作-算法复杂度全都是O-1"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">链表基本操作(算法复杂度全都是O(1))</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历链表-算法复杂度是O-n"><span class="nav-number">1.1.4.5.</span> <span class="nav-text">遍历链表:算法复杂度是O(n)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列"><span class="nav-number">1.2.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建队列"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作队列"><span class="nav-number">1.2.2.</span> <span class="nav-text">操作队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他操作"><span class="nav-number">1.2.3.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#映射"><span class="nav-number">1.3.</span> <span class="nav-text">映射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化一个idr"><span class="nav-number">1.3.1.</span> <span class="nav-text">初始化一个idr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分配一个新的UID，分两步"><span class="nav-number">1.3.2.</span> <span class="nav-text">分配一个新的UID，分两步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#调整后备树大小方法"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">调整后备树大小方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取新的UID，并将其添加到idr的方法"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">获取新的UID，并将其添加到idr的方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找UID"><span class="nav-number">1.3.3.</span> <span class="nav-text">查找UID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除UID"><span class="nav-number">1.3.4.</span> <span class="nav-text">删除UID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#撤销idr"><span class="nav-number">1.3.5.</span> <span class="nav-text">撤销idr</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树"><span class="nav-number">1.4.</span> <span class="nav-text">二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构的选择"><span class="nav-number">1.5.</span> <span class="nav-text">数据结构的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法复杂度"><span class="nav-number">1.6.</span> <span class="nav-text">算法复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大O符号"><span class="nav-number">1.6.1.</span> <span class="nav-text">大O符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大θ符号"><span class="nav-number">1.6.2.</span> <span class="nav-text">大θ符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间复杂度，常用的函数阶"><span class="nav-number">1.6.3.</span> <span class="nav-text">时间复杂度，常用的函数阶</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
