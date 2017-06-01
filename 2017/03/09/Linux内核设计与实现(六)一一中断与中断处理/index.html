@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,kernel," />
+  <meta name="keywords" content="linux,kernel,interrupt," />
 
 
 
@@ -90,14 +90,17 @@
 
 
 
-<meta name="keywords" content="linux,kernel">
+<meta name="description" content="中断中断是外围设备产生的异步事件，不同设备，中断号不同；比如在经典PC上，IRQ 0是时钟中断，IRQ 1是键盘中断；对于连接于PCI总线上的设备，中断还可以是动态分配的。 异常与中断不同，异常的产生必须考虑与处理器时钟同步，比如除零，缺页，软中断等，都是由处理器自身产生的同步事件，异常也可称为同步中断；本文对异步中断的讨论，大部分也适合于异常(同步中断)。">
+<meta name="keywords" content="linux,kernel,interrupt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux内核设计与实现(六)一一中断与中断处理">
 <meta property="og:url" content="http://yoursite.com/2017/03/09/Linux内核设计与实现(六)一一中断与中断处理/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
-<meta property="og:updated_time" content="2017-06-01T06:35:59.000Z">
+<meta property="og:description" content="中断中断是外围设备产生的异步事件，不同设备，中断号不同；比如在经典PC上，IRQ 0是时钟中断，IRQ 1是键盘中断；对于连接于PCI总线上的设备，中断还可以是动态分配的。 异常与中断不同，异常的产生必须考虑与处理器时钟同步，比如除零，缺页，软中断等，都是由处理器自身产生的同步事件，异常也可称为同步中断；本文对异步中断的讨论，大部分也适合于异常(同步中断)。">
+<meta property="og:updated_time" content="2017-06-01T16:12:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核设计与实现(六)一一中断与中断处理">
+<meta name="twitter:description" content="中断中断是外围设备产生的异步事件，不同设备，中断号不同；比如在经典PC上，IRQ 0是时钟中断，IRQ 1是键盘中断；对于连接于PCI总线上的设备，中断还可以是动态分配的。 异常与中断不同，异常的产生必须考虑与处理器时钟同步，比如除零，缺页，软中断等，都是由处理器自身产生的同步事件，异常也可称为同步中断；本文对异步中断的讨论，大部分也适合于异常(同步中断)。">
 
 
 
@@ -382,7 +385,127 @@
       
 
       
-        <p></p>
+        <p>
+
+</p><h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><h3 id="中断-1"><a href="#中断-1" class="headerlink" title="中断"></a>中断</h3><p>是外围设备产生的异步事件，不同设备，中断号不同；比如在经典PC上，IRQ 0是时钟中断，IRQ 1是键盘中断；对于连接于PCI总线上的设备，中断还可以是动态分配的。</p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>与中断不同，异常的产生必须考虑与处理器时钟同步，比如除零，缺页，软中断等，都是由处理器自身产生的同步事件，异常也可称为同步中断；<br>本文对异步中断的讨论，大部分也适合于异常(同步中断)。</p>
+<a id="more"></a>
+<h2 id="中断处理"><a href="#中断处理" class="headerlink" title="中断处理"></a>中断处理</h2><p>每个中断都对应有一个中断处理程序；<br>ISR是被内核调用来响应中断的，它运行在中断上下文中(也称原子上下文)，因此代码是不可阻塞的。<br>ISR应该快速执行。</p>
+<h2 id="上半部与下半部"><a href="#上半部与下半部" class="headerlink" title="上半部与下半部"></a>上半部与下半部</h2><p>又想ISR运行的快，又想ISR完成的工作量多，这是一个此消彼长的矛盾关系；为了平衡这个矛盾，Linux内核把中断分为两部分：<br>上半部：接收一个中断，立即开始执行，但只做严格时限的工作；例如中断应答，硬件复位之类，这些工作是在所有中断被禁止的情况下完成的。<br>下半部：上半部执行完后，在合适的时间，调度执行下半部，下半部可以处理一些耗时的工作，可以休眠。</p>
+<h2 id="注册中断处理程序"><a href="#注册中断处理程序" class="headerlink" title="注册中断处理程序"></a>注册中断处理程序</h2><p>中断处理程序通过request_irq()注册(在linux/interrupt.h定义)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">request_irq</span><span class="params">(</span></span></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> irq,</div><div class="line">    <span class="keyword">irq_handler_t</span> handler,</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags,</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name,</div><div class="line">    <span class="keyword">void</span> *dev)</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="第一个参数irq"><a href="#第一个参数irq" class="headerlink" title="第一个参数irq"></a>第一个参数irq</h3><p>表示要分配的中断号，这个值通常是预先确定的，但对有的设备来也可以探测获取，或通过编程动态确定。</p>
+<h3 id="handler"><a href="#handler" class="headerlink" title="handler"></a>handler</h3><p>函数指针，指向这个中断的ISR。</p>
+<p>该函数原型如下，接受2个参数，并有irqreturn_t类型的返回值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">irqreturn_t</span> <span class="params">(*<span class="keyword">irq_handler_t</span>)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">void</span> *)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h3><p>中断处理标志，可以用0，也可以用以下一个或多个标志的位掩码</p>
+<h4 id="IRQF-DISABLED"><a href="#IRQF-DISABLED" class="headerlink" title="IRQF_DISABLED"></a>IRQF_DISABLED</h4><p>keep irqs disabled when calling the action handler</p>
+<p>如果不设置该位，中断处理程序可以与除本身外的其他任何中断同时运行，一般不会设置此位，这个用法是给希望快速执行的轻量级中断，在过去的中断中用以区分“快速”和“慢速”中断。</p>
+<h4 id="IRQF-SAMPLE-RANDOM"><a href="#IRQF-SAMPLE-RANDOM" class="headerlink" title="IRQF_SAMPLE_RANDOM"></a>IRQF_SAMPLE_RANDOM</h4><p>此标志表明这个设备的中断对内核熵池有贡献，用以产生随机数。</p>
+<h4 id="IRQF-TIMER："><a href="#IRQF-TIMER：" class="headerlink" title="IRQF_TIMER："></a>IRQF_TIMER：</h4><p>该标志是特别为系统定时器的中断处理程序而准备的。</p>
+<h4 id="IRQF-SHARED"><a href="#IRQF-SHARED" class="headerlink" title="IRQF_SHARED"></a>IRQF_SHARED</h4><p>allow sharing the irq among several devices</p>
+<p>必须在给定中断线的所有处理程序中都指定这个标志，否则，一个中断线上只能有一个处理程序；</p>
+<h3 id="name"><a href="#name" class="headerlink" title="name"></a>name</h3><p>中断设备的名字，比如PC上键盘中断对应的值是“keyboard”，这个名字会被/proc/irq和/proc/interrupts文件使用。</p>
+<h3 id="dev"><a href="#dev" class="headerlink" title="dev"></a>dev</h3><p>用于共享中断线</p>
+<h4 id="中断线被共享"><a href="#中断线被共享" class="headerlink" title="中断线被共享"></a>中断线被共享</h4><p>dev必须传递唯一信息，当一个中断处理程序需要释放时，dev将提供唯一的标志信息，以便确定要在共享中断线上要删除哪一个处理程序；</p>
+<h4 id="不是共享中断线"><a href="#不是共享中断线" class="headerlink" title="不是共享中断线"></a>不是共享中断线</h4><p>可以设为NULL，也可以用来传递设备私有信息。</p>
+<blockquote>
+<p>request_irq()成功执行会返回0，若非0，就表示发生错误，这时指定中断处理程序不会被注册。最常见的错误是-EBUSY,它表示中断线已经在使用，或者注册共享中断时没有指定IRQF_SHARED。</p>
+</blockquote>
+<p>初始化硬件和注册中断处理程序的顺序必须正确，以防止ISR在设备初始化完成之前就开始执行。初始化硬件，包括set_irq_type();</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">set_irq_type</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> irq, <span class="keyword">unsigned</span> <span class="keyword">int</span> type)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>irq:中断号</p>
+<p>type：中断类型，可以设为下列标志</p>
+<p>IRQT_RISING，IRQT_FALLING，IRQT_BOTHEDGE，IRQT_LOW ，IRQT_HIGH</p>
+<h2 id="释放中断处理程序："><a href="#释放中断处理程序：" class="headerlink" title="释放中断处理程序："></a>释放中断处理程序：</h2><p>卸载驱动程序的时候，要注销相应的中断处理程序，释放中断线</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void free_irq(unsigned int irq, void *dev)；</div></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li><p>如果中断线非共享，该函数删除处理程序，禁止相应中断线。</p>
+</li>
+<li><p>若为共享中断，free_irq()删除dev相应的处理程序，而这个中断线只有在所有处理程序都被删除后，才会被禁用。</p>
+</li>
+</ul>
+<blockquote>
+<p>必须在进程上下文中调用free_irq()。</p>
+</blockquote>
+<h2 id="编写中断处理程序"><a href="#编写中断处理程序" class="headerlink" title="编写中断处理程序"></a>编写中断处理程序</h2><h3 id="中断处理程序原型"><a href="#中断处理程序原型" class="headerlink" title="中断处理程序原型"></a>中断处理程序原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">irqreturn_t</span> <span class="params">(*<span class="keyword">irq_handler_t</span>)</span><span class="params">(<span class="keyword">int</span>, irq <span class="keyword">void</span> * dev)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="irq：中断号"><a href="#irq：中断号" class="headerlink" title="irq：中断号"></a>irq：中断号</h4><h4 id="dev：通用指针，就是request-irq-注册时的dev。"><a href="#dev：通用指针，就是request-irq-注册时的dev。" class="headerlink" title="dev：通用指针，就是request_irq()注册时的dev。"></a>dev：通用指针，就是request_irq()注册时的dev。</h4><ul>
+<li><p>在共享中断线时，用来区分不同设备；</p>
+</li>
+<li><p>非共享中断中，一般传入硬件设备私有信息</p>
+</li>
+</ul>
+<h4 id="irqreturn-t-返回值，一般有两个值"><a href="#irqreturn-t-返回值，一般有两个值" class="headerlink" title="irqreturn_t:返回值，一般有两个值"></a>irqreturn_t:返回值，一般有两个值</h4><ul>
+<li><p>IRQ_NONE: 当ISR检测到一个中断，但该中断对应的设备并不是注册ISR时指定的产生源时，返回IRQ_NONE;</p>
+</li>
+<li><p>IRQ_HANDLED: ISR被正确调用且确实是它所对应的设备产生了中断，返回IRQ_HANDLED.</p>
+</li>
+<li><p>也可以用宏IRQ_RETVAL(val)，val非零时返回IRQ_HANDLED,val为0时返回IRQ_NONE.</p>
+</li>
+</ul>
+<p>利用特殊返回值，内核可以知道设备发出的是否是一种虚假的中断(为请求)。</p>
+<p>中断处理期望完成的工作，扩充的耗时的工作，应该分配给下半部完成。</p>
+<h3 id="中断处理程序特点："><a href="#中断处理程序特点：" class="headerlink" title="中断处理程序特点："></a>中断处理程序特点：</h3><ul>
+<li><p>①.不能向用户空间发送或接收数据，因为它不在任何进程上下文运行；</p>
+</li>
+<li><p>②.处理程序不能做任何可能休眠的操作；</p>
+</li>
+<li><p>③.不能调用schedule()函数；</p>
+</li>
+<li><p>④.Linux的ISR无须是重入的，当一个给定ISR在执行时，相应的中断线在所有处理器上都会被屏蔽。</p>
+</li>
+<li><p>⑤.通常情况下，其他中断是打开的，所以这些不同中断线上的ISR都可以被处理。</p>
+</li>
+</ul>
+<p>中断的嵌套，还要看CPU硬件提供的支持，Linux只能适应硬件，而不能改变硬件特性。</p>
+<h3 id="共享的中断处理程序"><a href="#共享的中断处理程序" class="headerlink" title="共享的中断处理程序"></a>共享的中断处理程序</h3><p>注意点主要有三:</p>
+<ul>
+<li><p>①.request_irq()的参数flags必须设置为IRQF_SHARED标志；</p>
+</li>
+<li><p>②.对于每个注册的中断处理程序，dev参数必须唯一，且不能为空；</p>
+</li>
+<li><p>③.中断处理程序必须能够区分设备是否真产生了中断，一般由状态寄存器或类似机制实现；</p>
+</li>
+</ul>
+<blockquote>
+<p>内核收到一个中断后，它将依次调用在该中断线上注册的每一个处理程序，因此每个处理程序都应该能为中断负责，若发现相关设备并未产生中断，应该立即退出。</p>
+</blockquote>
+<h2 id="中断上下文"><a href="#中断上下文" class="headerlink" title="中断上下文"></a>中断上下文</h2><p>进程上下文，是一种内核所处的操作模式，此时内核代表进程执行，进程以进程上下文的形式连接到内核中，因此进程上下文可以睡眠，也可以调用调度程序；</p>
+<p>中断上下文，与进程不相干，它无法被调度，所以不能睡眠(一旦睡眠，则无法返回)；</p>
+<p>中断上下文具有较为严格的时间限制，中断上下文的代码应当迅速、简洁，尽量不要去处理繁重的工作。中断打断了其他代码的执行(甚至可能是打断了在其他中断线上的另一个中断处理程序)，所以ISR应该尽量快速的退出，尽量把工作从ISR中分离出来，放到下半部去执行。</p>
+<p>中断处理在32位机上只有4K的中断栈，因此应该尽量节约内核栈空间。</p>
+<h2 id="中断处理机制的实现"><a href="#中断处理机制的实现" class="headerlink" title="中断处理机制的实现"></a>中断处理机制的实现</h2><blockquote>
+<p>中断处理系统在Linux中的实现，是非常依赖于体系结构的。</p>
+</blockquote>
+<p>当一个中断产生，处理器会跳到一个预先定义好的入口点，每条中断线处理器都会跳转到一个唯一的对应位置。在栈中保存IRQ号，调用do_IRQ()函数。</p>
+<p>取出栈顶的参数，计算出中断号后，do_IRQ()对所接收的中断进行应答，禁止这条线上的中断传递。然后调用handle_IRQ_event()来运行中断处理程序。</p>
+<p>handle_IRQ_event()函数中，若为共享中断，所有该中断线上的处理程序都被执行一遍。</p>
+<p>执行完中断处理程序，返回入口点跳到ret_from_intr()。</p>
+<p>这个例程中检查重新调度程序是否正在挂起(need_resched被设置)，如果重新调度程序正在挂起，如果内核正返回用户空间，那么schedule()会被调用；如果内核正要返回内核空间(中断了内核本身)，只有在preempt_count为0时(不持有锁)，schedule()才会被调用，否则抢占内核不安全。</p>
+<h2 id="proc-interrupts"><a href="#proc-interrupts" class="headerlink" title="/proc/interrupts"></a>/proc/interrupts</h2><p>procfs是一个虚拟文件系统，只存在于内核内存中。对procfs的读写都要通过内核函数实现，/proc/interrupts文件，存放的是系统中与中断相关的统计信息。分别显示中断线，中断发生次数，中断控制器，发生中断名字等。</p>
+<h2 id="中断控制"><a href="#中断控制" class="headerlink" title="中断控制"></a>中断控制</h2><p>Linux内核提供了一组接口，能够禁止当前处理器的中断系统，或屏蔽掉整个机器的一条中断线的能力。</p>
+<p>控制中断系统的原因归根结底，是需要提提供同步，通过禁止中断，可以确保某个中断处理程序不会抢占当前的代码，禁止中断还可以禁止内核抢占。</p>
+<p>Linux支持多处理器，因此内核代码一般都需要获取某种锁，来防止其他处理器对共享数据的并发访问。锁提供保护机制，防止其他处理器的并发访问；禁止中断提供保护机制，防止来自其他中断处理程序的并发访问；</p>
+<h3 id="禁止和激活中断"><a href="#禁止和激活中断" class="headerlink" title="禁止和激活中断"></a>禁止和激活中断</h3><p>禁止/激活当前处理器上的本地中断，</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">local_irq_disable();</div><div class="line">local_irq_enable();</div></pre></td></tr></table></figure>
+<hr>
+<p>禁止中断之前保存中断系统状态会更安全</p>
+<p>禁止本地中断，并保存中断状态</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> flags;</div><div class="line">local_irq_save(flags);<span class="comment">//禁止中断</span></div><div class="line">…</div><div class="line">local_irq_restore(flags);<span class="comment">//中断被恢复到它们原来的状态</span></div></pre></td></tr></table></figure>
+<hr>
+<p>这一对函数，应当在同一个函数内调用。</p>
+<h3 id="禁止指定中断线"><a href="#禁止指定中断线" class="headerlink" title="禁止指定中断线"></a>禁止指定中断线</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">disable_irq</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> irq)</span></span>; <span class="comment">//当前正在执行的所有处理程序完成后，才返回</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">disable_irq_nosync</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> irq)</span></span>; <span class="comment">//不等待ISR执行完毕</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">enable_irq</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> irq)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">synchronize_irq</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> irq)</span></span>; <span class="comment">//等待指定中断处理程序退出，才返回</span></div><div class="line">disable_irq()/enable_irq()；<span class="comment">//必须成对使用，如果enable_irq()被调用多次，只有最有一次调用后，才会真正激活中断线；</span></div></pre></td></tr></table></figure>
+<hr>
+<p>一般来说禁止共享中断线是不合适的，这就禁止了这条线上的所有中断传递。</p>
+<h3 id="中断系统状态"><a href="#中断系统状态" class="headerlink" title="中断系统状态"></a>中断系统状态</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">irqs_disabled()；<span class="comment">//本地处理器上的中断系统被禁止，则它返回非0，否则返回0.</span></div><div class="line">in_interrupt();<span class="comment">//内核处于任何类型的中断中，返回非0，说明内核正在执行isr，或下半部处理程序</span></div><div class="line">in_irq()；<span class="comment">// 当内核确实正在执行中断处理程序时，返回非0</span></div></pre></td></tr></table></figure>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/luteresa/article/details/68061797" target="_blank" rel="external">Linux内核设计与实现(8)—中断和中断处理</a></p>
+
       
     </div>
 
@@ -415,6 +538,8 @@
           
             <a href="/tags/kernel/" rel="tag"># kernel</a>
           
+            <a href="/tags/interrupt/" rel="tag"># interrupt</a>
+          
         </div>
       
 
@@ -436,8 +561,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/31/Linux下的轻量服务器实现/" rel="prev" title="Linux下的的轻量级HTTP服务器实现">
-                Linux下的的轻量级HTTP服务器实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/10/Linux内核设计与实现(七)一一中断处理的下半部/" rel="prev" title="Linux内核设计与实现(七)一一中断处理的下半部">
+                Linux内核设计与实现(七)一一中断处理的下半部 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -487,8 +612,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png"
@@ -503,7 +637,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -516,7 +650,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -570,6 +704,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#中断"><span class="nav-number">1.</span> <span class="nav-text">中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中断-1"><span class="nav-number">1.1.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常"><span class="nav-number">1.2.</span> <span class="nav-text">异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断处理"><span class="nav-number">2.</span> <span class="nav-text">中断处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上半部与下半部"><span class="nav-number">3.</span> <span class="nav-text">上半部与下半部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册中断处理程序"><span class="nav-number">4.</span> <span class="nav-text">注册中断处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个参数irq"><span class="nav-number">4.1.</span> <span class="nav-text">第一个参数irq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#handler"><span class="nav-number">4.2.</span> <span class="nav-text">handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flags"><span class="nav-number">4.3.</span> <span class="nav-text">flags</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IRQF-DISABLED"><span class="nav-number">4.3.1.</span> <span class="nav-text">IRQF_DISABLED</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IRQF-SAMPLE-RANDOM"><span class="nav-number">4.3.2.</span> <span class="nav-text">IRQF_SAMPLE_RANDOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IRQF-TIMER："><span class="nav-number">4.3.3.</span> <span class="nav-text">IRQF_TIMER：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IRQF-SHARED"><span class="nav-number">4.3.4.</span> <span class="nav-text">IRQF_SHARED</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name"><span class="nav-number">4.4.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dev"><span class="nav-number">4.5.</span> <span class="nav-text">dev</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断线被共享"><span class="nav-number">4.5.1.</span> <span class="nav-text">中断线被共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不是共享中断线"><span class="nav-number">4.5.2.</span> <span class="nav-text">不是共享中断线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#释放中断处理程序："><span class="nav-number">5.</span> <span class="nav-text">释放中断处理程序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写中断处理程序"><span class="nav-number">6.</span> <span class="nav-text">编写中断处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中断处理程序原型"><span class="nav-number">6.1.</span> <span class="nav-text">中断处理程序原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#irq：中断号"><span class="nav-number">6.1.1.</span> <span class="nav-text">irq：中断号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dev：通用指针，就是request-irq-注册时的dev。"><span class="nav-number">6.1.2.</span> <span class="nav-text">dev：通用指针，就是request_irq()注册时的dev。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#irqreturn-t-返回值，一般有两个值"><span class="nav-number">6.1.3.</span> <span class="nav-text">irqreturn_t:返回值，一般有两个值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断处理程序特点："><span class="nav-number">6.2.</span> <span class="nav-text">中断处理程序特点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享的中断处理程序"><span class="nav-number">6.3.</span> <span class="nav-text">共享的中断处理程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断上下文"><span class="nav-number">7.</span> <span class="nav-text">中断上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断处理机制的实现"><span class="nav-number">8.</span> <span class="nav-text">中断处理机制的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proc-interrupts"><span class="nav-number">9.</span> <span class="nav-text">/proc/interrupts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断控制"><span class="nav-number">10.</span> <span class="nav-text">中断控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止和激活中断"><span class="nav-number">10.1.</span> <span class="nav-text">禁止和激活中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#禁止指定中断线"><span class="nav-number">10.2.</span> <span class="nav-text">禁止指定中断线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断系统状态"><span class="nav-number">10.3.</span> <span class="nav-text">中断系统状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">11.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
