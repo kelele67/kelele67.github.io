@@ -99,7 +99,7 @@
 <meta property="og:description" content="多任务 抢占式多任务  非抢占式多任务">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A61">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A62">
-<meta property="og:updated_time" content="2017-05-31T16:28:45.000Z">
+<meta property="og:updated_time" content="2017-06-01T13:55:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux内核设计与实现(三)一一进程调度">
 <meta name="twitter:description" content="多任务 抢占式多任务  非抢占式多任务">
@@ -583,7 +583,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> prio_to_weight[<span class="number">40</span>] = &#123;</div><div class="line"> <span class="comment">/* -20 */</span> <span class="number">88761</span>, <span class="number">71755</span>, <span class="number">56483</span>, <span class="number">46273</span>, <span class="number">36291</span>,</div><div class="line"> <span class="comment">/* -15 */</span> <span class="number">29154</span>, <span class="number">23254</span>, <span class="number">18705</span>, <span class="number">14949</span>, <span class="number">11916</span>,</div><div class="line"> <span class="comment">/* -10 */</span> <span class="number">9548</span>, <span class="number">7620</span>, <span class="number">6100</span>, <span class="number">4904</span>, <span class="number">3906</span>,</div><div class="line"> <span class="comment">/* -5 */</span> <span class="number">3121</span>, <span class="number">2501</span>, <span class="number">1991</span>, <span class="number">1586</span>, <span class="number">1277</span>,</div><div class="line"> <span class="comment">/* 0 */</span> <span class="number">1024</span>, <span class="number">820</span>, <span class="number">655</span>, <span class="number">526</span>, <span class="number">423</span>,</div><div class="line"> <span class="comment">/* 5 */</span> <span class="number">335</span>, <span class="number">272</span>, <span class="number">215</span>, <span class="number">172</span>, <span class="number">137</span>,</div><div class="line"> <span class="comment">/* 10 */</span> <span class="number">110</span>, <span class="number">87</span>, <span class="number">70</span>, <span class="number">56</span>, <span class="number">45</span>,</div><div class="line"> <span class="comment">/* 15 */</span> <span class="number">36</span>, <span class="number">29</span>, <span class="number">23</span>, <span class="number">18</span>, <span class="number">15</span>,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <hr>
 <blockquote>
-<p>calc_delta_mine()函数用到这个数组加权值，这个转化过程</p>
+<p>calc_delta_mine()函数用到这个数组加权值，这个转化过程 大概是为了防止相乘之后越界,再一个就是用移位来近似代替除法，暂时不太明白</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Inverse (2^32/x) values of the prio_to_weight[] array, precalculated.</div><div class="line"> *</div><div class="line"> * In cases where the weight does not change often, we can use the</div><div class="line"> * precalculated inverse to speed up arithmetics by turning divisions</div><div class="line"> * into multiplications:</div><div class="line"> */</div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> u32 prio_to_wmult[<span class="number">40</span>] = &#123;</div><div class="line"> <span class="comment">/* -20 */</span> <span class="number">48388</span>, <span class="number">59856</span>, <span class="number">76040</span>, <span class="number">92818</span>, <span class="number">118348</span>,</div><div class="line"> <span class="comment">/* -15 */</span> <span class="number">147320</span>, <span class="number">184698</span>, <span class="number">229616</span>, <span class="number">287308</span>, <span class="number">360437</span>,</div><div class="line"> <span class="comment">/* -10 */</span> <span class="number">449829</span>, <span class="number">563644</span>, <span class="number">704093</span>, <span class="number">875809</span>, <span class="number">1099582</span>,</div><div class="line"> <span class="comment">/* -5 */</span> <span class="number">1376151</span>, <span class="number">1717300</span>, <span class="number">2157191</span>, <span class="number">2708050</span>, <span class="number">3363326</span>,</div><div class="line"> <span class="comment">/* 0 */</span> <span class="number">4194304</span>, <span class="number">5237765</span>, <span class="number">6557202</span>, <span class="number">8165337</span>, <span class="number">10153587</span>,</div><div class="line"> <span class="comment">/* 5 */</span> <span class="number">12820798</span>, <span class="number">15790321</span>, <span class="number">19976592</span>, <span class="number">24970740</span>, <span class="number">31350126</span>,</div><div class="line"> <span class="comment">/* 10 */</span> <span class="number">39045157</span>, <span class="number">49367440</span>, <span class="number">61356676</span>, <span class="number">76695844</span>, <span class="number">95443717</span>,</div><div class="line"> <span class="comment">/* 15 */</span> <span class="number">119304647</span>, <span class="number">148102320</span>, <span class="number">186737708</span>, <span class="number">238609294</span>, <span class="number">286331153</span>,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <hr>
@@ -759,7 +759,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -772,7 +772,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
