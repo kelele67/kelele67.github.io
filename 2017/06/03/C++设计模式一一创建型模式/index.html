@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/Prototype2.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/Prototype3.png">
 <meta property="og:image" content="http://oe9uinblw.bkt.clouddn.com/Singleton_uml.jpg">
-<meta property="og:updated_time" content="2017-06-14T14:28:42.000Z">
+<meta property="og:updated_time" content="2017-06-14T14:36:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++设计模式一一创建型模式">
 <meta name="twitter:description" content="创建型模式我们这里介绍四种对象创建型模式  ABSTRACT FACTORY 抽象工厂  FACTORY 工厂模式  PROTOTYPE 原型模式  SINGLETON 单例模式">
@@ -478,7 +478,7 @@
 </li>
 </ul>
 <blockquote>
-<p>相比于教科书上的实现，构造函数由保护变为私有，直接在类中实现获取实例的共有函数：</p>
+<p>相比于教科书上的实现，构造函数由保护变为私有，直接在类中实现获取实例的公有函数：</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Singleton &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	Singleton() &#123;&#125;</div><div class="line">	<span class="keyword">static</span> Singleton *pInstance;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">static</span> Singleton *<span class="title">GetInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (pInstance == <span class="number">0</span>) &#123;</div><div class="line">			pInstance = <span class="keyword">new</span> Singleton();</div><div class="line">			&#125;</div><div class="line">		<span class="keyword">return</span> pInstance;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <hr>
@@ -499,7 +499,7 @@
 <p>之所以说上面的代码考虑不周全是因为，当我们调用静态方法get实例的时候，<br>如：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Singleton singleton = Singleton::GetInstance();</div></pre></td></tr></table></figure>
 <hr>
-<p>这种调用方式编译器会为类生成一个 默认构造函数，来支持类的拷贝。</p>
+<p>这种调用方式编译器会为类生成一个 默认复制构造函数，来支持类的拷贝。</p>
 <p>这样的话就违背了单例的特性，所以我们改成</p>
 <blockquote>
 <p>返回指针的形式：</p>
