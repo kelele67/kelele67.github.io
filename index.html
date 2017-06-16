@@ -515,53 +515,17 @@
 
       
         
-          
-            <p>
+          <p>
 
 </p><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p>我的环境是macOS，直接在官网下载安装包</p>
 <p>我安装的是<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">docker for macOS</a></p>
-<h2 id="创建docker-image"><a href="#创建docker-image" class="headerlink" title="创建docker image"></a>创建docker image</h2><h3 id="创建docker-文件"><a href="#创建docker-文件" class="headerlink" title="创建docker 文件"></a>创建docker 文件</h3><p>新建我们的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir restful-go  </div><div class="line"><span class="built_in">cd</span> restful-go  </div><div class="line">touch Dockerfile</div></pre></td></tr></table></figure>
-<hr>
-<p>编辑我们的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim Dockerfile</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FROM golang:latest</div><div class="line"></div><div class="line">RUN go get github.com/kelele67/gopher/goadult/simple-rest</div><div class="line"></div><div class="line">CMD /go/bin/hellorest</div><div class="line"></div><div class="line">EXPOSE 8080</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="创建docker镜像"><a href="#创建docker镜像" class="headerlink" title="创建docker镜像"></a>创建docker镜像</h3><p>运行 docker build -t simple-rest .</p>
-<p>由于我们是新环境，所以第一步下载go语言环境会有点慢。</p>
-<blockquote>
-<p>在Step 2的时候遇到问题</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(10:49:02)──&gt; docker build -t simple-rest .               128 ↵ ──(五, 616)─┘</div><div class="line">Sending build context to Docker daemon 2.048 kB</div><div class="line">Step 1/4 : FROM golang:latest</div><div class="line"> ---&gt; 41e7847de71b</div><div class="line">Step 2/4 : RUN go get github.com/kelele67/gopher/goadult/simple-rest</div><div class="line"> ---&gt; Running <span class="keyword">in</span> c927b5cf53ee</div><div class="line"><span class="comment"># cd /go/src/github.com/kelele67/gopher; git submodule update --init --recursive</span></div><div class="line">No submodule mapping found <span class="keyword">in</span> .gitmodules <span class="keyword">for</span> path <span class="string">'src/goji.io'</span></div><div class="line">package github.com/kelele67/gopher/goadult/simple-rest: <span class="built_in">exit</span> status 1</div><div class="line">The <span class="built_in">command</span> <span class="string">'/bin/sh -c go get github.com/kelele67/gopher/goadult/simple-rest'</span> returned a non-zero code: 1</div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>google 之后解决办法是</p>
-</blockquote>
-<p>在自己git仓库中移除src/goji.io包（这是我们之后用到的一个包）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">┌─(~/Desktop/gopher)───────────────────────(kelele67@liuqideMacBook-Pro:s000)─┐</div><div class="line">└─(10:49:09 on master)──&gt; git rm --cached src/goji.io             ──(五, 616)─┘</div><div class="line">rm <span class="string">'src/goji.io'</span></div></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>最后别忘了更新你的git仓库</p>
-</blockquote>
-<p>然后终于成功运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(10:49:51)──&gt; docker build -t simple-rest .                 1 ↵ ──(五, 616)─┘</div><div class="line">Sending build context to Docker daemon 2.048 kB</div><div class="line">Step 1/4 : FROM golang:latest</div><div class="line"> ---&gt; 41e7847de71b</div><div class="line">Step 2/4 : RUN go get github.com/kelele67/gopher/goadult/simple-rest</div><div class="line"> ---&gt; Running <span class="keyword">in</span> dd10a804e0a6</div><div class="line"></div><div class="line"> ---&gt; 659213d46869</div><div class="line">Removing intermediate container dd10a804e0a6</div><div class="line">Step 3/4 : CMD /go/bin/simple-rest</div><div class="line"> ---&gt; Running <span class="keyword">in</span> 2a211ea63c14</div><div class="line"> ---&gt; 4946a3b22cc0</div><div class="line">Removing intermediate container 2a211ea63c14</div><div class="line">Step 4/4 : EXPOSE 8080</div><div class="line"> ---&gt; Running <span class="keyword">in</span> 68bf32730290</div><div class="line"> ---&gt; af6476b6f2c6</div><div class="line">Removing intermediate container 68bf32730290</div><div class="line">Successfully built af6476b6f2c6</div></pre></td></tr></table></figure>
-<hr>
-<p>查看我们现在的镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(11:08:01)──&gt; docker images                                     ──(五, 616)─┘</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">simple-rest         latest              af6476b6f2c6        2 minutes ago       709 MB</div><div class="line">golang              latest              41e7847de71b        6 days ago          699 MB</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(11:10:35)──&gt; docker run <span class="_">-d</span> -p 8080:8080 simple-rest            ──(五, 616)─┘</div><div class="line">8911247792d4ce774738c492859bbd66911b1e0eeb2f6a76a6b5c7b3c768c12b</div></pre></td></tr></table></figure>
-<hr>
-<p>查看正在运行的镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(11:11:13)──&gt; docker ps                                         ──(五, 616)─┘</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS                    NAMES</div><div class="line">8911247792d4        simple-rest         <span class="string">"/bin/sh -c /go/bi..."</span>   Less than a second ago   Up 19 seconds       0.0.0.0:8080-&gt;8080/tcp   relaxed_austin</div></pre></td></tr></table></figure>
-<hr>
-<h3 id="测试镜像"><a href="#测试镜像" class="headerlink" title="测试镜像"></a>测试镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(11:28:04)──&gt; curl http://127.0.0.1:8080/hello                  ──(五, 616)─┘</div><div class="line">Hello, Stranger%</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">┌─(~/restful-go)───────────────────────────(kelele67@liuqideMacBook-Pro:s002)─┐</div><div class="line">└─(11:29:14)──&gt; curl http://127.0.0.1:8080/hello\?name\=kelele67  ──(五, 616)─┘</div><div class="line">Hello, kelele67%</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://goinbigdata.com/how-to-run-go-restful-service-in-docker-on-mac-os-x/" target="_blank" rel="external">How To Run Go RESTful Service In Docker On Mac OS X</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/15/在 docker 上搭建 Go RESTful 服务/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -681,20 +645,17 @@
 
       
         
-          
-            <p>
+          <p>
 
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/hello"</span>, hello)</div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	name := r.FormValue(<span class="string">"name"</span>)</div><div class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(name) == <span class="number">0</span> &#123;</div><div class="line">		name = <span class="string">"Stranger"</span></div><div class="line">	&#125;</div><div class="line">	fmt.Fprintf(w, <span class="string">"Hello, %v"</span>, name)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</p><h2 id="Go-RESTful"><a href="#Go-RESTful" class="headerlink" title="Go RESTful"></a>Go RESTful</h2><p>由于是搭建一个简单的RESTful，直接上代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/hello"</span>, hello)</div><div class="line">	http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">	name := r.FormValue(<span class="string">"name"</span>)</div><div class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(name) == <span class="number">0</span> &#123;</div><div class="line">		name = <span class="string">"Stranger"</span></div><div class="line">	&#125;</div><div class="line">	fmt.Fprintf(w, <span class="string">"Hello, %v"</span>, name)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <hr>
-</p><h2 id="func-main"><a href="#func-main" class="headerlink" title="func main()"></a>func main()</h2><p>创建hello()函数去处理path/hello的请求<br>在8080端口创建一个web server监听请求</p>
-<h2 id="func-hello"><a href="#func-hello" class="headerlink" title="func hello()"></a>func hello()</h2><p>检查请求是否提供name，如果没有就默认为”Stranger”<br>然后打印欢迎界面</p>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>curl <a href="http://localhost:8080/hello" target="_blank" rel="external">http://localhost:8080/hello</a> </p>
-<p> Hello, Stranger</p>
-<p>curl <a href="http://localhost:8080/hello?name=kelele67" target="_blank" rel="external">http://localhost:8080/hello?name=kelele67</a></p>
-<p> Hello, kelele67</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://goinbigdata.com/how-to-create-a-simple-restful-service-in-go/" target="_blank" rel="external">How To Create A Simple RESTful Service In Go</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/14/搭建一个简单的 Go RESTful 服务/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -814,63 +775,19 @@
 
       
         
-          
-            <p>
+          <p>
 
 </p><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近因为准备要做一个安卓APP项目，然后我负责的是服务端的搭建</p>
 <p>再三考量之后，没有选择现有的后端云平台，而是选择自己搭建一个（其实就是因为我不想和他们去写JAVA啊~）</p>
 <p>再三考量之后，PASS掉了不熟悉的JAVA、Nodejs、Ruby等比较流行的后端语言，也没有选择熟悉的C++、python，更没有选择世界上<em>*</em>的编程语言PHP，而是选择了萌萌的Golang</p>
 <p><img src="http://oe9uinblw.bkt.clouddn.com/68747470733a2f2f7261772e6769746875622e636f6d2f676f6c616e672d73616d706c65732f676f706865722d766563746f722f6d61737465722f676f706865722e706e67.png" alt=""></p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>首先安装go语言，最好去<a href="https://golang.org/" target="_blank" rel="external">官网</a>下载</p>
-<p>我搭建的是sublime上的环境</p>
-<p>用到GoSublime这个插件</p>
-<p>设置是</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    "env": &#123;</div><div class="line">        "GOPATH": "/Users/Kelele67/Desktop/gopher", //go程序的个人代码工程路径</div><div class="line">        "GOROOT": "/usr/local/go" //go语言的安装路径</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<hr>
-<h2 id="入门学习"><a href="#入门学习" class="headerlink" title="入门学习"></a>入门学习</h2><p>所有的代码都在<a href="https://github.com/kelele67/gopher" target="_blank" rel="external">我的GitHub</a>上可以找到</p>
-<p>按照我一贯的作风，就是先上菜鸟教程熟悉一下语言辣</p>
-<p><a href="http://www.runoob.com/go/go-tutorial.html" target="_blank" rel="external">Learn from runoob.com</a></p>
-<ul>
-<li>Go 语言基础语法</li>
-<li>Go 语言数据类型</li>
-<li>Go 语言函数</li>
-<li>Go 语言范围(Range)</li>
-<li>Go 语言Map(集合)</li>
-<li>Go 语言递归函数</li>
-<li>Go 语言接口</li>
-<li>Go 错误处理</li>
-</ul>
-<h2 id="特性学习"><a href="#特性学习" class="headerlink" title="特性学习"></a>特性学习</h2><p>然后进一步熟悉go</p>
-<p><a href="https://github.com/everyx/gobyexample" target="_blank" rel="external">Learn from everyx</a></p>
-<ul>
-<li>通道，通道缓冲，通道同步，通道方向，通道选择器  </li>
-<li>超时处理，非阻塞通道操作，通道的关闭，通道遍历  </li>
-<li>定时器，打点器，工作池，速率限制，原子计数器  </li>
-<li>互斥锁，Go状态协程  </li>
-<li>排序，使用函数自定义排序，Panic，Defer  </li>
-<li>组合函数，字符串函数，字符串格式化  </li>
-<li>正则表达式，JSON  </li>
-<li>时间，时间戳，时间的格式化和解析  </li>
-<li>随机数，数字解析，URL解析</li>
-<li>SHA1散列，Base64编码</li>
-<li>读文件，写文件，行过滤器</li>
-<li>命令行参数，命令行标志，环境变量</li>
-<li>生成进程，执行进程，信号，退出</li>
-</ul>
-<h2 id="小项目学习"><a href="#小项目学习" class="headerlink" title="小项目学习"></a>小项目学习</h2><p>找一些小demo继续学习：</p>
-<p>部分详细的教程我也写到博客上了，有兴趣可以翻一翻</p>
-<ul>
-<li>找出10000以内所有的素数</li>
-<li><a href="http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/" target="_blank" rel="external">golang 的 “线程” 池实现</a></li>
-<li><a href="https://medium.freecodecamp.com/how-i-built-a-web-server-using-go-and-on-chromeos-3b83e4c2da5f" target="_blank" rel="external">一个简单的 HTTP Server</a></li>
-<li><a href="http://goinbigdata.com/how-to-create-a-simple-restful-service-in-go/" target="_blank" rel="external">How To Create A Simple RESTful Service In Go</a></li>
-<li><a href="http://goinbigdata.com/how-to-run-go-restful-service-in-docker-on-mac-os-x/" target="_blank" rel="external">How To Run Go RESTful Service In Docker On Mac OS X</a></li>
-<li><a href="http://goinbigdata.com/restful-web-service-in-go-using-goji/" target="_blank" rel="external">RESTful web service in Go using Goji</a></li>
-<li><a href="http://goinbigdata.com/how-to-build-microservice-with-mongodb-in-golang/" target="_blank" rel="external">How To Build Microservice With MongoDB In Golang</a></li>
-</ul>
-<h2 id="安卓APP后台搭建"><a href="#安卓APP后台搭建" class="headerlink" title="安卓APP后台搭建"></a>安卓APP后台搭建</h2><p>…</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/12/开始做一个gopher/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
