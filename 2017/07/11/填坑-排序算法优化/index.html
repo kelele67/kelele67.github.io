@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/11/填坑-排序算法优化/index.html">
 <meta property="og:site_name" content="树犹如此|人何以堪">
 <meta property="og:description" content="排序算法优化之前挖的一个坑 ，填一下">
-<meta property="og:updated_time" content="2017-07-15T09:20:25.000Z">
+<meta property="og:updated_time" content="2017-07-16T03:17:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="填坑-排序算法优化">
 <meta name="twitter:description" content="排序算法优化之前挖的一个坑 ，填一下">
@@ -416,8 +416,9 @@
 <hr>
 <h4 id="优化的快排"><a href="#优化的快排" class="headerlink" title="优化的快排"></a>优化的快排</h4><p>快排改进的方案主要有三种：</p>
 <ol>
-<li><p>一种是调整标值的选择方式，降低在某些特定的输入序列的情况下，快速排序性能接近其最坏性能的问题；</p>
-</li>
+<li>一种是调整标值的选择方式，降低在某些特定的输入序列的情况下，快速排序性能接近其最坏性能的问题；</li>
+</ol>
+<ol>
 <li><p>另一种是解决其递归问题，采用模拟递归栈的方式，用循环代替递归，减少对系统内存栈资源的使用，提高性能；</p>
 </li>
 <li><p>还有一种是在待排序序列已基本排序时，换用其他更为简介紧凑的排序方式，如果插入排序等，提高效率</p>
@@ -427,7 +428,13 @@
 <hr>
 <h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> first, <span class="keyword">int</span> last, <span class="keyword">int</span> mid)</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> index_1 = first, index_2 = mid + <span class="number">1</span>;</div><div class="line">	<span class="keyword">int</span> index_s = <span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> temp[last-first+<span class="number">1</span>];</div><div class="line"></div><div class="line">	<span class="keyword">while</span> (index_1 &lt;= mid || index_2 &lt;= last) &#123;</div><div class="line">		<span class="keyword">if</span> (index_1 &gt; mid) &#123;</div><div class="line">			<span class="keyword">while</span> (index_2 &lt;= last) &#123;</div><div class="line">				temp[index_s++] = arr[index_2++];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (index_2 &gt; last) &#123;</div><div class="line">			<span class="keyword">while</span> (index_1 &lt;= mid) &#123;</div><div class="line">				temp[index_s++] = arr[index_1++];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">if</span> (arr[index_1] &lt; arr[index_2]) &#123;</div><div class="line">				temp[index_s++] = arr[index_1++];</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span> &#123;</div><div class="line">				temp[index_s++] = arr[index_2++];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// save result</span></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; last-first+<span class="number">1</span>; ++i) &#123;</div><div class="line">		arr[first+i] = temp[i];</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> first, <span class="keyword">int</span> last)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (first &lt; last) &#123;</div><div class="line">		<span class="keyword">int</span> mid = (first + last) / <span class="number">2</span>;</div><div class="line">		mergeSort(arr, first, mid);</div><div class="line">		mergeSort(arr, mid+<span class="number">1</span>, last);</div><div class="line">		merge(arr, first, last, mid);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
-<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://taozj.org/201611/data-structure-and-algorithm-%284%29-sort.html" target="_blank" rel="external">数据结构和算法（四）：主流内排序算法</a></p>
+<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><p>计数排序基本算法：</p>
+<p>　　(1). 取出待排序列中的最小值n1和最大值n2，建立一个n2-n1+1长度的数组；<br>　　(2). 依次遍历待排元素，根据待排元素的值将对应数组项计数自增；<br>　　(3). 这步比较关键，统计数组计数，每项保存前N项和count_arr[k] += count_arr[k-1];这其实是进行了值到最终排列位置的映射关系；<br>　　(4). 再依次遍历待排元素，根据元素值查找count_arr中对应的最终排序位置，计入到排序结果中。</p>
+<p>缺点是空间要求比较大。</p>
+<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p>桶排序是计数排序的升级版，通过一个映射函数将待排数据分配到各个桶里面，然后桶内部如果大于一个元素可以采用快速排序等操作方式；最后实现桶数据的合并；</p>
+<p>　　(1). 设置桶的数目：bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1;<br>　　(2). 待排元素和桶的映射关系：buckets[Math.floor((arr[i] - minValue) / bucketSize)].push(arr[i]);<br>　　(3). 对桶进行从小到大的合并操作：arr.push(buckets[i][j]);<br>　　桶排序的f(k)值的计算，其作用就相当于快排中划分，已经把大量数据分割成了基本有序的数据块(桶)，然后只需要对桶中的少量数据做先进的比较排序即可。在内存足够的情况下桶的数目越多越好，确保每个桶中元素尽可能少甚至一个元素。</p>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>基数排序包括：从高位开始进行排序(MSD)和从低位开始进行排序(LSD)，大部分的例子都是LSD来排序的。其主要思路是从按照低位到高位，依次进行多次的桶排序，当最高位桶排序结束后，整个数据就是有序的了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://taozj.org/201611/data-structure-and-algorithm-%284%29-sort.html" target="_blank" rel="external">数据结构和算法（四）：主流内排序算法</a></p>
 
       
     </div>
