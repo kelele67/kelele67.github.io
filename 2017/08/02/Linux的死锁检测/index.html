@@ -1,0 +1,986 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,deadlock," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/icon/bird.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="死锁死锁的四大原因就不多说了  互斥 不可剥夺 占有并等待 循环等待  死锁：就是多个进程（≥2）因为争夺资源而相互等待的一种现象，若无外力推动，将无法继续运行下去。  注意，只有在多进程或者多线程之间或者他们与中断之间相互通讯或者共享资源才有可能发生死锁，单线程或者进程之间没有联系的话，一般不会发生死锁。 锁的种类比较多，这里主要说自旋锁和信号量。两者的差别就在于前者获得不到资源时的动作是不">
+<meta name="keywords" content="linux,deadlock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的死锁检测">
+<meta property="og:url" content="http://yoursite.com/2017/08/02/Linux的死锁检测/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="死锁死锁的四大原因就不多说了  互斥 不可剥夺 占有并等待 循环等待  死锁：就是多个进程（≥2）因为争夺资源而相互等待的一种现象，若无外力推动，将无法继续运行下去。  注意，只有在多进程或者多线程之间或者他们与中断之间相互通讯或者共享资源才有可能发生死锁，单线程或者进程之间没有联系的话，一般不会发生死锁。 锁的种类比较多，这里主要说自旋锁和信号量。两者的差别就在于前者获得不到资源时的动作是不">
+<meta property="og:updated_time" content="2017-08-18T14:43:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux的死锁检测">
+<meta name="twitter:description" content="死锁死锁的四大原因就不多说了  互斥 不可剥夺 占有并等待 循环等待  死锁：就是多个进程（≥2）因为争夺资源而相互等待的一种现象，若无外力推动，将无法继续运行下去。  注意，只有在多进程或者多线程之间或者他们与中断之间相互通讯或者共享资源才有可能发生死锁，单线程或者进程之间没有联系的话，一般不会发生死锁。 锁的种类比较多，这里主要说自旋锁和信号量。两者的差别就在于前者获得不到资源时的动作是不">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'U0JYTSJKPY',
+      apiKey: 'f3499a45aff4dffb505b45c35dd42268',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索本站","hits_empty":"未找到 ${query} 相关内容","hits_stats":"${hits} 条相关条目，耗时${time} 毫秒"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/02/Linux的死锁检测/"/>
+
+
+
+
+
+  <title>Linux的死锁检测 | 树犹如此|人何以堪</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=62141337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">树犹如此|人何以堪</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做一个富有的废物</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/Linux的死锁检测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kelele67">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="树犹如此|人何以堪">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux的死锁检测</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T09:01:02+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/02/Linux的死锁检测/" class="leancloud_visitors" data-flag-title="Linux的死锁检测">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>
+
+</p><h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁的四大原因就不多说了</p>
+<ul>
+<li>互斥</li>
+<li>不可剥夺</li>
+<li>占有并等待</li>
+<li>循环等待</li>
+</ul>
+<p>死锁：就是多个进程（≥2）因为争夺资源而相互等待的一种现象，若无外力推动，将无法继续运行下去。</p>
+<blockquote>
+<p>注意，只有在多进程或者多线程之间或者他们与中断之间相互通讯或者共享资源才有可能发生死锁，单线程或者进程之间没有联系的话，一般不会发生死锁。</p>
+<p>锁的种类比较多，这里主要说自旋锁和信号量。两者的差别就在于前者获得不到资源时的动作是不断的资源（即忙转浪费 cpu 的 cycles）而后者则表现为睡眠等待。</p>
+</blockquote>
+<h2 id="死锁的基本情况"><a href="#死锁的基本情况" class="headerlink" title="死锁的基本情况"></a>死锁的基本情况</h2><h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><h4 id="递归使用"><a href="#递归使用" class="headerlink" title="递归使用"></a>递归使用</h4><p>在同一个进程或者线程中，申请自旋锁，但没有释放之前又再次申请，一定会产生死锁。</p>
+<h4 id="进程得到自旋锁后阻塞或睡眠"><a href="#进程得到自旋锁后阻塞或睡眠" class="headerlink" title="进程得到自旋锁后阻塞或睡眠"></a>进程得到自旋锁后阻塞或睡眠</h4><p>进程在获得自旋锁之后，调用 copy_from_user(), copy_to_user(), kmalloc() 等有可能引起阻塞的函数。</p>
+<h4 id="中断中没有关闭，申请未释放的自旋锁"><a href="#中断中没有关闭，申请未释放的自旋锁" class="headerlink" title="中断中没有关闭，申请未释放的自旋锁"></a>中断中没有关闭，申请未释放的自旋锁</h4><p>虽然在中断中是可以使用自旋锁的，但是应该在进入中断的时候关闭中断，不然的话，当中断再次进入的的时候，中断处理函数会自旋等待自旋锁可以再次使用。</p>
+<p>在进程中申请了自旋锁，但是在释放前进入中断处理函数，中断处理函数又申请同样的自旋锁，这将导致死锁。</p>
+<h4 id="中断与中断下半部共享资源"><a href="#中断与中断下半部共享资源" class="headerlink" title="中断与中断下半部共享资源"></a>中断与中断下半部共享资源</h4><p>和中断与进程共享资源死锁出现的情况类似</p>
+<h4 id="中断下半部与进程共享资源"><a href="#中断下半部与进程共享资源" class="headerlink" title="中断下半部与进程共享资源"></a>中断下半部与进程共享资源</h4><p>和中断与进程共享资源死锁出现的情况类似</p>
+<h3 id="自旋锁三种状态"><a href="#自旋锁三种状态" class="headerlink" title="自旋锁三种状态"></a>自旋锁三种状态</h3><p>自旋锁保持期间是抢占失效的(内核是不允许被抢占的)</p>
+<h4 id="单CPU且内核不可抢占"><a href="#单CPU且内核不可抢占" class="headerlink" title="单CPU且内核不可抢占"></a>单CPU且内核不可抢占</h4><p>自旋锁的所有操作都是空。不会引起死锁，内核进程间不存在并发操作进程，进程与中断仍然可能共享数据，存在并发操作，此时内核自旋锁已经失去效果。</p>
+<h4 id="单CPU且内核可抢占"><a href="#单CPU且内核可抢占" class="headerlink" title="单CPU且内核可抢占"></a>单CPU且内核可抢占</h4><ul>
+<li><p>在获得自旋锁的时候，禁止抢占直到释放锁为止。此时可能存在死锁的情况是参考自旋锁可能死锁的一般情况。</p>
+</li>
+<li><p>禁止内核抢占并不代表不会进行内核调度，如果在获得自旋锁后阻塞或者主动调度，内核会调度其他进程运行，被调度的内核进程返回用户空间时，会进行用户抢占，此时调用的进程再次申请上次未释放的自旋锁时，会一直自旋。但是内核被禁止抢占，从而造成死锁。</p>
+</li>
+<li><p>内核被禁止抢占，但此时中断并没有被禁止，内核进程可能因为中断申请自旋锁而死锁。</p>
+</li>
+</ul>
+<h4 id="多CPU且内核可抢占"><a href="#多CPU且内核可抢占" class="headerlink" title="多CPU且内核可抢占"></a>多CPU且内核可抢占</h4><p>真正的SMP情况。</p>
+<p>当获得自旋锁的时候，禁止内核抢占知道释放锁为止。</p>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><h4 id="递归使用-1"><a href="#递归使用-1" class="headerlink" title="递归使用"></a>递归使用</h4><p>同理，在同一个进程或线程中，申请了信号量，但没有释放之前又再次申请，进程会一直睡眠，这种情况一定死锁。</p>
+<h4 id="进程得到信号量后阻塞，睡眠"><a href="#进程得到信号量后阻塞，睡眠" class="headerlink" title="进程得到信号量后阻塞，睡眠"></a>进程得到信号量后阻塞，睡眠</h4><p>由于获取到信号量的进程阻塞或者随眠，其他在获取不到后信号量也会进入睡眠等待，这种情况可能造成死锁。</p>
+<h4 id="中断中申请信号量"><a href="#中断中申请信号量" class="headerlink" title="中断中申请信号量"></a>中断中申请信号量</h4><p>由于信号量在获取不到自旋锁后会进入睡眠等待，中断处理函数不允许睡眠，如果睡眠，中断将无法返回。</p>
+<h4 id="中断下半部申请信号量"><a href="#中断下半部申请信号量" class="headerlink" title="中断下半部申请信号量"></a>中断下半部申请信号量</h4><p>中断下半部允许睡眠，这种情况不会造成死锁。</p>
+<h4 id="俩个进程相互等待资源"><a href="#俩个进程相互等待资源" class="headerlink" title="俩个进程相互等待资源"></a>俩个进程相互等待资源</h4><p>进程 1 获得信号量 A，需要信号量 B，在进程 1 需要信号量 B 之前进程 2 获得信号量 B，需要信号量 A。进程 1、2 因相互等待资源而死锁。</p>
+<h3 id="Linux提供的检测死锁机制"><a href="#Linux提供的检测死锁机制" class="headerlink" title="Linux提供的检测死锁机制"></a>Linux提供的检测死锁机制</h3><h4 id="D状态死锁检测"><a href="#D状态死锁检测" class="headerlink" title="D状态死锁检测"></a>D状态死锁检测</h4><p>所谓 D 状态死锁：进程长时间（系统默认配置 120 秒）处于 TASK_UNINTERRUPTIBLE 睡眠状态，这种状态下进程不响应异步信号。如：进程与外设硬件的交互（如 read），通常使用这种状态来保证进程与设备的交互过程不被打断，否则设备可能处于不可控的状态。</p>
+<blockquote>
+<p>对于这种死锁的检测 linux 提供的是 <strong>hungtask</strong> 机制，主要内容集中在 Hung_task.c 文件中。具体实现原理如下：</p>
+</blockquote>
+<p>1.系统创建normal级别的khungtaskd内核线程，内核线程每120秒检查一次，检查的内容：</p>
+<p>遍历所有的线程链表，发现 D 状态的任务，就判断自最近一次切换以来是否还有切换发生，如果有，则返回，如果没有则发生切换，把任务的所有调用栈等信息打印出来。</p>
+<p>2.代码实现</p>
+<p>首先，hung_task_init 创建一个名为 khungtaskd 的内核线程，内核线程的工作由 watchdog 来完成。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">hung_task_init</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line"> atomic_notifier_chain_register(&amp;panic_notifier_list, &amp;panic_block);</div><div class="line">watchdog_task = kthread_run(watchdog, <span class="literal">NULL</span>, <span class="string">"khungtaskd"</span>);</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>其次，我们看 watchdog 的实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">watchdog</span><span class="params">(<span class="keyword">void</span> *dummy)</span></span></div><div class="line">&#123;</div><div class="line"><span class="comment">// 将内核线程设置为 normal 级别</span></div><div class="line">set_user_nice(current, <span class="number">0</span>);</div><div class="line"><span class="keyword">for</span> (; ;) &#123;</div><div class="line"><span class="comment">// 设置 hungtask 的校验时间间隔，用户可以修改这个时间，默认为 120 秒</span></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> timeout = sysctl_hung_task_timeout_secs;</div><div class="line"><span class="keyword">while</span> (schedule_timeout_interruptible(timeout_jiffies(timeout)))</div><div class="line">timeout = sysctl_hung_task_timeout_secs;</div><div class="line"><span class="comment">// 核心的检查代码在下面的函数中实现。       </span></div><div class="line">check_hung_uninterruptible_tasks(timeout);</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>最后，我们分析一下 hungtask 的核心实现 check_hung_uninterruptible_tasks，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">check_hung_uninterruptible_tasks</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> timeout)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">int</span> max_count = sysctl_hung_task_check_count;</div><div class="line"><span class="keyword">int</span> batch_count = HUNG_TASK_BATCHING;</div><div class="line"><span class="keyword">struct</span> task_struct *g, *t;</div><div class="line"><span class="comment">/*</span></div><div class="line">* If the system crashed already then all bets are off,</div><div class="line">* do not report extra hung tasks:</div><div class="line">*/</div><div class="line"><span class="comment">// 判断系统是否已经 die、oops 或者 panic 了，若是系统已经 crash 了，就无需再做 hungtask 了。</span></div><div class="line"><span class="keyword">if</span> (test_taint(TAINT_DIE) || did_panic)</div><div class="line"><span class="keyword">return</span>;</div><div class="line">rcu_read_lock();</div><div class="line"><span class="comment">// 检查进程的列表，寻找 D 状态的任务</span></div><div class="line">do_each_thread(g, t) &#123;</div><div class="line"><span class="comment">// 判断用户是否设置了检查进程的数量，若是已经达到用户设置的限制，就跳出循环。</span></div><div class="line"><span class="keyword">if</span> (!max_count--)</div><div class="line"><span class="keyword">goto</span> unlock;</div><div class="line"><span class="comment">// 判断是否到达批处理的个数，做这个批处理的目的就是因为整个检查是在关抢占的前提下进行的，可能进程列表的进程数很多，为了防止 hungtask 垄断 cpu，所以，做了一个批处理的限制，到达批处理的数量后，就放一下权，给其他的进程运行的机会。</span></div><div class="line"><span class="keyword">if</span> (!--batch_count) &#123;</div><div class="line">batch_count = HUNG_TASK_BATCHING;</div><div class="line">rcu_lock_break(g, t);</div><div class="line"><span class="comment">/* Exit if t or g was unhashed during refresh. */</span></div><div class="line"><span class="keyword">if</span> (t-&gt;state == TASK_DEAD || g-&gt;state == TASK_DEAD)</div><div class="line"><span class="keyword">goto</span> unlock;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* use "==" to skip the TASK_KILLABLE tasks waiting on NFS */</span></div><div class="line"><span class="comment">// 如果进程处于 D 状态，就开始把相关的信息显示出来了。</span></div><div class="line"><span class="keyword">if</span> (t-&gt;state == TASK_UNINTERRUPTIBLE)</div><div class="line">check_hung_task(t, timeout);</div><div class="line">&#125; while_each_thread(g, t);</div><div class="line">unlock:</div><div class="line">rcu_read_unlock();</div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">check_hung_task</span><span class="params">(<span class="keyword">struct</span> task_struct *t, <span class="keyword">unsigned</span> <span class="keyword">long</span> timeout)</span></span></div><div class="line">&#123;</div><div class="line"><span class="comment">// 统计进程的切换次数 = 主动切换次数 + 被动切换次数</span></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> switch_count = t-&gt;nvcsw + t-&gt;nivcsw;</div><div class="line"><span class="comment">/*</span></div><div class="line">* Ensure the task is not frozen.</div><div class="line">* Also, when a freshly created task is scheduled once, changes</div><div class="line">* its state to TASK_UNINTERRUPTIBLE without having ever been</div><div class="line">* switched out once, it musn </div><div class="line">*/</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="R状态死锁检测"><a href="#R状态死锁检测" class="headerlink" title="R状态死锁检测"></a>R状态死锁检测</h4><p>所谓 R 状态死锁：进程长时间（系统默认配置 60 秒）处于 TASK_RUNNING 状态垄断 cpu 而不发生切换，一般情况下是进程关抢占后长时候干活，有时候可能进程关抢占后处于死循环或者睡眠后，这样就造成系统异常。</p>
+<blockquote>
+<p>对于这种死锁的检测机制 linux 提供的机制是 <strong>softlockup</strong>。主要集中在 softlockup.c 文件中。</p>
+</blockquote>
+<p>1.系统创建一个 fifo 的进程，此进程周期性的清一下时间戳（per cpu），而系统的时钟中断中会被 softlockup 挂入一个钩子（softlockup_tick）, 这个钩子就是每个时钟中断到来的时候都检查是否每 cpu 的时间戳被 touch 了，若在阀值 60 秒内都没有被 touch，系统就打印调试信息。</p>
+<p>2.代码实现</p>
+<p>首先，系统初始化的时候为每个 cpu 创建一个 watchdog 线程，这个线程是 fifo 的。具体实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">spawn_softlockup_task</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">void</span> *cpu = (<span class="keyword">void</span> *)(<span class="keyword">long</span>)smp_processor_id();</div><div class="line"><span class="keyword">int</span> err;</div><div class="line"><span class="comment">// 可以通过启动参数禁止 softlockup</span></div><div class="line"><span class="keyword">if</span> (nosoftlockup)</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"><span class="comment">// 下面两个回调函数就是为每个 cpu 创建一个 watchdog 线程</span></div><div class="line">err = cpu_callback(&amp;cpu_nfb, CPU_UP_PREPARE, cpu);</div><div class="line"><span class="keyword">if</span> (err == NOTIFY_BAD) &#123;</div><div class="line">BUG();</div><div class="line"><span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line">cpu_callback(&amp;cpu_nfb, CPU_ONLINE, cpu);</div><div class="line">register_cpu_notifier(&amp;cpu_nfb);</div><div class="line">atomic_notifier_chain_register(&amp;panic_notifier_list, &amp;panic_block);</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">cpuinit</span></div><div class="line"><span class="title">cpu_callback</span><span class="params">(<span class="keyword">struct</span> notifier_block *nfb, <span class="keyword">unsigned</span> <span class="keyword">long</span> action, <span class="keyword">void</span> *hcpu)</span></div><div class="line">&#123;</div><div class="line"><span class="keyword">int</span> hotcpu = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)hcpu;</div><div class="line"><span class="keyword">struct</span> task_struct *p;</div><div class="line"><span class="keyword">switch</span> (action) &#123;</div><div class="line"><span class="keyword">case</span> CPU_UP_PREPARE:</div><div class="line"><span class="keyword">case</span> CPU_UP_PREPARE_FROZEN:</div><div class="line">BUG_ON(per_cpu(softlockup_watchdog, hotcpu));</div><div class="line"><span class="comment">// 创建 watchdog 内核线程</span></div><div class="line">p = kthread_create(watchdog, hcpu, <span class="string">"watchdog/%d"</span>, hotcpu);</div><div class="line"><span class="keyword">if</span> (IS_ERR(p)) &#123;</div><div class="line">printk(KERN_ERR <span class="string">"watchdog for %i failed\n"</span>, hotcpu);</div><div class="line"><span class="keyword">return</span> NOTIFY_BAD;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 将时间戳清零</span></div><div class="line">per_cpu(softlockup_touch_ts, hotcpu) = <span class="number">0</span>;</div><div class="line"><span class="comment">// 设置 watchdog</span></div><div class="line">per_cpu(softlockup_watchdog, hotcpu) = p;</div><div class="line"><span class="comment">// 绑定 cpu</span></div><div class="line">kthread_bind(p, hotcpu);</div><div class="line"><span class="keyword">break</span>;</div><div class="line"><span class="keyword">case</span> CPU_ONLINE:</div><div class="line"><span class="keyword">case</span> CPU_ONLINE_FROZEN:</div><div class="line"><span class="comment">// 唤醒 watchdog 这个内核线程        wake_up_process(per_cpu(softlockup_watchdog, hotcpu));</span></div><div class="line"><span class="keyword">break</span>;</div><div class="line">......</div><div class="line"><span class="keyword">return</span> NOTIFY_OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>其次，我们看一下内核线程 watchdog 的实现，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">watchdog</span><span class="params">(<span class="keyword">void</span> *__bind_cpu)</span></span></div><div class="line">&#123;</div><div class="line"><span class="comment">// 将 watchdog 设置为 fifo</span></div><div class="line"><span class="keyword">struct</span> sched_param param = &#123;.sched_priority = MAX_RT_PRIO<span class="number">-1</span>&#125;;</div><div class="line">sched_setscheduler(current, SCHED_FIFO, ?m);</div><div class="line"><span class="comment">// 清狗，即 touch 时间戳</span></div><div class="line"><span class="comment">/* initialize timestamp */</span></div><div class="line">__touch_softlockup_watchdog();</div><div class="line"><span class="comment">// 当前进程可以被信号打断</span></div><div class="line">set_current_state(TASK_INTERRUPTIBLE);</div><div class="line"><span class="comment">/*</span></div><div class="line">* Run briefly once per second to reset the softlockup timestamp.</div><div class="line">* If this gets delayed for more than 60 seconds then the</div><div class="line">* debug-printout triggers in softlockup_tick().</div><div class="line">*/</div><div class="line"><span class="keyword">while</span> (!kthread_should_stop()) &#123;</div><div class="line"><span class="comment">// 核心实现就是 touch 时间戳，让出 cpu</span></div><div class="line">__touch_softlockup_watchdog();</div><div class="line">schedule();</div><div class="line"><span class="keyword">if</span> (kthread_should_stop())</div><div class="line"><span class="keyword">break</span>;</div><div class="line">set_current_state(TASK_INTERRUPTIBLE);</div><div class="line">&#125;</div><div class="line">__set_current_state(TASK_RUNNING);</div><div class="line"><span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p>最后，softlockup 在时钟中断中挂上一个钩子 softlockup_tick，每个时钟中断都来检查 watchdog 这个 fifo 进程是否有 touch 过时间戳，若是 60 秒都没有 touch 过，就向系统上报异常信息了，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">softlockup_tick</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line"><span class="comment">// 取得当前的 cpu</span></div><div class="line"><span class="keyword">int</span> this_cpu = smp_processor_id();</div><div class="line"><span class="comment">// 获得当前 cpu 的时间戳</span></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> touch_ts = per_cpu(softlockup_touch_ts, this_cpu);</div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> print_ts;</div><div class="line"><span class="comment">// 获得进程当前的寄存器组</span></div><div class="line"><span class="keyword">struct</span> pt_regs *regs = get_irq_regs();</div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> now;</div><div class="line"><span class="comment">// 如果没有打开 softlockup，就将这个 cpu 对应的时间戳清零</span></div><div class="line"><span class="comment">/* Is detection switched off? */</span></div><div class="line"><span class="keyword">if</span> (!per_cpu(softlockup_watchdog, this_cpu) || softlockup_thresh &lt;= <span class="number">0</span>) &#123;</div><div class="line"><span class="comment">/* Be sure we don</span></div></pre></td></tr></table></figure>
+<hr>
+<p>总结一下就是，就是两条线并行工作：一条线是 fifo 级别的内核线程负责清时间戳，另一条线是时钟中断定期检查时间戳是否有被清过，若是到了阀值都没有被请过，则打印 softlockup 的信息。</p>
+<h4 id="长时间关中断检测"><a href="#长时间关中断检测" class="headerlink" title="长时间关中断检测"></a>长时间关中断检测</h4><p>长时间关中断检测可以有几种实现机制，而利用 nmi watchdog 来检查这种长时间关中断情况，是比较简单的。其原理是需要软硬件配合，硬件通常提供一个计数器（可以递增也可以递减），当记数到某个值得时候，系统就硬件复位。而 nmi watchdog 就定期（小于这个计数到达系统复位的时间）的去清一下系统的计数，若是某个进程长时间关中断，则可能导致 nmi watchdog 得不到清，最终系统复位。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/deadlock/" rel="tag"># deadlock</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/11/填坑-排序算法优化/" rel="next" title="填坑-排序算法优化">
+                <i class="fa fa-chevron-left"></i> 填坑-排序算法优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2222/06/06/博客总结/" rel="prev" title="博客总结">
+                博客总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODY1MC81MjIx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png"
+               alt="kelele67" />
+          <p class="site-author-name" itemprop="name">kelele67</p>
+           
+              <p class="site-description motion-element" itemprop="description">古老却神奇的shell表白代码 :(){:|:&};:</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kelele67" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kelele67" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-qi-21-51" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">1.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁的基本情况"><span class="nav-number">2.</span> <span class="nav-text">死锁的基本情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自旋锁"><span class="nav-number">2.1.</span> <span class="nav-text">自旋锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归使用"><span class="nav-number">2.1.1.</span> <span class="nav-text">递归使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程得到自旋锁后阻塞或睡眠"><span class="nav-number">2.1.2.</span> <span class="nav-text">进程得到自旋锁后阻塞或睡眠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断中没有关闭，申请未释放的自旋锁"><span class="nav-number">2.1.3.</span> <span class="nav-text">中断中没有关闭，申请未释放的自旋锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断与中断下半部共享资源"><span class="nav-number">2.1.4.</span> <span class="nav-text">中断与中断下半部共享资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断下半部与进程共享资源"><span class="nav-number">2.1.5.</span> <span class="nav-text">中断下半部与进程共享资源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自旋锁三种状态"><span class="nav-number">2.2.</span> <span class="nav-text">自旋锁三种状态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单CPU且内核不可抢占"><span class="nav-number">2.2.1.</span> <span class="nav-text">单CPU且内核不可抢占</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单CPU且内核可抢占"><span class="nav-number">2.2.2.</span> <span class="nav-text">单CPU且内核可抢占</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多CPU且内核可抢占"><span class="nav-number">2.2.3.</span> <span class="nav-text">多CPU且内核可抢占</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量"><span class="nav-number">2.3.</span> <span class="nav-text">信号量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归使用-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">递归使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程得到信号量后阻塞，睡眠"><span class="nav-number">2.3.2.</span> <span class="nav-text">进程得到信号量后阻塞，睡眠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断中申请信号量"><span class="nav-number">2.3.3.</span> <span class="nav-text">中断中申请信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断下半部申请信号量"><span class="nav-number">2.3.4.</span> <span class="nav-text">中断下半部申请信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#俩个进程相互等待资源"><span class="nav-number">2.3.5.</span> <span class="nav-text">俩个进程相互等待资源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux提供的检测死锁机制"><span class="nav-number">2.4.</span> <span class="nav-text">Linux提供的检测死锁机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#D状态死锁检测"><span class="nav-number">2.4.1.</span> <span class="nav-text">D状态死锁检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#R状态死锁检测"><span class="nav-number">2.4.2.</span> <span class="nav-text">R状态死锁检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#长时间关中断检测"><span class="nav-number">2.4.3.</span> <span class="nav-text">长时间关中断检测</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kelele67</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("uu22m818WHNRkNyNn5ifFEYU-gzGzoHsz", "wczk27BwQ0jGSE3uOFqH9974");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
