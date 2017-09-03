@@ -1,0 +1,972 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,后台开发,timer," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/icon/bird.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="EpollfdTimer基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd. timerfdtimerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。 我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时">
+<meta name="keywords" content="python,后台开发,timer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Epoll+Timerfd实现定时器">
+<meta property="og:url" content="http://yoursite.com/2017/08/06/Epoll+Timerfd实现定时器/index.html">
+<meta property="og:site_name" content="树犹如此|人何以堪">
+<meta property="og:description" content="EpollfdTimer基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd. timerfdtimerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。 我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时">
+<meta property="og:updated_time" content="2017-08-29T10:14:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Epoll+Timerfd实现定时器">
+<meta name="twitter:description" content="EpollfdTimer基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd. timerfdtimerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。 我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'U0JYTSJKPY',
+      apiKey: 'f3499a45aff4dffb505b45c35dd42268',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索本站","hits_empty":"未找到 ${query} 相关内容","hits_stats":"${hits} 条相关条目，耗时${time} 毫秒"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/06/Epoll+Timerfd实现定时器/"/>
+
+
+
+
+
+  <title>Epoll+Timerfd实现定时器 | 树犹如此|人何以堪</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=62141337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">树犹如此|人何以堪</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">做一个富有的废物</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/06/Epoll+Timerfd实现定时器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kelele67">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="树犹如此|人何以堪">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Epoll+Timerfd实现定时器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-06T08:02:01+08:00">
+                2017-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/06/Epoll+Timerfd实现定时器/" class="leancloud_visitors" data-flag-title="Epoll+Timerfd实现定时器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>
+
+</p><h1 id="EpollfdTimer"><a href="#EpollfdTimer" class="headerlink" title="EpollfdTimer"></a>EpollfdTimer</h1><p>基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd.</p>
+<h2 id="timerfd"><a href="#timerfd" class="headerlink" title="timerfd"></a>timerfd</h2><p>timerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。</p>
+<p>我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时时变得可读，这种特性可以使我们在写服务器程序时，很方便的便把定时事件变成和其他I/O事件一样的处理方式，并且此定时接口的精度也足够的高，所以我们只要以后在写I/O框架时用到了定时器就该首选</p>
+<h2 id="timerfd-与-select-timeout-区别"><a href="#timerfd-与-select-timeout-区别" class="headerlink" title="timerfd 与 select timeout 区别"></a>timerfd 与 select timeout 区别</h2><ul>
+<li>timerfd_create 把时间变成了一个文件描述符，该“文件”在定时器超时的那一刻变得可读，这样就能很方便地融入到 select/poll 框架中，用统一的方式来处理 IO 事件和超时事件。</li>
+<li>利用select, poll的timeout实现定时功能，它们的缺点是定时精度只有毫秒，远低于 timerfd_settime 的定时精度。</li>
+</ul>
+<h2 id="timerfd-C-API-使用方法"><a href="#timerfd-C-API-使用方法" class="headerlink" title="timerfd C API 使用方法"></a>timerfd C API 使用方法</h2><p>主要是三个函数接口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/timerfd.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">timerfd_create</span><span class="params">(<span class="keyword">int</span> clockid, <span class="keyword">int</span> flags)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">timerfd_settime</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> flags, <span class="keyword">const</span> <span class="keyword">struct</span> itimerspec *new_value, <span class="keyword">struct</span> itimerspec *old_value)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">timerfd_gettime</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">struct</span> itimerspec *curr_value)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="timerfd-create"><a href="#timerfd-create" class="headerlink" title="timerfd_create"></a>timerfd_create</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">timerfd_create</span><span class="params">(<span class="keyword">int</span> clockid, <span class="keyword">int</span> flags)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>它是用来创建一个定时器描述符timerfd</p>
+<h4 id="clockid"><a href="#clockid" class="headerlink" title="clockid"></a>clockid</h4><p>指定时间类型，有两个值：</p>
+<p>CLOCK_REALTIME :Systemwide realtime clock. 系统范围内的实时时钟</p>
+<p>CLOCK_MONOTONIC:以固定的速率运行，从不进行调整和复位 ,它不受任何系统time-of-day时钟修改的影响</p>
+<h4 id="flags"><a href="#flags" class="headerlink" title="flags"></a>flags</h4><p>可以是0或者O_CLOEXEC/O_NONBLOCK。</p>
+<h4 id="return"><a href="#return" class="headerlink" title="return"></a>return</h4><p>timerfd（文件描述符）</p>
+<h3 id="timerfd-settime"><a href="#timerfd-settime" class="headerlink" title="timerfd_settime"></a>timerfd_settime</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">timerfd_settime</span><span class="params">(<span class="keyword">int</span> ufd, <span class="keyword">int</span> flags, <span class="keyword">const</span> <span class="keyword">struct</span> itimerspec * utmr, <span class="keyword">struct</span> itimerspec * otmr)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>用于启动和停止定时器，fd为timerfd_create获得的定时器文件描述符，flags为0表示是相对定时器，为TFD_TIMER_ABSTIME表示是绝对定时器。const struct itimerspec *new_value表示设置超时的时间。</p>
+<p>此函数用于设置新的超时时间，并开始计时。</p>
+<h4 id="ufd"><a href="#ufd" class="headerlink" title="ufd"></a>ufd</h4><p>timerfd_create返回的文件句柄。</p>
+<h4 id="flags-1"><a href="#flags-1" class="headerlink" title="flags"></a>flags</h4><p>为1代表设置的是绝对时间；为0代表相对时间。</p>
+<h4 id="struct-itimerspec-utmr"><a href="#struct-itimerspec-utmr" class="headerlink" title="struct itimerspec * utmr"></a>struct itimerspec * utmr</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> timespec &#123;</div><div class="line">  <span class="keyword">time_t</span> tv_sec;                <span class="comment">/* Seconds */</span></div><div class="line">  <span class="keyword">long</span>   tv_nsec;               <span class="comment">/* Nanoseconds */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<p>为需要设置的时间。</p>
+<h4 id="struct-itimerspec-otmr"><a href="#struct-itimerspec-otmr" class="headerlink" title="struct itimerspec * otmr"></a>struct itimerspec * otmr</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> itimerspec &#123;</div><div class="line">   <span class="keyword">struct</span> timespec it_interval;  <span class="comment">/* Interval for periodic timer */</span></div><div class="line">   <span class="keyword">struct</span> timespec it_value;     <span class="comment">/* Initial expiration */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li><p>it_interval是后续周期性超时时间，是多少时间就填写多少。</p>
+</li>
+<li><p>it_interval不为0则表示是周期性定时器，大于0，是周期性的时间。</p>
+</li>
+<li><p>it_value 是首次超时时间，需要填写从clock_gettime获取的时间，并加上要超时的时间。</p>
+</li>
+<li><p>it_value和it_interval都为0表示停止定时器。</p>
+</li>
+</ul>
+<p>为定时器这次设置之前的超时时间。</p>
+<h4 id="return-1"><a href="#return-1" class="headerlink" title="return"></a>return</h4><p>一般来说函数返回0代表设置成功。</p>
+<h3 id="timerfd-gettime"><a href="#timerfd-gettime" class="headerlink" title="timerfd_gettime"></a>timerfd_gettime</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">timerfd_gettime</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">struct</span> itimerspec *curr_value)</span></span>;</div></pre></td></tr></table></figure>
+<hr>
+<p>此函数用于获得定时器距离下次超时还剩下的时间。如果调用时定时器已经到期，并且该定时器处于循环模式（设置超时时间时struct itimerspec::it_interval不为0），那么调用此函数之后定时器重新开始计时</p>
+<h2 id="timerfd-的例子"><a href="#timerfd-的例子" class="headerlink" title="timerfd 的例子"></a>timerfd 的例子</h2><p><a href="http://man7.org/linux/man-pages/man2/timerfd_create.2.html" target="_blank" rel="external">linux timerfd api</a>中给出的例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/timerfd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span>        <span class="comment">/* Definition of uint64_t */</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> handle_error(msg) \</span></div><div class="line">        do &#123; perror(msg); exit(EXIT_FAILURE); &#125; while (0)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span></span></div><div class="line"><span class="title">print_elapsed_time</span><span class="params">(<span class="keyword">void</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">struct</span> timespec start;</div><div class="line">    <span class="keyword">struct</span> timespec curr;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">int</span> first_call = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> secs, nsecs;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (first_call) &#123;</div><div class="line">        first_call = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span> (clock_gettime(CLOCK_MONOTONIC, &amp;start) == <span class="number">-1</span>)</div><div class="line">            handle_error(<span class="string">"clock_gettime"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (clock_gettime(CLOCK_MONOTONIC, &amp;curr) == <span class="number">-1</span>)</div><div class="line">        handle_error(<span class="string">"clock_gettime"</span>);</div><div class="line"></div><div class="line">    secs = curr.tv_sec - start.tv_sec;</div><div class="line">    nsecs = curr.tv_nsec - start.tv_nsec;</div><div class="line">    <span class="keyword">if</span> (nsecs &lt; <span class="number">0</span>) &#123;</div><div class="line">        secs--;</div><div class="line">        nsecs += <span class="number">1000000000</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d.%03d: "</span>, secs, (nsecs + <span class="number">500000</span>) / <span class="number">1000000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">struct</span> itimerspec new_value;</div><div class="line">    <span class="keyword">int</span> max_exp, fd;</div><div class="line">    <span class="keyword">struct</span> timespec now;</div><div class="line">    <span class="keyword">uint64_t</span> <span class="built_in">exp</span>, tot_exp;</div><div class="line">    <span class="keyword">ssize_t</span> s;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ((argc != <span class="number">2</span>) &amp;&amp; (argc != <span class="number">4</span>)) &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"%s init-secs [interval-secs max-exp]\n"</span>,</div><div class="line">                argv[<span class="number">0</span>]);</div><div class="line">        <span class="built_in">exit</span>(EXIT_FAILURE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (clock_gettime(CLOCK_REALTIME, &amp;now) == <span class="number">-1</span>)</div><div class="line">        handle_error(<span class="string">"clock_gettime"</span>);</div><div class="line"></div><div class="line">    <span class="comment">/* Create a CLOCK_REALTIME absolute timer with initial</span></div><div class="line">       expiration and interval as specified in command line */</div><div class="line"></div><div class="line">    new_value.it_value.tv_sec = now.tv_sec + atoi(argv[<span class="number">1</span>]);</div><div class="line">    new_value.it_value.tv_nsec = now.tv_nsec;</div><div class="line">    <span class="keyword">if</span> (argc == <span class="number">2</span>) &#123;</div><div class="line">        new_value.it_interval.tv_sec = <span class="number">0</span>;</div><div class="line">        max_exp = <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        new_value.it_interval.tv_sec = atoi(argv[<span class="number">2</span>]);</div><div class="line">        max_exp = atoi(argv[<span class="number">3</span>]);</div><div class="line">    &#125;</div><div class="line">    new_value.it_interval.tv_nsec = <span class="number">0</span>;</div><div class="line"></div><div class="line">    fd = timerfd_create(CLOCK_REALTIME, <span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span> (fd == <span class="number">-1</span>)</div><div class="line">        handle_error(<span class="string">"timerfd_create"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (timerfd_settime(fd, TFD_TIMER_ABSTIME, &amp;new_value, <span class="literal">NULL</span>) == <span class="number">-1</span>)</div><div class="line">        handle_error(<span class="string">"timerfd_settime"</span>);</div><div class="line"></div><div class="line">    print_elapsed_time();</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"timer started\n"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (tot_exp = <span class="number">0</span>; tot_exp &lt; max_exp;) &#123;</div><div class="line">        s = read(fd, &amp;<span class="built_in">exp</span>, <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>));</div><div class="line">        <span class="keyword">if</span> (s != <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>))</div><div class="line">            handle_error(<span class="string">"read"</span>);</div><div class="line"></div><div class="line">        tot_exp += <span class="built_in">exp</span>;</div><div class="line">        print_elapsed_time();</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"read: %llu; total=%llu\n"</span>,</div><div class="line">                (<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>) <span class="built_in">exp</span>,</div><div class="line">                (<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>) tot_exp);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">exit</span>(EXIT_SUCCESS);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="timerfd-epoll-的例子"><a href="#timerfd-epoll-的例子" class="headerlink" title="timerfd + epoll 的例子"></a>timerfd + epoll 的例子</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/epoll.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/timerfd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MX_EVNTS 10</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> EPL_TOUT 3000</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MX_CNT 5</span></div><div class="line"> </div><div class="line"><span class="keyword">struct</span> param&#123;</div><div class="line">    <span class="keyword">struct</span> itimerspec its;</div><div class="line">    <span class="keyword">int</span> tfd;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">strt_eplth</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">struct</span> epoll_event evnts[MX_EVNTS];</div><div class="line">    <span class="keyword">int</span> *eplfd = (<span class="keyword">int</span> *)arg;</div><div class="line">    <span class="keyword">int</span> n = <span class="number">-1</span>;</div><div class="line">    <span class="keyword">size_t</span> i,cnt = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</div><div class="line">        n = epoll_wait(*eplfd,evnts,MX_EVNTS,EPL_TOUT);</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">-1</span>)&#123;</div><div class="line">            perror(<span class="string">"epoll_wait() error"</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"time out %d sec expired\n"</span>,EPL_TOUT / <span class="number">1000</span>);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n;i++)&#123;</div><div class="line">            <span class="keyword">struct</span> param *pm = (<span class="keyword">struct</span> param *)(evnts[i].data.ptr);</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"tfd: %d\ninitial expiration: %ld\ninterval: %ld\n\n"</span>,</div><div class="line">                pm-&gt;tfd,</div><div class="line">                (<span class="keyword">long</span>)(pm-&gt;its.it_value.tv_sec),</div><div class="line">                (<span class="keyword">long</span>)(pm-&gt;its.it_interval.tv_sec));</div><div class="line">            <span class="keyword">if</span>(epoll_ctl(*eplfd,EPOLL_CTL_DEL,pm-&gt;tfd,<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</div><div class="line">                perror(<span class="string">"epoll_ctl(DEL) error in thread"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">struct</span> epoll_event ev;</div><div class="line">            ev.events = EPOLLIN | EPOLLET;</div><div class="line">            pm-&gt;its.it_value.tv_sec =</div><div class="line">                pm-&gt;its.it_value.tv_sec +</div><div class="line">                pm-&gt;its.it_interval.tv_sec;</div><div class="line">            ev.data.ptr = pm;</div><div class="line">            <span class="keyword">if</span>(timerfd_settime(pm-&gt;tfd,TFD_TIMER_ABSTIME,&amp;(pm-&gt;its),<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</div><div class="line">                perror(<span class="string">"timerfd_settime() error in thread"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(epoll_ctl(*eplfd,EPOLL_CTL_ADD,pm-&gt;tfd,&amp;ev) != <span class="number">0</span>)&#123;</div><div class="line">                perror(<span class="string">"epoll_ctl(ADD) error in thread"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(++cnt == MX_CNT)&#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"cnt reached MX_CNT, %d\n"</span>,MX_CNT);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    close(*eplfd);</div><div class="line">    pthread_exit(<span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">create_timerfd</span><span class="params">(<span class="keyword">struct</span> itimerspec *its,<span class="keyword">time_t</span> interval)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> tfd = timerfd_create(CLOCK_MONOTONIC,TFD_NONBLOCK);</div><div class="line">    <span class="keyword">if</span>(tfd &lt; <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"timerfd_create() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-2</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">struct</span> timespec nw;</div><div class="line">    <span class="keyword">if</span>(clock_gettime(CLOCK_MONOTONIC,&amp;nw) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"clock_gettime() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    its-&gt;it_value.tv_sec = nw.tv_sec + interval;</div><div class="line">    its-&gt;it_value.tv_nsec = <span class="number">0</span>;</div><div class="line">    its-&gt;it_interval.tv_sec = interval;</div><div class="line">    its-&gt;it_interval.tv_nsec = <span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> tfd;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">time_t</span> INTERVAL = <span class="number">2</span>;</div><div class="line">    <span class="keyword">struct</span> itimerspec its;</div><div class="line">    <span class="keyword">int</span> tfd = create_timerfd(&amp;its,INTERVAL);</div><div class="line">    <span class="keyword">if</span>(tfd &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    <span class="keyword">int</span> eplfd = epoll_create1(<span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span>(eplfd &lt; <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"epoll_create1() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">struct</span> param pm;</div><div class="line">    pm.its = its;</div><div class="line">    pm.tfd = tfd;</div><div class="line">    <span class="keyword">if</span>(timerfd_settime(pm.tfd,TFD_TIMER_ABSTIME,&amp;(pm.its),<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"timerfd_settime() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">struct</span> epoll_event ev;</div><div class="line">    ev.events = EPOLLIN | EPOLLET;</div><div class="line">    ev.data.ptr = &amp;pm;</div><div class="line">    <span class="keyword">if</span>(epoll_ctl(eplfd,EPOLL_CTL_ADD,pm.tfd,&amp;ev) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"epoll_ctl() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">pthread_t</span> pid;</div><div class="line">    <span class="keyword">if</span>(pthread_create(&amp;pid,<span class="literal">NULL</span>,strt_eplth,(<span class="keyword">void</span> *)&amp;eplfd) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"pthread_create() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="comment">//// add another timerfd.</span></div><div class="line">    INTERVAL = <span class="number">1</span>;</div><div class="line">    <span class="keyword">struct</span> itimerspec its2;</div><div class="line">    <span class="keyword">int</span> tfd2 = create_timerfd(&amp;its2,INTERVAL);</div><div class="line">    <span class="keyword">if</span>(tfd2 &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    <span class="keyword">struct</span> param pm2;</div><div class="line">    pm2.its = its2;</div><div class="line">    pm2.tfd = tfd2;</div><div class="line">    <span class="keyword">if</span>(timerfd_settime(pm2.tfd,TFD_TIMER_ABSTIME,&amp;(pm2.its),<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"timerfd_settime() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">struct</span> epoll_event ev2;</div><div class="line">    ev2.events = EPOLLIN | EPOLLET;</div><div class="line">    ev2.data.ptr = &amp;pm2;</div><div class="line">    <span class="keyword">if</span>(epoll_ctl(eplfd,EPOLL_CTL_ADD,pm2.tfd,&amp;ev2) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"epoll_ctl() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span>(pthread_join(pid,<span class="literal">NULL</span>) != <span class="number">0</span>)&#123;</div><div class="line">        perror(<span class="string">"pthread_join() error"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    close(tfd);</div><div class="line">    close(tfd2);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h2><p>参照<a href="http://man7.org/linux/man-pages/man2/timerfd_create.2.html" target="_blank" rel="external">linux timerfd api</a>，用PyObject封装了timerfd的c api, 因为python标准库里不存在timerfd定时接口</p>
+<pre><code class="python">
+</code></pre>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://xiaorui.cc/" target="_blank" rel="external">峰云就她了的BLOG</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/后台开发/" rel="tag"># 后台开发</a>
+          
+            <a href="/tags/timer/" rel="tag"># timer</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/05/RingBuffer实现定时器/" rel="next" title="RingBuffer实现定时器">
+                <i class="fa fa-chevron-left"></i> RingBuffer实现定时器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2222/06/06/博客总结/" rel="prev" title="博客总结">
+                博客总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODY1MC81MjIx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oe9uedqb2.bkt.clouddn.com/4D9F59FD6F416AF4A92C4B977580BD95.png"
+               alt="kelele67" />
+          <p class="site-author-name" itemprop="name">kelele67</p>
+           
+              <p class="site-description motion-element" itemprop="description">古老却神奇的shell表白代码 :(){:|:&};:</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kelele67" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kelele67" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-qi-21-51" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EpollfdTimer"><span class="nav-number">1.</span> <span class="nav-text">EpollfdTimer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#timerfd"><span class="nav-number">1.1.</span> <span class="nav-text">timerfd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#timerfd-与-select-timeout-区别"><span class="nav-number">1.2.</span> <span class="nav-text">timerfd 与 select timeout 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#timerfd-C-API-使用方法"><span class="nav-number">1.3.</span> <span class="nav-text">timerfd C API 使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#timerfd-create"><span class="nav-number">1.3.1.</span> <span class="nav-text">timerfd_create</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#clockid"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">clockid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flags"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">flags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#return"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">return</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timerfd-settime"><span class="nav-number">1.3.2.</span> <span class="nav-text">timerfd_settime</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ufd"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">ufd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flags-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">flags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-itimerspec-utmr"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">struct itimerspec * utmr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-itimerspec-otmr"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">struct itimerspec * otmr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#return-1"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">return</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timerfd-gettime"><span class="nav-number">1.3.3.</span> <span class="nav-text">timerfd_gettime</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#timerfd-的例子"><span class="nav-number">1.4.</span> <span class="nav-text">timerfd 的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#timerfd-epoll-的例子"><span class="nav-number">1.5.</span> <span class="nav-text">timerfd + epoll 的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-实现"><span class="nav-number">1.6.</span> <span class="nav-text">python 实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kelele67</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("uu22m818WHNRkNyNn5ifFEYU-gzGzoHsz", "wczk27BwQ0jGSE3uOFqH9974");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
