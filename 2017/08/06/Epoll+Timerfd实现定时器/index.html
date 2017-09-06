@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/06/Epoll+Timerfd实现定时器/index.html">
 <meta property="og:site_name" content="趣果有间">
 <meta property="og:description" content="EpollfdTimer基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd. timerfdtimerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。 我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时">
-<meta property="og:updated_time" content="2017-08-29T10:14:06.000Z">
+<meta property="og:updated_time" content="2017-09-06T16:19:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Epoll+Timerfd实现定时器">
 <meta name="twitter:description" content="EpollfdTimer基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd. timerfdtimerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。 我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时">
@@ -390,7 +390,8 @@
 </p><h1 id="EpollfdTimer"><a href="#EpollfdTimer" class="headerlink" title="EpollfdTimer"></a>EpollfdTimer</h1><p>基于linux timerfd实现的定时器模块. 使用Epoll来监听调度timerfd.</p>
 <h2 id="timerfd"><a href="#timerfd" class="headerlink" title="timerfd"></a>timerfd</h2><p>timerfd是Linux为用户程序提供的一个定时器接口。这个接口基于文件描述符，通过文件描述符的可读事件进行超时通知，一般是被用于select/poll/epoll的应用场景。</p>
 <p>我们的timerfd_create()把时间变成了一个文件描述符，该文件描述符会在超时时变得可读，这种特性可以使我们在写服务器程序时，很方便的便把定时事件变成和其他I/O事件一样的处理方式，并且此定时接口的精度也足够的高，所以我们只要以后在写I/O框架时用到了定时器就该首选</p>
-<h2 id="timerfd-与-select-timeout-区别"><a href="#timerfd-与-select-timeout-区别" class="headerlink" title="timerfd 与 select timeout 区别"></a>timerfd 与 select timeout 区别</h2><ul>
+<h2 id="timerfd-与-select-timeout-区别"><a href="#timerfd-与-select-timeout-区别" class="headerlink" title="timerfd 与 select timeout 区别"></a>timerfd 与 select timeout 区别</h2><a id="more"></a>
+<ul>
 <li>timerfd_create 把时间变成了一个文件描述符，该“文件”在定时器超时的那一刻变得可读，这样就能很方便地融入到 select/poll 框架中，用统一的方式来处理 IO 事件和超时事件。</li>
 <li>利用select, poll的timeout实现定时功能，它们的缺点是定时精度只有毫秒，远低于 timerfd_settime 的定时精度。</li>
 </ul>

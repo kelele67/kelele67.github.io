@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/05/RingBuffer实现定时器/index.html">
 <meta property="og:site_name" content="趣果有间">
 <meta property="og:description" content="看到一篇讲定时器的文章：  很多时候，业务有定时任务或者定时超时的需求，当任务量很大时，可能需要维护大量的timer，或者进行低效的扫描。 例如：58到家APP实时消息通道系统，对每个用户会维护一个APP到服务器的TCP连接，用来实时收发消息，对这个TCP连接，有这样一个需求：“如果连续30s没有请求包(例如登录，消息，keepalive包)，服务端就要将这个用户的状态置为离线”。 其中，单机">
-<meta property="og:updated_time" content="2017-08-29T10:07:31.000Z">
+<meta property="og:updated_time" content="2017-09-06T16:18:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RingBuffer实现定时器">
 <meta name="twitter:description" content="看到一篇讲定时器的文章：  很多时候，业务有定时任务或者定时超时的需求，当任务量很大时，可能需要维护大量的timer，或者进行低效的扫描。 例如：58到家APP实时消息通道系统，对每个用户会维护一个APP到服务器的TCP连接，用来实时收发消息，对这个TCP连接，有这样一个需求：“如果连续30s没有请求包(例如登录，消息，keepalive包)，服务端就要将这个用户的状态置为离线”。 其中，单机">
@@ -394,6 +394,7 @@
 <p>其中，单机TCP同时在线量约在10w级别，keepalive请求包大概30s一次，吞吐量约在3000qps。</p>
 </blockquote>
 <p><strong>一般来说怎么实现这类需求呢?</strong></p>
+<a id="more"></a>
 <h2 id="环形队列法"><a href="#环形队列法" class="headerlink" title="环形队列法"></a>环形队列法</h2><p>1)30s超时，就创建一个index从0到30的环形队列(本质是个数组)</p>
 <p>2)环上每一个slot是一个Set ，任务集合</p>
 <p>3)同时还有一个Map</p>
