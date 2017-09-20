@@ -393,24 +393,51 @@
 
 </p><p><del># 突然发现博客的侧栏点击进去不会自动用HTTPS，导致打不开页面，有时间得去解决一下，应该不是浏览器的问题，因为火狐和chrome都是这样。。不过手机端倒是会默认HTTPS。。。</del></p>
 <p>居然好了，估计是之前DNS被劫持了。。。</p>
-<p>既然还是学生，就按照基础课程的脉络开始总结一下自己吧吧。</p>
+<h1 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h1><p>既然还是学生，就按照基础课程的脉络开始总结一下自己吧吧。</p>
 <blockquote>
 <p>整理路线：<br>对[‘语言’，’网络’，’操作系统’，’数据结构与算法’，’数据库’]其中的每一个大块，做以下整理：<br>    书籍（除去教材看了哪些相关的专业书籍）-&gt;<br>    结合该书籍学到的知识（学习涉及的领域）：<br>        其中掌握的知识（能够弄清楚原理及底层实现）-&gt;<br>        其中能应用的知识（能自己动手写什么代码，做出什么项目，用具体成果来展示） -&gt; </p>
 </blockquote>
-<p>PS：并在不足的地方做出标注（进步的空间，努力的方向）</p>
+<p>不足的地方（进步的空间，努力的方向）</p>
 <h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><h3 id="C-C"><a href="#C-C" class="headerlink" title="C/C++"></a>C/C++</h3><h4 id="书籍："><a href="#书籍：" class="headerlink" title="书籍："></a>书籍：</h4><p>C: </p>
+<blockquote>
+<p>《C语言接口与实现》</p>
+</blockquote>
 <ul>
-<li>《C语言接口与实现》</li>
+<li>C语言的标准库函数，写过博客</li>
 </ul>
-<p>原子操作接口</p>
-<p>Chan接口</p>
 <ul>
-<li>《C陷阱与缺陷》</li>
+<li><p>原子操作接口</p>
+</li>
+<li><p>Chan接口</p>
+</li>
 </ul>
-<p>C++:<br>《C++ Primer》、<br>《Effective C++》<br>《C++并发编程实战》</p>
-<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="语言部分需要学习的不足之处"><a href="#语言部分需要学习的不足之处" class="headerlink" title="语言部分需要学习的不足之处"></a>语言部分需要学习的不足之处</h3><p>还没仔细看python源码</p>
-<p>C/C++从编译原理的角度来理解的不够多</p>
-<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>《Unix网络编程卷一》</p>
+<blockquote>
+<p>《C陷阱与缺陷》</p>
+</blockquote>
+<p>C++:</p>
+<blockquote>
+<p>《C++ Primer》</p>
+</blockquote>
+<ul>
+<li>结合北大的course-&gt;C++基础</li>
+</ul>
+<blockquote>
+<p>《Effective C++》</p>
+</blockquote>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<blockquote>
+<p>《C++并发编程实战》</p>
+</blockquote>
+<p>实现有锁的数据结构</p>
+<p>实现无锁的线程安全数据结构</p>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="语言部分需要学习的不足之处"><a href="#语言部分需要学习的不足之处" class="headerlink" title="语言部分需要学习的不足之处"></a>语言部分需要学习的不足之处</h3><p>还没仔细看python源码，python的异步编程部分如twisted、gevent学习的太少</p>
+<p>C/C++从编译原理的角度来说，理解的不够深入</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><blockquote>
+<p>《Unix网络编程卷一》</p>
+</blockquote>
 <ul>
 <li><p>TCP流程+画出TCP状态图（TIME_WAIT的作用（维持将关未关的全双工，允许旧的重复分节在网络中消逝）</p>
 </li>
@@ -420,22 +447,37 @@
 </li>
 <li><p>TCP、UDP区别(老生常谈)</p>
 </li>
-<li><p>PING原理</p>
+<li><p>PING原理 -&gt; ICMP</p>
 </li>
 <li><p>Tracerout原理</p>
 </li>
-<li><p>大端小端，之前有写一篇<a href="">博客</a></p>
+<li><p>大端小端，之前有过写一篇<a href="">博客</a></p>
 </li>
 </ul>
+<blockquote>
 <p>《Unix网络编程卷二》</p>
+</blockquote>
 <ul>
-<li>各种IPC的优缺点，场景</li>
+<li><p>各种IPC的优缺点，场景：</p>
+</li>
+<li><p>管道</p>
+</li>
+<li><p>信号 -&gt; 消息队列</p>
+</li>
+<li><p>共享内存</p>
+</li>
+<li><p>socket </p>
+</li>
 </ul>
+<blockquote>
 <p>《Unix环境高级编程》</p>
+</blockquote>
 <ul>
 <li>创建一个守护进程的步骤（fork()创建子进程-&gt; setsid()创建新的session -&gt; double fork()比较老的一个技术，确保当前进程无法控制终端 -&gt; chdir()更改守护进程的工作目录 -&gt; umask(0)消除原有文件掩码对守护进程的影响）</li>
 </ul>
+<blockquote>
 <p>《HTTP权威指南》<br>《HTTP下午茶》</p>
+</blockquote>
 <ul>
 <li><p>HTTP协议的全面理解</p>
 </li>
@@ -449,25 +491,59 @@
 </li>
 </ul>
 <p>源码：</p>
-<ul>
-<li>Nginx </li>
-</ul>
+<blockquote>
+<p>Nginx</p>
+</blockquote>
+<p>Nginx实现负载均衡（加权轮询，IP hash）</p>
 <p>如果要你实现一个Nginx反向代理，你会怎么实现？</p>
+<blockquote>
+<p>Tornado</p>
+</blockquote>
 <ul>
-<li>Tornado</li>
+<li>实现了一个Tornado反向代理</li>
 </ul>
-<p>实现了一个Tornado反向代理</p>
-<ul>
-<li>Libevent</li>
-</ul>
+<blockquote>
+<p>Libevent</p>
+</blockquote>
 <p>典型的Reactor</p>
-<ul>
-<li>Memcached</li>
-</ul>
+<blockquote>
+<p>Memcached</p>
+</blockquote>
 <p>用到Libevent，Epoll + 多线程 + master通过pipe通知线程 最大程度化并行</p>
 <p>这种模式和Nginx的单/多进程的单线程模式相比？</p>
-<h3 id="网络部分需要学习的不足之处"><a href="#网络部分需要学习的不足之处" class="headerlink" title="网络部分需要学习的不足之处"></a>网络部分需要学习的不足之处</h3><p>还没认真看《TCP/IP详解》</p>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="操作系统需要学习的不足之处"><a href="#操作系统需要学习的不足之处" class="headerlink" title="操作系统需要学习的不足之处"></a>操作系统需要学习的不足之处</h3><h2 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h2><h3 id="数据结构需要学习的不足之处"><a href="#数据结构需要学习的不足之处" class="headerlink" title="数据结构需要学习的不足之处"></a>数据结构需要学习的不足之处</h3><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="数据库需要学习的不足之处"><a href="#数据库需要学习的不足之处" class="headerlink" title="数据库需要学习的不足之处"></a>数据库需要学习的不足之处</h3><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>《C++设计模式》</p>
+<h3 id="网络部分需要学习的不足之处"><a href="#网络部分需要学习的不足之处" class="headerlink" title="网络部分需要学习的不足之处"></a>网络部分需要学习的不足之处</h3><p>还没认真看《TCP/IP详解》以至于对协议的一些细节了解的不够多</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><blockquote>
+<p>《Linux内核设计与实现》</p>
+<p>《CSAPP》</p>
+<p>《连接器与加载器》</p>
+</blockquote>
+<p>好像更属于编译原理部分，不过编译原理部分实在太弱了，汇编什么的学的不太好，就放这里吧。</p>
+<h3 id="操作系统需要学习的不足之处"><a href="#操作系统需要学习的不足之处" class="headerlink" title="操作系统需要学习的不足之处"></a>操作系统需要学习的不足之处</h3><p>《CSAPP》没看完</p>
+<h2 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h2><blockquote>
+<p>《算法导论》</p>
+<p>《Python algorithm》</p>
+<p>《编程之美》</p>
+<p>《编程之法》</p>
+<p>《十五种算法》</p>
+</blockquote>
+<h3 id="数据结构需要学习的不足之处"><a href="#数据结构需要学习的不足之处" class="headerlink" title="数据结构需要学习的不足之处"></a>数据结构需要学习的不足之处</h3><p>《算法导论》看的不够仔细<br>高级的数据结构学习的不够多</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="数据库需要学习的不足之处"><a href="#数据库需要学习的不足之处" class="headerlink" title="数据库需要学习的不足之处"></a>数据库需要学习的不足之处</h3><p>redis 的源码还没仔细看</p>
+<p>数据库的设计了解的不够多，只知道一些大概的组成及内部设计，算了还是先把SQL学的滴水不漏再说吧😂</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><blockquote>
+<p>《C++设计模式》</p>
+</blockquote>
+<ul>
+<li>单例模式 </li>
+</ul>
+<p>懒汉和饿汉，线程安全，以及改进直至最好</p>
+<ul>
+<li>工厂和抽象工厂</li>
+</ul>
+<blockquote>
+<p>python 设计模式</p>
+</blockquote>
+<h3 id="数据库需要学习的不足之处-1"><a href="#数据库需要学习的不足之处-1" class="headerlink" title="数据库需要学习的不足之处"></a>数据库需要学习的不足之处</h3><p>C++的设计模式只熟悉比较常用的几个，其他的不够熟悉</p>
+<p>python的设计模式了解的不够多</p>
 
           
         
