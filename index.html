@@ -408,7 +408,66 @@
 <li>《C陷阱与缺陷》</li>
 </ul>
 <p>C++:<br>《C++ Primer》、<br>《Effective C++》<br>《C++并发编程实战》</p>
-<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="语言部分需要学习的不足之处"><a href="#语言部分需要学习的不足之处" class="headerlink" title="语言部分需要学习的不足之处"></a>语言部分需要学习的不足之处</h3><h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><h3 id="网络部分需要学习的不足之处"><a href="#网络部分需要学习的不足之处" class="headerlink" title="网络部分需要学习的不足之处"></a>网络部分需要学习的不足之处</h3><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="操作系统需要学习的不足之处"><a href="#操作系统需要学习的不足之处" class="headerlink" title="操作系统需要学习的不足之处"></a>操作系统需要学习的不足之处</h3><h2 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h2><h3 id="数据结构需要学习的不足之处"><a href="#数据结构需要学习的不足之处" class="headerlink" title="数据结构需要学习的不足之处"></a>数据结构需要学习的不足之处</h3><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="数据库需要学习的不足之处"><a href="#数据库需要学习的不足之处" class="headerlink" title="数据库需要学习的不足之处"></a>数据库需要学习的不足之处</h3><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>《C++设计模式》</p>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h3 id="语言部分需要学习的不足之处"><a href="#语言部分需要学习的不足之处" class="headerlink" title="语言部分需要学习的不足之处"></a>语言部分需要学习的不足之处</h3><p>还没仔细看python源码</p>
+<p>C/C++从编译原理的角度来理解的不够多</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>《Unix网络编程卷一》</p>
+<ul>
+<li><p>TCP流程+画出TCP状态图（TIME_WAIT的作用（维持将关未关的全双工，允许旧的重复分节在网络中消逝）</p>
+</li>
+<li><p>流量控制（滑动窗口、Nagle算法+ack延迟确认）</p>
+</li>
+<li><p>拥塞控制（减少拥塞数据（慢启动+拥塞避免算法），减少拥塞时重传时间（快重传+快恢复））</p>
+</li>
+<li><p>TCP、UDP区别(老生常谈)</p>
+</li>
+<li><p>PING原理</p>
+</li>
+<li><p>Tracerout原理</p>
+</li>
+<li><p>大端小端，之前有写一篇<a href="">博客</a></p>
+</li>
+</ul>
+<p>《Unix网络编程卷二》</p>
+<ul>
+<li>各种IPC的优缺点，场景</li>
+</ul>
+<p>《Unix环境高级编程》</p>
+<ul>
+<li>创建一个守护进程的步骤（fork()创建子进程-&gt; setsid()创建新的session -&gt; double fork()比较老的一个技术，确保当前进程无法控制终端 -&gt; chdir()更改守护进程的工作目录 -&gt; umask(0)消除原有文件掩码对守护进程的影响）</li>
+</ul>
+<p>《HTTP权威指南》<br>《HTTP下午茶》</p>
+<ul>
+<li><p>HTTP协议的全面理解</p>
+</li>
+<li><p>反向代理</p>
+</li>
+<li><p>HTTPS</p>
+</li>
+<li><p>cookie缓存</p>
+</li>
+<li><p>重定向与负载均衡</p>
+</li>
+</ul>
+<p>源码：</p>
+<ul>
+<li>Nginx </li>
+</ul>
+<p>如果要你实现一个Nginx反向代理，你会怎么实现？</p>
+<ul>
+<li>Tornado</li>
+</ul>
+<p>实现了一个Tornado反向代理</p>
+<ul>
+<li>Libevent</li>
+</ul>
+<p>典型的Reactor</p>
+<ul>
+<li>Memcached</li>
+</ul>
+<p>用到Libevent，Epoll + 多线程 + master通过pipe通知线程 最大程度化并行</p>
+<p>这种模式和Nginx的单/多进程的单线程模式相比？</p>
+<h3 id="网络部分需要学习的不足之处"><a href="#网络部分需要学习的不足之处" class="headerlink" title="网络部分需要学习的不足之处"></a>网络部分需要学习的不足之处</h3><p>还没认真看《TCP/IP详解》</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="操作系统需要学习的不足之处"><a href="#操作系统需要学习的不足之处" class="headerlink" title="操作系统需要学习的不足之处"></a>操作系统需要学习的不足之处</h3><h2 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h2><h3 id="数据结构需要学习的不足之处"><a href="#数据结构需要学习的不足之处" class="headerlink" title="数据结构需要学习的不足之处"></a>数据结构需要学习的不足之处</h3><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="数据库需要学习的不足之处"><a href="#数据库需要学习的不足之处" class="headerlink" title="数据库需要学习的不足之处"></a>数据库需要学习的不足之处</h3><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>《C++设计模式》</p>
 
           
         
