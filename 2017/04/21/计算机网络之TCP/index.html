@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/21/计算机网络之TCP/index.html">
 <meta property="og:site_name" content="趣果有间">
 <meta property="og:description" content="面试复习">
-<meta property="og:updated_time" content="2017-09-21T07:53:57.000Z">
+<meta property="og:updated_time" content="2017-09-21T08:17:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络之TCP">
 <meta name="twitter:description" content="面试复习">
@@ -397,7 +397,7 @@
 <li><p>重点在于能够清楚讲出TCP的11种状态变迁（CLOSING状态比较罕见，忽略）</p>
 </li>
 </ul>
-<h3 id="TCP过程"><a href="#TCP过程" class="headerlink" title="TCP过程"></a>TCP过程</h3><p>提供一个思路过程（不够细致严谨，仅适用于让你讲的清除）：</p>
+<h3 id="TCP过程"><a href="#TCP过程" class="headerlink" title="TCP过程"></a>TCP过程</h3><p>提供一个思路过程（不够细致严谨，仅适用于让你更容易理解）：</p>
 <p>三次握手</p>
 <p>首先客户端和服务端都是关闭的<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>&nbsp;&nbsp;&nbsp;&nbsp;主动打开&nbsp;&nbsp;被动打开<br>此时客户端状态为 <strong>SYN_SENT</strong> 、服务端状态从 <strong>LISTEN</strong> 状态 到 <strong>SYN_RCVD</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓①&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓②<br> 发送一个SYN J&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发送SYN K 和 ACK J+1<br>此时客户端和服务端状态都为 <strong>ESTABLISHED</strong> ，他们进行数据传输<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓③<br>发送一个ACK K+1</p>
 <p>四次挥手：（这里注明一下因为TCP是全双工的，所以都可以请求关闭，这里我们说的是客户端主动请求关闭的情况）</p>
@@ -409,7 +409,7 @@
 <ul>
 <li>设置TIME_WAIT的原因</li>
 </ul>
-<p>从两个方面来说吧，首先可靠地实现TCP全双工连接(这里可以用英文说 full duplex)的终止，因为客户端需要维持这个TIME_WAIT这个将关未关的状态来发送最后一个ACK，(这让我想到了中学生物书那个奄奄一息在生命的最后关头完成交配保留了自己染色体为遗传学研究做出了巨大贡献的果蝇hhh)，如果它直接CLOSED的话，客户端会相应一个RST(进阶)，服务器收到后会响应一个错误</p>
+<p>从两个方面来说吧，首先可靠地实现TCP全双工连接(full duplex)的终止，因为客户端需要维持这个TIME_WAIT这个将关未关的状态来发送最后一个ACK，(这让我想到了中学生物书那个奄奄一息在生命的最后关头抖擞精神完成交配保留了自己染色体为遗传学研究做出了巨大贡献的白眼果蝇hhh)，如果它直接CLOSED的话，客户端会相应一个RST(进阶)，服务器收到后会响应一个错误</p>
 <p>第二个方面是TIME_WAIT允许了旧的重复分节在网络中消逝，因为在这个状态下的客户端不允许启动新的连接，而这个状态持续2MSL(进阶)，于是就保证了当建立新的TCP连接的时候，旧的重复分节在网络中消逝。</p>
 <ul>
 <li>大量的TIME_WAIT</li>
