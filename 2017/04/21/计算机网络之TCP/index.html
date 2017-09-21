@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/21/计算机网络之TCP/index.html">
 <meta property="og:site_name" content="趣果有间">
 <meta property="og:description" content="面试复习">
-<meta property="og:updated_time" content="2017-09-21T08:17:56.000Z">
+<meta property="og:updated_time" content="2017-09-21T08:24:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络之TCP">
 <meta name="twitter:description" content="面试复习">
@@ -409,7 +409,7 @@
 <ul>
 <li>设置TIME_WAIT的原因</li>
 </ul>
-<p>从两个方面来说吧，首先可靠地实现TCP全双工连接(full duplex)的终止，因为客户端需要维持这个TIME_WAIT这个将关未关的状态来发送最后一个ACK，(这让我想到了中学生物书那个奄奄一息在生命的最后关头抖擞精神完成交配保留了自己染色体为遗传学研究做出了巨大贡献的白眼果蝇hhh)，如果它直接CLOSED的话，客户端会相应一个RST(进阶)，服务器收到后会响应一个错误</p>
+<p>从两个方面来说吧，首先可靠地实现TCP全双工连接(full duplex)的终止，因为客户端需要维持这个TIME_WAIT这个将关未关的状态来发送最后一个ACK，(这让我想到了中学生物书那个奄奄一息在生命的最后关头抖擞精神完成交配保留了自己染色体为遗传学研究做出了巨大贡献的白眼果蝇hhh)，如果它直接CLOSED的话，客户端会响应一个RST(进阶)，服务器收到后会响应一个错误</p>
 <p>第二个方面是TIME_WAIT允许了旧的重复分节在网络中消逝，因为在这个状态下的客户端不允许启动新的连接，而这个状态持续2MSL(进阶)，于是就保证了当建立新的TCP连接的时候，旧的重复分节在网络中消逝。</p>
 <ul>
 <li>大量的TIME_WAIT</li>
@@ -492,7 +492,7 @@
 </li>
 </ul>
 <h3 id="MSL"><a href="#MSL" class="headerlink" title="MSL"></a>MSL</h3><p>MSL(Maximum Segment Lifetime)报文最长存活时间</p>
-<h2 id="TCP高端"><a href="#TCP高端" class="headerlink" title="TCP高端"></a>TCP高端</h2><p>适用于BAT等公司，不过感觉这些问题真的是对于软件工程的学生来说有点难了，本人也是一知半解，不过事实上还是很容易理解的也没有到rbtree(然而面试经常会被问到)那种变态程度(心中的痛),但不排除还是会被之前说到的第二种面试官所问到，或者他是为了提醒你不要骄傲还是有很多东西要学的。</p>
+<h2 id="TCP高端"><a href="#TCP高端" class="headerlink" title="TCP高端"></a>TCP高端</h2><!-- 适用于BAT等公司，不过感觉这些问题真的是对于软件工程的学生来说有点难了，本人也是一知半解，不过事实上还是很容易理解的也没有到rbtree(然而面试经常会被问到)那种变态程度(心中的痛),但不排除还是会被之前说到的第二种面试官所问到，或者他是为了提醒你不要骄傲还是有很多东西要学的。 -->
 <h3 id="tcp窗口滑动以及拥塞控制"><a href="#tcp窗口滑动以及拥塞控制" class="headerlink" title="tcp窗口滑动以及拥塞控制"></a>tcp窗口滑动以及拥塞控制</h3><blockquote>
 <p>TCP协议作为一个可靠的面向流的传输协议，其可靠性和流量控制由滑动窗口协议保证，而拥塞控制则由控制窗口结合一系列的控制算法实现</p>
 </blockquote>
