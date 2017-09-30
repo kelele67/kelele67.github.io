@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。 之前在看 《C++并发编程实战》的时候以及在C++并发学习/)的过程中就有学习过了，现在抽空把它总结一下。">
+<meta name="description" content="最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。 之前在看 《C++并发编程实战》的时候以及在C++并发学习/)的过程中就有学习过了，现在抽空把它总结一下。 在多核CPU，典型的系统架构如下：  Memory Barrier LoadLoad  LoadStore  StoreLoad  StoreStore   内存屏障用来代替互">
 <meta name="keywords" content="cplusplus,memory order">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++11 的 Memory Oder">
 <meta property="og:url" content="http://yoursite.com/2017/09/30/C++ Memory Oder/index.html">
 <meta property="og:site_name" content="趣果有间">
-<meta property="og:description" content="最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。 之前在看 《C++并发编程实战》的时候以及在C++并发学习/)的过程中就有学习过了，现在抽空把它总结一下。">
+<meta property="og:description" content="最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。 之前在看 《C++并发编程实战》的时候以及在C++并发学习/)的过程中就有学习过了，现在抽空把它总结一下。 在多核CPU，典型的系统架构如下：  Memory Barrier LoadLoad  LoadStore  StoreLoad  StoreStore   内存屏障用来代替互">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-30T13:10:21.079Z">
+<meta property="og:updated_time" content="2017-09-30T13:57:04.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++11 的 Memory Oder">
-<meta name="twitter:description" content="最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。 之前在看 《C++并发编程实战》的时候以及在C++并发学习/)的过程中就有学习过了，现在抽空把它总结一下。">
+<meta name="twitter:description" content="最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。 之前在看 《C++并发编程实战》的时候以及在C++并发学习/)的过程中就有学习过了，现在抽空把它总结一下。 在多核CPU，典型的系统架构如下：  Memory Barrier LoadLoad  LoadStore  StoreLoad  StoreStore   内存屏障用来代替互">
 
 
 
@@ -390,6 +390,19 @@
 
 </p><p>最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。</p>
 <p>之前在看 《C++并发编程实战》的时候以及在<a href="https://kelele67.github.io/2017/02/14/C++11%20%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(%E4%B8%89" target="_blank" rel="external">C++并发学习</a>/)的过程中就有学习过了，现在抽空把它总结一下。</p>
+<p>在多核CPU，典型的系统架构如下：</p>
+<p><img src="" alt=""></p>
+<h2 id="Memory-Barrier"><a href="#Memory-Barrier" class="headerlink" title="Memory Barrier"></a>Memory Barrier</h2><ul>
+<li><p>LoadLoad</p>
+</li>
+<li><p>LoadStore</p>
+</li>
+<li><p>StoreLoad</p>
+</li>
+<li><p>StoreStore</p>
+</li>
+</ul>
+<p>内存屏障用来代替互斥锁，既能保证程序的正确性，又能尽可能地提高程序执行效率</p>
 <a id="more"></a>
       
     </div>
@@ -495,8 +508,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://oe9uinblw.bkt.clouddn.com/avater67.jpg"
@@ -578,6 +600,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-Barrier"><span class="nav-number">1.</span> <span class="nav-text">Memory Barrier</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
