@@ -446,7 +446,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/30/C++11 的 Memory Oder/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/30/C++ 的 Memory Oder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kelele67">
@@ -465,7 +465,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/30/C++11 的 Memory Oder/" itemprop="url">C++ Memory Oder</a></h1>
+                <a class="post-title-link" href="/2017/09/30/C++ 的 Memory Oder/" itemprop="url">C++11 的 Memory Oder</a></h1>
         
 
         <div class="post-meta">
@@ -495,129 +495,7 @@
 
           
           
-             <span id="/2017/09/30/C++11 的 Memory Oder/" class="leancloud_visitors" data-flag-title="C++ Memory Oder">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p></p>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/30/C++ Memory Oder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kelele67">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oe9uinblw.bkt.clouddn.com/avater67.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="趣果有间">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/30/C++ Memory Oder/" itemprop="url">C++11 的 Memory Oder</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T09:01:02+08:00">
-                2017-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/09/30/C++ Memory Oder/" class="leancloud_visitors" data-flag-title="C++11 的 Memory Oder">
+             <span id="/2017/09/30/C++ 的 Memory Oder/" class="leancloud_visitors" data-flag-title="C++11 的 Memory Oder">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -651,21 +529,26 @@
 </p><p>最近也是一直准备秋招没怎么写博客，面试的情况也算一般吧，这周面完了百度和360，也不知道什么时候有结果，心累。</p>
 <p>之前在看 《C++并发编程实战》的时候以及在<a href="https://kelele67.github.io/2017/02/14/C++11%20%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(%E4%B8%89" target="_blank" rel="external">C++并发学习</a>/)的过程中就有学习过了，现在抽空把它总结一下。</p>
 <p>在多核CPU，典型的系统架构如下：</p>
-<p><img src="" alt=""></p>
+<p><img src="http://oe9uinblw.bkt.clouddn.com/cpu_memory_model.png" alt=""></p>
+<p>它包含有2个CPU核，每个CPU核有一个私有的32KB 的 L1 cache，两个CPU 核共享 1MB的 L2 cache 以及 512MB的主存。</p>
+<p>在这个内存模型下，cpu写数据并不是立即写入RAM中，而是写入L1 cache，再从L1 cache存入(store) RAM中，读数据也是先从L1 cache中读，读不到再从RAM中读，这种读写数据的模式是能够提高数据存取效率的，但是在一些特殊情况下会导致程序出错，考虑以下这个例子。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">        x = y = <span class="number">0</span>;</div><div class="line">Thread <span class="number">1</span>      Thread <span class="number">2</span></div><div class="line">  x = <span class="number">1</span>;        y = <span class="number">1</span>;</div><div class="line"> r1 = y;       r2 = x;</div></pre></td></tr></table></figure>
+<hr>
+<p>表面上看，r1 == r2 == 0 这种输出是不可能出现的，然而，有一种可能性是，由于r1不依赖于x，编译器可以把r1 = y这步操作调整到x = 1这步操作之前，同样，r2 = x这步操作可以调整到y = 1这步操作之前，这样一来，core 1可以先读取L1 cache中的y的值，core 2 才执行 y = 1的赋值操作，同理，r2 = x这步操作也可以在x = 1这步赋值操作之前执行，这时候就会出现r1 == r2 == 0的输出结果。</p>
 <h2 id="Memory-Barrier"><a href="#Memory-Barrier" class="headerlink" title="Memory Barrier"></a>Memory Barrier</h2><ul>
 <li><p>LoadLoad</p>
+</li>
+<li><p>StoreStore</p>
 </li>
 <li><p>LoadStore</p>
 </li>
 <li><p>StoreLoad</p>
 </li>
-<li><p>StoreStore</p>
-</li>
 </ul>
 <p>内存屏障用来代替互斥锁，既能保证程序的正确性，又能尽可能地提高程序执行效率</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/09/30/C++ Memory Oder/#more" rel="contents">
+            <a class="btn" href="/2017/09/30/C++ 的 Memory Oder/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1388,6 +1271,136 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/在 docker 上搭建 Go RESTful 服务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kelele67">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oe9uinblw.bkt.clouddn.com/avater67.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="趣果有间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/15/在 docker 上搭建 Go RESTful 服务/" itemprop="url">在 docker 上搭建 Go RESTful 服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T02:07:01+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/15/在 docker 上搭建 Go RESTful 服务/" class="leancloud_visitors" data-flag-title="在 docker 上搭建 Go RESTful 服务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>
+
+</p><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p>我的环境是macOS，直接在官网下载安装包</p>
+<p>我安装的是<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">docker for macOS</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/15/在 docker 上搭建 Go RESTful 服务/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1437,7 +1450,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
