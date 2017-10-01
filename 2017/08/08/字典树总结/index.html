@@ -1,0 +1,937 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="data structure,python,trie tree," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/icon/bird.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="简单字典树的实现字典树特征根节点不包含字符，除去根节点的每一个节点均包含有一个字符。从根节点到某一节点，路径上经过的所有节点的字符连接起来就是该节点对应的字符串。每个节点的所有子节点包含的字符都不相同 字典树基本操作 插入 查找 删除  插入操作向字典树中插入某个单词。将单词标记为当前单词，将根节点标记为当前节点，执行操作1： 1.当前单词为空，将当前节点标记为单词位置，终止操作；否则取出当前">
+<meta name="keywords" content="data structure,python,trie tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字典树总结">
+<meta property="og:url" content="http://yoursite.com/2017/08/08/字典树总结/index.html">
+<meta property="og:site_name" content="趣果有间">
+<meta property="og:description" content="简单字典树的实现字典树特征根节点不包含字符，除去根节点的每一个节点均包含有一个字符。从根节点到某一节点，路径上经过的所有节点的字符连接起来就是该节点对应的字符串。每个节点的所有子节点包含的字符都不相同 字典树基本操作 插入 查找 删除  插入操作向字典树中插入某个单词。将单词标记为当前单词，将根节点标记为当前节点，执行操作1： 1.当前单词为空，将当前节点标记为单词位置，终止操作；否则取出当前">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-01T06:48:13.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字典树总结">
+<meta name="twitter:description" content="简单字典树的实现字典树特征根节点不包含字符，除去根节点的每一个节点均包含有一个字符。从根节点到某一节点，路径上经过的所有节点的字符连接起来就是该节点对应的字符串。每个节点的所有子节点包含的字符都不相同 字典树基本操作 插入 查找 删除  插入操作向字典树中插入某个单词。将单词标记为当前单词，将根节点标记为当前节点，执行操作1： 1.当前单词为空，将当前节点标记为单词位置，终止操作；否则取出当前">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'U0JYTSJKPY',
+      apiKey: 'f3499a45aff4dffb505b45c35dd42268',
+      indexName: 'hexo',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索本站","hits_empty":"未找到 ${query} 相关内容","hits_stats":"${hits} 条相关条目，耗时${time} 毫秒"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/08/字典树总结/"/>
+
+
+
+
+
+  <title>字典树总结 | 趣果有间</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=62141337";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">趣果有间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">凡人皆无法挡</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/08/字典树总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kelele67">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oe9uinblw.bkt.clouddn.com/avater67.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="趣果有间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">字典树总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T09:00:10+08:00">
+                2017-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/08/字典树总结/" class="leancloud_visitors" data-flag-title="字典树总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>
+
+</p><h2 id="简单字典树的实现"><a href="#简单字典树的实现" class="headerlink" title="简单字典树的实现"></a>简单字典树的实现</h2><h3 id="字典树特征"><a href="#字典树特征" class="headerlink" title="字典树特征"></a>字典树特征</h3><p>根节点不包含字符，除去根节点的每一个节点均包含有一个字符。<br>从根节点到某一节点，路径上经过的所有节点的字符连接起来就是该节点对应的字符串。<br>每个节点的所有子节点包含的字符都不相同</p>
+<h3 id="字典树基本操作"><a href="#字典树基本操作" class="headerlink" title="字典树基本操作"></a>字典树基本操作</h3><ul>
+<li>插入</li>
+<li>查找</li>
+<li>删除</li>
+</ul>
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><p>向字典树中插入某个单词。将单词标记为当前单词，将根节点标记为当前节点，执行操作1：</p>
+<p>1.当前单词为空，将当前节点标记为单词位置，终止操作；否则取出当前单词的首字符记为X，遍历当前节点的子节点：如果X存在于子节点N，将剩余字符标记为当前单词，将N标记为当前节点，重复操作1，如果X不存在于当前节点的子节点中，那么进入操作2。</p>
+<p>2.取出当前单词的首字符记为X，新建一个节点M存储X，M的父节点为当前节点。剩余字符串记为当前单词，如果当前单词为空，将M标记为单词位置，终止操作；否则，将M标记为当前节点，重复操作2。</p>
+<h4 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h4><p>查询指定单词是否在字典树中。将单词标记为当前单词，将根节点标记为当前节点，执行操作1：</p>
+<p>1.当前单词为空，那么返回true，即字典树中存在该单词。否则，取出当前单词的首字符，标记为X，遍历当前节点的子节点，如果X存在于子节点N中，将N标记为当前节点，将剩余字符串标记为当前单词，重复操作1；如果X不存在于子节点中，返回false，即字典树中不存在该单词。</p>
+<h4 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h4><p>删除字典树中的某个单词。将单词标记为当前单词，将根节点标记为当前节点，执行操作1：</p>
+<p>1.当前单词为空，如果当前节点不为叶子节点，那么取消标记当前节点为单词位置，当前节点为叶子节点，删除该叶子节点即可，然后终止操作。当前单词不为空，取出当前单词的首字符记为X，遍历当前节点的子节点：如果X存在于当前节点的子节点N上，将N标记为当前节点，将剩余字符串记为当前单词，重复过程1；否则删除失败，即单词不在字典树上，终止操作。</p>
+<h3 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf -*-</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie_tree</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="comment"># node = [father, child, keep_char, is_word]</span></div><div class="line">        self._root = [<span class="keyword">None</span>, [], <span class="keyword">None</span>, <span class="keyword">False</span>]</div><div class="line">        self.tmp = []</div><div class="line">        self.allWord = []</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, word)</span>:</span></div><div class="line">        current_word = word</div><div class="line">        current_node = self._root</div><div class="line">        self._insert_operation_1(current_word, current_node)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_insert_operation_1</span><span class="params">(self, current_word, current_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> current_word:</div><div class="line">            first_char = current_word[<span class="number">0</span>]</div><div class="line">            child_node = current_node[<span class="number">1</span>]</div><div class="line">            is_in_child_node = <span class="keyword">False</span></div><div class="line"></div><div class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> child_node:</div><div class="line">                <span class="keyword">if</span> first_char == node[<span class="number">2</span>]:</div><div class="line">                    is_in_child_node = <span class="keyword">True</span></div><div class="line">                    current_word = current_word[<span class="number">1</span>:]</div><div class="line">                    current_node = node</div><div class="line">                    self._insert_operation_1(current_word, current_node)</div><div class="line">                    <span class="keyword">break</span></div><div class="line"></div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> is_in_child_node:</div><div class="line">                self._insert_operation_2(current_word, current_node)</div><div class="line"></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            current_node[<span class="number">3</span>] = <span class="keyword">True</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_insert_operation_2</span><span class="params">(self, current_word, current_node)</span>:</span></div><div class="line">        first_char = current_word[<span class="number">0</span>]</div><div class="line"></div><div class="line">        <span class="comment"># create a new node and insert it in the tree</span></div><div class="line">        new_node = [<span class="keyword">None</span>, [], <span class="keyword">None</span>, <span class="keyword">False</span>]</div><div class="line">        new_node[<span class="number">2</span>] = first_char</div><div class="line">        new_node[<span class="number">0</span>] = current_node</div><div class="line">        current_node[<span class="number">1</span>].append(new_node) <span class="comment"># 添加进child</span></div><div class="line"></div><div class="line">        current_word = current_word[<span class="number">1</span>:]</div><div class="line">        <span class="keyword">if</span> current_word:</div><div class="line">            current_node = new_node</div><div class="line">            self._insert_operation_2(current_word, current_node)</div><div class="line"></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            new_node[<span class="number">3</span>] = <span class="keyword">True</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, word)</span>:</span></div><div class="line">        current_word = word</div><div class="line">        current_node = self._root</div><div class="line">        <span class="keyword">return</span> self._find_operation(current_word, current_node)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_find_operation</span><span class="params">(self, current_word, current_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> current_word:</div><div class="line">            first_char = current_word[<span class="number">0</span>]</div><div class="line">            child_node = current_node[<span class="number">1</span>]</div><div class="line"></div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> child_node:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">            is_in_child_node = <span class="keyword">False</span></div><div class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> child_node:</div><div class="line">                <span class="keyword">if</span> first_char == node[<span class="number">2</span>]:</div><div class="line">                    is_in_child_node =<span class="keyword">True</span></div><div class="line">                    current_word = current_word[<span class="number">1</span>:]</div><div class="line">                    current_node = node</div><div class="line">                    <span class="keyword">return</span> self._find_operation(current_word, current_node)</div><div class="line"></div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> is_in_child_node:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> current_node[<span class="number">3</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self, word)</span>:</span></div><div class="line">        current_word = word</div><div class="line">        current_node = self._root</div><div class="line">        <span class="keyword">return</span> self._delete_operation(current_word, current_node)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_delete_operation</span><span class="params">(self, current_word, current_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> current_word:</div><div class="line">            first_char = current_word[<span class="number">0</span>]</div><div class="line"></div><div class="line">            child_node = current_node[<span class="number">1</span>]</div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> child_node:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">            is_in_child_node = <span class="keyword">False</span></div><div class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> child_node:</div><div class="line">                <span class="keyword">if</span> first_char == node[<span class="number">2</span>]:</div><div class="line">                    is_in_child_node = <span class="keyword">True</span></div><div class="line">                    current_word = current_word[<span class="number">1</span>:]</div><div class="line">                    current_node = node</div><div class="line">                    <span class="keyword">return</span> self._delete_operation(current_word, current_node)</div><div class="line"></div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> is_in_child_node:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> current_node[<span class="number">1</span>]:</div><div class="line">                current_node[<span class="number">3</span>] = <span class="keyword">False</span></div><div class="line">            <span class="comment"># current_node is leaf_node</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                father_node = current_node[<span class="number">0</span>]</div><div class="line">                father_node[<span class="number">1</span>].remove(current_node)</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_tree</span><span class="params">(self, current_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> current_node:</div><div class="line">            self._dfs_print(current_node)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_dfs_print</span><span class="params">(self, current_node)</span>:</span></div><div class="line">        <span class="keyword">if</span> current_node[<span class="number">2</span>]:</div><div class="line">            self.tmp.append(current_node[<span class="number">2</span>])</div><div class="line">        <span class="comment"># if it is a word</span></div><div class="line">        <span class="keyword">if</span> current_node[<span class="number">3</span>]:</div><div class="line">            <span class="keyword">print</span> (<span class="string">""</span>.join(self.tmp))</div><div class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> current_node[<span class="number">1</span>]:</div><div class="line">            self._dfs_print(child)</div><div class="line">        <span class="keyword">if</span> self.tmp:</div><div class="line">            self.tmp.pop()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    demo_trie = Trie_tree()</div><div class="line">    <span class="keyword">print</span> (<span class="string">"--------Insert:---------"</span>)</div><div class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> [<span class="string">"apps"</span>, <span class="string">"apple"</span>, <span class="string">"cook"</span>, <span class="string">"cookie"</span>, <span class="string">"cold"</span>]:</div><div class="line">        <span class="keyword">print</span> (word)</div><div class="line">        demo_trie.insert(word)</div><div class="line"></div><div class="line">    <span class="keyword">print</span> (<span class="string">"--------Print Test:---------"</span>)</div><div class="line">    demo_trie.print_tree(demo_trie._root)</div><div class="line"></div><div class="line">    <span class="keyword">print</span> (<span class="string">"--------Find Test:--------"</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"ap:     "</span>, demo_trie.find(<span class="string">"ap"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"apps:   "</span>, demo_trie.find(<span class="string">"apps"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"apple:  "</span>, demo_trie.find(<span class="string">"apple"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"apples: "</span>, demo_trie.find(<span class="string">"apples"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"coo:    "</span>, demo_trie.find(<span class="string">"coo"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"cook:   "</span>, demo_trie.find(<span class="string">"cook"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"cookie: "</span>, demo_trie.find(<span class="string">"cookie"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"cold:   "</span>, demo_trie.find(<span class="string">"cold"</span>))</div><div class="line"></div><div class="line">    <span class="keyword">print</span> (<span class="string">"--------Delete Test:--------"</span>)</div><div class="line">    demo_trie.delete(<span class="string">"cookie"</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"&gt; Delete cookie"</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"Find cook   ?"</span>, demo_trie.find(<span class="string">"cook"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"Find cookie ?"</span>, demo_trie.find(<span class="string">"cookie"</span>))</div><div class="line">    demo_trie.delete(<span class="string">"apple"</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"&gt; Delete apple"</span>)</div><div class="line">    <span class="keyword">print</span> (<span class="string">"Find apps   ?"</span>, demo_trie.find(<span class="string">"apps"</span>))</div><div class="line">    <span class="keyword">print</span> (<span class="string">"Find apple  ?"</span>, demo_trie.find(<span class="string">"apple"</span>))</div><div class="line"></div><div class="line">    <span class="keyword">print</span> (<span class="string">"--------Print Test:---------"</span>)</div><div class="line">    demo_trie.print_tree(demo_trie._root)</div></pre></td></tr></table></figure>
+<hr>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">--------Insert:---------</div><div class="line">apps</div><div class="line">apple</div><div class="line">cook</div><div class="line">cookie</div><div class="line">cold</div><div class="line">--------Print Test:---------</div><div class="line">apps</div><div class="line">apple</div><div class="line">cook</div><div class="line">cookie</div><div class="line">cold</div><div class="line">--------Find Test:--------</div><div class="line">ap:      False</div><div class="line">apps:    True</div><div class="line">apple:   True</div><div class="line">apples:  False</div><div class="line">coo:     False</div><div class="line">cook:    True</div><div class="line">cookie:  True</div><div class="line">cold:    True</div><div class="line">--------Delete Test:--------</div><div class="line">&gt; Delete cookie</div><div class="line">Find cook   ? True</div><div class="line">Find cookie ? False</div><div class="line">&gt; Delete apple</div><div class="line">Find apps   ? True</div><div class="line">Find apple  ? False</div><div class="line">--------Print Test:---------</div><div class="line">apps</div><div class="line">cook</div><div class="line">cold</div><div class="line">[Finished in 0.1s]</div></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/data-structure/" rel="tag"># data structure</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/trie-tree/" rel="tag"># trie tree</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/06/Epoll+Timerfd实现定时器/" rel="next" title="Epoll+Timerfd实现定时器">
+                <i class="fa fa-chevron-left"></i> Epoll+Timerfd实现定时器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/30/C++ 的 Memory Oder/" rel="prev" title="C++11 的 Memory Oder">
+                C++11 的 Memory Oder <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODY1MC81MjIx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oe9uinblw.bkt.clouddn.com/avater67.jpg"
+               alt="kelele67" />
+          <p class="site-author-name" itemprop="name">kelele67</p>
+           
+              <p class="site-description motion-element" itemprop="description">古老却神奇的shell表白代码 :(){:|:&};:</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kelele67" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/kelele67" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-qi-21-51" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单字典树的实现"><span class="nav-number">1.</span> <span class="nav-text">简单字典树的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字典树特征"><span class="nav-number">1.1.</span> <span class="nav-text">字典树特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字典树基本操作"><span class="nav-number">1.2.</span> <span class="nav-text">字典树基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入操作"><span class="nav-number">1.2.1.</span> <span class="nav-text">插入操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找操作"><span class="nav-number">1.2.2.</span> <span class="nav-text">查找操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除操作"><span class="nav-number">1.2.3.</span> <span class="nav-text">删除操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-实现"><span class="nav-number">1.3.</span> <span class="nav-text">python 实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kelele67</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("uu22m818WHNRkNyNn5ifFEYU-gzGzoHsz", "wczk27BwQ0jGSE3uOFqH9974");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
