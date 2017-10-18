@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="之前我们实现一个简单的字典树，现在我们学习一下它的应用场合：  前缀匹配：给定字典库，输入一段字符，返回以该字符串为前缀的所有单词。  字频统计：给出一段文本，统计其中指定单词出现的频数。   前缀匹配假设我们还是这几个单词：apps apple cook cookie cold，当我们想获得以co为前缀的单词时，只需要在字典树中依次找到c、o节点，然后搜索o节点的所有子树，取出其中的单词即可">
+<meta name="description" content="之前我们实现一个简单的字典树，现在我们学习一下它的应用场合：  前缀匹配：给定字典库，输入一段字符，返回以该字符串为前缀的所有单词。  字频统计：给出一段文本，统计其中指定单词出现的频数。">
 <meta name="keywords" content="data structure,python,trie tree">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字典树的应用">
 <meta property="og:url" content="http://yoursite.com/2017/08/10/字典树的应用/index.html">
 <meta property="og:site_name" content="趣果有间">
-<meta property="og:description" content="之前我们实现一个简单的字典树，现在我们学习一下它的应用场合：  前缀匹配：给定字典库，输入一段字符，返回以该字符串为前缀的所有单词。  字频统计：给出一段文本，统计其中指定单词出现的频数。   前缀匹配假设我们还是这几个单词：apps apple cook cookie cold，当我们想获得以co为前缀的单词时，只需要在字典树中依次找到c、o节点，然后搜索o节点的所有子树，取出其中的单词即可">
+<meta property="og:description" content="之前我们实现一个简单的字典树，现在我们学习一下它的应用场合：  前缀匹配：给定字典库，输入一段字符，返回以该字符串为前缀的所有单词。  字频统计：给出一段文本，统计其中指定单词出现的频数。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-01T13:51:41.788Z">
+<meta property="og:updated_time" content="2017-10-18T15:12:16.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字典树的应用">
-<meta name="twitter:description" content="之前我们实现一个简单的字典树，现在我们学习一下它的应用场合：  前缀匹配：给定字典库，输入一段字符，返回以该字符串为前缀的所有单词。  字频统计：给出一段文本，统计其中指定单词出现的频数。   前缀匹配假设我们还是这几个单词：apps apple cook cookie cold，当我们想获得以co为前缀的单词时，只需要在字典树中依次找到c、o节点，然后搜索o节点的所有子树，取出其中的单词即可">
+<meta name="twitter:description" content="之前我们实现一个简单的字典树，现在我们学习一下它的应用场合：  前缀匹配：给定字典库，输入一段字符，返回以该字符串为前缀的所有单词。  字频统计：给出一段文本，统计其中指定单词出现的频数。">
 
 
 
@@ -395,6 +395,7 @@
 <li><p>字频统计：给出一段文本，统计其中指定单词出现的频数。</p>
 </li>
 </ul>
+<a id="more"></a>
 <h2 id="前缀匹配"><a href="#前缀匹配" class="headerlink" title="前缀匹配"></a>前缀匹配</h2><p>假设我们还是这几个单词：apps apple cook cookie cold，当我们想获得以co为前缀的单词时，只需要在字典树中依次找到c、o节点，然后搜索o节点的所有子树，取出其中的单词即可。</p>
 <p>在上一篇博客中，我们已经实现了字典树的基本操作，这里只需要再加上一个前缀匹配方法即可。具体流程如下，将前缀字符串标记为当前前缀，将根节点标记为当前节点，执行操作1：</p>
 <p>1.当前前缀为空，对当前节点执行操作2。否则，取出当前单词的首字符，标记为X，遍历当前节点的子节点，如果X存在于子节点N中，将N标记为当前节点，将剩余字符串标记为当前单词，重复操作1；如果X不存在于子节点中，返回None。</p>
